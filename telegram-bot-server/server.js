@@ -38,7 +38,7 @@ bot.onText(/\/start/, (msg) => {
                 [
                     {
                         text: 'Play Now',
-                        url: 'https://your-web-app-url.com' // Замените на URL вашего веб-приложения
+                        url: 'https://novella-telegram-bot.onrender.com' // Замените на URL вашего веб-приложения
                     },
                     {
                         text: 'Join Novella Community',
