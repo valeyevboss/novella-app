@@ -1,13 +1,7 @@
 const TelegramBot = require('node-telegram-bot-api');
 const mongoose = require('mongoose');
-
-// Подключаем модель пользователя
-const User = mongoose.model('User', new mongoose.Schema({
-    telegramId: Number,
-    username: String,
-    lastLogin: Date,
-    tokens: Number
-}));
+const User = require('./models/User'); // Подключаем модель пользователя
+const BlockedUser = require('./models/BlockedUser'); // Подключаем модель заблокированных пользователей
 
 // Ваш токен бота Telegram
 const token = process.env.TELEGRAM_BOT_TOKEN;
@@ -27,8 +21,21 @@ const calculateTokens = (months) => {
     return 15000;
 };
 
-// Массив для хранения заблокированных пользователей (для примера)
-const bannedUsers = new Set();
+// Проверка, заблокирован ли пользователь
+const isUserBlocked = async (telegramId) => {
+    const blockedUser = await BlockedUser.findOne({ telegramId: telegramId });
+    return !!blockedUser;
+};
+
+// Добавление пользователя в список заблокированных
+const blockUser = async (telegramId, reason) => {
+    const blockedUser = new BlockedUser({
+        telegramId: telegramId,
+        reason: reason,
+        bannedAt: new Date()
+    });
+    await blockedUser.save();
+};
 
 // Обработка команды /start
 bot.onText(/\/start/, async (msg) => {
@@ -37,18 +44,24 @@ bot.onText(/\/start/, async (msg) => {
     const userName = msg.from.username || msg.from.first_name;
 
     // Проверяем, находится ли пользователь в банлисте
-    if (bannedUsers.has(userId)) {
+    if (await isUserBlocked(userId)) {
         bot.sendMessage(chatId, 'Your account has been banned. Please contact support.');
         return;
     }
 
     let user = await User.findOne({ telegramId: userId });
     if (!user) {
+        const accountAge = Math.floor(Math.random() * 120); // Здесь должна быть логика для определения возраста аккаунта
+        if (accountAge < 1) {
+            await blockUser(userId, 'Account age is less than 1 month');
+            bot.sendMessage(chatId, 'Your account is banned due to insufficient account age.');
+            return;
+        }
         user = new User({
             telegramId: userId,
             username: userName,
             lastLogin: new Date(),
-            tokens: calculateTokens(0) // начальное количество токенов
+            tokens: calculateTokens(accountAge) // начальное количество токенов
         });
         await user.save();
     } else {
@@ -60,6 +73,20 @@ bot.onText(/\/start/, async (msg) => {
     bot.sendMessage(chatId, `Username: ${userName}, congratulations!`);
     bot.sendPhoto(chatId, 'https://yourdomain.com/telegram.png');
     bot.sendMessage(chatId, `Account age: ${Math.floor(Math.random() * 120)} months\nTokens awarded: ${user.tokens}`);
+});
+
+// Обработка команды /banned для просмотра заблокированных пользователей
+bot.onText(/\/banned/, async (msg) => {
+    const chatId = msg.chat.id;
+
+    const bannedUsers = await BlockedUser.find({});
+    if (bannedUsers.length === 0) {
+        bot.sendMessage(chatId, 'No banned users found.');
+        return;
+    }
+
+    const response = bannedUsers.map(user => `ID: ${user.telegramId}, Reason: ${user.reason}`).join('\n');
+    bot.sendMessage(chatId, `Banned users:\n${response}`);
 });
 
 // Очистка токенов каждые 24 часа
