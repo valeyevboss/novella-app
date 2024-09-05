@@ -170,16 +170,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-		const initApp = () => {
-			const userInfo = getUserInfo();
-			if (!userInfo.username) {
-				document.getElementById('loading-screen').style.display = 'none';
-				document.getElementById('error-screen').style.display = 'block';
-			} else {
-				document.getElementById('loading-screen').style.display = 'none';
-				document.getElementById('main-interface').style.display = 'block';
-			}
-		};
+	const initApp = () => {
+		const userInfo = getUserInfo();
+		if (!userInfo.username) {
+			document.getElementById('loading-screen').style.display = 'none';
+			document.getElementById('error-screen').style.display = 'block';
+		} else {
+			document.getElementById('loading-screen').style.display = 'none';
+			document.getElementById('main-interface').style.display = 'block';
+		}
+	};
 
 		const getUserInfo = () => ({
 			username: 'JohnDoe',
@@ -187,5 +187,4 @@ document.addEventListener('DOMContentLoaded', () => {
 			tokens: 1000
 		});
 
-		setTimeout(initApp, 3000);
 });
