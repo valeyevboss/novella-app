@@ -41,9 +41,38 @@
                 </div>
             </div>
 
+			<!-- Модальное окно с Telegram -->
+			<div id="telegram-modal" class="modal">
+				<div class="modal-content">
+					<span class="close-button">&times;</span>
+					<h2>Ваш аккаунт в Telegram: <span id="account-years"></span> лет, <span id="account-months"></span> месяцев</h2>
+					<p>Нажмите кнопку ниже, чтобы вернуться в главное меню.</p>
+					<button id="back-button">Back</button>
+				</div>
+			</div>
+
+
             <!-- Контент страниц (Task, Wallet, Airdrop) -->
             <div id="page-content">
                 <!-- Содержимое страниц будет подгружаться здесь -->
+
+                <!-- Раздел задач -->
+                <section id="task-section" style="display: none;">
+                    <h2>Tasks</h2>
+                    <!-- Блок первой задачи -->
+                    <div class="task-block" id="task-join-community">
+                        <img src="/images/novellacoin.png" alt="Join Community Task" class="task-icon">
+                        <div class="task-info">
+                            <h3>Join Community</h3>
+                            <p>Reward: +500 NC</p>
+                        </div>
+                        <button class="task-action-button" id="task-join-community-button" data-task-status="start">
+                            Start
+                        </button>
+                    </div>
+
+                    <!-- Другие задачи могут быть добавлены здесь -->
+                </section>
             </div>
         </main>
         <footer id="bottom-menu">

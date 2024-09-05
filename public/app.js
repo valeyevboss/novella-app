@@ -1,34 +1,43 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Имитируем задержку загрузки
+    // Обработка экрана загрузки
     setTimeout(() => {
         document.getElementById('loading').style.display = 'none';
         document.getElementById('main-content').style.display = 'block';
-    }, 3000); // Замените 3000 на время анимации в миллисекундах
-});
+        initApp();
+    }, 3000);
 
-// Модальное окно с поздравлением пользователя
-document.addEventListener('DOMContentLoaded', () => {
+    // Отображение поздравительного сообщения
     setTimeout(() => {
-        const userName = 'JohnDoe'; // Замените на имя пользователя
-        const accountAge = 15; // В месяцах
+        const userName = 'JohnDoe';
+        const accountAge = 15;
         const tokens = calculateTokens(accountAge);
 
         document.getElementById('user-message').textContent = `Username: ${userName}, congratulations!`;
         document.getElementById('account-info').textContent = `Account age: ${accountAge} months\nTokens awarded: ${tokens}`;
         document.getElementById('notification').style.display = 'flex';
-    }, 3000); // Время задержки для имитации загрузки
-});
+    }, 3000);
 
-// Обработка кнопок меню и динамическая загрузка контента
-document.addEventListener('DOMContentLoaded', () => {
+    // Управление модальным окном при клике на иконку
+    const tokenIcon = document.getElementById('token-icon');
+    tokenIcon?.addEventListener('click', () => {
+        const accountAgeInYears = Math.floor(15 / 12);
+        document.getElementById('user-info-text').textContent = `You have been on Telegram for ${accountAgeInYears} year(s).`;
+        document.getElementById('user-info-modal').style.display = 'flex';
+    });
+
+    document.querySelector('.close-button').addEventListener('click', () => {
+        document.getElementById('user-info-modal').style.display = 'none';
+    });
+
+    document.getElementById('back-button').addEventListener('click', () => {
+        window.location.hash = 'main';
+        document.getElementById('user-info-modal').style.display = 'none';
+    });
+
+    // Управление меню и динамической подгрузкой контента
     const updateActiveMenu = (activePage) => {
-        const buttons = document.querySelectorAll('.menu-button');
-        buttons.forEach(button => {
-            if (button.getAttribute('data-page') === activePage) {
-                button.classList.add('active');
-            } else {
-                button.classList.remove('active');
-            }
+        document.querySelectorAll('.menu-button').forEach(button => {
+            button.classList.toggle('active', button.getAttribute('data-page') === activePage);
         });
     };
 
@@ -44,64 +53,70 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    const loadPageContent = (page) => {
-        const pageContent = document.getElementById('page-content');
-        switch (page) {
-            case 'main':
-                pageContent.innerHTML = `
-                    <div id="main-page">
-                        <img src="/images/NovellaCoin.png" alt="NovellaCoin" id="token-icon">
-                        <p id="token-amount">1000 Tokens</p>
-                        <button id="boost-button">Boost</button>
-                    </div>`;
-                break;
-            case 'boost':
-                pageContent.innerHTML = `
-                    <div id="boost-page">
-                        <img src="/images/NovellaCoin.png" alt="NovellaCoin" id="token-icon">
-                        <p>Get buy more Novella tokens</p>
-                        <div class="purchase-options">
-                            <button class="purchase-button">
-                                <span>20,000 NC</span>
-                                <span>For 500 Telegram Stars</span>
-                                <img src="/images/Starstelegram.png" alt="Telegram Stars">
-                            </button>
-                        </div>
-                    </div>`;
-                break;
-            case 'task':
-                pageContent.innerHTML = '<h2>Task Page</h2><p>Here are your tasks.</p>';
-                break;
-            case 'wallet':
-                pageContent.innerHTML = '<h2>Wallet Page</h2><p>Manage your wallet here.</p>';
-                break;
-            case 'airdrop':
-                pageContent.innerHTML = '<h2>Airdrop Page</h2><p>Check out airdrops here.</p>';
-                break;
-            default:
-                pageContent.innerHTML = '<h2>404</h2><p>Page not found.</p>';
-                break;
-        }
-    };
-
     loadPageContent(currentPage);
 
     document.getElementById('boost-button')?.addEventListener('click', () => {
         window.location.hash = 'boost';
         updateActiveMenu('boost');
     });
-});
+	
+	// Логика для кнопки задачи
+	document.getElementById('task-join-community-button').addEventListener('click', function() {
+    const taskButton = this;
+    const taskStatus = taskButton.getAttribute('data-task-status');
 
-// Страница Wallet с возможностью привязки и отвязки кошельков
-document.addEventListener('DOMContentLoaded', () => {
-    const connectedWalletsContainer = document.getElementById('connected-wallets');
+    if (taskStatus === 'start') {
+        // Открываем ссылку на сообщество
+        window.open('https://community-link.com', '_blank');
 
+        // Изменяем статус кнопки на "Check"
+        taskButton.setAttribute('data-task-status', 'check');
+        taskButton.textContent = 'Check';
+    } else if (taskStatus === 'check') {
+        // Проверяем выполнена ли задача (здесь можно добавить реальную проверку)
+        const taskCompleted = true; // Для примера задача всегда выполнена
+
+        if (taskCompleted) {
+            // Изменяем статус кнопки на "Claim"
+            taskButton.setAttribute('data-task-status', 'claim');
+            taskButton.textContent = 'Claim';
+        } else {
+            alert('Task not completed yet!');
+        }
+    } else if (taskStatus === 'claim') {
+        // Выдать награду пользователю
+        alert('You claimed 500 NC!');
+        
+        // Блокируем задачу после получения награды
+        taskButton.disabled = true;
+        taskButton.textContent = 'Claimed';
+    }
+	});
+	
+	// Расчёт и отображение возраста аккаунта
+	
+	const calculateAccountAge = (months) => {
+    const years = Math.floor(months / 12);
+    const remainingMonths = months % 12;
+    return { years, remainingMonths };
+	};
+
+	// Пример: данные об аккаунте
+	const accountAgeInMonths = 15; // Замените на реальные данные
+	const { years, remainingMonths } = calculateAccountAge(accountAgeInMonths);
+
+	// Отображаем возраст в модальном окне
+	document.getElementById('account-years').textContent = years;
+	document.getElementById('account-months').textContent = remainingMonths;
+
+    // Привязка кошельков
     const displayConnectedWallets = () => {
         const wallets = [
             { id: 1, address: '0x1234567890abcdef', app: 'Telegram' },
             { id: 2, address: '0xabcdef1234567890', app: 'Another App' }
         ];
 
+        const connectedWalletsContainer = document.getElementById('connected-wallets');
         connectedWalletsContainer.innerHTML = '';
         wallets.forEach(wallet => {
             const walletItem = document.createElement('div');
@@ -128,18 +143,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     displayConnectedWallets();
 
-    document.getElementById('connect-wallet-button').addEventListener('click', () => {
+    document.getElementById('connect-wallet-button')?.addEventListener('click', () => {
         console.log('Connect Wallet button clicked');
-    });
-});
-
-// Привязка кошелька через внешнее окно или модальное окно
-document.addEventListener('DOMContentLoaded', () => {
-    const connectWalletButton = document.getElementById('connect-wallet-button');
-
-    connectWalletButton.addEventListener('click', () => {
-        const externalWalletConnectUrl = 'https://example.com/connect-wallet';
-        window.open(externalWalletConnectUrl, '_blank');
+        openWalletConnectModal();
     });
 
     const openWalletConnectModal = () => {
@@ -163,29 +169,23 @@ document.addEventListener('DOMContentLoaded', () => {
             window.open('https://example.com/connect-telegram', '_blank');
         });
     };
-});
 
-// Инициализация приложения и обработка ошибок
-document.addEventListener('DOMContentLoaded', () => {
-    const getUserInfo = () => {
-        return {
-            username: '', // Оставляем пустым, если username не установлен
-            accountAge: 365, // Пример: возраст аккаунта в днях
-            tokens: 1000 // Пример: количество токенов
-        };
-    };
+		const initApp = () => {
+			const userInfo = getUserInfo();
+			if (!userInfo.username) {
+				document.getElementById('loading-screen').style.display = 'none';
+				document.getElementById('error-screen').style.display = 'block';
+			} else {
+				document.getElementById('loading-screen').style.display = 'none';
+				document.getElementById('main-interface').style.display = 'block';
+			}
+		};
 
-    const initApp = () => {
-        const userInfo = getUserInfo();
+		const getUserInfo = () => ({
+			username: 'JohnDoe',
+			accountAge: 15,
+			tokens: 1000
+		});
 
-        if (!userInfo.username) {
-            document.getElementById('loading-screen').style.display = 'none';
-            document.getElementById('error-screen').style.display = 'block';
-        } else {
-            document.getElementById('loading-screen').style.display = 'none';
-            document.getElementById('main-interface').style.display = 'block';
-        }
-    };
-
-    setTimeout(initApp, 3000);
+		setTimeout(initApp, 3000);
 });
