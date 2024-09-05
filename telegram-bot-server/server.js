@@ -1,4 +1,3 @@
-require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
@@ -11,7 +10,12 @@ const telegramBotToken = process.env.TELEGRAM_BOT_TOKEN;
 const bot = new TelegramBot(telegramBotToken, { polling: true });
 
 // Подключение папки для статических файлов
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '..', 'public')));
+
+// Отдача index.html по умолчанию
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
+});
 
 // Подключение к MongoDB
 mongoose.connect(process.env.MONGO_URI)
@@ -38,7 +42,9 @@ bot.onText(/\/start/, (msg) => {
                 [
                     {
                         text: 'Play Now',
+                        web_app: {
                         url: 'https://novella-telegram-bot.onrender.com' // Замените на URL вашего веб-приложения
+                        }
                     },
                     {
                         text: 'Join Novella Community',
