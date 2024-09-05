@@ -1,3 +1,94 @@
+const express = require('express');
+const path = require('path');
+const mongoose = require('mongoose');
+const TelegramBot = require('node-telegram-bot-api');
+const User = require('../models/User');
+const BlockedUser = require('../models/BlockedUser');
+
+const app = express();
+const port = process.env.PORT || 3000;
+
+const telegramBotToken = process.env.TELEGRAM_BOT_TOKEN;
+const bot = new TelegramBot(telegramBotToken, { polling: true });
+
+// Подключение папки для статических файлов
+app.use(express.static(path.join(__dirname, '..', 'public')));
+
+// Отдача index.html по умолчанию
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
+});
+
+// Маршрут для страницы блокировки
+app.get('/banned', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'public', 'banned.html'));
+});
+
+// Подключение к MongoDB
+mongoose.connect(process.env.MONGO_URI)
+    .then(() => {
+        console.log('Connected to MongoDB');
+    })
+    .catch(err => {
+        console.error('MongoDB connection error:', err);
+    });
+
+// Запуск сервера
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
+});
+
+// Функция для проверки, заблокирован ли пользователь
+const isUserBlocked = async (telegramId) => {
+    const blockedUser = await BlockedUser.findOne({ telegramId: telegramId });
+    return !!blockedUser;
+};
+
+// Функция для блокировки пользователя
+const blockUser = async (telegramId, reason) => {
+    const blockedUser = new BlockedUser({
+        telegramId: telegramId,
+        reason: reason,
+        bannedAt: new Date()
+    });
+    await blockedUser.save();
+};
+
+// Функция для вычисления токенов в зависимости от возраста аккаунта
+const calculateTokens = (months) => {
+    if (months < 5) return 0;
+    if (months < 12) return 2485;
+    if (months < 36) return Math.floor(Math.random() * (4500 - 3900 + 1)) + 3900;
+    if (months < 48) return 5250;
+    if (months < 60) return 5900;
+    if (months < 72) return 6700;
+    if (months < 84) return 8900;
+    if (months < 96) return 9100;
+    if (months < 120) return 11200;
+    return 15000;
+};
+
+// Опции для клавиатуры
+const options = {
+    reply_markup: {
+        inline_keyboard: [
+            [
+                {
+                    text: 'Play Now',
+                    url: 'https://your-web-app-url.com' // Замените на URL вашего веб-приложения
+                },
+                {
+                    text: 'Join Novella Community',
+                    url: 'https://t.me/novellatoken_community' // Замените на URL вашего телеграм-канала
+                }
+            ]
+        ]
+    }
+};
+
+const imageUrl = 'https://i.imgur.com/zhgId3M.jpg'; // Публичный URL вашего изображения
+
+// Обработка команды /start
 bot.onText(/\/start/, async (msg) => {
     const chatId = msg.chat.id;
     const userId = msg.from.id;
@@ -29,31 +120,46 @@ bot.onText(/\/start/, async (msg) => {
         await user.save();
     }
 
-    // Опции для клавиатуры
-    const options = {
-        reply_markup: {
-            inline_keyboard: [
-                [
-                    {
-                        text: 'Play Now',
-                        url: 'https://your-web-app-url.com' // Замените на URL вашего веб-приложения
-                    },
-                    {
-                        text: 'Join Novella Community',
-                        url: 'https://t.me/novellatoken_community' // Замените на URL вашего телеграм-канала
-                    }
-                ]
-            ]
-        }
-    };
-
-    const imageUrl = 'https://i.imgur.com/zhgId3M.jpg'; // Публичный URL вашего изображения
-
-    // Отправляем приветственное сообщение с кнопками и фото
+    // Отправка сообщения пользователю
     bot.sendPhoto(chatId, imageUrl, {
         caption: 'Welcome to the bot!',
         ...options
     }).catch(err => {
         console.error('Failed to send photo:', err);
     });
+
+    bot.sendMessage(chatId, `Username: ${userName}, congratulations!`);
+    bot.sendMessage(chatId, `Account age: ${Math.floor(Math.random() * 120)} months\nTokens awarded: ${user.tokens}`);
 });
+
+// Обработка команды /banned для просмотра заблокированных пользователей
+bot.onText(/\/banned/, async (msg) => {
+    const chatId = msg.chat.id;
+
+    const bannedUsers = await BlockedUser.find({});
+    if (bannedUsers.length === 0) {
+        bot.sendMessage(chatId, 'No banned users found.');
+        return;
+    }
+
+    const response = bannedUsers.map(user => `ID: ${user.telegramId}, Reason: ${user.reason}`).join('\n');
+    bot.sendMessage(chatId, `Banned users:\n${response}`);
+});
+
+// Очистка токенов каждые 24 часа
+const cleanUpTokens = async () => {
+    const now = new Date();
+    const thresholdDate = new Date(now.getTime() - 3 * 24 * 60 * 60 * 1000); // 3 дня назад
+
+    const usersToUpdate = await User.find({ lastLogin: { $lt: thresholdDate } });
+
+    for (const user of usersToUpdate) {
+        user.tokens -= user.tokens * 0.10; // Сгорает 10% токенов
+        if (user.tokens < 0) user.tokens = 0; // Токены не могут быть отрицательными
+        user.lastLogin = now; // Обновляем последнюю активность
+        await user.save();
+    }
+};
+
+// Запуск задачи очистки каждый день
+setInterval(cleanUpTokens, 24 * 60 * 60 * 1000); // Каждые 24 часа
