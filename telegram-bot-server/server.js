@@ -2,8 +2,8 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const TelegramBot = require('node-telegram-bot-api');
-const User = require('../models/User'); // Импортируем модель User
-const BlockedUser = require('../models/BlockedUser'); // Импортируем модель BlockedUser
+const User = require('../models/User');
+const BlockedUser = require('../models/BlockedUser');
 
 const app = express();
 const port = process.env.PORT || 3000;
