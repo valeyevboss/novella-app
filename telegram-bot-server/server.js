@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const TelegramBot = require('node-telegram-bot-api');
+const User = require('../models/User'); // Импортируем модель User
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -31,25 +32,10 @@ mongoose.connect(process.env.MONGO_URI)
         console.error('MongoDB connection error:', err);
     });
 
-// Модель заблокированных пользователей
-const blockedUserSchema = new mongoose.Schema({
-    telegramId: { type: Number, required: true, unique: true },
-    reason: { type: String, required: true },
-    blockedAt: { type: Date, default: Date.now }
+// Запуск сервера
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
 });
-
-const BlockedUser = mongoose.model('BlockedUser', blockedUserSchema);
-
-// Функция для проверки, заблокирован ли пользователь
-const isUserBlocked = async (telegramId) => {
-    return await BlockedUser.findOne({ telegramId });
-};
-
-// Функция для блокировки пользователя
-const blockUser = async (telegramId, reason) => {
-    const blockedUser = new BlockedUser({ telegramId, reason });
-    await blockedUser.save();
-};
 
 // Настройка и запуск Telegram бота
 bot.onText(/\/start/, async (msg) => {
@@ -83,38 +69,8 @@ bot.onText(/\/start/, async (msg) => {
         await user.save();
     }
 
-    // Опции для клавиатуры
-    const options = {
-        reply_markup: {
-            inline_keyboard: [
-                [
-                    {
-                        text: 'Play Now',
-                        web_app: {
-                            url: 'https://novella-telegram-bot.onrender.com' // Замените на URL вашего веб-приложения
-                        }
-                    },
-                    {
-                        text: 'Join Novella Community',
-                        url: 'https://t.me/novellatoken_community' // Замените на URL вашего телеграм-канала
-                    }
-                ]
-            ]
-        }
-    };
-
-    const imageUrl = 'https://i.imgur.com/zhgId3M.jpg'; // Публичный URL вашего изображения
-
-    // Отправка приветственного сообщения с клавиатурой
-    bot.sendPhoto(chatId, imageUrl, {
-        caption: 'Welcome to the bot!',
-        ...options
-    }).catch(err => {
-        console.error('Failed to send photo:', err);
-    });
-});
-
-// Запуск сервера
-app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+    // Отправка сообщения пользователю
+    bot.sendMessage(chatId, `Username: ${userName}, congratulations!`);
+    bot.sendPhoto(chatId, 'https://yourdomain.com/telegram.png');
+    bot.sendMessage(chatId, `Account age: ${Math.floor(Math.random() * 120)} months\nTokens awarded: ${user.tokens}`);
 });
