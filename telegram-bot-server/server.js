@@ -68,7 +68,7 @@ const bot = new TelegramBot(telegramBotToken, { polling: true });
 			user.lastLogin = new Date();
 			await user.save();
 		}
-	}};
+	});
 
     // Отправка сообщения пользователю
     bot.sendMessage(chatId, `Username: ${userName}, congratulations!`);
