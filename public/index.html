@@ -3,50 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Novella App</title>
-    <link rel="stylesheet" href="/styles.css"> <!-- Подключаем файл со стилями -->
+    <title>Novella Coin App</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Привязка стилей -->
 </head>
 <body>
 
-    <!-- Основной интерфейс приложения -->
     <div class="main-content">
+        <a href="https://www.change.org/p/free-pavel-durov-freedurov?source_location=tag_" target="_blank">
+            <button class="gradient-button">#FREEDUROV</button>
+        </a>
         <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/Novellacoin.png" alt="NovellaCoin" class="token-icon">
-        <p class="token-balance">$Novella: 0</p>
+        <div class="token-balance">0</div>
     </div>
 
-    <!-- Нижнее меню -->
     <div class="bottom-menu">
-        <div class="menu-item active" id="main-menu">
-            <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/main_icon.png" alt="Main Icon">
+        <div class="menu-item active">
+            <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/main_icon.png" alt="Main">
             <span>Main</span>
         </div>
-        <div class="menu-item" id="task-menu">
-            <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/task_icon.png" alt="Task Icon">
+        <div class="menu-item">
+            <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/task_icon.png" alt="Task">
             <span>Task</span>
         </div>
-        <div class="menu-item" id="wallet-menu">
-            <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/wallet_icon.png" alt="Wallet Icon">
+        <div class="menu-item">
+            <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/wallet_icon.png" alt="Wallet">
             <span>Wallet</span>
         </div>
-        <div class="menu-item" id="airdrop-menu">
-            <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622250/airdrop_icon.png" alt="Airdrop Icon">
+        <div class="menu-item">
+            <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622250/airdrop_icon.png" alt="Airdrop">
             <span>Airdrop</span>
         </div>
-        <div class="menu-item" id="leaderboard-menu">
-            <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725623705/leaderboard_icon.png" alt="Leaderboard Icon">
+        <div class="menu-item">
+            <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725623705/leaderboard_icon.png" alt="Leaders">
             <span>Leaders</span>
         </div>
     </div>
 
-    <script>
-        // Скрипт для активации нужного меню при клике
-        const menuItems = document.querySelectorAll('.menu-item');
-        menuItems.forEach(item => {
-            item.addEventListener('click', () => {
-                menuItems.forEach(i => i.classList.remove('active'));
-                item.classList.add('active');
-            });
-        });
-    </script>
 </body>
 </html>

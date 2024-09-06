@@ -1,54 +1,93 @@
-        /* Основной контент */
-        .main-content {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 80vh;
-            text-align: center;
-        }
+@font-face {
+    font-family: 'UniSans';
+    src: url('fonts/UniSans.ttf') format('truetype');
+}
 
-        .main-content img {
-            width: 100px;
-            height: 100px;
-        }
+@font-face {
+    font-family: 'MaiandraGD';
+    src: url('fonts/MaiandraGD.ttf') format('truetype');
+}
 
-        .token-balance {
-            margin-top: 20px;
-            font-size: 24px;
-        }
+@font-face {
+    font-family: 'Unispace';
+    src: url('fonts/Unispace.ttf') format('truetype');
+}
 
-        /* Нижнее меню */
-        .bottom-menu {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            background-color: #111; /* Темно-серый фон для меню */
-            display: flex;
-            justify-content: space-around;
-            padding: 10px 0;
-        }
+/* Общие стили для страницы */
+body {
+    font-family: 'UniSans', sans-serif;
+    background-color: #000; /* Черный фон */
+    color: white;
+    margin: 0;
+    padding: 0;
+}
 
-        .menu-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: grey;
-            font-size: 12px;
-        }
+/* Основной контент */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    text-align: center;
+}
 
-        .menu-item.active {
-            color: white; /* Белый цвет для активного элемента */
-        }
+.token-icon {
+    width: 100px;
+    height: 100px;
+}
 
-        .menu-item img {
-            width: 24px;
-            height: 24px;
-        }
+.token-balance {
+    margin-top: 20px;
+    font-size: 24px;
+    font-family: 'MaiandraGD', sans-serif; /* Шрифт для токенов */
+}
 
-        .menu-item span {
-            margin-top: 5px;
-        }
-    </style>
-</head>
-<body>
+/* Кнопка с градиентом */
+.gradient-button {
+    background: linear-gradient(to right, #fff, #00aaff); /* Бело-голубой градиент */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Unispace', sans-serif; /* Шрифт Unispace */
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+.gradient-button:hover {
+    opacity: 0.8;
+}
+
+/* Нижнее меню */
+.bottom-menu {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #000; /* Черный фон для нижнего меню */
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+}
+
+.menu-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: grey;
+    font-size: 12px;
+}
+
+.menu-item.active {
+    color: white; /* Белый цвет для активного элемента */
+}
+
+.menu-item img {
+    width: 24px;
+    height: 24px;
+}
+
+.menu-item span {
+    margin-top: 5px;
+}
