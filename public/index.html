@@ -1,45 +1,52 @@
-<!-- Основной интерфейс приложения -->
-<div id="main-interface" style="display: block;">
-    <header>
-        <h1></h1>
-    </header>
-    <main>
-        <!-- Главное меню с иконкой Novella Coin -->
-        <div id="main-content">
-            <img src="public/images/Novellacoin.png" alt="NovellaCoin" id="novellacoin-icon">
-            <p id="token-amount">Tokens: 0</p>
-            <button id="boost-button" class="yellow-button">Boost</button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novella Coin App</title>
+    <link rel="stylesheet" href="/styles.css"> <!-- Подключаем файл со стилями -->
+</head>
+<body>
+
+    <!-- Основной интерфейс приложения -->
+    <div class="main-content">
+        <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/Novellacoin.png" alt="NovellaCoin" class="token-icon">
+        <p class="token-balance">Tokens: 0</p>
+    </div>
+
+    <!-- Нижнее меню -->
+    <div class="bottom-menu">
+        <div class="menu-item active" id="main-menu">
+            <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/main_icon.png" alt="Main Icon">
+            <span>Main</span>
         </div>
-
-        <!-- Контент страниц (Task, Wallet, Airdrop) -->
-        <div id="page-content">
-            <!-- Содержимое страниц будет подгружаться здесь -->
-
-            <!-- Раздел задач -->
-            <section id="task-section" style="display: none;">
-                <h2>Tasks</h2>
-                <!-- Блок первой задачи -->
-                <div class="task-block" id="task-join-community">
-                    <img src="/images/novellacoin.png" alt="Join Community Task" class="task-icon">
-                    <div class="task-info">
-                        <h3>Join Community</h3>
-                        <p>Reward: +500 NC</p>
-                        <button class="task-button" data-task="join-community">Start</button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Раздел кошелька -->
-            <section id="wallet-section" style="display: none;">
-                <h2>Wallet</h2>
-                <!-- Здесь будет отображаться информация о кошельке -->
-            </section>
-
-            <!-- Раздел Airdrop -->
-            <section id="airdrop-section" style="display: none;">
-                <h2>Airdrop</h2>
-                <!-- Здесь будет отображаться информация о airdrop -->
-            </section>
+        <div class="menu-item" id="task-menu">
+            <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/task_icon.png" alt="Task Icon">
+            <span>Task</span>
         </div>
-    </main>
-</div>
+        <div class="menu-item" id="wallet-menu">
+            <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/wallet_icon.png" alt="Wallet Icon">
+            <span>Wallet</span>
+        </div>
+        <div class="menu-item" id="airdrop-menu">
+            <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622250/airdrop_icon.png" alt="Airdrop Icon">
+            <span>Airdrop</span>
+        </div>
+        <div class="menu-item" id="leaderboard-menu">
+            <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725623705/leaderboard_icon.png" alt="Leaderboard Icon">
+            <span>Leaderboard</span>
+        </div>
+    </div>
+
+    <script>
+        // Скрипт для активации нужного меню при клике
+        const menuItems = document.querySelectorAll('.menu-item');
+        menuItems.forEach(item => {
+            item.addEventListener('click', () => {
+                menuItems.forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

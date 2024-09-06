@@ -1,108 +1,54 @@
-/* Общие стили */
+/* Основные стили */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #000; /* Черный фон */
-    color: #fff; /* Белый текст */
     margin: 0;
-    padding: 0;
+    font-family: 'Uni Sans', sans-serif; /* Подключить Uni Sans через CSS */
+    background-color: #1e1e1e;
+    color: white;
 }
 
-header {
-    background-color: #111; /* Темный фон для заголовка */
-    color: #fff;
-    padding: 10px;
-    text-align: center;
-}
-
-#loading-screen {
+/* Стили для нижнего закрепленного меню */
+.bottom-menu {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #2d2d2d;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #000; /* Черный фон для экрана загрузки */
-    color: #fff; /* Белый текст */
+    justify-content: space-around;
+    padding: 10px 0;
 }
 
-#loading-icon {
-    width: 50px;
-    height: 50px;
-}
-
-#main-interface {
+.menu-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
-    color: #fff; /* Белый текст */
-    background-color: #000; /* Черный фон */
+    color: grey;
 }
 
-#novellacoin-icon {
+.menu-item.active {
+    color: white;
+}
+
+.menu-item img {
+    width: 24px;
+    height: 24px;
+}
+
+/* Основной контент страницы */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding-bottom: 60px; /* Для учета высоты нижнего меню */
+}
+
+.token-icon {
     width: 100px;
     height: 100px;
 }
 
-.yellow-button {
-    background-color: #ffcc00; /* Желтая кнопка */
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    color: #000; /* Черный текст для контраста */
-}
-
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Полупрозрачный черный фон */
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-content {
-    background-color: #333; /* Темный фон модального окна */
-    padding: 20px;
-    border-radius: 5px;
-    text-align: center;
-    color: #fff; /* Белый текст */
-}
-
-.close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-    color: #fff; /* Белый крестик для закрытия */
-}
-
-.task-block {
-    display: flex;
-    align-items: center;
-    margin: 10px 0;
-    padding: 10px;
-    border: 1px solid #444; /* Темная граница */
-    border-radius: 5px;
-    background-color: #222; /* Темный фон для задачи */
-}
-
-.task-icon {
-    width: 50px;
-    height: 50px;
-    margin-right: 10px;
-}
-
-.task-info {
-    flex-grow: 1;
-    color: #fff; /* Белый текст */
-}
-
-.task-button {
-    background-color: #4CAF50; /* Зеленая кнопка */
-    color: #fff; /* Белый текст */
-    border: none;
-    padding: 10px;
-    cursor: pointer;
+.token-balance {
+    font-size: 24px;
+    margin-top: 20px;
 }
