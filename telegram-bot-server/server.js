@@ -75,8 +75,9 @@ const options = {
             [
                 {
                     text: 'Play Now',
-					web_app: {
-                    url: 'https://novella-telegram-bot.onrender.com/' // Замените на URL вашего веб-приложения
+                    web_app: {
+                        url: 'https://novella-telegram-bot.onrender.com/' // Замените на URL вашего веб-приложения
+                    }
                 },
                 {
                     text: 'Join Novella Community',
