@@ -1,54 +1,54 @@
-/* Основные стили */
-body {
-    margin: 0;
-    font-family: 'Uni Sans', sans-serif; /* Подключить Uni Sans через CSS */
-    background-color: #1e1e1e;
-    color: white;
-}
+        /* Основной контент */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+            text-align: center;
+        }
 
-/* Стили для нижнего закрепленного меню */
-.bottom-menu {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: #2d2d2d;
-    display: flex;
-    justify-content: space-around;
-    padding: 10px 0;
-}
+        .main-content img {
+            width: 100px;
+            height: 100px;
+        }
 
-.menu-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: grey;
-}
+        .token-balance {
+            margin-top: 20px;
+            font-size: 24px;
+        }
 
-.menu-item.active {
-    color: white;
-}
+        /* Нижнее меню */
+        .bottom-menu {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #111; /* Темно-серый фон для меню */
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+        }
 
-.menu-item img {
-    width: 24px;
-    height: 24px;
-}
+        .menu-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: grey;
+            font-size: 12px;
+        }
 
-/* Основной контент страницы */
-.main-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    padding-bottom: 60px; /* Для учета высоты нижнего меню */
-}
+        .menu-item.active {
+            color: white; /* Белый цвет для активного элемента */
+        }
 
-.token-icon {
-    width: 100px;
-    height: 100px;
-}
+        .menu-item img {
+            width: 24px;
+            height: 24px;
+        }
 
-.token-balance {
-    font-size: 24px;
-    margin-top: 20px;
-}
+        .menu-item span {
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
