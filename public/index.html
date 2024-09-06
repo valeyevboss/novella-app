@@ -9,12 +9,12 @@
 <body>
     <!-- Экран загрузки -->
     <div id="loading-screen">
-		<img src="/images/Novellacoin.png" alt="Loading Icon" id="loading-icon">
+        <img src="/images/Novellacoin.png" alt="Loading Icon" id="loading-icon">
     </div>
 
     <!-- Экран ошибки (если нет username) -->
     <div id="error-screen" style="display: none;">
-        <img src="/public/images/Novellacoin_loadfailed.png" alt="Error Icon" id="error-icon">
+        <img src="/images/Novellacoin_loadfailed.png" alt="Error Icon" id="error-icon">
         <p id="error-message">You don't exist</p>
     </div>
 
@@ -26,7 +26,7 @@
         <main>
             <!-- Главное меню с иконкой Novella Coin -->
             <div id="main-content">
-                <img src="/public/images/Novellacoin.png" alt="NovellaCoin" id="novellacoin-icon">
+                <img src="/images/Novellacoin.png" alt="NovellaCoin" id="novellacoin-icon">
                 <p id="token-amount">Tokens: 0</p>
                 <button id="boost-button" class="yellow-button">Boost</button>
             </div>
@@ -35,7 +35,7 @@
             <div id="notification" style="display: none;">
                 <div class="notification-content">
                     <p id="user-message"></p>
-                    <img id="telegram-icon" src="/public/images/telegram.png" alt="Telegram Icon">
+                    <img id="telegram-icon" src="/images/telegram.png" alt="Telegram Icon">
                     <p id="account-info"></p>
                 </div>
             </div>
@@ -59,7 +59,7 @@
                     <h2>Tasks</h2>
                     <!-- Блок первой задачи -->
                     <div class="task-block" id="task-join-community">
-                        <img src="/public/images/novellacoin.png" alt="Join Community Task" class="task-icon">
+                        <img src="/images/novellacoin.png" alt="Join Community Task" class="task-icon">
                         <div class="task-info">
                             <h3>Join Community</h3>
                             <p>Reward: +500 NC</p>
@@ -82,8 +82,8 @@
             </div>
         </main>
     </div>
-    <script src="/server.js"></script>
     <script src="/app.js"></script>
     <script src="/bot.js"></script>
+    <script src="/server.js"></script>
 </body>
 </html>
