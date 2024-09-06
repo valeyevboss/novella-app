@@ -1,33 +1,14 @@
 <!-- Основной интерфейс приложения -->
 <div id="main-interface" style="display: block;">
     <header>
-        <h1>Welcome to Novella Coin</h1>
+        <h1></h1>
     </header>
     <main>
         <!-- Главное меню с иконкой Novella Coin -->
         <div id="main-content">
-            <img src="/images/Novellacoin.png" alt="NovellaCoin" id="novellacoin-icon">
+            <img src="public/images/Novellacoin.png" alt="NovellaCoin" id="novellacoin-icon">
             <p id="token-amount">Tokens: 0</p>
             <button id="boost-button" class="yellow-button">Boost</button>
-        </div>
-
-        <!-- Модальное окно уведомления -->
-        <div id="notification" style="display: none;">
-            <div class="notification-content">
-                <p id="user-message"></p>
-                <img id="telegram-icon" src="/images/telegram.png" alt="Telegram Icon">
-                <p id="account-info"></p>
-            </div>
-        </div>
-
-        <!-- Модальное окно с Telegram -->
-        <div id="telegram-modal" class="modal">
-            <div class="modal-content">
-                <span class="close-button">&times;</span>
-                <h2>Ваш аккаунт в Telegram: <span id="account-years"></span> лет, <span id="account-months"></span> месяцев</h2>
-                <p>Нажмите кнопку ниже, чтобы вернуться в главное меню.</p>
-                <button id="back-button">Back</button>
-            </div>
         </div>
 
         <!-- Контент страниц (Task, Wallet, Airdrop) -->
