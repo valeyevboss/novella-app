@@ -3,59 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Novella Coin App</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Привязка стилей -->
+    <title>Novella App</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preload" href="/fonts/UniSans.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" href="/fonts/MaiandraGD.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" href="/fonts/Unispace.woff2" as="font" type="font/woff2" crossorigin="anonymous">
 </head>
 <body>
+    <div class="main-page">
+        <header>
+            <button class="freedurov-button" onclick="window.open('https://www.change.org/p/free-pavel-durov-freedurov?source_location=tag_')">
+                #FREEDUROV
+            </button>
+        </header>
 
-    <div class="main-content">
-        <a href="https://www.change.org/p/free-pavel-durov-freedurov?source_location=tag_" target="_blank">
-            <button class="gradient-button">#FREEDUROV</button>
-        </a>
-        <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/Novellacoin.png" alt="NovellaCoin" class="token-icon">
-        <div class="token-balance">0</div>
+        <div class="token-section">
+            <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/Novellacoin.png" alt="Token Icon" class="token-icon">
+            <p class="token-balance">1000</p> <!-- Здесь количество токенов можно будет вставить динамически -->
+        </div>
     </div>
 
-    <div class="bottom-menu">
-        <div class="menu-item active">
+    <nav class="bottom-menu">
+        <a href="#" class="menu-item active">
             <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/main_icon.png" alt="Main">
             <span>Main</span>
-        </div>
-        <div class="menu-item">
+        </a>
+        <a href="#" class="menu-item">
             <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/task_icon.png" alt="Task">
             <span>Task</span>
-        </div>
-        <div class="menu-item">
+        </a>
+        <a href="#" class="menu-item">
             <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/wallet_icon.png" alt="Wallet">
             <span>Wallet</span>
-        </div>
-        <div class="menu-item">
+        </a>
+        <a href="#" class="menu-item">
             <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622250/airdrop_icon.png" alt="Airdrop">
             <span>Airdrop</span>
-        </div>
-        <div class="menu-item">
+        </a>
+        <a href="#" class="menu-item">
             <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725623705/leaderboard_icon.png" alt="Leaders">
             <span>Leaders</span>
-        </div>
-    </div>
-	
-    <div class="welcome-container">
-        <h1>Congratulations, <span id="username">username!</span></h1>
-        <p><span id="account-age">4 years ago</span></p>
-        <p>You've joined Telegram.</p>
-        <p>Your account number is #<span id="account-number">12345</span>.</p>
-        
-        <button class="continue-button" id="continue-btn">Continue</button>
-        
-        <div id="reward-section" style="display: none;">
-            <h2>Here is your reward!</h2>
-            <img src="novellacoin.png" alt="Novella Coin">
-            <p class="bold" id="reward-tokens">+500 NC</p>
-            <p class="small-text">Thanks for your time on Telegram</p>
-            <button class="ok-button" id="ok-btn">OK</button>
-        </div>
-    </div>
-
-    <script src="app.js"></script>
+        </a>
+    </nav>
 </body>
 </html>
