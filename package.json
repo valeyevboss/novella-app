@@ -3,14 +3,15 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-  "start": "node telegram-bot-server/server.js",
-  "test": "echo \"Error: no test specified\" && exit 1"
-},
+    "start": "node telegram-bot-server/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "keywords": [],
   "author": "Novella App",
   "license": "ISC",
   "description": "Novella Coin Web App",
   "dependencies": {
+    "axios": "^1.7.7",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "mongoose": "^8.6.1",

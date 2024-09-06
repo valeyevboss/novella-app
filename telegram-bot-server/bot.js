@@ -2,10 +2,33 @@ const TelegramBot = require('node-telegram-bot-api');
 const mongoose = require('mongoose');
 const User = require('./models/User'); // Подключаем модель пользователя
 const BlockedUser = require('./models/BlockedUser'); // Подключаем модель заблокированных пользователей
+const axios = require('axios');
+const numVerifyApiKey = '261bcd2a0ee31012d6a2fadc696603ba';
 
 // Ваш токен бота Telegram
 const token = process.env.TELEGRAM_BOT_TOKEN;
 const bot = new TelegramBot(token, { polling: true });
+
+// Функция для проверки номера телефона через NumVerify API
+const checkPhoneNumber = async (phoneNumber) => {
+    const url = `http://apilayer.net/api/validate?access_key=${numVerifyApiKey}&number=${phoneNumber}`;
+    try {
+        const response = await axios.get(url);
+        const data = response.data;
+
+        if (data.valid) {
+            console.log(`Номер телефона валиден: ${data.number}`);
+            return true;
+        } else {
+            console.log(`Номер телефона недействителен: ${phoneNumber}`);
+            return false;
+        }
+    } catch (error) {
+        console.error('Ошибка при проверке номера:', error);
+        return false;
+    }
+};
+
 
 // Функция для вычисления токенов в зависимости от возраста аккаунта
 const calculateTokens = (months) => {
@@ -42,10 +65,21 @@ bot.onText(/\/start/, async (msg) => {
     const chatId = msg.chat.id;
     const userId = msg.from.id;
     const userName = msg.from.username || msg.from.first_name;
+	
+	// Пример номера телефона пользователя (в реальности его нужно будет запросить у пользователя)
+    const userPhoneNumber = '+1234567890'; 
 
     // Проверяем, находится ли пользователь в банлисте
     if (await isUserBlocked(userId)) {
         bot.sendMessage(chatId, 'Your account has been banned. Please contact support.');
+        return;
+    }
+	
+	// Проверяем номер телефона через NumVerify
+    const isPhoneValid = await checkPhoneNumber(userPhoneNumber);
+    if (!isPhoneValid) {
+        await blockUser(userId, 'Invalid phone number');
+        bot.sendMessage(chatId, 'Your account is banned due to invalid phone number.');
         return;
     }
 
