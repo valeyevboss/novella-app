@@ -15,6 +15,7 @@
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "mongoose": "^8.6.1",
-    "node-telegram-bot-api": "^0.66.0"
+    "node-telegram-bot-api": "^0.66.0",
+    "walletconnect-monorepo": "github:WalletConnect/walletconnect-monorepo"
   }
 }

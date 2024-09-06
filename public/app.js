@@ -1,3 +1,6 @@
+import WalletConnect from "@walletconnect/client";
+import QRCodeModal from "@walletconnect/qrcode-modal";
+
 document.addEventListener('DOMContentLoaded', () => {
     // Обработка экрана загрузки
     setTimeout(() => {
@@ -59,94 +62,120 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.hash = 'boost';
         updateActiveMenu('boost');
     });
-	
-	// Логика для кнопки задачи
-	document.getElementById('task-join-community-button').addEventListener('click', function() {
-    const taskButton = this;
-    const taskStatus = taskButton.getAttribute('data-task-status');
 
-    if (taskStatus === 'start') {
-        // Открываем ссылку на сообщество
-        window.open('https://community-link.com', '_blank');
+    // Логика для кнопки задачи
+    document.getElementById('task-join-community-button').addEventListener('click', function() {
+        const taskButton = this;
+        const taskStatus = taskButton.getAttribute('data-task-status');
 
-        // Изменяем статус кнопки на "Check"
-        taskButton.setAttribute('data-task-status', 'check');
-        taskButton.textContent = 'Check';
-    } else if (taskStatus === 'check') {
-        // Проверяем выполнена ли задача (здесь можно добавить реальную проверку)
-        const taskCompleted = true; // Для примера задача всегда выполнена
+        if (taskStatus === 'start') {
+            // Открываем ссылку на сообщество
+            window.open('https://t.me/novellatoken_community', '_blank');
 
-        if (taskCompleted) {
-            // Изменяем статус кнопки на "Claim"
-            taskButton.setAttribute('data-task-status', 'claim');
-            taskButton.textContent = 'Claim';
-        } else {
-            alert('Task not completed yet!');
+            // Изменяем статус кнопки на "Check"
+            taskButton.setAttribute('data-task-status', 'check');
+            taskButton.textContent = 'Check';
+        } else if (taskStatus === 'check') {
+            // Проверяем выполнена ли задача (здесь можно добавить реальную проверку)
+            const taskCompleted = true; // Для примера задача всегда выполнена
+
+            if (taskCompleted) {
+                // Изменяем статус кнопки на "Claim"
+                taskButton.setAttribute('data-task-status', 'claim');
+                taskButton.textContent = 'Claim';
+            } else {
+                alert('Task not completed yet!');
+            }
+        } else if (taskStatus === 'claim') {
+            // Выдать награду пользователю
+            alert('You claimed 500 NC!');
+            
+            // Блокируем задачу после получения награды
+            taskButton.disabled = true;
+            taskButton.textContent = 'Claimed';
         }
-    } else if (taskStatus === 'claim') {
-        // Выдать награду пользователю
-        alert('You claimed 500 NC!');
-        
-        // Блокируем задачу после получения награды
-        taskButton.disabled = true;
-        taskButton.textContent = 'Claimed';
-    }
-	});
-	
-	// Расчёт и отображение возраста аккаунта
-	
-	const calculateAccountAge = (months) => {
-    const years = Math.floor(months / 12);
-    const remainingMonths = months % 12;
-    return { years, remainingMonths };
-	};
+    });
 
-	// Пример: данные об аккаунте
-	const accountAgeInMonths = 15; // Замените на реальные данные
-	const { years, remainingMonths } = calculateAccountAge(accountAgeInMonths);
+    // Расчёт и отображение возраста аккаунта
+    const calculateAccountAge = (months) => {
+        const years = Math.floor(months / 12);
+        const remainingMonths = months % 12;
+        return { years, remainingMonths };
+    };
 
-	// Отображаем возраст в модальном окне
-	document.getElementById('account-years').textContent = years;
-	document.getElementById('account-months').textContent = remainingMonths;
+    // Пример: данные об аккаунте
+    const accountAgeInMonths = 15; // Замените на реальные данные
+    const { years, remainingMonths } = calculateAccountAge(accountAgeInMonths);
+
+    // Отображаем возраст в модальном окне
+    document.getElementById('account-years').textContent = years;
+    document.getElementById('account-months').textContent = remainingMonths;
 
     // Привязка кошельков
-    const displayConnectedWallets = () => {
-        const wallets = [
-            { id: 1, address: '0x1234567890abcdef', app: 'Telegram' },
-            { id: 2, address: '0xabcdef1234567890', app: 'Another App' }
-        ];
-
+    const displayConnectedWallets = (accounts) => {
         const connectedWalletsContainer = document.getElementById('connected-wallets');
         connectedWalletsContainer.innerHTML = '';
-        wallets.forEach(wallet => {
+        accounts.forEach(account => {
             const walletItem = document.createElement('div');
             walletItem.className = 'wallet-item';
             walletItem.innerHTML = `
-                <span>${wallet.address}</span>
-                <button data-id="${wallet.id}" class="disconnect-button">Disconnect</button>
+                <span>${account}</span>
+                <button class="disconnect-button">Disconnect</button>
             `;
             connectedWalletsContainer.appendChild(walletItem);
         });
 
         document.querySelectorAll('.disconnect-button').forEach(button => {
             button.addEventListener('click', (event) => {
-                const walletId = event.currentTarget.getAttribute('data-id');
-                disconnectWallet(walletId);
+                disconnectWallet();
             });
         });
     };
 
-    const disconnectWallet = (walletId) => {
-        console.log(`Disconnect wallet with ID: ${walletId}`);
-        displayConnectedWallets();
+    const disconnectWallet = () => {
+        console.log('Disconnect wallet');
+        // Здесь необходимо добавить логику для отключения кошелька, если она требуется
     };
 
-    displayConnectedWallets();
+    const connectWallet = async () => {
+        const connector = new WalletConnect({
+            bridge: "https://bridge.walletconnect.org", // URL моста WalletConnect
+            qrcodeModal: QRCodeModal,
+        });
 
-    document.getElementById('connect-wallet-button')?.addEventListener('click', () => {
-        console.log('Connect Wallet button clicked');
-        openWalletConnectModal();
-    });
+        // Проверка подключения
+        if (!connector.connected) {
+            await connector.createSession();
+        }
+
+        // Подписка на события
+        connector.on("connect", (error, payload) => {
+            if (error) {
+                throw error;
+            }
+            const { accounts, chainId } = payload.params[0];
+            console.log("Connected with accounts:", accounts);
+            document.getElementById('wallet-connect-modal').remove();
+            displayConnectedWallets(accounts);
+        });
+
+        connector.on("session_update", (error, payload) => {
+            if (error) {
+                throw error;
+            }
+            const { accounts, chainId } = payload.params[0];
+            console.log("Session updated with accounts:", accounts);
+            displayConnectedWallets(accounts);
+        });
+
+        connector.on("disconnect", (error) => {
+            if (error) {
+                throw error;
+            }
+            console.log("Disconnected");
+            displayConnectedWallets([]);
+        });
+    };
 
     const openWalletConnectModal = () => {
         const modalHtml = `
@@ -155,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <span class="close-button">&times;</span>
                     <h2>Connect Your Wallet</h2>
                     <p>Choose the wallet application you want to connect with:</p>
-                    <button id="connect-telegram-wallet">Connect with Telegram</button>
+                    <button id="connect-wallet">Connect with WalletConnect</button>
                 </div>
             </div>
         `;
@@ -165,26 +194,10 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('wallet-connect-modal').remove();
         });
 
-        document.getElementById('connect-telegram-wallet').addEventListener('click', () => {
-            window.open('https://example.com/connect-telegram', '_blank');
+        document.getElementById('connect-wallet').addEventListener('click', () => {
+            connectWallet();
         });
     };
 
-	const initApp = () => {
-		const userInfo = getUserInfo();
-		if (!userInfo.username) {
-			document.getElementById('loading-screen').style.display = 'none';
-			document.getElementById('error-screen').style.display = 'block';
-		} else {
-			document.getElementById('loading-screen').style.display = 'none';
-			document.getElementById('main-interface').style.display = 'block';
-		}
-	};
-
-		const getUserInfo = () => ({
-			username: 'JohnDoe',
-			accountAge: 15,
-			tokens: 1000
-		});
-
+    initApp();
 });
