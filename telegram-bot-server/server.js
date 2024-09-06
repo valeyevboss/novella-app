@@ -12,7 +12,7 @@ const telegramBotToken = process.env.TELEGRAM_BOT_TOKEN;
 const bot = new TelegramBot(telegramBotToken, { polling: true });
 
 // Подключение папки для статических файлов
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
 // Отдача index.html по умолчанию
 app.get('/', (req, res) => {
