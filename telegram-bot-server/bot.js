@@ -29,7 +29,6 @@ const checkPhoneNumber = async (phoneNumber) => {
     }
 };
 
-
 // Функция для вычисления токенов в зависимости от возраста аккаунта
 const calculateTokens = (months) => {
     if (months < 5) return 0;
@@ -65,8 +64,8 @@ bot.onText(/\/start/, async (msg) => {
     const chatId = msg.chat.id;
     const userId = msg.from.id;
     const userName = msg.from.username || msg.from.first_name;
-	
-	// Пример номера телефона пользователя (в реальности его нужно будет запросить у пользователя)
+    
+    // Пример номера телефона пользователя (в реальности его нужно будет запросить у пользователя)
     const userPhoneNumber = '+1234567890'; 
 
     // Проверяем, находится ли пользователь в банлисте
@@ -74,8 +73,8 @@ bot.onText(/\/start/, async (msg) => {
         bot.sendMessage(chatId, 'Your account has been banned. Please contact support.');
         return;
     }
-	
-	// Проверяем номер телефона через NumVerify
+    
+    // Проверяем номер телефона через NumVerify
     const isPhoneValid = await checkPhoneNumber(userPhoneNumber);
     if (!isPhoneValid) {
         await blockUser(userId, 'Invalid phone number');

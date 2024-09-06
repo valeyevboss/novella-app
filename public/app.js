@@ -2,11 +2,41 @@ import WalletConnect from "@walletconnect/client";
 import QRCodeModal from "@walletconnect/qrcode-modal";
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Функция для отображения экрана ошибки
+    const showErrorScreen = () => {
+        document.getElementById('loading-screen').style.display = 'none';
+        document.getElementById('error-screen').style.display = 'block';
+    };
+
+    // Функция для отображения основного интерфейса
+    const showMainInterface = () => {
+        document.getElementById('loading-screen').style.display = 'none';
+        document.getElementById('main-interface').style.display = 'block';
+        initApp();
+    };
+
+    // Функция для обработки нажатия кнопки "Start" в задачах
+    const handleTaskButtonClick = (event) => {
+        const taskId = event.target.getAttribute('data-task');
+        console.log(`Starting task: ${taskId}`);
+        // Логика для обработки задачи
+    };
+
+    // Имитация проверки состояния и загрузки данных
+    setTimeout(() => {
+        // Замена на реальную логику проверки
+        const isUserLoggedIn = true; // Здесь будет логика проверки
+        if (isUserLoggedIn) {
+            showMainInterface();
+        } else {
+            showErrorScreen();
+        }
+    }, 2000); // Задержка для демонстрации экрана загрузки
+
     // Обработка экрана загрузки
     setTimeout(() => {
         document.getElementById('loading').style.display = 'none';
         document.getElementById('main-content').style.display = 'block';
-        initApp();
     }, 3000);
 
     // Отображение поздравительного сообщения
@@ -199,5 +229,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    initApp();
+    openWalletConnectModal();
 });

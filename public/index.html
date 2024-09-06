@@ -25,7 +25,7 @@
             <h1>Welcome to Novella Coin</h1>
         </header>
         <main>
-            <!-- Главное меню с иконкой NovellaCoin -->
+            <!-- Главное меню с иконкой Novella Coin -->
             <div id="main-content">
                 <img src="/images/Novellacoin.png" alt="NovellaCoin" id="novellacoin-icon">
                 <p id="token-amount">Tokens: 0</p>
@@ -41,16 +41,15 @@
                 </div>
             </div>
 
-			<!-- Модальное окно с Telegram -->
-			<div id="telegram-modal" class="modal">
-				<div class="modal-content">
-					<span class="close-button">&times;</span>
-					<h2>Ваш аккаунт в Telegram: <span id="account-years"></span> лет, <span id="account-months"></span> месяцев</h2>
-					<p>Нажмите кнопку ниже, чтобы вернуться в главное меню.</p>
-					<button id="back-button">Back</button>
-				</div>
-			</div>
-
+            <!-- Модальное окно с Telegram -->
+            <div id="telegram-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close-button">&times;</span>
+                    <h2>Ваш аккаунт в Telegram: <span id="account-years"></span> лет, <span id="account-months"></span> месяцев</h2>
+                    <p>Нажмите кнопку ниже, чтобы вернуться в главное меню.</p>
+                    <button id="back-button">Back</button>
+                </div>
+            </div>
 
             <!-- Контент страниц (Task, Wallet, Airdrop) -->
             <div id="page-content">
@@ -65,38 +64,26 @@
                         <div class="task-info">
                             <h3>Join Community</h3>
                             <p>Reward: +500 NC</p>
+                            <button class="task-button" data-task="join-community">Start</button>
                         </div>
-                        <button class="task-action-button" id="task-join-community-button" data-task-status="start">
-                            Start
-                        </button>
                     </div>
+                </section>
 
-                    <!-- Другие задачи могут быть добавлены здесь -->
+                <!-- Раздел кошелька -->
+                <section id="wallet-section" style="display: none;">
+                    <h2>Wallet</h2>
+                    <!-- Здесь будет отображаться информация о кошельке -->
+                </section>
+
+                <!-- Раздел Airdrop -->
+                <section id="airdrop-section" style="display: none;">
+                    <h2>Airdrop</h2>
+                    <!-- Здесь будет отображаться информация о airdrop -->
                 </section>
             </div>
         </main>
-        <footer id="bottom-menu">
-            <!-- Нижнее меню с кнопками -->
-            <button class="menu-button" id="main-button" data-page="main">
-                <img src="/images/main_icon.png" alt="Main" class="menu-icon">
-                <span>Main</span>
-            </button>
-            <button class="menu-button" id="task-button" data-page="task">
-                <img src="/images/task_icon.png" alt="Task" class="menu-icon">
-                <span>Task</span>
-            </button>
-            <button class="menu-button" id="wallet-button" data-page="wallet">
-                <img src="/images/wallet_icon.png" alt="Wallet" class="menu-icon">
-                <span>Wallet</span>
-            </button>
-            <button class="menu-button" id="airdrop-button" data-page="airdrop">
-                <img src="/images/airdrop_icon.png" alt="Airdrop" class="menu-icon">
-                <span>Airdrop</span>
-            </button>
-        </footer>
     </div>
 
-    <script src="/app.js"></script>
-	<script src="/path/to/server.js"></script>
+    <script src="/scripts.js"></script>
 </body>
 </html>
