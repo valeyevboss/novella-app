@@ -122,7 +122,7 @@ bot.onText(/\/start/, async (msg) => {
 
         // Проверяем, забанен ли пользователь
         if (user.status === 'banned') {
-            bot.sendMessage(chatId, 'You are banned. Please visit the following link for more information: https://your-server.com/banned');
+            bot.sendMessage(chatId, 'You are banned. Please visit the following link for more information: https://novella-telegram-bot.onrender.com/banned');
             return; // Останавливаем выполнение
         }
 
