@@ -33,6 +33,25 @@ app.get('/loadingerror', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'public', 'loadingerror.html'));
 });
 
+// Добавляем маршрут для проверки статуса пользователя
+app.get('/check-status', async (req, res) => {
+    const telegramId = req.query.telegramId; // Получаем telegramId из запроса
+
+    try {
+        // Ищем пользователя в базе данных
+        const user = await User.findOne({ telegramId: telegramId });
+
+        if (user) {
+            res.json({ status: user.status }); // Возвращаем статус пользователя (banned или нет)
+        } else {
+            res.json({ status: 'No user found' }); // Если пользователь не найден
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Server error' }); // Обработка ошибок
+    }
+});
+
 // Подключение к MongoDB с ожиданием
 async function startServer() {
     try {
@@ -110,7 +129,7 @@ bot.onText(/\/start/, async (msg) => {
         // Если у пользователя нет username, перенаправляем его на страницу ошибки
         if (!userName) {
             bot.sendMessage(chatId, 'Redirecting to error page...');
-            bot.sendMessage(chatId, "https://your-server.com/loadingerror");
+            bot.sendMessage(chatId, "https://novella-telegram-bot.onrender.com/loadingerror");
             return;
         }
 
