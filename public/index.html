@@ -44,6 +44,7 @@
             <span>Leaders</span>
         </a>
     </nav>
+	
 	<script>
 		// Функция для получения токенов пользователя
 		async function fetchTokens() {
@@ -59,5 +60,31 @@
 		// Загрузить токены при загрузке страницы
 		window.onload = fetchTokens;
 	</script>
+	
+	<script>
+	// Пример функции для проверки статуса пользователя
+	async function checkUserStatus() {
+		try {
+			// Получаем ID пользователя из какого-то источника, например, из куки или локального хранилища
+			const telegramId = getTelegramId(); // Реализуйте эту функцию в зависимости от вашей логики
+			const response = await fetch(`/check-status?telegramId=${telegramId}`);
+			const data = await response.json();
+
+			if (data.status === 'banned') {
+				window.location.href = '/banned'; // Перенаправление на страницу бана
+			}
+		} catch (error) {
+			console.error('Ошибка проверки статуса:', error);
+		}
+	}
+
+	// Вызываем функцию при загрузке страницы
+	window.onload = checkUserStatus;
+
+
+    // Вызов функции при загрузке страницы
+    document.addEventListener('DOMContentLoaded', checkUserStatus);
+</script>
+
 </body>
 </html>
