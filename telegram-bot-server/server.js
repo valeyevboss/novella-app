@@ -18,9 +18,19 @@ const bot = new TelegramBot(telegramBotToken, { polling: true });
 // Подключение папки для статических файлов
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
-// Отдача index.html по умолчанию
+// Сначала отдаем страницу загрузки
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
+    res.sendFile(path.join(__dirname, '..', 'public', 'loading.html'));
+});
+
+// Если пользователь забанен, перенаправляем его на banned.html
+app.get('/banned', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'public', 'banned.html'));
+});
+
+// Если нет username, перенаправляем на страницу ошибки
+app.get('/loadingerror', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'public', 'loadingerror.html'));
 });
 
 // Подключение к MongoDB с ожиданием
@@ -93,17 +103,14 @@ bot.onText(/\/start/, async (msg) => {
 
         // Проверяем, забанен ли пользователь
         if (user.status === 'banned') {
-            bot.sendMessage(chatId, 'You are banned. Please visit the following link for more information: https://your-server.com/banned.html');
+            bot.sendMessage(chatId, 'You are banned. Please visit the following link for more information: https://your-server.com/banned');
             return; // Останавливаем выполнение
         }
 
         // Если у пользователя нет username, перенаправляем его на страницу ошибки
         if (!userName) {
             bot.sendMessage(chatId, 'Redirecting to error page...');
-            bot.sendPhoto(chatId, 'https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/Novellacoin_falied.png', {
-                caption: "You don't exist",
-                parse_mode: 'HTML'
-            });
+            bot.sendMessage(chatId, "https://your-server.com/loadingerror");
             return;
         }
 
