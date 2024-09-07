@@ -3,7 +3,6 @@ const path = require('path');
 const mongoose = require('mongoose');
 const TelegramBot = require('node-telegram-bot-api');
 const User = require('../models/User');
-const cookieParser = require('cookie-parser');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -16,76 +15,21 @@ if (!telegramBotToken) {
 
 const bot = new TelegramBot(telegramBotToken, { polling: true });
 
-// Используйте cookie-parser как middleware
-app.use(cookieParser());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-// Установка куки при авторизации пользователя
-app.post('/login', async (req, res) => {
-    const telegramId = req.body.telegramId; // Получаем ID из запроса
-    res.cookie('telegramId', telegramId, { httpOnly: true }); // Устанавливаем куку как HttpOnly
-    res.redirect('/');
-});
-
-// Обслуживание статических файлов
+// Подключение папки для статических файлов
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
-// Сначала отдаем страницу загрузки
+// Отдача index.html по умолчанию
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'public', 'loading.html'));
-});
-
-// Если пользователь забанен, перенаправляем его на banned.html
-app.get('/banned', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'public', 'banned.html'));
-});
-
-// Если нет username, перенаправляем на страницу ошибки
-app.get('/loadingerror', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'public', 'loadingerror.html'));
-});
-
-// Добавляем маршрут для проверки статуса пользователя
-app.get('/check-status', async (req, res) => {
-    const telegramId = req.query.telegramId; // Получаем telegramId из запроса
-
-    try {
-        // Ищем пользователя в базе данных
-        const user = await User.findOne({ telegramId: telegramId });
-
-        if (user) {
-            res.json({ status: user.status }); // Возвращаем статус пользователя (banned или нет)
-        } else {
-            res.json({ status: 'No user found' }); // Если пользователь не найден
-        }
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: 'Server error' }); // Обработка ошибок
-    }
-});
-
-// Этот код добавит маршрут /tokens, который будет отдавать токены пользователя.
-app.get('/tokens', async (req, res) => {
-    const telegramId = req.query.telegramId; // Получаем ID из запроса
-
-    try {
-        // Получаем пользователя из базы данных
-        const user = await User.findOne({ telegramId: telegramId });
-        if (user) {
-            res.json({ tokens: user.tokens });
-        } else {
-            res.status(404).json({ error: 'User not found' });
-        }
-    } catch (error) {
-        res.status(500).json({ error: 'Ошибка получения токенов' });
-    }
+    res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
 });
 
 // Подключение к MongoDB с ожиданием
 async function startServer() {
     try {
-        await mongoose.connect(process.env.MONGO_URI);
+        await mongoose.connect(process.env.MONGO_URI, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        });
         console.log('Connected to MongoDB');
 
         // Запуск сервера только после успешного подключения к базе данных
@@ -131,15 +75,12 @@ bot.onText(/\/start/, async (msg) => {
     try {
         // Ищем пользователя в базе данных или создаем нового
         let user = await User.findOne({ telegramId: userId });
-
-        // Если пользователя нет, создаём нового
         if (!user) {
             user = new User({
                 telegramId: userId,
                 username: userName,
                 lastLogin: new Date(),
-                tokens: 0,
-                status: 'No banned' // По умолчанию новый пользователь не забанен
+                tokens: 0
             });
             await user.save();
         } else {
@@ -147,20 +88,7 @@ bot.onText(/\/start/, async (msg) => {
             await user.save();
         }
 
-        // Проверяем, забанен ли пользователь
-        if (user.status === 'banned') {
-            bot.sendMessage(chatId, 'You are banned. Please visit the following link for more information: https://novella-telegram-bot.onrender.com/banned');
-            return; // Останавливаем выполнение
-        }
-
-        // Если у пользователя нет username, перенаправляем его на страницу ошибки
-        if (!userName) {
-            bot.sendMessage(chatId, 'Redirecting to error page...');
-            bot.sendMessage(chatId, "https://novella-telegram-bot.onrender.com/loadingerror");
-            return;
-        }
-
-        // Если всё в порядке, отправляем сообщение с картинкой и кнопками
+        // Отправляем одно сообщение с картинкой и кнопками
         bot.sendPhoto(chatId, imageUrl, {
             caption: `Welcome, ${userName}!`,
             reply_markup: options.reply_markup
