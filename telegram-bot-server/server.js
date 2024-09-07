@@ -3,6 +3,7 @@ const path = require('path');
 const app = express();
 const mongoose = require('mongoose');
 
+
 const TelegramBot = require('node-telegram-bot-api');
 const User = require('../models/User');
 
@@ -16,6 +17,7 @@ if (!telegramBotToken) {
 
 const bot = new TelegramBot(telegramBotToken, { polling: true });
 
+// Используйте cookie-parser как middleware
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
