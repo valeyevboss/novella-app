@@ -44,6 +44,17 @@ async function startServer() {
 
 startServer();
 
+// Добавление серверного маршрута для получения токенов
+app.get('/tokens', async (req, res) => {
+    try {
+        // Получаем пользователя из базы данных (например, по ID сессии или другим параметрам)
+        const user = await User.findOne({ username: 'valeyevboss' }); // используй корректное условие для поиска пользователя
+        res.json({ tokens: user.tokens });
+    } catch (error) {
+        res.status(500).json({ error: 'Ошибка получения токенов' });
+    }
+});
+
 // Опции для клавиатуры
 const options = {
     reply_markup: {
