@@ -55,10 +55,7 @@ app.get('/check-status', async (req, res) => {
 // Подключение к MongoDB с ожиданием
 async function startServer() {
     try {
-        await mongoose.connect(process.env.MONGO_URI, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        });
+        await mongoose.connect(process.env.MONGO_URI);
         console.log('Connected to MongoDB');
 
         // Запуск сервера только после успешного подключения к базе данных
@@ -70,6 +67,7 @@ async function startServer() {
         process.exit(1); // Останавливаем сервер при ошибке подключения
     }
 }
+
 
 startServer();
 

@@ -1,0 +1,1 @@
+require('dotenv').config({ path: path.join(__dirname, '../telegram-bot-server/.env') });
