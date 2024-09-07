@@ -61,6 +61,11 @@
 		window.onload = fetchTokens;
 	</script>
 	
+	// Функция для получения Telegram ID из локального хранилища
+	function getTelegramId() {
+		return localStorage.getItem('telegramId'); // Измените эту строку в зависимости от того, где хранится ID
+	}
+	
 	<script>
 	// Пример функции для проверки статуса пользователя
 	async function checkUserStatus() {
@@ -77,11 +82,7 @@
 			console.error('Ошибка проверки статуса:', error);
 		}
 	}
-
-	// Вызываем функцию при загрузке страницы
-	window.onload = checkUserStatus;
-
-
+	
     // Вызов функции при загрузке страницы
     document.addEventListener('DOMContentLoaded', checkUserStatus);
 </script>
