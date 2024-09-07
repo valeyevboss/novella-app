@@ -52,6 +52,17 @@ app.get('/check-status', async (req, res) => {
     }
 });
 
+// Этот код добавит маршрут /tokens, который будет отдавать токены пользователя.
+app.get('/tokens', async (req, res) => {
+    try {
+        // Получаем пользователя из базы данных (например, по ID сессии или другим параметрам)
+        const user = await User.findOne({ username: 'valeyevboss' }); // используй корректное условие для поиска пользователя
+        res.json({ tokens: user.tokens });
+    } catch (error) {
+        res.status(500).json({ error: 'Ошибка получения токенов' });
+    }
+});
+
 // Подключение к MongoDB с ожиданием
 async function startServer() {
     try {

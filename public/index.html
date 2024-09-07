@@ -17,10 +17,10 @@
             </button>
         </header>
 
-        <div class="token-section">
-            <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/Novellacoin.png" alt="Token Icon" class="token-icon">
-            <p class="token-balance">0</p>
-        </div>
+		<div class="token-section">
+			<img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/Novellacoin.png" alt="Token Icon" class="token-icon">
+			<p id="token-balance" class="token-balance">0</p> <!-- Изменено с <p class="token-balance">0</p> -->
+		</div>
     </div>
     <nav class="bottom-menu">
         <a href="index.html" class="menu-item active">
@@ -44,5 +44,20 @@
             <span>Leaders</span>
         </a>
     </nav>
+	<script>
+		// Функция для получения токенов пользователя
+		async function fetchTokens() {
+			try {
+				const response = await fetch('/tokens');
+				const data = await response.json();
+				document.getElementById('token-balance').textContent = data.tokens;
+			} catch (error) {
+				console.error('Ошибка загрузки токенов:', error);
+			}
+		}
+
+		// Загрузить токены при загрузке страницы
+		window.onload = fetchTokens;
+	</script>
 </body>
 </html>
