@@ -75,12 +75,15 @@ bot.onText(/\/start/, async (msg) => {
     try {
         // Ищем пользователя в базе данных или создаем нового
         let user = await User.findOne({ telegramId: userId });
+
+        // Если пользователя нет, создаём нового
         if (!user) {
             user = new User({
                 telegramId: userId,
                 username: userName,
                 lastLogin: new Date(),
-                tokens: 0
+                tokens: 0,
+                status: 'No banned' // По умолчанию новый пользователь не забанен
             });
             await user.save();
         } else {
@@ -88,7 +91,23 @@ bot.onText(/\/start/, async (msg) => {
             await user.save();
         }
 
-        // Отправляем одно сообщение с картинкой и кнопками
+        // Проверяем, забанен ли пользователь
+        if (user.status === 'banned') {
+            bot.sendMessage(chatId, 'You are banned. Please visit the following link for more information: https://your-server.com/banned.html');
+            return; // Останавливаем выполнение
+        }
+
+        // Если у пользователя нет username, перенаправляем его на страницу ошибки
+        if (!userName) {
+            bot.sendMessage(chatId, 'Redirecting to error page...');
+            bot.sendPhoto(chatId, 'https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/Novellacoin_falied.png', {
+                caption: "You don't exist",
+                parse_mode: 'HTML'
+            });
+            return;
+        }
+
+        // Если всё в порядке, отправляем сообщение с картинкой и кнопками
         bot.sendPhoto(chatId, imageUrl, {
             caption: `Welcome, ${userName}!`,
             reply_markup: options.reply_markup

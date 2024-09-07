@@ -19,11 +19,11 @@ body {
     background: linear-gradient(90deg, #ffffff, #1E90FF);
     color: white;
     font-family: 'Unispace', sans-serif;
-    font-size: 1.5vw; /* Адаптивный шрифт */
+    font-size: 2.0vw; /* Адаптивный шрифт */
     border: none;
     padding: 2vh 5vw; /* Адаптивные отступы */
     cursor: pointer;
-    border-radius: 30px;
+    border-radius: 35px;
     width: 50vw; /* Ширина кнопки 50% экрана */
     text-align: center;
     white-space: nowrap;
@@ -140,4 +140,110 @@ body {
 .menu-item span {
     font-size: 12px;
     margin-top: 5px;
+}
+
+/* Стили для страницы загрузки */
+.loading-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #000;
+}
+
+.loading-icon {
+    width: 150px; /* Размер иконки */
+    height: 150px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Стили для страницы ошибки */
+.error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+.error-container img {
+    width: 400px; /* Размер иконки */
+    height: auto;
+}
+
+.error-container p {
+    font-size: 2.0rem;
+    margin-top: 5px;
+    color: white;
+}
+
+/* Анимация для появления элементов */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+body {
+    background-color: #000;
+    font-family: 'Arial', sans-serif;
+    color: white;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+/* Стиль для страницы блокировки /banned */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #333;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+.message {
+    max-width: 600px;
+    margin: 20px;
+    animation: fadeIn 2s ease-in;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+p {
+    font-size: 1.5em;
+    margin-top: 20px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
