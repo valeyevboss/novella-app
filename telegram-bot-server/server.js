@@ -88,11 +88,13 @@ bot.onText(/\/start/, async (msg) => {
             await user.save();
         }
 
-        // Ответ боту
-        bot.sendMessage(chatId, `Добро пожаловать, ${userName}!`, options);
-        bot.sendPhoto(chatId, imageUrl, { caption: 'Welcome to Novella!' });
+        // Отправляем одно сообщение с картинкой и кнопками
+        bot.sendPhoto(chatId, imageUrl, {
+            caption: `Welcome, ${userName}!`,
+            reply_markup: options.reply_markup
+        });
     } catch (err) {
         console.error('Error handling /start:', err);
-        bot.sendMessage(chatId, 'Произошла ошибка. Попробуйте позже.');
+        bot.sendMessage(chatId, 'An error has occurred. Please try again later.');
     }
 });
