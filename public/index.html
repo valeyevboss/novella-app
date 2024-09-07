@@ -44,48 +44,39 @@
             <span>Leaders</span>
         </a>
     </nav>
-	
 	<script>
-		// Функция для получения токенов пользователя
-		async function fetchTokens() {
+		// Получение Telegram ID из куки
+		function getTelegramId() {
+			const value = `; ${document.cookie}`;
+			const parts = value.split(`; telegramId=`);
+			if (parts.length === 2) return parts.pop().split(';').shift();
+		}
+
+		// Функция для проверки статуса пользователя
+		async function checkUserStatus() {
 			try {
-				const response = await fetch('/tokens');
+				const telegramId = getTelegramId(); // Получаем ID пользователя из куки
+				if (!telegramId) {
+					console.warn('Telegram ID не найден');
+					return;
+				}
+				
+				const response = await fetch(`/check-status?telegramId=${telegramId}`);
 				const data = await response.json();
-				document.getElementById('token-balance').textContent = data.tokens;
+
+				if (data.status === 'banned') {
+					window.location.href = '/banned'; // Перенаправление на страницу бана
+				}
 			} catch (error) {
-				console.error('Ошибка загрузки токенов:', error);
+				console.error('Ошибка проверки статуса:', error);
 			}
 		}
 
-		// Загрузить токены при загрузке страницы
-		window.onload = fetchTokens;
+		// Загрузить токены и проверить статус при загрузке страницы
+		window.onload = function() {
+			fetchTokens();
+			checkUserStatus();
+		};
 	</script>
-	
-	// Функция для получения Telegram ID из локального хранилища
-	function getTelegramId() {
-		return localStorage.getItem('telegramId'); // Измените эту строку в зависимости от того, где хранится ID
-	}
-	
-	<script>
-	// Пример функции для проверки статуса пользователя
-	async function checkUserStatus() {
-		try {
-			// Получаем ID пользователя из какого-то источника, например, из куки или локального хранилища
-			const telegramId = getTelegramId(); // Реализуйте эту функцию в зависимости от вашей логики
-			const response = await fetch(`/check-status?telegramId=${telegramId}`);
-			const data = await response.json();
-
-			if (data.status === 'banned') {
-				window.location.href = '/banned'; // Перенаправление на страницу бана
-			}
-		} catch (error) {
-			console.error('Ошибка проверки статуса:', error);
-		}
-	}
-	
-    // Вызов функции при загрузке страницы
-    document.addEventListener('DOMContentLoaded', checkUserStatus);
-</script>
-
 </body>
 </html>

@@ -1,10 +1,11 @@
 const express = require('express');
 const path = require('path');
+const app = express();
 const mongoose = require('mongoose');
+
 const TelegramBot = require('node-telegram-bot-api');
 const User = require('../models/User');
 
-const app = express();
 const port = process.env.PORT || 3000;
 
 const telegramBotToken = process.env.TELEGRAM_BOT_TOKEN;
@@ -15,7 +16,18 @@ if (!telegramBotToken) {
 
 const bot = new TelegramBot(telegramBotToken, { polling: true });
 
-// Подключение папки для статических файлов
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
+
+// Установка куки при авторизации пользователя
+app.post('/login', async (req, res) => {
+    // Логика авторизации пользователя
+    const telegramId = req.body.telegramId; // Например, получаем ID из запроса
+    res.cookie('telegramId', telegramId); // Сохраняем ID в куки
+    res.redirect('/');
+});
+
+// Обслуживание статических файлов
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
 // Сначала отдаем страницу загрузки
