@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const User = require('./models/User'); // Убедитесь, что путь к файлу правильный
 
 // Подключение к MongoDB
-mongoose.connect('mongodb+srv://nikitavaleyev:96ywUnjl9RD1JI6c@novellaapp.0pp0y.mongodb.net/novellaapp?retryWrites=true&w=majority', {
+mongoose.connect('mongodb+srv://nikitavaleyev:XpO3xtEjYuLgSbFX@novellaapp.0pp0y.mongodb.net/novellaapp?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
