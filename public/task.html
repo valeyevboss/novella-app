@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Novella App - Main</title>
+    <title>Novella App - Task</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="preload" href="/fonts/UniSans.woff2" as="font" type="font/woff2" crossorigin="anonymous">
     <link rel="preload" href="/fonts/MaiandraGD.woff2" as="font" type="font/woff2" crossorigin="anonymous">
@@ -11,24 +11,33 @@
 </head>
 <body>
     <div class="main-page">
-        <header>
-            <button class="freedurov-button" onclick="window.open('https://www.change.org/p/free-pavel-durov-freedurov?source_location=tag_')">
-                #FREEDUROV
-            </button>
+        <header class="task-header">
+            <!-- Иконка Tasks с возможностью контролировать её размер через CSS -->
+            <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725668256/Task.png" alt="Tasks Icon" class="task-icon">
+            
+            <!-- Заголовок Tasks -->
+            <h1 class="task-title">Tasks</h1>
+            
+            <!-- Описание ниже заголовка -->
+            <p class="task-subtitle">
+                Get rewards for completing all partner tasks.
+            </p>
         </header>
 
-        <div class="token-section">
-            <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/Novellacoin.png" alt="Token Icon" class="token-icon">
-            <p class="token-balance">154,910</p>
+        <!-- Сообщение о разработке -->
+        <div class="content">
+            <p class="task-development-message">
+                The tasks are under development
+            </p>
         </div>
     </div>
 
     <nav class="bottom-menu">
-        <a href="index.html" class="menu-item active">
+        <a href="index.html" class="menu-item">
             <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/main_icon.png" alt="Main">
             <span>Main</span>
         </a>
-        <a href="task.html" class="menu-item">
+        <a href="task.html" class="menu-item active">
             <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/task_icon.png" alt="Task">
             <span>Task</span>
         </a>

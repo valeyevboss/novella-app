@@ -10,30 +10,52 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start; /* Перемещаем элементы вверх */
     height: 100vh;
+    padding-top: 5vh; /* Отступ сверху для кнопки */
 }
 
 .freedurov-button {
-    background: linear-gradient(to right, #ffffff, #1E90FF);
-    border: none;
+    background: linear-gradient(90deg, #ffffff, #1E90FF);
     color: white;
     font-family: 'Unispace', sans-serif;
-    font-size: 16px;
-    padding: 10px 20px;
+    font-size: 1.5vw; /* Адаптивный шрифт */
+    border: none;
+    padding: 2vh 5vw; /* Адаптивные отступы */
     cursor: pointer;
-    border-radius: 5px;
-    margin-top: 20px;
+    border-radius: 30px;
+    width: 50vw; /* Ширина кнопки 50% экрана */
+    text-align: center;
+    white-space: nowrap;
+    position: relative;
+    transition: transform 0.2s ease, background 0.5s ease, opacity 0.2s ease;
+}
+
+.freedurov-button:hover {
+    transform: scale(1.05); /* Лёгкое увеличение кнопки при наведении */
+    background: linear-gradient(90deg, #ffffff, #1E90FF, #1C86EE); /* Перелив градиента при наведении */
+    opacity: 0.95; /* Лёгкое затемнение для контраста */
+}
+
+.freedurov-button::after {
+    content: ' >'; /* Стрелка */
+    display: inline-block;
+    margin-left: 8px; /* Отступ между текстом и стрелкой */
+    transition: transform 0.2s ease; /* Анимация стрелки */
+}
+
+.freedurov-button:hover::after {
+    transform: translateX(5px); /* Движение стрелки вправо при наведении */
 }
 
 .token-section {
     text-align: center;
-    margin-top: 50px;
+    margin-top: 15vh; /* Смещаем иконку выше */
 }
 
 .token-icon {
-    width: 100px;
-    height: 100px;
+    width: 250px; /* Увеличиваем иконку */
+    height: 250px;
 }
 
 .token-balance {
@@ -41,6 +63,45 @@ body {
     font-size: 32px;
     color: white;
     margin-top: 10px;
+}
+
+/* Стили для Task страницы */
+.task-header {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Размер иконки Task, можно изменить по желанию */
+.task-icon {
+    width: 100px; /* Контроль размера иконки */
+    height: 100px;
+    margin-bottom: 10px;
+}
+
+/* Жирный заголовок Tasks */
+.task-title {
+    font-family: 'Uni Sans', sans-serif;
+    font-weight: bold;
+    font-size: 30px;
+    color: white;
+    margin-top: 10px;
+}
+
+/* Описание под заголовком */
+.task-subtitle {
+    font-family: 'Maiandra GD', sans-serif;
+    font-size: 14px;
+    color: grey;
+    margin-top: -10px;
+}
+
+/* Сообщение о разработке */
+.task-development-message {
+    font-family: 'Maiandra GD', sans-serif;
+    font-size: 24px;
+    color: white;
+    text-align: center;
+    margin-top: 50px;
 }
 
 /* Стили для нижнего меню */

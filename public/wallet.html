@@ -3,28 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Novella App - Main</title>
+    <title>Novella App - Wallet</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="preload" href="/fonts/UniSans.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-    <link rel="preload" href="/fonts/MaiandraGD.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-    <link rel="preload" href="/fonts/Unispace.woff2" as="font" type="font/woff2" crossorigin="anonymous">
 </head>
 <body>
     <div class="main-page">
-        <header>
-            <button class="freedurov-button" onclick="window.open('https://www.change.org/p/free-pavel-durov-freedurov?source_location=tag_')">
-                #FREEDUROV
-            </button>
+        <header class="task-header">
+            <!-- Заголовок Wallet -->
+            <h1 class="task-title">Wallet</h1>
+            
+            <!-- Описание ниже заголовка -->
+            <p class="task-subtitle">
+                Manage your wallet and connect with partners.
+            </p>
         </header>
 
-        <div class="token-section">
-            <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/Novellacoin.png" alt="Token Icon" class="token-icon">
-            <p class="token-balance">154,910</p>
+        <!-- Сообщение о разработке -->
+        <div class="content">
+            <p class="task-development-message">
+                The wallet feature is under development
+            </p>
         </div>
     </div>
 
     <nav class="bottom-menu">
-        <a href="index.html" class="menu-item active">
+        <a href="index.html" class="menu-item">
             <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/main_icon.png" alt="Main">
             <span>Main</span>
         </a>
@@ -32,7 +35,7 @@
             <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/task_icon.png" alt="Task">
             <span>Task</span>
         </a>
-        <a href="wallet.html" class="menu-item">
+        <a href="wallet.html" class="menu-item active">
             <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/wallet_icon.png" alt="Wallet">
             <span>Wallet</span>
         </a>

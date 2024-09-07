@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Banned</title>
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             display: flex;
             flex-direction: column;
@@ -21,6 +25,7 @@
         .message {
             max-width: 600px;
             margin: 20px;
+            animation: fadeIn 2s ease-in;
         }
 
         img {
@@ -32,11 +37,20 @@
             font-size: 1.5em;
             margin-top: 20px;
         }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="message">
-        <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/Novellabanned.png" alt="Banned">
+        <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/Novellabanned.png" alt="Banned" width="400" height="400">
         <p>Your account has been banned. Please contact support.</p>
     </div>
 </body>
