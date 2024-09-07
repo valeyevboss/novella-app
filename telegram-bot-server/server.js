@@ -1,12 +1,11 @@
 const express = require('express');
 const path = require('path');
-const app = express();
 const mongoose = require('mongoose');
-
-
 const TelegramBot = require('node-telegram-bot-api');
 const User = require('../models/User');
+const cookieParser = require('cookie-parser');
 
+const app = express();
 const port = process.env.PORT || 3000;
 
 const telegramBotToken = process.env.TELEGRAM_BOT_TOKEN;
@@ -18,14 +17,14 @@ if (!telegramBotToken) {
 const bot = new TelegramBot(telegramBotToken, { polling: true });
 
 // Используйте cookie-parser как middleware
-const cookieParser = require('cookie-parser');
 app.use(cookieParser());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Установка куки при авторизации пользователя
 app.post('/login', async (req, res) => {
-    // Логика авторизации пользователя
-    const telegramId = req.body.telegramId; // Например, получаем ID из запроса
-    res.cookie('telegramId', telegramId); // Сохраняем ID в куки
+    const telegramId = req.body.telegramId; // Получаем ID из запроса
+    res.cookie('telegramId', telegramId, { httpOnly: true }); // Устанавливаем куку как HttpOnly
     res.redirect('/');
 });
 
@@ -68,10 +67,16 @@ app.get('/check-status', async (req, res) => {
 
 // Этот код добавит маршрут /tokens, который будет отдавать токены пользователя.
 app.get('/tokens', async (req, res) => {
+    const telegramId = req.query.telegramId; // Получаем ID из запроса
+
     try {
-        // Получаем пользователя из базы данных (например, по ID сессии или другим параметрам)
-        const user = await User.findOne({ username: 'valeyevboss' }); // используй корректное условие для поиска пользователя
-        res.json({ tokens: user.tokens });
+        // Получаем пользователя из базы данных
+        const user = await User.findOne({ telegramId: telegramId });
+        if (user) {
+            res.json({ tokens: user.tokens });
+        } else {
+            res.status(404).json({ error: 'User not found' });
+        }
     } catch (error) {
         res.status(500).json({ error: 'Ошибка получения токенов' });
     }
@@ -92,7 +97,6 @@ async function startServer() {
         process.exit(1); // Останавливаем сервер при ошибке подключения
     }
 }
-
 
 startServer();
 

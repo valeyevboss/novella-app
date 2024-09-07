@@ -17,10 +17,10 @@
             </button>
         </header>
 
-		<div class="token-section">
-			<img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/Novellacoin.png" alt="Token Icon" class="token-icon">
-			<p id="token-balance" class="token-balance">0</p> <!-- Изменено с <p class="token-balance">0</p> -->
-		</div>
+        <div class="token-section">
+            <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/Novellacoin.png" alt="Token Icon" class="token-icon">
+            <p id="token-balance" class="token-balance">0</p>
+        </div>
     </div>
     <nav class="bottom-menu">
         <a href="index.html" class="menu-item active">
@@ -44,39 +44,51 @@
             <span>Leaders</span>
         </a>
     </nav>
-	<script>
-		// Получение Telegram ID из куки
-		function getTelegramId() {
-			const value = `; ${document.cookie}`;
-			const parts = value.split(`; telegramId=`);
-			if (parts.length === 2) return parts.pop().split(';').shift();
-		}
+    
+    <script>
+        // Функция для получения токенов пользователя
+        async function fetchTokens() {
+            try {
+                const response = await fetch('/tokens');
+                const data = await response.json();
+                document.getElementById('token-balance').textContent = data.tokens;
+            } catch (error) {
+                console.error('Ошибка загрузки токенов:', error);
+            }
+        }
 
-		// Функция для проверки статуса пользователя
-		async function checkUserStatus() {
-			try {
-				const telegramId = getTelegramId(); // Получаем ID пользователя из куки
-				if (!telegramId) {
-					console.warn('Telegram ID не найден');
-					return;
-				}
-				
-				const response = await fetch(`/check-status?telegramId=${telegramId}`);
-				const data = await response.json();
+        // Функция для получения Telegram ID из куки
+        function getTelegramId() {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; telegramId=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
 
-				if (data.status === 'banned') {
-					window.location.href = '/banned'; // Перенаправление на страницу бана
-				}
-			} catch (error) {
-				console.error('Ошибка проверки статуса:', error);
-			}
-		}
+        // Функция для проверки статуса пользователя
+        async function checkUserStatus() {
+            try {
+                const telegramId = getTelegramId(); // Получаем ID пользователя из куки
+                if (!telegramId) {
+                    console.warn('Telegram ID не найден');
+                    return;
+                }
+                
+                const response = await fetch(`/check-status?telegramId=${telegramId}`);
+                const data = await response.json();
 
-		// Загрузить токены и проверить статус при загрузке страницы
-		window.onload = function() {
-			fetchTokens();
-			checkUserStatus();
-		};
-	</script>
+                if (data.status === 'banned') {
+                    window.location.href = '/banned'; // Перенаправление на страницу бана
+                }
+            } catch (error) {
+                console.error('Ошибка проверки статуса:', error);
+            }
+        }
+
+        // Загрузить токены и проверить статус при загрузке страницы
+        window.onload = async function() {
+            await fetchTokens();
+            await checkUserStatus();
+        };
+    </script>
 </body>
 </html>
