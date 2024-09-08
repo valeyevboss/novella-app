@@ -44,25 +44,13 @@ async function startServer() {
 
 startServer();
 
-// Маршрут для получения токенов
+// Добавление серверного маршрута для получения токенов
 app.get('/tokens', async (req, res) => {
     try {
-        const { telegramId } = req.query;
-        console.log('Запрос на токены для:', telegramId); // Логируем ID
-
-        if (!telegramId) {
-            return res.status(400).json({ error: 'Telegram ID is required' });
-        }
-
-        const user = await User.findOne({ telegramId });
-        if (!user) {
-            return res.status(404).json({ error: 'User not found' });
-        }
-
-        console.log('Найден пользователь:', user); // Логируем найденного пользователя
+        // Получаем пользователя из базы данных (например, по ID сессии или другим параметрам)
+        const user = await User.findOne({ username: 'valeyevboss' }); // используй корректное условие для поиска пользователя
         res.json({ tokens: user.tokens });
     } catch (error) {
-        console.error('Ошибка получения токенов:', error);
         res.status(500).json({ error: 'Ошибка получения токенов' });
     }
 });
@@ -75,19 +63,19 @@ const options = {
                 {
                     text: 'Play Now',
                     web_app: {
-                        url: 'https://novella-telegram-bot.onrender.com/' // URL веб-приложения
+                        url: 'https://novella-telegram-bot.onrender.com/' // Замените на URL вашего веб-приложения
                     }
                 },
                 {
                     text: 'Join Novella Community',
-                    url: 'https://t.me/novellatoken_community' // URL телеграм-канала
+                    url: 'https://t.me/novellatoken_community' // Замените на URL вашего телеграм-канала
                 }
             ]
         ]
     }
 };
 
-const imageUrl = 'https://res.cloudinary.com/dvjohgg6j/image/upload/v1725631955/Banner/Novella%20banner.jpg'; // Публичный URL изображения
+const imageUrl = 'https://res.cloudinary.com/dvjohgg6j/image/upload/v1725631955/Banner/Novella%20banner.jpg'; // Публичный URL вашего изображения
 
 // Обработка команды /start
 bot.onText(/\/start/, async (msg) => {
@@ -99,24 +87,19 @@ bot.onText(/\/start/, async (msg) => {
         // Ищем пользователя в базе данных или создаем нового
         let user = await User.findOne({ telegramId: userId });
         if (!user) {
-            console.log('Создаем нового пользователя');
             user = new User({
                 telegramId: userId,
                 username: userName,
                 lastLogin: new Date(),
-                tokens: 1000 // Здесь задаем начальное количество токенов
+                tokens: 0
             });
             await user.save();
         } else {
-            // Обновляем только lastLogin, не сбрасывая tokens
-            console.log('Пользователь найден, обновляем lastLogin');
             user.lastLogin = new Date();
-            await user.save(); // Обновляем только дату
+            await user.save();
         }
 
-        console.log('Текущий баланс токенов:', user.tokens); // Логируем баланс токенов
-
-        // Отправляем сообщение с картинкой и кнопками
+        // Отправляем одно сообщение с картинкой и кнопками
         bot.sendPhoto(chatId, imageUrl, {
             caption: `Welcome, ${userName}!`,
             reply_markup: options.reply_markup
