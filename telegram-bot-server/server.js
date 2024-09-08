@@ -44,11 +44,12 @@ async function startServer() {
 
 startServer();
 
-// Добавление серверного маршрута для получения токенов
+// Маршрут для получения токенов
 app.get('/tokens', async (req, res) => {
     try {
         const { telegramId } = req.query;
         console.log('Запрос на токены для:', telegramId); // Логируем ID
+
         if (!telegramId) {
             return res.status(400).json({ error: 'Telegram ID is required' });
         }
@@ -58,7 +59,7 @@ app.get('/tokens', async (req, res) => {
             return res.status(404).json({ error: 'User not found' });
         }
 
-        console.log('Найден пользователь:', user);
+        console.log('Найден пользователь:', user); // Логируем найденного пользователя
         res.json({ tokens: user.tokens });
     } catch (error) {
         console.error('Ошибка получения токенов:', error);
@@ -74,19 +75,19 @@ const options = {
                 {
                     text: 'Play Now',
                     web_app: {
-                        url: 'https://novella-telegram-bot.onrender.com/' // Замените на URL вашего веб-приложения
+                        url: 'https://novella-telegram-bot.onrender.com/' // URL веб-приложения
                     }
                 },
                 {
                     text: 'Join Novella Community',
-                    url: 'https://t.me/novellatoken_community' // Замените на URL вашего телеграм-канала
+                    url: 'https://t.me/novellatoken_community' // URL телеграм-канала
                 }
             ]
         ]
     }
 };
 
-const imageUrl = 'https://res.cloudinary.com/dvjohgg6j/image/upload/v1725631955/Banner/Novella%20banner.jpg'; // Публичный URL вашего изображения
+const imageUrl = 'https://res.cloudinary.com/dvjohgg6j/image/upload/v1725631955/Banner/Novella%20banner.jpg'; // Публичный URL изображения
 
 // Обработка команды /start
 bot.onText(/\/start/, async (msg) => {
@@ -97,22 +98,25 @@ bot.onText(/\/start/, async (msg) => {
     try {
         // Ищем пользователя в базе данных или создаем нового
         let user = await User.findOne({ telegramId: userId });
-		if (!user) {
-			user = new User({
-				telegramId: userId,
-				username: userName,
-				lastLogin: new Date(),
-				tokens: 0 // Здесь начальное значение только для новых пользователей
-			});
-			await user.save();
-		} else {
-			// Обновляем только lastLogin, не сбрасывая tokens
-			user.lastLogin = new Date();
-			await user.save(); // Обратите внимание, что токены не изменяются
-		}
+        if (!user) {
+            console.log('Создаем нового пользователя');
+            user = new User({
+                telegramId: userId,
+                username: userName,
+                lastLogin: new Date(),
+                tokens: 1000 // Здесь задаем начальное количество токенов
+            });
+            await user.save();
+        } else {
+            // Обновляем только lastLogin, не сбрасывая tokens
+            console.log('Пользователь найден, обновляем lastLogin');
+            user.lastLogin = new Date();
+            await user.save(); // Обновляем только дату
+        }
 
+        console.log('Текущий баланс токенов:', user.tokens); // Логируем баланс токенов
 
-        // Отправляем одно сообщение с картинкой и кнопками
+        // Отправляем сообщение с картинкой и кнопками
         bot.sendPhoto(chatId, imageUrl, {
             caption: `Welcome, ${userName}!`,
             reply_markup: options.reply_markup
