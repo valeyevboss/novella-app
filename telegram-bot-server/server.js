@@ -47,18 +47,8 @@ startServer();
 // Добавление серверного маршрута для получения токенов
 app.get('/tokens', async (req, res) => {
     try {
-        const telegramId = req.query.telegramId; // Получаем telegramId из параметров запроса
-
-        if (!telegramId) {
-            return res.status(400).json({ error: 'Telegram ID не указан' });
-        }
-
-        // Ищем пользователя по Telegram ID
-        const user = await User.findOne({ telegramId: telegramId });
-        if (!user) {
-            return res.status(404).json({ error: 'Пользователь не найден' });
-        }
-
+        // Получаем пользователя из базы данных (например, по ID сессии или другим параметрам)
+        const user = await User.findOne({ username: 'valeyevboss' }); // используй корректное условие для поиска пользователя
         res.json({ tokens: user.tokens });
     } catch (error) {
         res.status(500).json({ error: 'Ошибка получения токенов' });
