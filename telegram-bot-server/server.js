@@ -98,18 +98,20 @@ bot.onText(/\/start/, async (msg) => {
     try {
         // Ищем пользователя в базе данных или создаем нового
         let user = await User.findOne({ telegramId: userId });
-        if (!user) {
-            user = new User({
-                telegramId: userId,
-                username: userName,
-                lastLogin: new Date(),
-                tokens: 0
-            });
-            await user.save();
-        } else {
-            user.lastLogin = new Date();
-            await user.save();
-        }
+		if (!user) {
+			user = new User({
+				telegramId: userId,
+				username: userName,
+				lastLogin: new Date(),
+				tokens: 0 // Здесь начальное значение только для новых пользователей
+			});
+			await user.save();
+		} else {
+			// Обновляем только lastLogin, не сбрасывая tokens
+			user.lastLogin = new Date();
+			await user.save(); // Обратите внимание, что токены не изменяются
+		}
+
 
         // Отправляем одно сообщение с картинкой и кнопками
         bot.sendPhoto(chatId, imageUrl, {
