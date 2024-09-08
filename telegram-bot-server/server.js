@@ -19,8 +19,27 @@ const bot = new TelegramBot(telegramBotToken, { polling: true });
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
 // Отдача index.html по умолчанию
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
+app.get('/', async (req, res) => {
+    const telegramId = req.query.telegramId; // Получаем telegramId через URL
+
+    if (!telegramId) {
+        // Перенаправляем на страницу ошибки, если telegramId отсутствует
+        return res.redirect('/loadingerror.html');
+    }
+
+    try {
+        const user = await User.findOne({ telegramId });
+        if (!user) {
+            // Перенаправляем на страницу ошибки, если пользователь не найден в базе данных
+            return res.redirect('/loadingerror.html');
+        }
+
+        // Если всё в порядке, отдаём index.html
+        res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
+    } catch (error) {
+        console.error('Error fetching user:', error);
+        res.status(500).send('Server error');
+    }
 });
 
 // Подключение к MongoDB с ожиданием
@@ -47,8 +66,7 @@ startServer();
 // Добавление серверного маршрута для получения токенов
 app.get('/tokens', async (req, res) => {
     try {
-        // Получаем пользователя из базы данных (например, по ID сессии или другим параметрам)
-        const user = await User.findOne({ username: 'valeyevboss' }); // используй корректное условие для поиска пользователя
+        const user = await User.findOne({ username: 'valeyevboss' });
         res.json({ tokens: user.tokens });
     } catch (error) {
         res.status(500).json({ error: 'Ошибка получения токенов' });
@@ -63,19 +81,19 @@ const options = {
                 {
                     text: 'Play Now',
                     web_app: {
-                        url: 'https://novella-telegram-bot.onrender.com/' // Замените на URL вашего веб-приложения
+                        url: 'https://novella-telegram-bot.onrender.com/'
                     }
                 },
                 {
                     text: 'Join Novella Community',
-                    url: 'https://t.me/novellatoken_community' // Замените на URL вашего телеграм-канала
+                    url: 'https://t.me/novellatoken_community'
                 }
             ]
         ]
     }
 };
 
-const imageUrl = 'https://res.cloudinary.com/dvjohgg6j/image/upload/v1725631955/Banner/Novella%20banner.jpg'; // Публичный URL вашего изображения
+const imageUrl = 'https://res.cloudinary.com/dvjohgg6j/image/upload/v1725631955/Banner/Novella%20banner.jpg';
 
 // Обработка команды /start
 bot.onText(/\/start/, async (msg) => {
@@ -84,6 +102,12 @@ bot.onText(/\/start/, async (msg) => {
     const userName = msg.from.username || msg.from.first_name;
 
     try {
+        if (!userId) {
+            // Если у пользователя нет Telegram ID
+            bot.sendMessage(chatId, 'У вас отсутствует Telegram ID. Пожалуйста, попробуйте позже.');
+            return;
+        }
+
         // Ищем пользователя в базе данных или создаем нового
         let user = await User.findOne({ telegramId: userId });
         if (!user) {
@@ -99,13 +123,13 @@ bot.onText(/\/start/, async (msg) => {
             await user.save();
         }
 
-        // Отправляем одно сообщение с картинкой и кнопками
+        // Отправляем сообщение с картинкой и кнопками
         bot.sendPhoto(chatId, imageUrl, {
             caption: `Welcome, ${userName}!`,
             reply_markup: options.reply_markup
         });
     } catch (err) {
         console.error('Error handling /start:', err);
-        bot.sendMessage(chatId, 'An error has occurred. Please try again later.');
+        bot.sendMessage(chatId, 'Произошла ошибка. Пожалуйста, попробуйте позже.');
     }
 });
