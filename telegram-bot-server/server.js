@@ -45,11 +45,15 @@ async function startServer() {
 startServer();
 
 // Добавление серверного маршрута для получения токенов
-app.get('/tokens', async (req, res) => {
+app.get('/tokens/:telegramId', async (req, res) => {
     try {
-        // Получаем пользователя из базы данных (например, по ID сессии или другим параметрам)
-        const user = await User.findOne({ username: 'valeyevboss' }); // используй корректное условие для поиска пользователя
-        res.json({ tokens: user.tokens });
+        const { telegramId } = req.params;
+        const user = await User.findOne({ telegramId });
+        if (user) {
+            res.json({ tokens: user.tokens });
+        } else {
+            res.status(404).json({ error: 'User not found' });
+        }
     } catch (error) {
         res.status(500).json({ error: 'Ошибка получения токенов' });
     }
@@ -63,7 +67,7 @@ const options = {
                 {
                     text: 'Play Now',
                     web_app: {
-                        url: 'https://novella-telegram-bot.onrender.com/' // Замените на URL вашего веб-приложения
+                        url: `https://novella-telegram-bot.onrender.com/?telegramId=` // Добавим telegramId при отправке сообщения
                     }
                 },
                 {
@@ -99,13 +103,29 @@ bot.onText(/\/start/, async (msg) => {
             await user.save();
         }
 
-        // Отправляем одно сообщение с картинкой и кнопками
+        // Формируем URL для веб-приложения с telegramId
+        const webAppUrl = `https://novella-telegram-bot.onrender.com/?telegramId=${userId}`;
+
+        // Отправляем сообщение с картинкой и кнопками
         bot.sendPhoto(chatId, imageUrl, {
             caption: `Welcome, ${userName}!`,
-            reply_markup: options.reply_markup
+            reply_markup: {
+                inline_keyboard: [
+                    [
+                        {
+                            text: 'Play Now',
+                            web_app: { url: webAppUrl }
+                        },
+                        {
+                            text: 'Join Novella Community',
+                            url: 'https://t.me/novellatoken_community'
+                        }
+                    ]
+                ]
+            }
         });
     } catch (err) {
         console.error('Error handling /start:', err);
-        bot.sendMessage(chatId, 'An error has occurred. Please try again later.');
+        bot.sendMessage(chatId, 'An error occurred. Please try again later.');
     }
 });

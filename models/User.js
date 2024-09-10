@@ -1,11 +1,14 @@
 const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
-    telegramId: Number,
-    username: { type: String, default: null }, // Если username не задан, то по умолчанию null
+    telegramId: { type: Number, unique: true },
+    username: { type: String, default: '' },
     lastLogin: Date,
-    tokens: Number,
-    status: { type: String, default: 'No banned' } // Поле для статуса пользователя (No banned, banned)
+    tokens: { type: Number, default: 0 },
+    status: { type: String, enum: ['No banned', 'banned'], default: 'No banned' }
 });
+
+// Добавляем уникальный индекс на поле telegramId
+UserSchema.index({ telegramId: 1 }, { unique: true });
 
 module.exports = mongoose.model('User', UserSchema);

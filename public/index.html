@@ -45,19 +45,38 @@
         </a>
     </nav>
 	<script>
-    // Функция для получения токенов пользователя
-    async function fetchTokens() {
-        try {
-            const response = await fetch('/tokens');
-            const data = await response.json();
-            document.getElementById('token-balance').textContent = data.tokens;
-        } catch (error) {
-            console.error('Ошибка загрузки токенов:', error);
-        }
-    }
+	// Функция для получения токенов пользователя
+	async function fetchTokens(telegramId) {
+		try {
+			const response = await fetch(`/tokens/${telegramId}`);
+			const data = await response.json();
+			
+			if (response.ok) {
+				document.getElementById('token-balance').textContent = data.tokens;
+			} else {
+				console.error('Ошибка:', data.error);
+			}
+		} catch (error) {
+			console.error('Ошибка загрузки токенов:', error);
+		}
+	}
 
-    // Загрузить токены при загрузке страницы
-    window.onload = fetchTokens;
+	// Получение telegramId из URL
+	function getTelegramIdFromUrl() {
+		const params = new URLSearchParams(window.location.search);
+		return params.get('telegramId');
+	}
+
+	// Загрузить токены при загрузке страницы
+	window.onload = () => {
+		const telegramId = getTelegramIdFromUrl();
+		if (telegramId) {
+			fetchTokens(telegramId);
+		} else {
+			console.error('Telegram ID не найден в URL');
+		}
+	};
 </script>
 </body>
 </html>
+
