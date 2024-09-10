@@ -5,7 +5,8 @@ const UserSchema = new mongoose.Schema({
     username: { type: String, default: '' },
     lastLogin: Date,
     tokens: { type: Number, default: 0 },
-    status: { type: String, enum: ['No banned', 'banned'], default: 'No banned' }
+    status: { type: String, enum: ['No banned', 'banned'], default: 'No banned' },
+	//rank: { type: Number, default: 0 }  // Поле для ранга
 });
 
 // Добавляем уникальный индекс на поле telegramId

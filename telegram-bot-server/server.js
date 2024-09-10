@@ -59,6 +59,21 @@ app.get('/tokens/:telegramId', async (req, res) => {
     }
 });
 
+// Получение топ-100 пользователей
+app.get('/top-users', async (req, res) => {
+    try {
+        const users = await User.find().sort({ tokens: -1 }).limit(100); // Сортировка по токенам в убывающем порядке
+        const userList = users.map(user => ({
+            username: user.username,
+            tokens: user.tokens,
+            avatarUrl: `https://example.com/avatars/${user.telegramId}.jpg` // Замените на реальный URL для аватарок
+        }));
+        res.json({ users: userList });
+    } catch (error) {
+        res.status(500).json({ error: 'Ошибка получения списка пользователей' });
+    }
+});
+
 // Опции для клавиатуры
 const options = {
     reply_markup: {

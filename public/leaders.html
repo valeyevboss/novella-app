@@ -5,24 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Novella App - Leaders</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="preload" href="/fonts/Hooge0555Cyr2.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" href="/fonts/Arial.woff2" as="font" type="font/woff2" crossorigin="anonymous">
 </head>
 <body>
-    <div class="main-page">
-        <header class="task-header">
-            <!-- Заголовок Leaders -->
-            <h1 class="task-title">Leaders</h1>
-            
-            <!-- Описание ниже заголовка -->
-            <p class="task-subtitle">
-                View top players and compete for the highest ranks.
-            </p>
-        </header>
+    <header>
+        <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1726003706/Element/Leaderboard.png" alt="Leaderboard" class="leaderboard-icon">
+        <h1 class="leaderboard-title">LEADERBOARD</h1>
+    </header>
+    
+    <div class="leaderboard-info">
+        <div class="rank-block">
+            <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/Novellacoin.png" alt="Token Icon" class="token-icon">
+            <div class="user-info">
+                <p class="user-position">Your Position</p>
+                <p class="user-name">You</p>
+                <p class="user-balance">Token Balance</p>
+                <p class="user-rank">Rank #1</p>
+            </div>
+        </div>
+        <button class="boost-score" onclick="window.location.href='task.html'">Boost Score</button>
+        <p class="total-users">1000 users</p>
+    </div>
 
-        <!-- Сообщение о разработке -->
-        <div class="content">
-            <p class="task-development-message">
-                The leaders feature is under development
-            </p>
+    <div class="top-list">
+        <!-- Repeat this block for each user in the top 100 -->
+        <div class="top-block">
+            <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/Novellacoin.png" alt="Token Icon" class="token-icon">
+            <div class="top-user-info">
+                <img src="https://example.com/telegram-avatar.jpg" alt="User Avatar" class="user-avatar">
+                <div class="top-user-details">
+                    <p class="top-user-name">User Name</p>
+                    <p class="top-user-balance">Token Balance</p>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -48,5 +64,44 @@
             <span>Leaders</span>
         </a>
     </nav>
+    <script>
+        // Функция для загрузки топ-100 пользователей
+        async function fetchTopUsers() {
+            try {
+                const response = await fetch('/top-users');
+                const data = await response.json();
+                
+                if (response.ok) {
+                    const topList = document.querySelector('.top-list');
+                    topList.innerHTML = ''; // Очистить текущий список
+                    
+                    data.users.forEach(user => {
+                        const userBlock = document.createElement('div');
+                        userBlock.className = 'top-block';
+                        userBlock.innerHTML = `
+                            <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/Novellacoin.png" alt="Token Icon" class="token-icon">
+                            <div class="top-user-info">
+                                <img src="${user.avatarUrl}" alt="User Avatar" class="user-avatar">
+                                <div class="top-user-details">
+                                    <p class="top-user-name">${user.username}</p>
+                                    <p class="top-user-balance">${user.tokens}</p>
+                                </div>
+                            </div>
+                        `;
+                        topList.appendChild(userBlock);
+                    });
+                } else {
+                    console.error('Ошибка:', data.error);
+                }
+            } catch (error) {
+                console.error('Ошибка загрузки пользователей:', error);
+            }
+        }
+
+        // Загрузить топ-100 пользователей при загрузке страницы
+        window.onload = () => {
+            fetchTopUsers();
+        };
+    </script>
 </body>
 </html>

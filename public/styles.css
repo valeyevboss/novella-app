@@ -4,8 +4,128 @@ body {
     font-family: 'Uni Sans', sans-serif;
     margin: 0;
     padding: 0;
+    color: white;
 }
 
+/* Стили для страницы таблицы лидеров */
+body.leaderboard {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.leaderboard-icon {
+    width: 204.8723px;
+    height: 204.8723px;
+    display: block;
+    margin: 0 auto;
+}
+
+.leaderboard-title {
+    font-family: 'Hooge 05_55 Cyr2', sans-serif;
+    font-size: 100pt;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.current-rank {
+    background-color: #181818;
+    border-radius: 20px;
+    padding: 20px;
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+.user-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.user-info {
+    flex-grow: 1;
+}
+
+.user-position {
+    font-size: 52.0296pt;
+}
+
+.user-tokens {
+    font-size: 41.9557pt;
+    color: #b3b3b3;
+}
+
+.user-rank {
+    font-size: 50pt;
+    font-weight: bold;
+    text-align: right;
+}
+
+.boost-score-button {
+    width: 823.4085px;
+    height: 140.1702px;
+    background-color: white;
+    border: none;
+    border-radius: 20px;
+    font-family: 'Arial Bold', sans-serif;
+    font-size: 65.4407pt;
+    color: black;
+    cursor: pointer;
+    margin-top: 30px;
+    display: block;
+    margin: 0 auto;
+}
+
+.total-users {
+    font-family: 'Arial Bold', sans-serif;
+    font-size: 50pt;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.top-list {
+    margin-top: 30px;
+}
+
+.top-entry {
+    background-color: #181818;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+.top-user-info {
+    flex-grow: 1;
+}
+
+.top-username {
+    font-size: 52.0296pt;
+}
+
+.top-user-tokens {
+    font-size: 41.9557pt;
+    color: #b3b3b3;
+}
+
+.top-user-rank {
+    font-size: 50pt;
+    font-weight: bold;
+    text-align: right;
+}
+
+/* Основные стили для страницы */
 .main-page {
     display: flex;
     flex-direction: column;
@@ -194,23 +314,12 @@ body {
     }
 }
 
-body {
-    background-color: #000;
-    font-family: 'Arial', sans-serif;
-    color: white;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-}
-
 /* Стиль для страницы блокировки /banned */
 * {
     box-sizing: border-box;
 }
 
-body {
+body.banned {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -237,13 +346,4 @@ img {
 p {
     font-size: 1.5em;
     margin-top: 20px;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
 }
