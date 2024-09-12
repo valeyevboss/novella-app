@@ -209,8 +209,8 @@ body {
 }
 
 .leaderboard-icon {
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
 }
 
 @font-face {
@@ -222,10 +222,9 @@ body {
 
 .leaderboard-title {
     font-family: 'hooge05_55cyr2', sans-serif;
-    font-size: 24px;
+    font-size: 30px;
     margin-top: 10px;
 }
-
 
 .under-development {
     color: #b3b3b3;
