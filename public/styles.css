@@ -105,25 +105,29 @@ body {
     margin-top: 5px;
 }
 
-/* Стили для Task страницы */
+/* Стили для страницы Task.html */
 .task-header {
     text-align: center;
-    margin-top: 20px;
+    margin: 20px 0;
 }
 
 /* Размер иконки Task, можно изменить по желанию */
 .task-icon {
-    width: 100px; /* Контроль размера иконки */
-    height: 100px;
-    margin-bottom: 10px;
+    width: 70px;
+    height: 70px;
 }
 
-/* Жирный заголовок Tasks */
+@font-face {
+    font-family: 'hooge05_55cyr2';
+    src: url('/fonts/hooge05_55cyr2.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Заголовок: Tasks */
 .task-title {
     font-family: 'Uni Sans', sans-serif;
-    font-weight: bold;
     font-size: 30px;
-    color: white;
     margin-top: 10px;
 }
 
@@ -202,13 +206,13 @@ body {
     background-color: #1C86EE;
 }
 
-/* Стили для Leadres */
+/* Стили для страницы Leadres.html */
 .leaderboard-header {
     text-align: center;
     margin: 20px 0;
 }
 
-/* Иконка */
+/* Иконка: Leaderboard */
 .leaderboard-icon {
     width: 70px;
     height: 70px;
@@ -221,7 +225,7 @@ body {
     font-style: normal;
 }
 
-/* Заголовок */
+/* Заголовок: Leaderboard */
 .leaderboard-title {
     font-family: 'hooge05_55cyr2', sans-serif;
     font-size: 30px;
