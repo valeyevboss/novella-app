@@ -17,10 +17,37 @@
         const telegramId = urlParams.get('telegramId');
 
         if (telegramId) {
-            // Симуляция загрузки перед переходом на главную страницу (например, 3 секунды)
-            setTimeout(() => {
-                window.location.href = `/check-username/${telegramId}`; // Проверяем наличие username
-            }, 3000);
+            // Запрос на получение токенов
+            fetch(`/tokens/${telegramId}`)
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error('User not found');
+                    }
+                })
+                .then(data => {
+                    const tokens = data.tokens;
+
+                    // Определение URL для редиректа в зависимости от наличия токенов и имени пользователя
+                    let redirectUrl = '';
+                    if (!username) {
+                        redirectUrl = '/loadingerror';
+                    } else if (tokens >= 0) {
+                        redirectUrl = '/index.html';
+                    } else {
+                        redirectUrl = '/loadingerror';
+                    }
+
+                    // Симуляция загрузки перед перенаправлением
+                    setTimeout(() => {
+                        window.location.href = redirectUrl;
+                    }, 3000);
+                })
+                .catch(error => {
+                    console.error('Ошибка при получении токенов:', error);
+                    window.location.href = '/loadingerror';
+                });
         } else {
             // Перенаправляем на страницу с ошибкой, если telegramId отсутствует
             window.location.href = '/loadingerror';
