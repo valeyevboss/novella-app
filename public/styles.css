@@ -208,6 +208,7 @@ body {
     margin: 20px 0;
 }
 
+/* Иконка */
 .leaderboard-icon {
     width: 70px;
     height: 70px;
@@ -220,16 +221,22 @@ body {
     font-style: normal;
 }
 
+/* Заголовок */
 .leaderboard-title {
     font-family: 'hooge05_55cyr2', sans-serif;
     font-size: 30px;
     margin-top: 10px;
 }
 
-.under-development {
-    color: #b3b3b3;
-    font-size: 16px;
+/* Описание под заголовком */
+.leader-subtitle {
+    font-family: 'Maiandra GD', sans-serif;
+    font-size: 14px;
+    color: grey;
+    margin-top: -10px;
 }
+
+/* Кнопка буст */
 .boost-score-btn {
     display: block;
     margin: 20px auto;
