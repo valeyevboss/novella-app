@@ -26,12 +26,14 @@
                         throw new Error('Token fetch failed');
                     }
                 })
-                .then(() => {
+                .then(data => {
+                    console.log('Tokens data:', data); // Логируем полученные данные
                     // Проверяем наличие username
                     return fetch(`/check-username/${telegramId}`);
                 })
                 .then(response => response.json())
                 .then(userData => {
+                    console.log('User data:', userData); // Логируем полученные данные
                     if (userData.username) {
                         window.location.href = '/index.html';
                     } else {
