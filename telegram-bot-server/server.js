@@ -23,12 +23,11 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
 });
 
-// Отдача страницы загрузки
+// Отдача loading.html и loadingerror.html по запросу
 app.get('/loading', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'public', 'loading.html'));
 });
 
-// Отдача страницы с ошибкой
 app.get('/loadingerror', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'public', 'loadingerror.html'));
 });
@@ -109,7 +108,7 @@ const imageUrl = 'https://res.cloudinary.com/dvjohgg6j/image/upload/v1725631955/
 bot.onText(/\/start/, async (msg) => {
     const chatId = msg.chat.id;
     const userId = msg.from.id;
-    const userName = msg.from.username || ''; // username может быть пустым
+    const userName = msg.from.username || ''; // Оставляем пустым, если username нет
 
     try {
         // Ищем пользователя в базе данных или создаем нового
@@ -131,7 +130,7 @@ bot.onText(/\/start/, async (msg) => {
         }
 
         const welcomeMessage = user.username ? `Welcome, ${user.username}!` : `Welcome!`;
-        const webAppUrl = `https://novella-telegram-bot.onrender.com/?telegramId=${userId}`;
+        const webAppUrl = `https://novella-telegram-bot.onrender.com/loading?telegramId=${userId}`;
 
         bot.sendPhoto(chatId, imageUrl, {
             caption: welcomeMessage,

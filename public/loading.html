@@ -19,9 +19,15 @@
         if (telegramId) {
             // Запрос на получение токенов
             fetch(`/tokens/${telegramId}`)
-                .then(response => response.json())
-                .then(data => {
-                    // Проверяем наличие токенов и перенаправляем в зависимости от наличия username
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error('Token fetch failed');
+                    }
+                })
+                .then(() => {
+                    // Проверяем наличие username
                     return fetch(`/check-username/${telegramId}`);
                 })
                 .then(response => response.json())
