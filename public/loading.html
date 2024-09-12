@@ -29,27 +29,37 @@
                 .then(data => {
                     const tokens = data.tokens;
 
-                    // Определение URL для редиректа в зависимости от наличия токенов и имени пользователя
+                    // Определение URL для редиректа в зависимости от наличия username и токенов
                     let redirectUrl = '';
-                    if (!username) {
-                        redirectUrl = '/loadingerror';
-                    } else if (tokens >= 0) {
-                        redirectUrl = '/index.html';
-                    } else {
-                        redirectUrl = '/loadingerror';
-                    }
+                    fetch(`/check-username/${telegramId}`)
+                        .then(response => {
+                            if (response.ok) {
+                                return response.json();
+                            } else {
+                                throw new Error('Username not found');
+                            }
+                        })
+                        .then(userData => {
+                            if (userData.username) {
+                                redirectUrl = '/index.html';
+                            } else {
+                                redirectUrl = '/loadingerror';
+                            }
 
-                    // Симуляция загрузки перед перенаправлением
-                    setTimeout(() => {
-                        window.location.href = redirectUrl;
-                    }, 3000);
+                            setTimeout(() => {
+                                window.location.href = redirectUrl;
+                            }, 5000);
+                        })
+                        .catch(error => {
+                            console.error('Ошибка при получении username:', error);
+                            window.location.href = '/loadingerror';
+                        });
                 })
                 .catch(error => {
                     console.error('Ошибка при получении токенов:', error);
                     window.location.href = '/loadingerror';
                 });
         } else {
-            // Перенаправляем на страницу с ошибкой, если telegramId отсутствует
             window.location.href = '/loadingerror';
         }
     </script>
