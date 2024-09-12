@@ -33,17 +33,6 @@
         const telegramId = urlParams.get('telegramId');
 
         if (telegramId) {
-            // Запрос на получение токенов
-            fetch(`/tokens/${telegramId}?timestamp=${new Date().getTime()}`)
-                .then(response => {
-                    if (response.ok) {
-                        return response.json();
-                    } else {
-                        throw new Error('Token fetch failed');
-                    }
-                })
-                .then(data => {
-                    console.log('Tokens data:', data); // Логируем полученные данные
                     // Проверяем наличие username
                     return fetch(`/check-username/${telegramId}`);
                 })
