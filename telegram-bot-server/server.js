@@ -59,35 +59,6 @@ app.get('/tokens/:telegramId', async (req, res) => {
     }
 });
 
-// Получение количества пользователей
-app.get('/user-count', async (req, res) => {
-    try {
-        const userCount = await User.countDocuments();
-        res.json({ count: userCount });
-    } catch (error) {
-        console.error('Ошибка получения количества пользователей:', error);
-        res.status(500).json({ error: 'Ошибка получения количества пользователей' });
-    }
-});
-
-// Получение топ-100 пользователей
-app.get('/top-users', async (req, res) => {
-    try {
-        const topUsers = await User.find().sort({ tokens: -1 }).limit(100);
-        res.json({
-            users: topUsers.map((user, index) => ({
-                username: user.username,
-                tokens: user.tokens,
-                avatar: user.avatarUrl, // Подставить поле с аватаром
-                rank: index + 1
-            }))
-        });
-    } catch (error) {
-        console.error('Ошибка получения топ-100 пользователей:', error);
-        res.status(500).json({ error: 'Ошибка получения топ-100 пользователей' });
-    }
-});
-
 // Опции для клавиатуры
 const options = {
     reply_markup: {

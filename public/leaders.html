@@ -11,41 +11,37 @@
     <div class="leaderboard-header">
         <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1726003706/Element/Leaderboard.png" alt="Leaderboard Icon" class="leaderboard-icon">
         <h1 class="leaderboard-title">LEADERBOARD</h1>
-        <p class="under-development">The leaders feature is under development</p>
+        <p class="under-development">The list of the best users, break into the top!</p>
     </div>
-
-    <!-- Блок с твоим местом -->
-    <div class="user-rank-block">
-        <img src="[AVATAR_URL]" alt="User Avatar" class="user-avatar">
-        <div class="user-info">
-            <p class="user-name">You</p>
-            <p class="user-tokens">[YOUR_TOKEN_BALANCE] NC</p>
-        </div>
-        <div class="user-rank"># [YOUR_RANK]</div>
-    </div>
-
+	
     <!-- Кнопка Boost score -->
     <button class="boost-score-btn" onclick="window.location.href='task.html'">Boost score</button>
-
-    <!-- Количество пользователей -->
-    <div class="total-users">
-        <p>Total users: <span id="user-count">[USER_COUNT]</span> users</p>
-    </div>
-
-    <!-- Топ-100 пользователей -->
-    <div class="top-100">
-        <!-- Пример пользователя -->
-        <div class="top-user-block">
-            <img src="[USER_AVATAR]" alt="User Avatar" class="top-user-avatar">
-            <div class="top-user-info">
-                <p class="top-user-name">[USER_NAME]</p>
-                <p class="top-user-tokens">[USER_TOKEN_BALANCE] NC</p>
-            </div>
-            <div class="top-user-rank"># [USER_RANK]</div>
-        </div>
-        <!-- Повторение блока для других пользователей -->
-    </div>
-
+	
+	<!-- Нижнее меню -->
+	    <nav class="bottom-menu">
+        <a href="index.html" class="menu-item active">
+            <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/main_icon.png" alt="Main">
+            <span>Main</span>
+        </a>
+        <a href="task.html" class="menu-item">
+            <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/task_icon.png" alt="Task">
+            <span>Task</span>
+        </a>
+        <a href="wallet.html" class="menu-item">
+            <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/wallet_icon.png" alt="Wallet">
+            <span>Wallet</span>
+        </a>
+        <a href="airdrop.html" class="menu-item">
+            <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622250/airdrop_icon.png" alt="Airdrop">
+            <span>Airdrop</span>
+        </a>
+        <a href="leaders.html" class="menu-item">
+            <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725623705/leaderboard_icon.png" alt="Leaders">
+            <span>Leaders</span>
+        </a>
+    </nav>
+	
     <script src="leaders.js"></script>
+	
 </body>
 </html>
