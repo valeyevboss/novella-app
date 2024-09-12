@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
     telegramId: { type: Number, unique: true },
+	chatId: { type: Number, required: true, unique: true }, // Поле для хранения ID чата Telegram
     username: { type: String, default: '' },
     lastLogin: Date,
     tokens: { type: Number, default: 0 },
