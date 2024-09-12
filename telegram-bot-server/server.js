@@ -111,6 +111,7 @@ app.post('/update-tokens/:telegramId', async (req, res) => {
     }
 });
 
+
 // Опции для клавиатуры
 const options = {
     reply_markup: {
@@ -181,4 +182,4 @@ bot.onText(/\/start/, async (msg) => {
         console.error('Error handling /start:', err);
         bot.sendMessage(chatId, 'An error occurred. Please try again later.');
     }
-});
+});	
