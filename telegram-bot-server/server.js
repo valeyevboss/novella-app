@@ -109,7 +109,7 @@ const imageUrl = 'https://res.cloudinary.com/dvjohgg6j/image/upload/v1725631955/
 bot.onText(/\/start/, async (msg) => {
     const chatId = msg.chat.id;
     const userId = msg.from.id;
-    const userName = msg.from.username || msg.from.first_name || '';
+    const userName = msg.from.username || ''; // username может быть пустым
 
     try {
         // Ищем пользователя в базе данных или создаем нового
@@ -125,17 +125,16 @@ bot.onText(/\/start/, async (msg) => {
         } else {
             user.lastLogin = new Date();
             if (userName) {
-                user.username = userName;
+                user.username = userName; // Обновляем username, если он существует
             }
             await user.save();
         }
 
-        // Формируем URL для веб-приложения с telegramId
+        const welcomeMessage = user.username ? `Welcome, ${user.username}!` : `Welcome!`;
         const webAppUrl = `https://novella-telegram-bot.onrender.com/?telegramId=${userId}`;
 
-        // Отправляем сообщение с картинкой и кнопками
         bot.sendPhoto(chatId, imageUrl, {
-            caption: `Welcome, ${userName}!`,
+            caption: welcomeMessage,
             reply_markup: {
                 inline_keyboard: [
                     [
