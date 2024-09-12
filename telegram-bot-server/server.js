@@ -2,9 +2,7 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const TelegramBot = require('node-telegram-bot-api');
-
 const User = require('../models/User');
-const Task = require('../models/Task');
 
 const app = express();
 const port = process.env.PORT || 3000;

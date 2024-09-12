@@ -28,7 +28,7 @@ body {
     background: linear-gradient(90deg, #ffffff, #1E90FF);
     color: white;
     font-family: 'Unispace', sans-serif;
-    font-size: 2.0vw; /* Адаптивный шрифт */
+    font-size: 3.0vw; /* Адаптивный шрифт */
     border: none;
     padding: 2vh 5vw; /* Адаптивные отступы */
     cursor: pointer;
@@ -112,19 +112,20 @@ body {
     margin-top: 5px;
 }
 
-/* Стили для страницы Task.html */
+
+/* Стили для страницы Task */
 .task-header {
     text-align: center;
     margin: 20px 0;
 }
 
-/* Размер иконки Task, можно изменить по желанию */
+/* Иконка: Task */
 .task-icon {
     width: 70px;
     height: 70px;
 }
 
-/* Заголовок: Tasks */
+/* Заголовок: Task */
 .task-title {
     font-family: 'hooge05_55cyr2', sans-serif;
     font-size: 30px;
@@ -139,62 +140,58 @@ body {
     margin-top: -10px;
 }
 
-/* Стили для блока задачи */
-.task-block {
-    background-color: rgba(24, 24, 24, 0.9); /* Полупрозрачный фон */
-    border-radius: 15px; /* Скругление углов */
-    padding: 20px; /* Увеличенные отступы внутри блока */
-    margin: 15px 0; /* Увеличенные отступы между блоками */
-    display: flex;
-    align-items: center; /* Выравнивание по центру по вертикали */
-    width: 90%; /* Процент от ширины родителя */
-    max-width: 400px; /* Максимальная ширина */
-    height: 120px; /* Увеличенная высота блока */
-    margin: 0 auto; /* Центрирование блока */
-    position: relative; /* Для позиционирования кнопки */
+/* Стили для страницы Wallet */
+.wallet-header {
+    text-align: center;
+    margin: 20px 0;
 }
 
-.task-icon {
-    width: 80px; /* Увеличенная ширина иконки */
-    height: 80px; /* Увеличенная высота иконки */
-    margin-right: 20px; /* Увеличенный отступ справа от иконки */
+/* Иконка: Wallet */
+.wallet-icon {
+    width: 70px;
+    height: 70px;
 }
 
-.task-details {
-    flex-grow: 1; /* Позволяет блокам занимать доступное пространство */
+/* Заголовок: Wallet */
+.wallet-title {
+    font-family: 'hooge05_55cyr2', sans-serif;
+    font-size: 30px;
+    margin-top: 10px;
 }
 
-.task-title {
-    font-family: 'Uni Sans', sans-serif;
-    font-weight: bold;
-    font-size: 20px; /* Увеличенный размер шрифта заголовка */
-    color: white;
-    margin-bottom: 5px;
+/* Описание под заголовком */
+.wallet-subtitle {
+    font-family: 'Maiandra GD', sans-serif;
+    font-size: 14px;
+    color: grey;
+    margin-top: -10px;
 }
 
-.task-reward {
-    font-family: 'Arial', sans-serif;
-    font-size: 16px; /* Увеличенный размер шрифта вознаграждения */
-    color: #b3b3b3;
+/* Стили для страницы Airdrop */
+.airdrop-header {
+    text-align: center;
+    margin: 20px 0;
 }
 
-.task-button {
-    background-color: #1E90FF;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 18px; /* Увеличенный размер шрифта кнопки */
-    transition: background-color 0.3s ease;
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
+/* Иконка: Aidrop */
+.airdrop-icon {
+    width: 70px;
+    height: 70px;
 }
 
-.task-button:hover {
-    background-color: #1C86EE;
+/* Заголовок: Aidrop */
+.airdrop-title {
+    font-family: 'hooge05_55cyr2', sans-serif;
+    font-size: 30px;
+    margin-top: 10px;
+}
+
+/* Описание под заголовком */
+.airdrop-subtitle {
+    font-family: 'Maiandra GD', sans-serif;
+    font-size: 14px;
+    color: grey;
+    margin-top: -10px;
 }
 
 /* Стили для страницы Leadres.html */
@@ -222,23 +219,6 @@ body {
     font-size: 14px;
     color: grey;
     margin-top: -10px;
-}
-
-/* Кнопка буст */
-.boost-score-btn {
-    display: block;
-    margin: 20px auto;
-    padding: 10px 20px;
-    font-family: Arial, Bold;
-    background-color: #fff;
-    color: #000;
-    border: none;
-    border-radius: 15px;
-    cursor: pointer;
-}
-
-.boost-score-btn:hover {
-    background-color: #ccc;
 }
 
 /* Стили для страницы загрузки */
