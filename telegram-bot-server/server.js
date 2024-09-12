@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const TelegramBot = require('node-telegram-bot-api');
+
 const User = require('../models/User');
 const Task = require('../models/Task');
 
@@ -57,38 +58,6 @@ app.get('/tokens/:telegramId', async (req, res) => {
         }
     } catch (error) {
         res.status(500).json({ error: 'Ошибка получения токенов' });
-    }
-});
-
-// Маршрут для зачисления токенов
-app.post('/tasks/claim/:taskId', async (req, res) => {
-    const { taskId } = req.params;
-    const { telegramId } = req.body;
-
-    try {
-        // Найти пользователя по telegramId
-        const user = await User.findOne({ telegramId });
-        if (!user) {
-            return res.status(404).json({ error: 'User not found' });
-        }
-
-        // Проверка, что задание выполнено (вам нужно добавить поле status для задач в модели)
-        // Пример кода для проверки (если у вас есть поле status у задачи):
-        // const task = await Task.findById(taskId);
-        // if (!task || task.status !== 'completed') {
-        //     return res.status(400).json({ error: 'Task not completed' });
-        // }
-
-        // Начисление токенов (замените rewardTokens на фактическое количество токенов из задания)
-        const rewardTokens = 500; // Примерное количество токенов
-        user.tokens += rewardTokens;
-        await user.save();
-
-        // Возвращаем информацию о начисленных токенах
-        res.json({ tokens: rewardTokens });
-    } catch (error) {
-        console.error('Error claiming task:', error);
-        res.status(500).json({ error: 'Ошибка зачисления токенов' });
     }
 });
 
