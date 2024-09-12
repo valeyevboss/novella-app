@@ -49,13 +49,13 @@
 	<script>
 	// Функция для получения токенов пользователя
 	async function fetchTokens(telegramId) {
-		console.log('Fetching tokens for:', telegramId); // Логируем telegramId
+		const timestamp = new Date().getTime(); // Текущее время в миллисекундах
+		const url = `/tokens/${telegramId}?timestamp=${timestamp}`; // Добавляем параметр времени в запрос
+
 		try {
-			const response = await fetch(`/tokens/${telegramId}`);
+			const response = await fetch(url);
 			const data = await response.json();
-			
-			console.log('Response:', data); // Логируем ответ от сервера
-			
+
 			if (response.ok) {
 				document.getElementById('token-balance').textContent = data.tokens;
 			} else {
@@ -70,7 +70,6 @@
 	function getTelegramIdFromUrl() {
 		const params = new URLSearchParams(window.location.search);
 		const id = params.get('telegramId');
-		console.log('Telegram ID from URL:', id); // Логируем ID из URL
 		return id;
 	}
 
