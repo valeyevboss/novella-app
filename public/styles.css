@@ -214,14 +214,14 @@ body {
 }
 
 @font-face {
-    font-family: 'hooge 05_55 Cyr2';
-    src: url('/fonts/hooge_05_55_cyr2.woff2') format('woff2');
+    font-family: 'hooge05_55cyr2';
+    src: url('/fonts/hooge05_55cyr2.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
 .leaderboard-title {
-    font-family: 'hooge 05_55 Cyr2', sans-serif;
+    font-family: 'hooge05_55cyr2', sans-serif;
     font-size: 24px;
     margin-top: 10px;
 }
