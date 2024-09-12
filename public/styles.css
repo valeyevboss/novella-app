@@ -34,6 +34,7 @@ body.leaderboard {
     margin-top: 20px;
 }
 
+/* Текущий ранг пользователя */
 .current-rank {
     background-color: #181818;
     border-radius: 20px;
@@ -70,6 +71,7 @@ body.leaderboard {
     text-align: right;
 }
 
+/* Кнопка Boost score */
 .boost-score-button {
     width: 823.4085px;
     height: 140.1702px;
@@ -92,6 +94,7 @@ body.leaderboard {
     margin-top: 30px;
 }
 
+/* Стили для отображения топа */
 .top-list {
     margin-top: 30px;
 }
@@ -123,6 +126,53 @@ body.leaderboard {
     font-size: 50pt;
     font-weight: bold;
     text-align: right;
+}
+
+/* Стили для блока задачи */
+.task-block {
+    background-color: #181818;
+    border-radius: 55px;
+    padding: 20px;
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%; /* Процент от ширины родителя */
+    max-width: 400px; /* Максимальная ширина */
+    margin: 0 auto; /* Центрирование блока */
+}
+
+.task-icon {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 10px;
+}
+
+.task-title {
+    font-size: 24px;
+    color: white;
+    margin-bottom: 5px;
+}
+
+.task-reward {
+    font-size: 20px;
+    color: #b3b3b3;
+    margin-bottom: 15px;
+}
+
+.task-button {
+    background-color: #1E90FF;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+}
+
+.task-button:hover {
+    background-color: #1C86EE;
 }
 
 /* Основные стили для страницы */
