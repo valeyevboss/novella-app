@@ -7,6 +7,13 @@ body {
     color: white;
 }
 
+@font-face {
+    font-family: 'hooge05_55cyr2';
+    src: url('/fonts/hooge05_55cyr2.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 /* Основные стили для страницы */
 .main-page {
     display: flex;
@@ -117,16 +124,9 @@ body {
     height: 70px;
 }
 
-@font-face {
-    font-family: 'hooge05_55cyr2';
-    src: url('/fonts/hooge05_55cyr2.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-
 /* Заголовок: Tasks */
 .task-title {
-    font-family: 'Uni Sans', sans-serif;
+    font-family: 'hooge05_55cyr2', sans-serif;
     font-size: 30px;
     margin-top: 10px;
 }
@@ -137,15 +137,6 @@ body {
     font-size: 14px;
     color: grey;
     margin-top: -10px;
-}
-
-/* Сообщение о разработке */
-.task-development-message {
-    font-family: 'Maiandra GD', sans-serif;
-    font-size: 24px;
-    color: white;
-    text-align: center;
-    margin-top: 50px;
 }
 
 /* Стили для блока задачи */
@@ -216,13 +207,6 @@ body {
 .leaderboard-icon {
     width: 70px;
     height: 70px;
-}
-
-@font-face {
-    font-family: 'hooge05_55cyr2';
-    src: url('/fonts/hooge05_55cyr2.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
 }
 
 /* Заголовок: Leaderboard */
