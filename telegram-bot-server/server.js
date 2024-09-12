@@ -23,6 +23,16 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
 });
 
+// Отдача страницы загрузки
+app.get('/loading', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'public', 'loading.html'));
+});
+
+// Отдача страницы с ошибкой
+app.get('/loadingerror', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'public', 'loadingerror.html'));
+});
+
 // Подключение к MongoDB с ожиданием
 async function startServer() {
     try {
@@ -58,6 +68,28 @@ app.get('/tokens/:telegramId', async (req, res) => {
         res.status(500).json({ error: 'Ошибка получения токенов' });
     }
 });
+
+// Проверка наличия username и перенаправление на нужную страницу
+app.get('/check-username/:telegramId', async (req, res) => {
+    try {
+        const { telegramId } = req.params;
+        const user = await User.findOne({ telegramId });
+        if (user) {
+            if (user.username) {
+                // Если username существует, перенаправляем на главную страницу
+                res.redirect('/');
+            } else {
+                // Если username отсутствует, перенаправляем на страницу с ошибкой
+                res.redirect('/loadingerror');
+            }
+        } else {
+            res.status(404).json({ error: 'User not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: 'Ошибка проверки username' });
+    }
+});
+
 
 // Опции для клавиатуры
 const options = {
@@ -103,17 +135,17 @@ bot.onText(/\/start/, async (msg) => {
             await user.save();
         }
 
-        // Формируем URL для веб-приложения с telegramId
-        const webAppUrl = `https://novella-telegram-bot.onrender.com/?telegramId=${userId}`;
+        // Формируем URL для проверки username
+        const webAppUrl = `https://novella-telegram-bot.onrender.com/check-username/${userId}`;
 
-        // Отправляем сообщение с картинкой и кнопками
+        // Отправляем сообщение с кнопкой для загрузки
         bot.sendPhoto(chatId, imageUrl, {
             caption: `Welcome, ${userName}!`,
             reply_markup: {
                 inline_keyboard: [
                     [
                         {
-                            text: 'Play Now',
+                            text: 'Start App',
                             web_app: { url: webAppUrl }
                         },
                         {

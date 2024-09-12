@@ -12,10 +12,19 @@
     </div>
 
     <script>
-        // Симуляция загрузки перед переходом на главную страницу (например, 3 секунды)
-        setTimeout(() => {
-            window.location.href = 'index.html'; // Замените на путь к вашему главному меню
-        }, 3000);
+        // Получаем telegramId из URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const telegramId = urlParams.get('telegramId');
+
+        if (telegramId) {
+            // Симуляция загрузки перед переходом на главную страницу (например, 3 секунды)
+            setTimeout(() => {
+                window.location.href = `/check-username/${telegramId}`; // Проверяем наличие username
+            }, 3000);
+        } else {
+            // Перенаправляем на страницу с ошибкой, если telegramId отсутствует
+            window.location.href = '/loadingerror';
+        }
     </script>
 </body>
 </html>
