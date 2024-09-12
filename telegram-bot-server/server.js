@@ -113,7 +113,6 @@ const options = {
 
 const imageUrl = 'https://res.cloudinary.com/dvjohgg6j/image/upload/v1725631955/Banner/Novella%20banner.jpg'; // Публичный URL вашего изображения
 
-// Обработка команды /start
 bot.onText(/\/start/, async (msg) => {
     const chatId = msg.chat.id;
     const userId = msg.from.id;
@@ -135,8 +134,8 @@ bot.onText(/\/start/, async (msg) => {
             await user.save();
         }
 
-        // Формируем URL для проверки username
-        const webAppUrl = `https://novella-telegram-bot.onrender.com/check-username/${userId}`;
+        // Формируем URL для страницы загрузки
+        const webAppUrl = `https://novella-telegram-bot.onrender.com/loading?telegramId=${userId}`;
 
         // Отправляем сообщение с кнопкой для загрузки
         bot.sendPhoto(chatId, imageUrl, {
