@@ -5,6 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Novella App - Loading</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Добавим некоторые стили для загрузочного экрана */
+        .loading-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000; /* Черный фон для контраста */
+            color: #fff; /* Белый текст для читаемости */
+        }
+
+        .loading-icon {
+            width: 100px;
+            height: 100px;
+        }
+    </style>
 </head>
 <body>
     <div class="loading-container">
@@ -18,7 +34,7 @@
 
         if (telegramId) {
             // Запрос на получение токенов
-            fetch(`/tokens/${telegramId}`)
+            fetch(`/tokens/${telegramId}?timestamp=${new Date().getTime()}`)
                 .then(response => {
                     if (response.ok) {
                         return response.json();
@@ -31,7 +47,13 @@
                     // Проверяем наличие username
                     return fetch(`/check-username/${telegramId}`);
                 })
-                .then(response => response.json())
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error('User fetch failed');
+                    }
+                })
                 .then(userData => {
                     console.log('User data:', userData); // Логируем полученные данные
                     if (userData.username) {

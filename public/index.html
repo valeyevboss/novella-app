@@ -17,13 +17,13 @@
             </button>
         </header>
 
-		<div class="token-section">
-			<img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/Novellacoin.png" alt="Token Icon" class="token-icon">
-			<p id="token-balance" class="token-balance">0</p> 
-		</div>
+        <div class="token-section">
+            <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/Novellacoin.png" alt="Token Icon" class="token-icon">
+            <p id="token-balance" class="token-balance">0</p> 
+        </div>
     </div>
-	
-	<!-- Нижнее меню -->
+    
+    <!-- Нижнее меню -->
     <nav class="bottom-menu">
         <a href="index.html" class="menu-item active">
             <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/main_icon.png" alt="Main">
@@ -46,43 +46,21 @@
             <span>Leaders</span>
         </a>
     </nav>
-	<script>
-	// Функция для получения токенов пользователя
-	async function fetchTokens(telegramId) {
-		const timestamp = new Date().getTime(); // Текущее время в миллисекундах
-		const url = `/tokens/${telegramId}?timestamp=${timestamp}`; // Добавляем параметр времени в запрос
+    <script>
+    // Функция для получения токенов пользователя
+    async function fetchTokens(telegramId) {
+        const timestamp = new Date().getTime(); // Текущее время в миллисекундах
+        const response = await fetch(`/tokens/${telegramId}?timestamp=${timestamp}`);
+        const data = await response.json();
+        if (response.ok) {
+            document.getElementById('token-balance').textContent = data.tokens;
+        } else {
+            console.error('Ошибка получения токенов:', data.error);
+        }
+    }
 
-		try {
-			const response = await fetch(url);
-			const data = await response.json();
-
-			if (response.ok) {
-				document.getElementById('token-balance').textContent = data.tokens;
-			} else {
-				console.error('Ошибка:', data.error);
-			}
-		} catch (error) {
-			console.error('Ошибка загрузки токенов:', error);
-		}
-	}
-
-	// Получение telegramId из URL
-	function getTelegramIdFromUrl() {
-		const params = new URLSearchParams(window.location.search);
-		const id = params.get('telegramId');
-		return id;
-	}
-
-	// Загрузить токены при загрузке страницы
-	window.onload = () => {
-		const telegramId = getTelegramIdFromUrl();
-		if (telegramId) {
-			fetchTokens(telegramId);
-		} else {
-			console.error('Telegram ID не найден в URL');
-		}
-	};
-</script>
+    const telegramId = 'your-telegram-id'; // Замените на ID текущего пользователя
+    fetchTokens(telegramId);
+    </script>
 </body>
 </html>
-
