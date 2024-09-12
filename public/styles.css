@@ -274,9 +274,11 @@ body {
 }
 
 /* Стиль для страницы блокировки /banned */
+
 * {
     box-sizing: border-box;
 }
+
 
 body.banned {
     display: flex;
