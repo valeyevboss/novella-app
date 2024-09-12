@@ -17,7 +17,8 @@
     "express": "^4.19.2",
     "mongodb": "^6.8.1",
     "mongoose": "^8.6.1",
-    "node-telegram-bot-api": "^0.63.0",
+    "node-cron": "^3.0.3",
+    "node-telegram-bot-api": "^0.66.0",
     "walletconnect-monorepo": "github:WalletConnect/walletconnect-monorepo"
   }
 }
