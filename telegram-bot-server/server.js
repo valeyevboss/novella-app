@@ -111,7 +111,6 @@ app.post('/update-tokens/:telegramId', async (req, res) => {
     }
 });
 
-
 // Опции для клавиатуры
 const options = {
     reply_markup: {
