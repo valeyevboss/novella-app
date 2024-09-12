@@ -3,92 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leaderboard</title>
     <link rel="stylesheet" href="styles.css">
+    <title>Leaderboard</title>
 </head>
 <body>
-    <div class="leaderboard-container">
-        <!-- Иконка и название страницы -->
-        <div class="leaderboard-header">
-            <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1726003706/Element/Leaderboard.png" alt="Leaderboard Icon" class="leaderboard-icon">
-            <h1 class="leaderboard-title">LEADERBOARD</h1>
-        </div>
-
-        <!-- Блок с позицией пользователя -->
-        <div class="user-position-block">
-            <div class="user-avatar"></div>
-            <div class="user-info">
-                <p class="user-name">You</p>
-                <p class="user-balance">5000 tokens</p> <!-- Это динамическое значение -->
-            </div>
-            <div class="user-rank">#23</div> <!-- Это динамическое значение -->
-        </div>
-
-        <!-- Кнопка Boost score -->
-        <button class="boost-score-btn" onclick="location.href='task.html';">Boost score</button>
-
-        <!-- Общее количество пользователей -->
-        <p class="total-users">1250 users</p> <!-- Это динамическое значение -->
-
-        <!-- Топ-100 пользователей -->
-        <div class="top-100-container">
-            <!-- Пример блока пользователя -->
-            <div class="top-user-block">
-                <div class="user-avatar"></div>
-                <div class="user-info">
-                    <p class="user-name">username123</p>
-                    <p class="user-balance">12000 tokens</p> <!-- Это динамическое значение -->
-                </div>
-                <div class="user-rank">#1</div> <!-- Это динамическое значение -->
-            </div>
-            <!-- Аналогично для других пользователей... -->
-        </div>
+    <!-- Иконка и заголовок -->
+    <div class="leaderboard-header">
+        <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1726003706/Element/Leaderboard.png" alt="Leaderboard Icon" class="leaderboard-icon">
+        <h1 class="leaderboard-title">LEADERBOARD</h1>
+        <p class="under-development">The leaders feature is under development</p>
     </div>
-	<script>
-		async function fetchTotalUsers() {
-			try {
-				const response = await fetch('/api/total-users');
-				const data = await response.json();
-				document.querySelector('.total-users').textContent = `${data.totalUsers} users`;
-			} catch (error) {
-				console.error('Ошибка загрузки общего количества пользователей:', error);
-			}
-		}
 
-		window.onload = fetchTotalUsers;
-		
-		async function fetchTopUsers() {
-    try {
-        const response = await fetch('/api/top-users');
-        const users = await response.json();
+    <!-- Блок с твоим местом -->
+    <div class="user-rank-block">
+        <img src="[AVATAR_URL]" alt="User Avatar" class="user-avatar">
+        <div class="user-info">
+            <p class="user-name">You</p>
+            <p class="user-tokens">[YOUR_TOKEN_BALANCE] NC</p>
+        </div>
+        <div class="user-rank"># [YOUR_RANK]</div>
+    </div>
 
-        const container = document.querySelector('.top-100-container');
-        container.innerHTML = ''; // Очистить контейнер перед заполнением
+    <!-- Кнопка Boost score -->
+    <button class="boost-score-btn" onclick="window.location.href='task.html'">Boost score</button>
 
-        users.forEach(user => {
-            const userBlock = document.createElement('div');
-            userBlock.classList.add('top-user-block');
+    <!-- Количество пользователей -->
+    <div class="total-users">
+        <p>Total users: <span id="user-count">[USER_COUNT]</span> users</p>
+    </div>
 
-            userBlock.innerHTML = `
-                <div class="user-avatar"></div>
-                <div class="user-info">
-                    <p class="user-name">${user.username}</p>
-                    <p class="user-balance">${user.tokens} tokens</p>
-                </div>
-                <div class="user-rank">#${user.rank}</div>
-            `;
-            container.appendChild(userBlock);
-        });
-    } catch (error) {
-        console.error('Ошибка загрузки топ-100 пользователей:', error);
-    }
-}
+    <!-- Топ-100 пользователей -->
+    <div class="top-100">
+        <!-- Пример пользователя -->
+        <div class="top-user-block">
+            <img src="[USER_AVATAR]" alt="User Avatar" class="top-user-avatar">
+            <div class="top-user-info">
+                <p class="top-user-name">[USER_NAME]</p>
+                <p class="top-user-tokens">[USER_TOKEN_BALANCE] NC</p>
+            </div>
+            <div class="top-user-rank"># [USER_RANK]</div>
+        </div>
+        <!-- Повторение блока для других пользователей -->
+    </div>
 
-window.onload = () => {
-    fetchTotalUsers();
-    fetchTopUsers();
-};
-
-	</script>
+    <script src="leaders.js"></script>
 </body>
 </html>

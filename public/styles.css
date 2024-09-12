@@ -7,174 +7,6 @@ body {
     color: white;
 }
 
-/* Стили для страницы таблицы лидеров */
-body.leaderboard {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-}
-
-.container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-.leaderboard-icon {
-    width: 204.8723px;
-    height: 204.8723px;
-    display: block;
-    margin: 0 auto;
-}
-
-.leaderboard-title {
-    font-family: 'Hooge 05_55 Cyr2', sans-serif;
-    font-size: 100pt;
-    text-align: center;
-    margin-top: 20px;
-}
-
-/* Текущий ранг пользователя */
-.current-rank {
-    background-color: #181818;
-    border-radius: 20px;
-    padding: 20px;
-    margin-top: 30px;
-    display: flex;
-    align-items: center;
-    color: white;
-}
-
-.user-avatar {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    margin-right: 20px;
-}
-
-.user-info {
-    flex-grow: 1;
-}
-
-.user-position {
-    font-size: 52.0296pt;
-}
-
-.user-tokens {
-    font-size: 41.9557pt;
-    color: #b3b3b3;
-}
-
-.user-rank {
-    font-size: 50pt;
-    font-weight: bold;
-    text-align: right;
-}
-
-/* Кнопка Boost score */
-.boost-score-button {
-    width: 823.4085px;
-    height: 140.1702px;
-    background-color: white;
-    border: none;
-    border-radius: 20px;
-    font-family: 'Arial Bold', sans-serif;
-    font-size: 65.4407pt;
-    color: black;
-    cursor: pointer;
-    margin-top: 30px;
-    display: block;
-    margin: 0 auto;
-}
-
-.total-users {
-    font-family: 'Arial Bold', sans-serif;
-    font-size: 50pt;
-    text-align: center;
-    margin-top: 30px;
-}
-
-/* Стили для отображения топа */
-.top-list {
-    margin-top: 30px;
-}
-
-.top-entry {
-    background-color: #181818;
-    border-radius: 20px;
-    padding: 20px;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    color: white;
-}
-
-.top-user-info {
-    flex-grow: 1;
-}
-
-.top-username {
-    font-size: 52.0296pt;
-}
-
-.top-user-tokens {
-    font-size: 41.9557pt;
-    color: #b3b3b3;
-}
-
-.top-user-rank {
-    font-size: 50pt;
-    font-weight: bold;
-    text-align: right;
-}
-
-/* Стили для блока задачи */
-.task-block {
-    background-color: #181818;
-    border-radius: 55px;
-    padding: 20px;
-    margin: 20px 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 90%; /* Процент от ширины родителя */
-    max-width: 400px; /* Максимальная ширина */
-    margin: 0 auto; /* Центрирование блока */
-}
-
-.task-icon {
-    width: 80px;
-    height: 80px;
-    margin-bottom: 10px;
-}
-
-.task-title {
-    font-size: 24px;
-    color: white;
-    margin-bottom: 5px;
-}
-
-.task-reward {
-    font-size: 20px;
-    color: #b3b3b3;
-    margin-bottom: 15px;
-}
-
-.task-button {
-    background-color: #1E90FF;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 18px;
-    transition: background-color 0.3s ease;
-}
-
-.task-button:hover {
-    background-color: #1C86EE;
-}
-
 /* Основные стили для страницы */
 .main-page {
     display: flex;
@@ -272,6 +104,150 @@ body.leaderboard {
     color: white;
     text-align: center;
     margin-top: 50px;
+}
+
+/* Стили для блока задачи */
+.task-block {
+    background-color: #181818;
+    border-radius: 55px;
+    padding: 20px;
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%; /* Процент от ширины родителя */
+    max-width: 400px; /* Максимальная ширина */
+    margin: 0 auto; /* Центрирование блока */
+}
+
+.task-icon {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 10px;
+}
+
+.task-title {
+    font-size: 24px;
+    color: white;
+    margin-bottom: 5px;
+}
+
+.task-reward {
+    font-size: 20px;
+    color: #b3b3b3;
+    margin-bottom: 15px;
+}
+
+.task-button {
+    background-color: #1E90FF;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+}
+
+.task-button:hover {
+    background-color: #1C86EE;
+}
+
+/* Стили для Leadres */
+.leaderboard-header {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.leaderboard-icon {
+    width: 150px;
+    height: 150px;
+}
+
+.leaderboard-title {
+    font-family: 'hooge 05_55 Cyr2', Regular;
+    font-size: 24px;
+    margin-top: 10px;
+}
+
+.under-development {
+    color: #b3b3b3;
+    font-size: 16px;
+}
+
+.user-rank-block {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #181818;
+    border-radius: 15px;
+    padding: 15px;
+    margin: 20px;
+}
+
+.user-avatar, .top-user-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+.user-info, .top-user-info {
+    flex-grow: 1;
+    margin-left: 15px;
+}
+
+.user-name, .top-user-name {
+    font-family: Arial, Regular;
+    color: #fff;
+}
+
+.user-tokens, .top-user-tokens {
+    font-family: Arial, Regular;
+    color: #b3b3b3;
+}
+
+.user-rank, .top-user-rank {
+    font-family: Arial, Bold;
+    font-size: 18px;
+}
+
+.boost-score-btn {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-family: Arial, Bold;
+    background-color: #fff;
+    color: #000;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.boost-score-btn:hover {
+    background-color: #ccc;
+}
+
+.total-users {
+    text-align: center;
+    margin: 30px 0;
+}
+
+.total-users p {
+    font-family: Arial, Bold;
+}
+
+.top-100 {
+    margin: 20px;
+}
+
+.top-user-block {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #181818;
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 10px;
 }
 
 /* Стили для нижнего меню */
