@@ -6,14 +6,14 @@
     <title>Novella App - Loading</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Добавим некоторые стили для загрузочного экрана */
+        /* Стили для загрузочного экрана */
         .loading-container {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #000; /* Черный фон для контраста */
-            color: #fff; /* Белый текст для читаемости */
+            background-color: #000;
+            color: #fff;
         }
 
         .loading-icon {
@@ -33,20 +33,44 @@
         const telegramId = urlParams.get('telegramId');
 
         if (telegramId) {
-            // Запрос на проверку статуса
-            fetch(`/check-status/${telegramId}?timestamp=${new Date().getTime()}`)
+            // Запрос на получение токенов
+            fetch(`/tokens/${telegramId}?timestamp=${new Date().getTime()}`)
                 .then(response => {
-                    if (response.redirected) {
-                        window.location.href = response.url; // Перенаправляем на нужную страницу
+                    if (response.ok) {
+                        return response.json();
                     } else {
-                        throw new Error('Status check failed');
+                        throw new Error('Ошибка получения токенов');
+                    }
+                })
+                .then(data => {
+                    console.log('Данные о токенах:', data); // Логируем полученные данные
+                    // Проверяем наличие username
+                    return fetch(`/check-username/${telegramId}`);
+                })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error('Ошибка получения данных пользователя');
+                    }
+                })
+                .then(userData => {
+                    console.log('Данные пользователя:', userData); // Логируем данные о пользователе
+                    if (userData && userData.username) {
+                        // Если username существует, перенаправляем на index.html
+                        window.location.href = '/index.html';
+                    } else {
+                        // Если username нет, перенаправляем на loadingerror.html
+                        console.log('Пользователь не имеет username, перенаправляем на loadingerror.html');
+                        window.location.href = '/loadingerror.html';
                     }
                 })
                 .catch(error => {
-                    console.error('Error:', error);
+                    console.error('Произошла ошибка:', error);
                     window.location.href = '/loadingerror.html';
                 });
         } else {
+            console.error('Telegram ID отсутствует в URL, перенаправляем на loadingerror.html');
             window.location.href = '/loadingerror.html';
         }
     </script>
