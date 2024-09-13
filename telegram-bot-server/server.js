@@ -18,9 +18,6 @@ const bot = new TelegramBot(telegramBotToken, { polling: true });
 // Подключение папки для статических файлов
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
-// Парсинг JSON-тел запроса
-app.use(express.json());
-
 // Отдача index.html по умолчанию
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
@@ -55,6 +52,47 @@ async function startServer() {
 }
 
 startServer();
+
+// Маршрут для получения токенов
+app.get('/tokens/:telegramId', async (req, res) => {
+    try {
+        const { telegramId } = req.params;
+        const user = await User.findOne({ telegramId });
+        if (user) {
+            console.log(`Fetched tokens for user ${telegramId}: ${user.tokens}`);
+            res.set({
+                'Cache-Control': 'no-cache, no-store, must-revalidate', // Отключаем кеширование
+                'Pragma': 'no-cache', // Для старых HTTP/1.0 клиентов
+                'Expires': '0' // Устанавливаем срок действия в 0
+            });
+            res.json({ tokens: user.tokens });
+        } else {
+            res.status(404).json({ error: 'User not found' });
+        }
+    } catch (error) {
+        console.error('Error fetching tokens:', error);
+        res.status(500).json({ error: 'Ошибка получения токенов' });
+    }
+});
+
+// Проверка статуса пользователя и перенаправление
+app.get('/check-status/:telegramId', async (req, res) => {
+    try {
+        const { telegramId } = req.params;
+        const user = await User.findOne({ telegramId });
+        if (user) {
+            if (user.status === 'banned') {
+                res.redirect('/banned.html');
+            } else {
+                res.redirect('/index.html');
+            }
+        } else {
+            res.status(404).json({ error: 'User not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: 'Error checking status' });
+    }
+});
 
 // Проверка наличия username и перенаправление на нужную страницу
 app.get('/check-username/:telegramId', async (req, res) => {

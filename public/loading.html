@@ -33,22 +33,13 @@
         const telegramId = urlParams.get('telegramId');
 
         if (telegramId) {
-                    // Проверяем наличие username
-                    return fetch(`/check-username/${telegramId}`);
-                })
+            // Запрос на проверку статуса
+            fetch(`/check-status/${telegramId}?timestamp=${new Date().getTime()}`)
                 .then(response => {
-                    if (response.ok) {
-                        return response.json();
+                    if (response.redirected) {
+                        window.location.href = response.url; // Перенаправляем на нужную страницу
                     } else {
-                        throw new Error('User fetch failed');
-                    }
-                })
-                .then(userData => {
-                    console.log('User data:', userData); // Логируем полученные данные
-                    if (userData.username) {
-                        window.location.href = '/index.html';
-                    } else {
-                        window.location.href = '/loadingerror.html';
+                        throw new Error('Status check failed');
                     }
                 })
                 .catch(error => {

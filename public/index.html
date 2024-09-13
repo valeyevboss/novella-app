@@ -46,5 +46,21 @@
             <span>Leaders</span>
         </a>
     </nav>
+    <script>
+    // Функция для получения токенов пользователя
+    async function fetchTokens(telegramId) {
+        const timestamp = new Date().getTime(); // Текущее время в миллисекундах
+        const response = await fetch(`/tokens/${telegramId}?timestamp=${timestamp}`);
+        const data = await response.json();
+        if (response.ok) {
+            document.getElementById('token-balance').textContent = data.tokens;
+        } else {
+            console.error('Ошибка получения токенов:', data.error);
+        }
+    }
+
+    const telegramId = 'your-telegram-id'; // Замените на ID текущего пользователя
+    fetchTokens(telegramId);
+    </script>
 </body>
 </html>
