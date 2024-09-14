@@ -260,7 +260,7 @@ body {
 .loading-icon {
     width: 250px; /* Размер иконки */
     height: 250px;
-    animation: spin 3s linear infinite;
+    animation: spin 5s linear infinite;
 }
 
 /* Стили для страницы загрузочной ошибки */
@@ -285,7 +285,7 @@ body {
     margin-top: 5px;
     color: white;
 }
-/* Информационный текст ошибки загрузки под иконкой */
+/* Инфо текст ошибки под иконкой */
 .loadingerror-subtitle {
     font-family: 'Maiandra GD', sans-serif;
     font-size: 14px;
