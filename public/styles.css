@@ -7,11 +7,28 @@ body {
     color: white;
 }
 
+/* Инициализация шрифтов */
 @font-face {
     font-family: 'hooge05_55cyr2';
     src: url('/fonts/hooge05_55cyr2.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
+}
+
+/* Анимация для появления элементов */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Анимация загрузки */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 /* Основные стили для страницы */
@@ -221,6 +238,16 @@ body {
     margin-top: -10px;
 }
 
+/* Стили для загрузочного экрана */
+.loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #000;
+    color: #fff;
+}
+
 /* Стили для страницы загрузки */
 .loading-container {
     display: flex;
@@ -231,17 +258,12 @@ body {
 }
 
 .loading-icon {
-    width: 150px; /* Размер иконки */
-    height: 150px;
-    animation: spin 2s linear infinite;
+    width: 250px; /* Размер иконки */
+    height: 250px;
+    animation: spin 3s linear infinite;
 }
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* Стили для страницы ошибки */
+/* Стили для страницы загрузочной ошибки */
 .error-container {
     display: flex;
     flex-direction: column;
@@ -252,8 +274,9 @@ body {
     animation: fadeIn 1.5s ease-in-out;
 }
 
+/* Иконка: Loading error */
 .error-container img {
-    width: 400px; /* Размер иконки */
+    width: 300px; /* Размер иконки */
     height: auto;
 }
 
@@ -262,49 +285,41 @@ body {
     margin-top: 5px;
     color: white;
 }
-
-/* Анимация для появления элементов */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+/* Информационный текст ошибки загрузки под иконкой */
+.loadingerror-subtitle {
+    font-family: 'Maiandra GD', sans-serif;
+    font-size: 14px;
+    color: grey;
+    margin-top: -10px;
 }
 
 /* Стиль для страницы блокировки /banned */
-
-* {
-    box-sizing: border-box;
-}
-
-
-body.banned {
+.banned-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
-    margin: 0;
-    background-color: #333;
-    color: white;
-    font-family: Arial, sans-serif;
     text-align: center;
+    animation: fadeIn 1.5s ease-in-out;
 }
 
-.message {
-    max-width: 600px;
-    margin: 20px;
-    animation: fadeIn 2s ease-in;
+/* Информационный текст бана под иконкой */
+.banned-subtitle {
+    font-family: 'Maiandra GD', sans-serif;
+    font-size: 14px;
+    color: grey;
+    margin-top: -10px;
 }
 
-img {
-    max-width: 100%;
+.banned-container p {
+    font-size: 2.0rem;
+    margin-top: 5px;
+    color: white;
+}
+
+/* Иконка: Banned */
+.banned-container img {
+    width: 300px; /* Размер иконки */
     height: auto;
-}
-
-p {
-    font-size: 1.5em;
-    margin-top: 20px;
 }
