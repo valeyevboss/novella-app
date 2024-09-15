@@ -72,6 +72,28 @@
     } else {
         console.error('Telegram ID не найден в URL');
     }
+	
+	// Пример функции для установки telegramId в локальное хранилище
+	function setTelegramId(telegramId) {
+		localStorage.setItem('telegramId', telegramId);
+	}
+
+	// Пример вызова после получения telegramId
+	setTelegramId(userId);
+	
+	// Функция для получения telegramId из локального хранилища
+	function getTelegramIdFromLocalStorage() {
+		return localStorage.getItem('telegramId');
+	}
+
+	// Вызов функции при загрузке страницы
+	const telegramId = getTelegramIdFromLocalStorage();
+	if (telegramId) {
+		fetchTokens(telegramId);
+	} else {
+		console.error('Telegram ID не найден в локальном хранилище');
+	}
+
     </script>
 </body>
 </html>
