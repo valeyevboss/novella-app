@@ -47,53 +47,45 @@
         </a>
     </nav>
     <script>
-    // Функция для получения токенов пользователя
-    async function fetchTokens(telegramId) {
-        const timestamp = new Date().getTime(); // Текущее время в миллисекундах
-        const response = await fetch(`/tokens/${telegramId}?timestamp=${timestamp}`);
-        const data = await response.json();
-        if (response.ok) {
-            document.getElementById('token-balance').textContent = data.tokens;
-        } else {
-            console.error('Ошибка получения токенов:', data.error);
-        }
-    }
-
-    // Получение telegramId из URL параметра
-    function getTelegramIdFromURL() {
-        const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get('telegramId');
-    }
-
-    // Вызов функции при загрузке страницы
-    const telegramId = getTelegramIdFromURL();
-    if (telegramId) {
-        fetchTokens(telegramId);
-    } else {
-        console.error('Telegram ID не найден в URL');
-    }
-	
-	// Пример функции для установки telegramId в локальное хранилище
-	function setTelegramId(telegramId) {
-		localStorage.setItem('telegramId', telegramId);
+	// Функция для получения токенов пользователя
+	async function fetchTokens(telegramId) {
+		const timestamp = new Date().getTime(); // Текущее время в миллисекундах
+		const response = await fetch(`/tokens/${telegramId}?timestamp=${timestamp}`);
+		const data = await response.json();
+		if (response.ok) {
+			document.getElementById('token-balance').textContent = data.tokens;
+		} else {
+			console.error('Ошибка получения токенов:', data.error);
+		}
 	}
 
-	// Пример вызова после получения telegramId
-	setTelegramId(userId);
-	
+	// Получение telegramId из URL параметра
+	function getTelegramIdFromURL() {
+		const urlParams = new URLSearchParams(window.location.search);
+		return urlParams.get('telegramId');
+	}
+
 	// Функция для получения telegramId из локального хранилища
 	function getTelegramIdFromLocalStorage() {
 		return localStorage.getItem('telegramId');
 	}
 
+	// Определение, какой источник использовать
+	function getTelegramId() {
+		const urlTelegramId = getTelegramIdFromURL();
+		if (urlTelegramId) {
+			return urlTelegramId;
+		}
+		return getTelegramIdFromLocalStorage();
+	}
+
 	// Вызов функции при загрузке страницы
-	const telegramId = getTelegramIdFromLocalStorage();
+	const telegramId = getTelegramId();
 	if (telegramId) {
 		fetchTokens(telegramId);
 	} else {
-		console.error('Telegram ID не найден в локальном хранилище');
+		console.error('Telegram ID не найден');
 	}
-
     </script>
 </body>
 </html>
