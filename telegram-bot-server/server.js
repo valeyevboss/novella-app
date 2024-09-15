@@ -89,38 +89,17 @@ app.get('/check-user/:telegramId', async (req, res) => {
     }
 });
 
-// Маршрут для обновления токенов
-app.post('/update-tokens/:telegramId', async (req, res) => {
-    try {
-        const { telegramId } = req.params;
-        const { amount } = req.body; // Измените это на req.body, если вы отправляете данные в теле запроса
-
-        const user = await User.findOne({ telegramId });
-        if (!user) {
-            return res.status(404).json({ error: 'User not found' });
-        }
-
-        user.tokens += parseInt(amount, 10); // Обновляем количество токенов
-        await user.save();
-
-        res.json({ success: true });
-    } catch (error) {
-        console.error('Error updating tokens:', error);
-        res.status(500).json({ error: 'Ошибка обновления токенов' });
-    }
-});
-
 // Маршрут для получения токенов
 app.get('/tokens/:telegramId', async (req, res) => {
     try {
         const { telegramId } = req.params;
         const user = await User.findOne({ telegramId });
         if (user) {
-            console.log(`Fetched tokens for user ${telegramId}: ${user.tokens}`);
+            console.log(`Fetched tokens for ${telegramId}: ${user.tokens}`); // Добавьте лог
             res.set({
-                'Cache-Control': 'no-cache, no-store, must-revalidate', // Отключаем кеширование
-                'Pragma': 'no-cache', // Для старых HTTP/1.0 клиентов
-                'Expires': '0' // Устанавливаем срок действия в 0
+                'Cache-Control': 'no-cache, no-store, must-revalidate',
+                'Pragma': 'no-cache',
+                'Expires': '0'
             });
             res.json({ tokens: user.tokens });
         } else {
@@ -129,6 +108,28 @@ app.get('/tokens/:telegramId', async (req, res) => {
     } catch (error) {
         console.error('Error fetching tokens:', error);
         res.status(500).json({ error: 'Ошибка получения токенов' });
+    }
+});
+
+// Маршрут для обновления токенов
+app.post('/update-tokens/:telegramId', async (req, res) => {
+    try {
+        const { telegramId } = req.params;
+        const { amount } = req.body;
+
+        const user = await User.findOne({ telegramId });
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        user.tokens += parseInt(amount, 10);
+        await user.save();
+        console.log(`Updated tokens for ${telegramId}: ${user.tokens}`); // Добавьте лог
+
+        res.json({ success: true });
+    } catch (error) {
+        console.error('Error updating tokens:', error);
+        res.status(500).json({ error: 'Ошибка обновления токенов' });
     }
 });
 
