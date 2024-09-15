@@ -32,6 +32,11 @@ app.get('/loadingerror', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'public', 'loadingerror.html'));
 });
 
+// Отдача banned.html по запросу
+app.get('/banned', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'public', 'banned.html'));
+});
+
 // Подключение к MongoDB с ожиданием
 async function startServer() {
     try {
