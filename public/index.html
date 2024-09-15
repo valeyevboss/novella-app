@@ -47,21 +47,31 @@
         </a>
     </nav>
     <script>
-	// Функция для получения токенов пользователя
-	async function fetchTokens() {
-		const telegramId = getTelegramIdFromCookies(); // Или другой способ получения ID
-		const timestamp = new Date().getTime(); // Текущее время в миллисекундах
-		const response = await fetch(`/tokens/${telegramId}?timestamp=${timestamp}`);
-		const data = await response.json();
-		if (response.ok) {
-			document.getElementById('token-balance').textContent = data.tokens;
-		} else {
-			console.error('Ошибка получения токенов:', data.error);
-		}
-	}
+    // Функция для получения токенов пользователя
+    async function fetchTokens(telegramId) {
+        const timestamp = new Date().getTime(); // Текущее время в миллисекундах
+        const response = await fetch(`/tokens/${telegramId}?timestamp=${timestamp}`);
+        const data = await response.json();
+        if (response.ok) {
+            document.getElementById('token-balance').textContent = data.tokens;
+        } else {
+            console.error('Ошибка получения токенов:', data.error);
+        }
+    }
 
-	// Вызов функции при загрузке страницы
-	fetchTokens();
+    // Получение telegramId из URL параметра
+    function getTelegramIdFromURL() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get('telegramId');
+    }
+
+    // Вызов функции при загрузке страницы
+    const telegramId = getTelegramIdFromURL();
+    if (telegramId) {
+        fetchTokens(telegramId);
+    } else {
+        console.error('Telegram ID не найден в URL');
+    }
     </script>
 </body>
 </html>
