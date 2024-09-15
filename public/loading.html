@@ -16,49 +16,25 @@
         const telegramId = urlParams.get('telegramId');
 
         if (telegramId) {
-            // Сначала проверяем статус пользователя
-            fetch(`/check-status/${telegramId}`)
-                .then(response => response.json())
-                .then(userStatus => {
-                    if (userStatus.status === 'banned') {
-                        // Если статус "banned", перенаправляем на banned.html
-                        window.location.href = '/banned.html';
-                    } else {
-                        // Если статус нормальный, проверяем наличие username
-                        return fetch(`/check-username/${telegramId}`);
-                    }
-                })
+            // Отправляем запрос на проверку пользователя (статус и username проверяются на сервере)
+            fetch(`/check-user/${telegramId}`)
                 .then(response => {
-                    if (response && response.ok) {
-                        return response.json();
-                    } else {
-                        throw new Error('Ошибка получения данных пользователя');
+                    // Все перенаправления будут обработаны на сервере
+                    if (!response.ok) {
+                        throw new Error('Ошибка при проверке пользователя');
                     }
-                })
-                .then(userData => {
-                    console.log('Данные пользователя:', userData); // Логируем данные о пользователе
-                    setTimeout(() => {
-                        if (userData && userData.username) {
-                            // Если username существует, перенаправляем на index.html
-                            window.location.href = '/index.html';
-                        } else {
-                            // Если username нет, перенаправляем на loadingerror.html
-                            console.log('Пользователь не имеет username, перенаправляем на loadingerror.html');
-                            window.location.href = '/loadingerror.html';
-                        }
-                    }, 5000); // Задержка в 5 секунды
                 })
                 .catch(error => {
                     console.error('Произошла ошибка:', error);
                     setTimeout(() => {
                         window.location.href = '/loadingerror.html';
-                    }, 5000); // Задержка в 5 секунды
+                    }, 5000); // Задержка в 5 секунд
                 });
         } else {
             console.error('Telegram ID отсутствует в URL, перенаправляем на loadingerror.html');
             setTimeout(() => {
                 window.location.href = '/loadingerror.html';
-            }, 5000); // Задержка в 5 секунды
+            }, 5000); // Задержка в 5 секунд
         }
     </script>
 </body>

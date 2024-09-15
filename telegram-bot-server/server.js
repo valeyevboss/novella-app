@@ -70,37 +70,35 @@ app.get('/tokens/:telegramId', async (req, res) => {
 });
 
 
-// Проверка статуса пользователя и перенаправление
-app.get('/check-status/:telegramId', async (req, res) => {
+// Проверка статуса пользователя и наличия username
+app.get('/check-user/:telegramId', async (req, res) => {
     try {
         const { telegramId } = req.params;
         const user = await User.findOne({ telegramId });
-        if (user) {
-            if (user.status === 'banned') {
-                res.redirect('/banned.html');
-            } else {
-                res.redirect('/index.html');
-            }
-        } else {
-            res.status(404).json({ error: 'User not found' });
-        }
-    } catch (error) {
-        res.status(500).json({ error: 'Error checking status' });
-    }
-});
 
-// Проверка наличия username и перенаправление на нужную страницу
-app.get('/check-username/:telegramId', async (req, res) => {
-    try {
-        const { telegramId } = req.params;
-        const user = await User.findOne({ telegramId });
-        if (user) {
-            res.json({ username: user.username });
-        } else {
-            res.status(404).json({ error: 'User not found' });
+        if (!user) {
+            // Если пользователь не найден, отправляем ошибку
+            return res.status(404).json({ error: 'User not found' });
         }
+
+        // Проверка статуса
+        if (user.status === 'banned') {
+            // Если пользователь заблокирован, перенаправляем на страницу banned.html
+            return res.redirect('/banned.html');
+        }
+
+        // Если пользователь не заблокирован, проверяем наличие username
+        if (!user.username) {
+            // Если username нет, перенаправляем на loadingerror.html
+            return res.redirect('/loadingerror.html');
+        }
+
+        // Если все нормально, перенаправляем на главную страницу index.html
+        return res.redirect('/index.html');
+
     } catch (error) {
-        res.status(500).json({ error: 'Ошибка проверки имени пользователя' });
+        console.error('Ошибка проверки пользователя:', error);
+        res.status(500).json({ error: 'Внутренняя ошибка сервера' });
     }
 });
 
