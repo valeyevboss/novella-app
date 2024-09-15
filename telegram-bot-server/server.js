@@ -125,7 +125,12 @@ bot.onText(/\/start/, async (msg) => {
             }
             await user.save();
         }
-
+		
+		 // Проверяем статус пользователя перед отправкой сообщения
+        if (user.status === 'banned') {
+            return bot.sendMessage(chatId, 'The action cannot be performed because your account has been blocked. Please contact support.');
+        }
+		
         const welcomeMessage = user.username ? `Welcome, ${user.username}!` : `Welcome!`;
         const webAppUrl = `https://novella-telegram-bot.onrender.com/loading?telegramId=${userId}`;
 
