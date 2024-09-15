@@ -116,7 +116,7 @@ app.get('/tokens/:telegramId', async (req, res) => {
         const { telegramId } = req.params;
         const user = await User.findOne({ telegramId });
         if (user) {
-            console.log(Fetched tokens for user ${telegramId}: ${user.tokens});
+            console.log(`Fetched tokens for user ${telegramId}: ${user.tokens}`);
             res.set({
                 'Cache-Control': 'no-cache, no-store, must-revalidate', // Отключаем кеширование
                 'Pragma': 'no-cache', // Для старых HTTP/1.0 клиентов
