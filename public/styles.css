@@ -260,7 +260,7 @@ body {
 .loading-icon {
     width: 250px; /* Размер иконки */
     height: 250px;
-    animation: spin 7s linear infinite;
+    animation: spin 2s linear infinite;
 }
 
 /* Стили для страницы загрузочной ошибки */
