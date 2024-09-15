@@ -172,6 +172,6 @@ bot.onText(/\/start/, async (msg) => {
         });
     } catch (err) {
         console.error('Error handling /start:', err);
-        bot.sendMessage(chatId, 'An error occurred. Please try again later.');
+        bot.sendMessage(chatId, 'The action cannot be performed because your account has been blocked. Please contact support.');
     }
 });
