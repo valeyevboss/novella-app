@@ -39,22 +39,31 @@
                 })
                 .then(userData => {
                     console.log('Данные пользователя:', userData); // Логируем данные о пользователе
-                    if (userData && userData.username) {
-                        // Если username существует, перенаправляем на index.html
-                        window.location.href = '/index.html';
-                    } else {
-                        // Если username нет, перенаправляем на loadingerror.html
-                        console.log('Пользователь не имеет username, перенаправляем на loadingerror.html');
-                        window.location.href = '/loadingerror.html';
-                    }
+                    // Задержка перед переходом
+                    setTimeout(() => {
+                        if (userData && userData.username) {
+                            // Если username существует, перенаправляем на index.html
+                            window.location.href = '/index.html';
+                        } else {
+                            // Если username нет, перенаправляем на loadingerror.html
+                            console.log('Пользователь не имеет username, перенаправляем на loadingerror.html');
+                            window.location.href = '/loadingerror.html';
+                        }
+                    }, 3000); // Задержка в 2 секунды (2000 миллисекунд)
                 })
                 .catch(error => {
                     console.error('Произошла ошибка:', error);
-                    window.location.href = '/loadingerror.html';
+                    // Задержка перед перенаправлением на ошибочную страницу
+                    setTimeout(() => {
+                        window.location.href = '/loadingerror.html';
+                    }, 3000); // Задержка в 2 секунды (2000 миллисекунд)
                 });
         } else {
             console.error('Telegram ID отсутствует в URL, перенаправляем на loadingerror.html');
-            window.location.href = '/loadingerror.html';
+            // Задержка перед перенаправлением на ошибочную страницу
+            setTimeout(() => {
+                window.location.href = '/loadingerror.html';
+            }, 3000); // Задержка в 2 секунды (2000 миллисекунд)
         }
     </script>
 </body>
