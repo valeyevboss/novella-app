@@ -10,61 +10,72 @@
     <div class="loading-container">
         <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/Novellacoin.png" alt="Loading Icon" class="loading-icon">
     </div>
-    <script>
-        // Получаем telegramId из URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const telegramId = urlParams.get('telegramId');
+	<script>
+    // Получаем telegramId из URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const telegramId = urlParams.get('telegramId');
 
-        if (telegramId) {
-            // Запрос на получение токенов
-            fetch(`/tokens/${telegramId}?timestamp=${new Date().getTime()}`)
-                .then(response => {
+    if (telegramId) {
+        // Сначала проверим статус пользователя
+        fetch(`/check-status/${telegramId}`)
+            .then(response => {
+                if (response.redirected) {
+                    // Если пользователь забанен, будет редирект на banned.html
+                    window.location.href = response.url;
+                } else {
+                    // Если не забанен, продолжаем проверку токенов и username
+                    return fetch(`/tokens/${telegramId}?timestamp=${new Date().getTime()}`);
+                }
+            })
+            .then(response => {
+                if (response) {
                     if (response.ok) {
                         return response.json();
                     } else {
                         throw new Error('Ошибка получения токенов');
                     }
-                })
-                .then(data => {
-                    console.log('Данные о токенах:', data); // Логируем полученные данные
-                    // Проверяем наличие username
-                    return fetch(`/check-username/${telegramId}`);
-                })
-                .then(response => {
-                    if (response.ok) {
-                        return response.json();
+                }
+            })
+            .then(data => {
+                console.log('Данные о токенах:', data); // Логируем полученные данные
+                // Проверяем наличие username
+                return fetch(`/check-username/${telegramId}`);
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Ошибка получения данных пользователя');
+                }
+            })
+            .then(userData => {
+                console.log('Данные пользователя:', userData); // Логируем данные о пользователе
+                // Задержка перед переходом
+                setTimeout(() => {
+                    if (userData && userData.username) {
+                        // Если username существует, перенаправляем на index.html
+                        window.location.href = '/index.html';
                     } else {
-                        throw new Error('Ошибка получения данных пользователя');
-                    }
-                })
-                .then(userData => {
-                    console.log('Данные пользователя:', userData); // Логируем данные о пользователе
-                    // Задержка перед переходом
-                    setTimeout(() => {
-                        if (userData && userData.username) {
-                            // Если username существует, перенаправляем на index.html
-                            window.location.href = '/index.html';
-                        } else {
-                            // Если username нет, перенаправляем на loadingerror.html
-                            console.log('Пользователь не имеет username, перенаправляем на loadingerror.html');
-                            window.location.href = '/loadingerror.html';
-                        }
-                    }, 3000); // Задержка в 2 секунды (2000 миллисекунд)
-                })
-                .catch(error => {
-                    console.error('Произошла ошибка:', error);
-                    // Задержка перед перенаправлением на ошибочную страницу
-                    setTimeout(() => {
+                        // Если username нет, перенаправляем на loadingerror.html
+                        console.log('Пользователь не имеет username, перенаправляем на loadingerror.html');
                         window.location.href = '/loadingerror.html';
-                    }, 3000); // Задержка в 2 секунды (2000 миллисекунд)
-                });
-        } else {
-            console.error('Telegram ID отсутствует в URL, перенаправляем на loadingerror.html');
-            // Задержка перед перенаправлением на ошибочную страницу
-            setTimeout(() => {
-                window.location.href = '/loadingerror.html';
-            }, 3000); // Задержка в 2 секунды (2000 миллисекунд)
-        }
-    </script>
+                    }
+                }, 3000); // Задержка в 3 секунды
+            })
+            .catch(error => {
+                console.error('Произошла ошибка:', error);
+                // Задержка перед перенаправлением на ошибочную страницу
+                setTimeout(() => {
+                    window.location.href = '/loadingerror.html';
+                }, 3000); // Задержка в 3 секунды
+            });
+    } else {
+        console.error('Telegram ID отсутствует в URL, перенаправляем на loadingerror.html');
+        // Задержка перед перенаправлением на ошибочную страницу
+        setTimeout(() => {
+            window.location.href = '/loadingerror.html';
+        }, 3000); // Задержка в 3 секунды
+    }
+	</script>
 </body>
 </html>
