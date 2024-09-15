@@ -16,25 +16,25 @@
         const telegramId = urlParams.get('telegramId');
 
         if (telegramId) {
-            // Отправляем запрос на проверку пользователя (статус и username проверяются на сервере)
+            // Сначала проверяем статус пользователя
             fetch(`/check-user/${telegramId}`)
-                .then(response => {
-                    // Все перенаправления будут обработаны на сервере
-                    if (!response.ok) {
-                        throw new Error('Ошибка при проверке пользователя');
+                .then(response => response.json())
+                .then(data => {
+                    if (data.redirect) {
+                        // Перенаправляем на нужную страницу в зависимости от ответа сервера
+                        window.location.href = data.redirect;
+                    } else {
+                        console.error('Ошибка получения данных пользователя');
+                        window.location.href = '/loadingerror';
                     }
                 })
                 .catch(error => {
                     console.error('Произошла ошибка:', error);
-                    setTimeout(() => {
-                        window.location.href = '/loadingerror.html';
-                    }, 5000); // Задержка в 5 секунд
+                    window.location.href = '/loadingerror';
                 });
         } else {
-            console.error('Telegram ID отсутствует в URL, перенаправляем на loadingerror.html');
-            setTimeout(() => {
-                window.location.href = '/loadingerror.html';
-            }, 5000); // Задержка в 5 секунд
+            console.error('Telegram ID отсутствует в URL, перенаправляем на loadingerror');
+            window.location.href = '/loadingerror';
         }
     </script>
 </body>

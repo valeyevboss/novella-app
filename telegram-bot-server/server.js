@@ -51,25 +51,6 @@ async function startServer() {
 
 startServer();
 
-// Маршрут для получения токенов
-app.get('/tokens/:telegramId', async (req, res) => {
-    try {
-        const { telegramId } = req.params;
-        const user = await User.findOne({ telegramId });
-
-        if (user) {
-            // Отправляем количество токенов для пользователя
-            res.json({ tokens: user.tokens });
-        } else {
-            res.status(404).json({ message: 'Пользователь не найден' });
-        }
-    } catch (error) {
-        console.error('Ошибка получения токенов:', error);
-        res.status(500).json({ message: 'Внутренняя ошибка сервера' });
-    }
-});
-
-
 // Проверка статуса пользователя и наличия username
 app.get('/check-user/:telegramId', async (req, res) => {
     try {
@@ -83,19 +64,16 @@ app.get('/check-user/:telegramId', async (req, res) => {
 
         // Проверка статуса
         if (user.status === 'banned') {
-            // Если пользователь заблокирован, перенаправляем на страницу banned.html
-            return res.redirect('/banned.html');
+            return res.json({ redirect: '/banned' });
         }
 
         // Если пользователь не заблокирован, проверяем наличие username
         if (!user.username) {
-            // Если username нет, перенаправляем на loadingerror.html
-            return res.redirect('/loadingerror.html');
+            return res.json({ redirect: '/loadingerror' });
         }
 
         // Если все нормально, перенаправляем на главную страницу index.html
-        return res.redirect('/index.html');
-
+        return res.json({ redirect: '/' });
     } catch (error) {
         console.error('Ошибка проверки пользователя:', error);
         res.status(500).json({ error: 'Внутренняя ошибка сервера' });
