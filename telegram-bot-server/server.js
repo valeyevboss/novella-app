@@ -152,7 +152,7 @@ reply_markup: {
             }
         ]
     ]
-};
+}
 
 const imageUrl = 'https://res.cloudinary.com/dvjohgg6j/image/upload/v1725631955/Banner/Novella%20banner.jpg'; // Публичный URL вашего изображения
 
