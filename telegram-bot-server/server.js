@@ -141,12 +141,12 @@ const options = {
                 {
                     text: 'Play Now',
                     web_app: {
-					url: `https://novella-telegram-bot.onrender.com/?telegramId=${userId}` }
+					url: `https://novella-telegram-bot.onrender.com/?telegramId=${userId}`
                     }
                 },
                 {
                     text: 'Join Novella Community',
-                    url: 'https://t.me/novellatoken_community' // Замените на URL вашего телеграм-канала
+                    url: 'https://t.me/novellatoken_community'
                 }
             ]
         ]
