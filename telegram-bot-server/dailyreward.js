@@ -19,6 +19,7 @@ function claimReward() {
 
     const rewardAmount = rewards[dayCounter - 1];
     const telegramId = getTelegramId(); // Используем telegramId
+	console.log('Telegram ID:', telegramId);
 
     if (!telegramId) {
         console.error('Telegram ID не найден');
@@ -37,6 +38,7 @@ function claimReward() {
         if (data.success) {
             isRewardClaimed = true;
             document.getElementById('claim-reward-button').disabled = true;
+			console.log('Кнопка была нажата');
             startTimer();
         } else {
             console.error('Ошибка при получении награды:', data.error);

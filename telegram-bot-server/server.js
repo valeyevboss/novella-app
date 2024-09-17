@@ -117,18 +117,25 @@ app.post('/update-tokens/:telegramId', async (req, res) => {
         const { telegramId } = req.params;
         const { amount } = req.body;
 
+        // Проверка данных
+        if (!amount || isNaN(amount) || parseInt(amount, 10) <= 0) {
+            return res.status(400).json({ error: 'Неверное значение токенов' });
+        }
+
         const user = await User.findOne({ telegramId });
         if (!user) {
-            return res.status(404).json({ error: 'User not found' });
+            return res.status(404).json({ error: 'Пользователь не найден' });
         }
 
         user.tokens += parseInt(amount, 10);
         await user.save();
-        console.log(`Updated tokens for ${telegramId}: ${user.tokens}`); // Добавьте лог
 
-        res.json({ success: true });
+        // Логирование
+        console.log(`[${new Date().toISOString()}] Обновлены токены для ${telegramId}: ${user.tokens}`);
+
+        res.json({ success: true, tokens: user.tokens });
     } catch (error) {
-        console.error('Error updating tokens:', error);
+        console.error(`[${new Date().toISOString()}] Ошибка обновления токенов:`, error);
         res.status(500).json({ error: 'Ошибка обновления токенов' });
     }
 });
