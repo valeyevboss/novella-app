@@ -14,9 +14,9 @@
         // Получаем telegramId из URL
         const urlParams = new URLSearchParams(window.location.search);
         const telegramId = urlParams.get('telegramId');
-
+		
         if (telegramId) {
-            // Сначала проверяем статус пользователя
+            // Проверяем статус пользователя
             fetch(`/check-user/${telegramId}`)
                 .then(response => response.json())
                 .then(data => {

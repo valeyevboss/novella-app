@@ -58,13 +58,18 @@
     <script>
 	// Функция для получения токенов пользователя
 	async function fetchTokens(telegramId) {
-		const timestamp = new Date().getTime(); // Текущее время в миллисекундах
-		const response = await fetch(`/tokens/${telegramId}?timestamp=${timestamp}`);
-		const data = await response.json();
-		if (response.ok) {
-			document.getElementById('token-balance').textContent = data.tokens;
-		} else {
-			console.error('Ошибка получения токенов:', data.error);
+		try {
+			const timestamp = new Date().getTime(); // Текущее время в миллисекундах
+			const response = await fetch(`/tokens/${telegramId}?timestamp=${timestamp}`);
+			const data = await response.json();
+			console.log('Tokens data received:', data);
+			if (response.ok) {
+				document.getElementById('token-balance').textContent = data.tokens;
+			} else {
+				console.error('Ошибка получения токенов:', data.error);
+			}
+		} catch (error) {
+			console.error('Ошибка при вызове fetchTokens:', error);
 		}
 	}
 

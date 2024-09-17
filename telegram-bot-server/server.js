@@ -94,8 +94,9 @@ app.get('/tokens/:telegramId', async (req, res) => {
     try {
         const { telegramId } = req.params;
         const user = await User.findOne({ telegramId });
+        console.log(`Request for tokens, user found: ${!!user}`);
+        console.log(`Tokens for ${telegramId}: ${user ? user.tokens : 'not found'}`);
         if (user) {
-            console.log(`Fetched tokens for ${telegramId}: ${user.tokens}`); // Добавьте лог
             res.set({
                 'Cache-Control': 'no-cache, no-store, must-revalidate',
                 'Pragma': 'no-cache',
@@ -110,6 +111,7 @@ app.get('/tokens/:telegramId', async (req, res) => {
         res.status(500).json({ error: 'Ошибка получения токенов' });
     }
 });
+
 
 // Маршрут для обновления токенов
 app.post('/update-tokens/:telegramId', async (req, res) => {
