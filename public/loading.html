@@ -24,7 +24,6 @@
                         // Перенаправляем на нужную страницу в зависимости от ответа сервера
                         window.location.href = data.redirect;
                     } else {
-						fetchTokens(telegramId); // Добавляем вызов функции для получения токенов
                         console.error('Ошибка получения данных пользователя');
                         window.location.href = '/loadingerror';
                     }

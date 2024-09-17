@@ -89,59 +89,6 @@ app.get('/check-user/:telegramId', async (req, res) => {
     }
 });
 
-// Маршрут для получения токенов
-app.get('/tokens/:telegramId', async (req, res) => {
-    try {
-        const { telegramId } = req.params;
-        const user = await User.findOne({ telegramId });
-        console.log(`Request for tokens, user found: ${!!user}`);
-        console.log(`Tokens for ${telegramId}: ${user ? user.tokens : 'not found'}`);
-        if (user) {
-            res.set({
-                'Cache-Control': 'no-cache, no-store, must-revalidate',
-                'Pragma': 'no-cache',
-                'Expires': '0'
-            });
-            res.json({ tokens: user.tokens });
-        } else {
-            res.status(404).json({ error: 'User not found' });
-        }
-    } catch (error) {
-        console.error('Error fetching tokens:', error);
-        res.status(500).json({ error: 'Ошибка получения токенов' });
-    }
-});
-
-
-// Маршрут для обновления токенов
-app.post('/update-tokens/:telegramId', async (req, res) => {
-    try {
-        const { telegramId } = req.params;
-        const { amount } = req.body;
-
-        // Проверка данных
-        if (!amount || isNaN(amount) || parseInt(amount, 10) <= 0) {
-            return res.status(400).json({ error: 'Неверное значение токенов' });
-        }
-
-        const user = await User.findOne({ telegramId });
-        if (!user) {
-            return res.status(404).json({ error: 'Пользователь не найден' });
-        }
-
-        user.tokens += parseInt(amount, 10);
-        await user.save();
-
-        // Логирование
-        console.log(`[${new Date().toISOString()}] Обновлены токены для ${telegramId}: ${user.tokens}`);
-
-        res.json({ success: true, tokens: user.tokens });
-    } catch (error) {
-        console.error(`[${new Date().toISOString()}] Ошибка обновления токенов:`, error);
-        res.status(500).json({ error: 'Ошибка обновления токенов' });
-    }
-});
-
 // Объявляем URL изображения
 const imageUrl = 'https://res.cloudinary.com/dvjohgg6j/image/upload/v1725631955/Banner/Novella%20banner.jpg'; // Публичный URL вашего изображения
 
