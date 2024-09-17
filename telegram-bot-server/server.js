@@ -133,30 +133,10 @@ app.post('/update-tokens/:telegramId', async (req, res) => {
     }
 });
 
-// Опции для клавиатуры
-const options = {
-    reply_markup: {
-        inline_keyboard: [
-            [
-                {
-                    text: 'Play Now',
-                    web_app: {
-                        url: `https://novella-telegram-bot.onrender.com/?telegramId=${userId}`
-                    }
-                }
-            ],
-            [
-                {
-                    text: 'Join Novella Community',
-                    url: 'https://t.me/novellatoken_community'
-                }
-            ]
-        ]
-    }
-};
-
+// Объявляем URL изображения
 const imageUrl = 'https://res.cloudinary.com/dvjohgg6j/image/upload/v1725631955/Banner/Novella%20banner.jpg'; // Публичный URL вашего изображения
 
+// Обработчик команды /start
 bot.onText(/\/start/, async (msg) => {
     const chatId = msg.chat.id;
     const userId = msg.from.id;
@@ -180,17 +160,17 @@ bot.onText(/\/start/, async (msg) => {
             }
             await user.save();
         }
-		
-		 // Проверяем статус пользователя перед отправкой сообщения
+
+        // Проверяем статус пользователя перед отправкой сообщения
         if (user.status === 'banned') {
             return bot.sendMessage(chatId, 'The action cannot be performed because your account has been blocked. Please contact support.');
         }
-		
+
         const welcomeMessage = user.username ? `Welcome, ${user.username}!` : `Welcome!`;
         const webAppUrl = `https://novella-telegram-bot.onrender.com/loading?telegramId=${userId}`;
 
-        bot.sendPhoto(chatId, imageUrl, {
-            caption: welcomeMessage,
+        // Теперь создаем объект options с использованием webAppUrl
+        const options = {
             reply_markup: {
                 inline_keyboard: [
                     [
@@ -205,6 +185,12 @@ bot.onText(/\/start/, async (msg) => {
                     ]
                 ]
             }
+        };
+		
+		// Отправляем фото и сообщение
+        bot.sendPhoto(chatId, imageUrl, {
+            caption: welcomeMessage,
+            reply_markup: options.reply_markup
         });
     } catch (err) {
         console.error('Error handling /start:', err);
