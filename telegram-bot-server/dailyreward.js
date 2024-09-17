@@ -14,10 +14,16 @@ function updateButton() {
 
 // Функция получения награды
 function claimReward() {
-    if (isRewardClaimed) return; // Если награда уже была получена
-    
+    if (isRewardClaimed) return;
+    console.log('Кнопка нажата, начинаем получение награды'); // Добавь лог
+
     const rewardAmount = rewards[dayCounter - 1];
-    const telegramId = 'Твой telegramId'; // Здесь можешь подставить актуальный telegramId
+    const telegramId = getTelegramId(); // Используем telegramId
+
+    if (!telegramId) {
+        console.error('Telegram ID не найден');
+        return;
+    }
 
     fetch(`/update-tokens/${telegramId}`, {
         method: 'POST',
@@ -31,16 +37,24 @@ function claimReward() {
         if (data.success) {
             isRewardClaimed = true;
             document.getElementById('claim-reward-button').disabled = true;
-            startTimer(); // Запускаем таймер
+            startTimer();
+        } else {
+            console.error('Ошибка при получении награды:', data.error);
         }
     })
-    .catch(error => console.error('Error claiming reward:', error));
+    .catch(error => console.error('Ошибка при запросе на получение награды:', error));
 }
+
 
 // Функция для таймера
 function startTimer() {
     const timerDisplay = document.getElementById('timer');
-    let timeLeft = 24 * 60 * 60; // 24 часа в секундах
+    if (!timerDisplay) {
+        console.error('Таймер не найден на странице');
+        return;
+    }
+
+    let timeLeft = 24 * 60 * 60;
 
     clearInterval(timerInterval);
     timerInterval = setInterval(() => {
@@ -50,17 +64,20 @@ function startTimer() {
         const minutes = Math.floor((timeLeft % 3600) / 60);
         const seconds = timeLeft % 60;
 
+        console.log(`Осталось времени: ${hours}:${minutes}:${seconds}`);
+
         timerDisplay.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 
         if (timeLeft <= 0) {
             clearInterval(timerInterval);
-            isRewardClaimed = false; // Сбрасываем флаг получения награды
+            isRewardClaimed = false;
             document.getElementById('claim-reward-button').disabled = false;
             dayCounter++;
             updateButton();
         }
     }, 1000);
 }
+
 
 // Инициализация
 window.onload = function() {
