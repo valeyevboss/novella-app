@@ -135,24 +135,25 @@ app.post('/update-tokens/:telegramId', async (req, res) => {
 
 // Опции для клавиатуры
 const options = {
-reply_markup: {
-    inline_keyboard: [
-        [
-            {
-                text: 'Play Now',
-                web_app: {
-                    url: `https://novella-telegram-bot.onrender.com/?telegramId=${userId}`
+    reply_markup: {
+        inline_keyboard: [
+            [
+                {
+                    text: 'Play Now',
+                    web_app: {
+                        url: `https://novella-telegram-bot.onrender.com/?telegramId=${userId}`
+                    }
                 }
-            }
-        ],
-        [
-            {
-                text: 'Join Novella Community',
-                url: 'https://t.me/novellatoken_community'
-            }
+            ],
+            [
+                {
+                    text: 'Join Novella Community',
+                    url: 'https://t.me/novellatoken_community'
+                }
+            ]
         ]
-    ]
-}
+    }
+};
 
 const imageUrl = 'https://res.cloudinary.com/dvjohgg6j/image/upload/v1725631955/Banner/Novella%20banner.jpg'; // Публичный URL вашего изображения
 
