@@ -91,6 +91,62 @@ body {
     margin-top: 10px;
 }
 
+/* Стили для блока Daily Rewards */
+.daily-reward-container {
+    background-color: #2c2f33; /* Тёмный фон */
+    border-radius: 20px; /* Закругление */
+    padding: 20px;
+    text-align: center;
+    margin: 20px 0;
+    width: 100%;
+    max-width: 400px; /* Ограничение по ширине */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.daily-reward-title {
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    color: #ffffff;
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.daily-reward-button {
+    background-color: #4caf50; /* Цвет кнопки */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 50px; /* Скругление кнопки */
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.daily-reward-button:disabled {
+    background-color: #a9a9a9; /* Отключённая кнопка */
+    cursor: not-allowed;
+}
+
+.timer-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.timer-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
+
+.timer {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    color: #ffffff;
+}
+
 /* Стили для нижнего меню */
 .bottom-menu {
     position: fixed;
