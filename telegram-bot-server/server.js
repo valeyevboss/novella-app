@@ -141,7 +141,7 @@ const options = {
                 {
                     text: 'Play Now',
                     web_app: {
-                        url: `https://novella-telegram-bot.onrender.com/?telegramId=${userId}`
+					url: `https://novella-telegram-bot.onrender.com/?telegramId=${userId}` }
                     }
                 },
                 {
