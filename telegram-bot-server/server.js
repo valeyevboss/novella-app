@@ -89,36 +89,23 @@ app.get('/check-user/:telegramId', async (req, res) => {
     }
 });
 
-// Маршрут для получения баланса пользователя по Telegram ID
-app.get('/api/get-balance/:telegramId', async (req, res) => {
-    const telegramId = req.params.telegramId;
-    
-    // модель User для работы с базой данных
-    const user = await User.findOne({ telegramId: telegramId });
-
-    if (!user) {
-        return res.status(404).json({ error: 'User not found' });
-    }
-
-    res.json({ tokens: user.tokens });
-});
-
-
 // Объявляем URL изображения
 const imageUrl = 'https://res.cloudinary.com/dvjohgg6j/image/upload/v1725631955/Banner/Novella%20banner.jpg'; // Публичный URL вашего изображения
 
 // Обработчик команды /start
 bot.onText(/\/start/, async (msg) => {
     const chatId = msg.chat.id;
-    const userId = msg.from.id;
+    const userId = msg.from.id; // Это Telegram ID
     const userName = msg.from.username || ''; // Оставляем пустым, если username нет
 
     try {
         // Ищем пользователя в базе данных или создаем нового
         let user = await User.findOne({ telegramId: userId });
         if (!user) {
+            const newUserID = uuidv4(); // Генерируем уникальный userID и сохраняем нового пользователя
             user = new User({
                 telegramId: userId,
+				userID: newUserID,  // Присваиваем сгенерированный userID
                 username: userName,
                 lastLogin: new Date(),
                 tokens: 0
@@ -138,7 +125,7 @@ bot.onText(/\/start/, async (msg) => {
         }
 
         const welcomeMessage = user.username ? `Welcome, ${user.username}!` : `Welcome!`;
-        const webAppUrl = `https://novella-telegram-bot.onrender.com/loading?telegramId=${userId}`;
+        const webAppUrl = `https://novella-telegram-bot.onrender.com/loading?userID=${user.userID}`; //telegramId=${userId}
 
         // Теперь создаем объект options с использованием webAppUrl
         const options = {
