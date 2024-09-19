@@ -64,32 +64,46 @@
 	
 	<script>
 		// Получение telegramId из URL параметра
-	function getTelegramIdFromURL() {
-		const urlParams = new URLSearchParams(window.location.search);
-		return urlParams.get('telegramId');
-	}
-
-	// Функция для получения telegramId из локального хранилища
-	function getTelegramIdFromLocalStorage() {
-		return localStorage.getItem('telegramId');
-	}
-
-	// Определение, какой источник использовать
-	function getTelegramId() {
-		const urlTelegramId = getTelegramIdFromURL();
-		if (urlTelegramId) {
-			return urlTelegramId;
+		function getTelegramIdFromURL() {
+			const urlParams = new URLSearchParams(window.location.search);
+			return urlParams.get('telegramId');
 		}
-		return getTelegramIdFromLocalStorage();
-	}
 
-	// Вызов функции при загрузке страницы
-	const telegramId = getTelegramId();
-	if (telegramId) {
-		fetchTokens(telegramId);
-	} else {
-		console.error('Telegram ID не найден');
-	}
+		// Функция для получения telegramId из локального хранилища
+		function getTelegramIdFromLocalStorage() {
+			return localStorage.getItem('telegramId');
+		}
+
+		// Определение, какой источник использовать
+		function getTelegramId() {
+			const urlTelegramId = getTelegramIdFromURL();
+			if (urlTelegramId) {
+				return urlTelegramId;
+			}
+			return getTelegramIdFromLocalStorage();
+		}
+
+		// Вызов функции при загрузке страницы
+        const telegramId = getTelegramId();
+        if (telegramId) {
+            // Функция для обновления баланса
+            function updateBalance() {
+                fetch(`/user-balance/${telegramId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.tokens !== undefined) {
+                            document.getElementById('token-balance').textContent = data.tokens;
+                        }
+                    })
+                    .catch(error => console.error('Ошибка получения баланса:', error));
+            }
+
+            // Обновление баланса каждые 10 секунд
+            updateBalance(); // Изначальное обновление
+            setInterval(updateBalance, 10000); // 10 секунд
+        } else {
+            console.error('Telegram ID не найден');
+        }
     </script>
 </body>
 </html>
