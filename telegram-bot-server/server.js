@@ -89,7 +89,8 @@ app.get('/check-user/:telegramId', async (req, res) => {
     }
 });
 
-app.get('/user-balance/:telegramId', async (req, res) => {
+// Получение токенов пользователя по запросу
+app.get('/api/tokens/:telegramId', async (req, res) => {
     try {
         const { telegramId } = req.params;
         const user = await User.findOne({ telegramId });
@@ -100,10 +101,33 @@ app.get('/user-balance/:telegramId', async (req, res) => {
 
         res.json({ tokens: user.tokens });
     } catch (error) {
-        console.error('Ошибка получения баланса пользователя:', error);
+        console.error('Ошибка получения токенов:', error);
         res.status(500).json({ error: 'Внутренняя ошибка сервера' });
     }
 });
+
+// Обновление токенов пользователя
+app.post('/api/tokens/:telegramId', async (req, res) => {
+    try {
+        const { telegramId } = req.params;
+        const { tokens } = req.body;
+
+        const user = await User.findOne({ telegramId });
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        user.tokens = tokens;
+        await user.save();
+
+        res.json({ success: true });
+    } catch (error) {
+        console.error('Ошибка обновления токенов:', error);
+        res.status(500).json({ error: 'Внутренняя ошибка сервера' });
+    }
+});
+
 
 
 // Объявляем URL изображения

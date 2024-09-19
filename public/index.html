@@ -20,7 +20,6 @@
             <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/Novellacoin.png" alt="Token Icon" class="token-icon">
             <p id="token-balance" class="token-balance">0</p> 
         </div>
-    </div>
 	
 	<!-- Daily Reward - Ежедневный вход и бонусы -->
 	<div class="daily-reward-container">
@@ -33,7 +32,7 @@
 	</div>
     
 	<!-- Нижнее меню -->
-	    <nav class="bottom-menu">
+    <nav class="bottom-menu">
         <a href="index.html" class="menu-item active">
             <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1726420961/Menu/Button%20version%202/Main_iconmenu.png" alt="Main">
             <span>Main</span>
@@ -82,28 +81,13 @@
 			}
 			return getTelegramIdFromLocalStorage();
 		}
-
 		// Вызов функции при загрузке страницы
-        const telegramId = getTelegramId();
-        if (telegramId) {
-            // Функция для обновления баланса
-            function updateBalance() {
-                fetch(`/user-balance/${telegramId}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.tokens !== undefined) {
-                            document.getElementById('token-balance').textContent = data.tokens;
-                        }
-                    })
-                    .catch(error => console.error('Ошибка получения баланса:', error));
-            }
-
-            // Обновление баланса каждые 10 секунд
-            updateBalance(); // Изначальное обновление
-            setInterval(updateBalance, 10000); // 10 секунд
-        } else {
-            console.error('Telegram ID не найден');
-        }
+		const telegramId = getTelegramId();
+		if (telegramId) {
+			fetchTokens(telegramId);
+		} else {
+			console.error('Telegram ID не найден');
+		}
     </script>
 </body>
 </html>
