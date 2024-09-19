@@ -10,31 +10,32 @@
     <div class="loading-container">
         <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/Novellacoin.png" alt="Loading Icon" class="loading-icon">
     </div>
-	<script>
-		// Получаем userID из URL
-		const urlParams = new URLSearchParams(window.location.search);
-		const userID = urlParams.get('userID');
+    <script>
+        // Получаем telegramId из URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const telegramId = urlParams.get('telegramId');
 		
-		if (userID) {
-			// Проверяем статус пользователя по userID
-			fetch(`/check-user/${userID}`)
-				.then(response => response.json())
-				.then(data => {
-					if (data.redirect) {
-						window.location.href = data.redirect;
-					} else {
-						console.error('Ошибка получения данных пользователя');
-						window.location.href = '/loadingerror';
-					}
-				})
-				.catch(error => {
-					console.error('Произошла ошибка:', error);
-					window.location.href = '/loadingerror';
-				});
-		} else {
-			console.error('User ID отсутствует в URL, перенаправляем на loadingerror');
-			window.location.href = '/loadingerror';
-		}
-	</script>
+        if (telegramId) {
+            // Проверяем статус пользователя
+            fetch(`/check-user/${telegramId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.redirect) {
+                        // Перенаправляем на нужную страницу в зависимости от ответа сервера
+                        window.location.href = data.redirect;
+                    } else {
+                        console.error('Ошибка получения данных пользователя');
+                        window.location.href = '/loadingerror';
+                    }
+                })
+                .catch(error => {
+                    console.error('Произошла ошибка:', error);
+                    window.location.href = '/loadingerror';
+                });
+        } else {
+            console.error('Telegram ID отсутствует в URL, перенаправляем на loadingerror');
+            window.location.href = '/loadingerror';
+        }
+    </script>
 </body>
 </html>
