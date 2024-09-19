@@ -44,5 +44,37 @@
             <span>Leaders</span>
         </a>
     </nav>
+	</div>
+    <script>
+        // Функция для получения токенов пользователя и обновления интерфейса
+        function updateTokenBalance() {
+            // Получаем telegramId пользователя из URL или другого источника
+            const urlParams = new URLSearchParams(window.location.search);
+            const telegramId = urlParams.get('telegramId');
+
+            if (telegramId) {
+                fetch(`/get-token/${telegramId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const tokenBalanceElement = document.getElementById('token-balance');
+                        if (data.tokens !== undefined) {
+                            tokenBalanceElement.textContent = data.tokens; // Обновляем баланс токенов
+                        } else {
+                            tokenBalanceElement.textContent = '0'; // Если токенов нет, показываем 0
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Ошибка при получении токенов:', error);
+                        document.getElementById('token-balance').textContent = 'Error'; // Показываем ошибку
+                    });
+            } else {
+                console.error('Telegram ID отсутствует в URL');
+                document.getElementById('token-balance').textContent = 'Error'; // Показываем ошибку
+            }
+        }
+
+        // Вызов функции при загрузке страницы
+        window.onload = updateTokenBalance;
+    </script>
 </body>
 </html>

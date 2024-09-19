@@ -89,6 +89,24 @@ app.get('/check-user/:telegramId', async (req, res) => {
     }
 });
 
+// Маршрут для получения токенов пользователя
+app.get('/get-token/:telegramId', async (req, res) => {
+    try {
+        const { telegramId } = req.params;
+        const user = await User.findOne({ telegramId });
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        res.json({ tokens: user.tokens });
+    } catch (error) {
+        console.error('Ошибка при получении токенов пользователя:', error);
+        res.status(500).json({ error: 'Внутренняя ошибка сервера' });
+    }
+});
+
+
 // Объявляем URL изображения
 const imageUrl = 'https://res.cloudinary.com/dvjohgg6j/image/upload/v1725631955/Banner/Novella%20banner.jpg'; // Публичный URL вашего изображения
 
