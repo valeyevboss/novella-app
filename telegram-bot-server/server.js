@@ -112,7 +112,13 @@ app.post('/update-tokens/:telegramId', async (req, res) => {
         user.tokens += amount;
         await user.save();
 
-        return res.json({ success: true, tokens: user.tokens });
+        // Очистка кеша
+        const cacheKey = `tokens_${telegramId}`;
+        if (typeof localStorage !== 'undefined') {
+            localStorage.removeItem(cacheKey);
+        }
+
+        return res.json({ success: true, newBalance: user.tokens });
     } catch (error) {
         console.error('Ошибка обновления токенов:', error);
         res.status(500).json({ error: 'Внутренняя ошибка сервера' });
