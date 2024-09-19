@@ -19,6 +19,8 @@
     "mongoose": "^8.6.1",
     "node-cron": "^3.0.3",
     "node-telegram-bot-api": "^0.66.0",
+    "telegraf": "^4.16.3",
+    "uuid": "^10.0.0",
     "walletconnect-monorepo": "github:WalletConnect/walletconnect-monorepo"
   }
 }

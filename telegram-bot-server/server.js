@@ -1,14 +1,12 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
-const TelegramBot = require('node-telegram-bot-api');
+const { Telegraf } = require('telegraf');
 const User = require('../models/User');
 const { v4: uuidv4 } = require('uuid');
 
 const app = express();
 const port = process.env.PORT || 3000;
-
-
 
 const telegramBotToken = process.env.TELEGRAM_BOT_TOKEN;
 if (!telegramBotToken) {
@@ -16,11 +14,10 @@ if (!telegramBotToken) {
     process.exit(1);
 }
 
-const bot = new TelegramBot(telegramBotToken, { polling: true });
+const bot = new Telegraf(telegramBotToken);
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.json()); // для обновления токенов и данных
-
 
 // Подключение папки для статических файлов
 app.use(express.static(path.join(__dirname, '..', 'public')));
@@ -47,8 +44,7 @@ app.get('/banned', (req, res) => {
 // Подключение к MongoDB с ожиданием
 async function startServer() {
     try {
-        await mongoose.connect(process.env.MONGO_URI, {
-        });
+        await mongoose.connect(process.env.MONGO_URI, {});
         console.log('Connected to MongoDB');
 
         // Запуск сервера только после успешного подключения к базе данных
@@ -70,21 +66,17 @@ app.get('/check-user/:telegramId', async (req, res) => {
         const user = await User.findOne({ telegramId });
 
         if (!user) {
-            // Если пользователь не найден, отправляем ошибку
             return res.status(404).json({ error: 'User not found' });
         }
 
-        // Проверка статуса
         if (user.status === 'banned') {
             return res.json({ redirect: '/banned' });
         }
 
-        // Если пользователь не заблокирован, проверяем наличие username
         if (!user.username) {
             return res.json({ redirect: '/loadingerror' });
         }
 
-        // Если все нормально, перенаправляем на главную страницу index.html
         return res.json({ redirect: '/' });
     } catch (error) {
         console.error('Ошибка проверки пользователя:', error);
@@ -96,19 +88,18 @@ app.get('/check-user/:telegramId', async (req, res) => {
 const imageUrl = 'https://res.cloudinary.com/dvjohgg6j/image/upload/v1725631955/Banner/Novella%20banner.jpg'; // Публичный URL вашего изображения
 
 // Обработчик команды /start
-bot.onText(/\/start/, async (msg) => {
-    const chatId = msg.chat.id;
-    const userId = msg.from.id; // Это Telegram ID
-    const userName = msg.from.username || ''; // Оставляем пустым, если username нет
+bot.start(async (ctx) => {
+    const chatId = ctx.chat.id;
+    const userId = ctx.from.id; // Это Telegram ID
+    const userName = ctx.from.username || ''; // Оставляем пустым, если username нет
 
     try {
-        // Ищем пользователя в базе данных или создаем нового
         let user = await User.findOne({ telegramId: userId });
         if (!user) {
             const newUserID = uuidv4(); // Генерируем уникальный userID и сохраняем нового пользователя
             user = new User({
                 telegramId: userId,
-				userID: newUserID,  // Присваиваем сгенерированный userID
+                userID: newUserID,  // Присваиваем сгенерированный userID
                 username: userName,
                 lastLogin: new Date(),
                 tokens: 0
@@ -122,16 +113,15 @@ bot.onText(/\/start/, async (msg) => {
             await user.save();
         }
 
-        // Проверяем статус пользователя перед отправкой сообщения
         if (user.status === 'banned') {
-            return bot.sendMessage(chatId, 'The action cannot be performed because your account has been blocked. Please contact support.');
+            return ctx.reply('The action cannot be performed because your account has been blocked. Please contact support.');
         }
 
         const welcomeMessage = user.username ? `Welcome, ${user.username}!` : `Welcome!`;
-        const webAppUrl = `https://novella-telegram-bot.onrender.com/loading?userID=${user.userID}`; //telegramId=${userId}
+        const webAppUrl = `https://novella-telegram-bot.onrender.com/loading?userID=${user.userID}`;
 
-        // Теперь создаем объект options с использованием webAppUrl
-        const options = {
+        await ctx.replyWithPhoto(imageUrl, {
+            caption: welcomeMessage,
             reply_markup: {
                 inline_keyboard: [
                     [
@@ -146,15 +136,17 @@ bot.onText(/\/start/, async (msg) => {
                     ]
                 ]
             }
-        };
-		
-		// Отправляем фото и сообщение
-        bot.sendPhoto(chatId, imageUrl, {
-            caption: welcomeMessage,
-            reply_markup: options.reply_markup
         });
     } catch (err) {
         console.error('Error handling /start:', err);
-        bot.sendMessage(chatId, 'The action cannot be performed because your account has been blocked. Please contact support.');
+        ctx.reply('The action cannot be performed because your account has been blocked. Please contact support.');
     }
+});
+
+// Запуск бота
+bot.launch();
+
+// Обработка ошибок
+bot.catch((err) => {
+    console.error('Error in bot:', err);
 });
