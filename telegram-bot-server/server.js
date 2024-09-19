@@ -89,47 +89,6 @@ app.get('/check-user/:telegramId', async (req, res) => {
     }
 });
 
-// Получение токенов пользователя по запросу
-app.get('/api/tokens/:telegramId', async (req, res) => {
-    try {
-        const { telegramId } = req.params;
-        const user = await User.findOne({ telegramId });
-
-        if (!user) {
-            return res.status(404).json({ error: 'User not found' });
-        }
-
-        res.json({ tokens: user.tokens });
-    } catch (error) {
-        console.error('Ошибка получения токенов:', error);
-        res.status(500).json({ error: 'Внутренняя ошибка сервера' });
-    }
-});
-
-// Обновление токенов пользователя
-app.post('/api/tokens/:telegramId', async (req, res) => {
-    try {
-        const { telegramId } = req.params;
-        const { tokens } = req.body;
-
-        const user = await User.findOne({ telegramId });
-
-        if (!user) {
-            return res.status(404).json({ error: 'User not found' });
-        }
-
-        user.tokens = tokens;
-        await user.save();
-
-        res.json({ success: true });
-    } catch (error) {
-        console.error('Ошибка обновления токенов:', error);
-        res.status(500).json({ error: 'Внутренняя ошибка сервера' });
-    }
-});
-
-
-
 // Объявляем URL изображения
 const imageUrl = 'https://res.cloudinary.com/dvjohgg6j/image/upload/v1725631955/Banner/Novella%20banner.jpg'; // Публичный URL вашего изображения
 
