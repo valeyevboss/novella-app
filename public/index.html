@@ -18,7 +18,7 @@
         </header>
         <div class="token-section">
             <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/Novellacoin.png" alt="Token Icon" class="token-icon">
-            <p id="token-balance" class="token-balance">0</p> 
+            <p id="token-balance" class="token-balance">0</p>
         </div>
     
         <!-- Нижнее меню -->
@@ -45,5 +45,37 @@
             </a>
         </nav>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Получаем Telegram ID из URL параметра
+            const urlParams = new URLSearchParams(window.location.search);
+            const telegramId = urlParams.get('telegramId');
+
+            if (telegramId) {
+                // Запрашиваем данные о пользователе для получения баланса токенов
+                fetch(`/check-user/${telegramId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.redirect) {
+                            window.location.href = data.redirect;
+                        } else if (data.tokens !== undefined) {
+                            // Обновляем текст с балансом токенов
+                            document.getElementById('token-balance').innerText = data.tokens;
+                        } else {
+                            console.error('Ошибка получения данных пользователя');
+                            window.location.href = '/loadingerror';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Произошла ошибка:', error);
+                        window.location.href = '/loadingerror';
+                    });
+            } else {
+                console.error('Telegram ID отсутствует в URL, перенаправляем на loadingerror');
+                window.location.href = '/loadingerror';
+            }
+        });
+    </script>
 </body>
 </html>
