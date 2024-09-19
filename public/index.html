@@ -61,5 +61,35 @@
 	
 	<!-- Подключение скрипта dailyreward.js -->
     <script src="dailyreward.js"></script>
+	
+	<script>
+		// Получение telegramId из URL параметра
+	function getTelegramIdFromURL() {
+		const urlParams = new URLSearchParams(window.location.search);
+		return urlParams.get('telegramId');
+	}
+
+	// Функция для получения telegramId из локального хранилища
+	function getTelegramIdFromLocalStorage() {
+		return localStorage.getItem('telegramId');
+	}
+
+	// Определение, какой источник использовать
+	function getTelegramId() {
+		const urlTelegramId = getTelegramIdFromURL();
+		if (urlTelegramId) {
+			return urlTelegramId;
+		}
+		return getTelegramIdFromLocalStorage();
+	}
+
+	// Вызов функции при загрузке страницы
+	const telegramId = getTelegramId();
+	if (telegramId) {
+		fetchTokens(telegramId);
+	} else {
+		console.error('Telegram ID не найден');
+	}
+    </script>
 </body>
 </html>
