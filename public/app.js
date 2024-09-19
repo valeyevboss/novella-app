@@ -1,5 +1,13 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const telegramId = '<user_telegram_id>'; // Telegram ID пользователя должен быть динамическим
+    // Получаем Telegram ID из URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const telegramId = urlParams.get('telegramId');
+
+    if (!telegramId) {
+        console.error('Telegram ID не передан в URL');
+        return; // Выход, если Telegram ID отсутствует
+    }
+
     const tokenBalanceElement = document.getElementById('token-balance');
 
     function updateBalance() {

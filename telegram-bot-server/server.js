@@ -89,7 +89,6 @@ app.get('/check-user/:telegramId', async (req, res) => {
     }
 });
 
-// Новый маршрут для получения баланса пользователя
 app.get('/get-balance/:telegramId', async (req, res) => {
     try {
         const { telegramId } = req.params;
@@ -142,7 +141,7 @@ bot.onText(/\/start/, async (msg) => {
         }
 
         const welcomeMessage = user.username ? `Welcome, ${user.username}!` : `Welcome!`;
-        const webAppUrl = `https://novella-telegram-bot.onrender.com/loading?telegramId=${userId}`;
+        const webAppUrl = `https://novella-telegram-bot.onrender.com?telegramId=${userId}`; //БЫЛО `https://novella-telegram-bot.onrender.com/loading?telegramId=${userId}`;
 
         // Теперь создаем объект options с использованием webAppUrl
         const options = {
