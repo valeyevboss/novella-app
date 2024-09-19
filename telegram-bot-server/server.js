@@ -89,24 +89,6 @@ app.get('/check-user/:telegramId', async (req, res) => {
     }
 });
 
-app.get('/get-balance/:telegramId', async (req, res) => {
-    try {
-        const { telegramId } = req.params;
-        const user = await User.findOne({ telegramId });
-
-        if (!user) {
-            return res.status(404).json({ error: 'User not found' });
-        }
-
-        // Возвращаем токены пользователя
-        res.json({ tokens: user.tokens });
-    } catch (error) {
-        console.error('Ошибка при получении баланса:', error);
-        res.status(500).json({ error: 'Внутренняя ошибка сервера' });
-    }
-});
-
-
 // Объявляем URL изображения
 const imageUrl = 'https://res.cloudinary.com/dvjohgg6j/image/upload/v1725631955/Banner/Novella%20banner.jpg'; // Публичный URL вашего изображения
 
@@ -141,7 +123,7 @@ bot.onText(/\/start/, async (msg) => {
         }
 
         const welcomeMessage = user.username ? `Welcome, ${user.username}!` : `Welcome!`;
-        const webAppUrl = `https://novella-telegram-bot.onrender.com?telegramId=${userId}`; //БЫЛО `https://novella-telegram-bot.onrender.com/loading?telegramId=${userId}`;
+        const webAppUrl = `https://novella-telegram-bot.onrender.com/loading?telegramId=${userId}`;
 
         // Теперь создаем объект options с использованием webAppUrl
         const options = {
