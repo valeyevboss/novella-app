@@ -58,10 +58,10 @@
 	<script>
 		const userId = document.body.dataset.userId;
 		const updateTokenBalance = () => {
-			if (!userId) {
-				console.error('User ID is not defined.');
-				return;
-			}
+		if (!userId) {
+			console.error('User ID is not defined.');
+			return; // Если userId не определен, выходим из функции
+		}
 
 			fetch(`/get-tokens/${userId}`)
 				.then(response => {
