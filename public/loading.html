@@ -12,27 +12,34 @@
     </div>
     <script>
         // Получаем telegramId из URL
-	const urlParams = new URLSearchParams(window.location.search);
-	const userId = urlParams.get('userId');
+        const urlParams = new URLSearchParams(window.location.search);
+        const userId = urlParams.get('userId');
 
-	if (userId) {
-		fetch(`/check-user/${userId}`)
-			.then(response => response.json())
-			.then(data => {
-				if (data.redirect) {
-					window.location.href = data.redirect;
-				} else {
-					document.getElementById('token-balance').innerText = data.tokens;
-				}
-			})
-			.catch(error => {
-				console.error('Произошла ошибка:', error);
-				window.location.href = '/loadingerror';
-			});
-	} else {
-		console.error('User ID отсутствует в URL, перенаправляем на loadingerror');
-		window.location.href = '/loadingerror';
-	}
+        if (userId) {
+            fetch(`/check-user/${userId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.redirect) {
+                        // Задержка перед переходом на страницу
+                        setTimeout(() => {
+                            window.location.href = data.redirect;
+                        }, 4000); // Задержка в (2 секунды)
+                    } else {
+                        document.getElementById('token-balance').innerText = data.tokens;
+                    }
+                })
+                .catch(error => {
+                    console.error('Произошла ошибка:', error);
+                    setTimeout(() => {
+                        window.location.href = '/loadingerror';
+                    }, 4000); // Задержка в (2 секунды)
+                });
+        } else {
+            console.error('User ID отсутствует в URL, перенаправляем на loadingerror');
+            setTimeout(() => {
+                window.location.href = '/loadingerror';
+            }, 4000); // Задержка в 2000 (2 секунды)
+        }
     </script>
 </body>
 </html>
