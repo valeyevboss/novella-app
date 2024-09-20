@@ -30,8 +30,6 @@ app.get('/', (req, res) => {
     res.render('index', { userId }); // Передайте userId в рендер
 });
 
-});
-
 // Отдача loading.html и loadingerror.html по запросу
 app.get('/loading', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'public', 'loading.html'));
