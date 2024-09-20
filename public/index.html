@@ -46,41 +46,42 @@
         </nav>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const telegramId = urlParams.get('telegramId');
-            
-            if (telegramId) {
-                // Попробуем получить данные о токенах из кеша
-                const cachedTokens = localStorage.getItem(`tokens_${telegramId}`);
-                
-                if (cachedTokens) {
-                    document.getElementById('token-balance').innerText = cachedTokens;
-                } else {
-                    // Запрашиваем данные о пользователе для получения баланса токенов
-                    fetch(`/check-user/${telegramId}`)
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.redirect) {
-                                window.location.href = data.redirect;
-                            } else if (data.tokens !== undefined) {
-                                // Обновляем текст с балансом токенов
-                                document.getElementById('token-balance').innerText = data.tokens;
-                                // Сохраняем токены в кеш
-                                localStorage.setItem(`tokens_${telegramId}`, data.tokens);
-                            } else {
-                                console.error('Ошибка получения данных пользователя');
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Произошла ошибка:', error);
-                        });
-                }
-            } else {
-                console.error('Telegram ID отсутствует в URL');
-            }
-        });
-    </script>
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			const urlParams = new URLSearchParams(window.location.search);
+			const telegramId = urlParams.get('telegramId');
+			
+			if (telegramId) {
+				// Попробуем получить данные о токенах из кеша
+				const cachedTokens = localStorage.getItem(`tokens_${telegramId}`);
+				
+				if (cachedTokens) {
+					document.getElementById('token-balance').innerText = cachedTokens;
+				} else {
+					// Запрашиваем данные о пользователе для получения баланса токенов
+					fetch(`/check-user/${telegramId}`)
+						.then(response => response.json())
+						.then(data => {
+							if (data.redirect) {
+								window.location.href = data.redirect;
+							} else if (data.tokens !== undefined) {
+								// Обновляем текст с балансом токенов
+								document.getElementById('token-balance').innerText = data.tokens;
+								// Сохраняем токены в кеш
+								localStorage.setItem(`tokens_${telegramId}`, data.tokens);
+							} else {
+								console.error('Ошибка получения данных пользователя');
+							}
+						})
+						.catch(error => {
+							console.error('Произошла ошибка:', error);
+						});
+				}
+			} else {
+				console.error('Telegram ID отсутствует в URL');
+			}
+		});
+	</script>
+
 </body>
 </html>

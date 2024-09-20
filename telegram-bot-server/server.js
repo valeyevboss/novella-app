@@ -67,21 +67,19 @@ app.get('/check-user/:telegramId', async (req, res) => {
         const user = await User.findOne({ telegramId });
 
         if (!user) {
-            // Если пользователь не найден, отправляем ошибку
             return res.status(404).json({ error: 'User not found' });
         }
 
-        // Проверка статуса
+        // Проверяем статус
         if (user.status === 'banned') {
             return res.json({ redirect: '/banned' });
         }
 
-        // Если пользователь не заблокирован, проверяем наличие username
         if (!user.username) {
             return res.json({ redirect: '/loadingerror' });
         }
 
-        // Отправляем данные о пользователе, включая токены. Если все нормально, перенаправляем на главную страницу index.html
+        // Отправляем токены и статус пользователя
         return res.json({ tokens: user.tokens, redirect: '/' });
     } catch (error) {
         console.error('Ошибка проверки пользователя:', error);
@@ -112,7 +110,7 @@ app.post('/update-tokens/:telegramId', async (req, res) => {
         user.tokens += amount;
         await user.save();
 
-        // Очистка кеша
+        // Обновление кеша токенов на клиенте
         const cacheKey = `tokens_${telegramId}`;
         if (typeof localStorage !== 'undefined') {
             localStorage.removeItem(cacheKey);
@@ -124,7 +122,6 @@ app.post('/update-tokens/:telegramId', async (req, res) => {
         res.status(500).json({ error: 'Внутренняя ошибка сервера' });
     }
 });
-
 
 // Объявляем URL изображения
 const imageUrl = 'https://res.cloudinary.com/dvjohgg6j/image/upload/v1725631955/Banner/Novella%20banner.jpg'; // Публичный URL вашего изображения
