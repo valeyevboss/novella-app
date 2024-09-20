@@ -67,58 +67,24 @@ app.get('/check-user/:telegramId', async (req, res) => {
         const user = await User.findOne({ telegramId });
 
         if (!user) {
+            // Если пользователь не найден, отправляем ошибку
             return res.status(404).json({ error: 'User not found' });
         }
 
-        // Проверяем статус
+        // Проверка статуса
         if (user.status === 'banned') {
             return res.json({ redirect: '/banned' });
         }
 
+        // Если пользователь не заблокирован, проверяем наличие username
         if (!user.username) {
             return res.json({ redirect: '/loadingerror' });
         }
 
-        // Отправляем токены и статус пользователя
-        return res.json({ tokens: user.tokens, redirect: '/' });
+        // Если все нормально, перенаправляем на главную страницу index.html
+        return res.json({ redirect: '/' });
     } catch (error) {
         console.error('Ошибка проверки пользователя:', error);
-        res.status(500).json({ error: 'Внутренняя ошибка сервера' });
-    }
-});
-
-// Обновление токенов
-app.post('/update-tokens/:telegramId', async (req, res) => {
-    try {
-        const { telegramId } = req.params;
-        const { amount } = req.body;
-
-        if (typeof amount !== 'number') {
-            return res.status(400).json({ error: 'Invalid amount' });
-        }
-
-        const user = await User.findOne({ telegramId });
-
-        if (!user) {
-            return res.status(404).json({ error: 'User not found' });
-        }
-
-        if (user.status === 'banned') {
-            return res.status(403).json({ error: 'User is banned' });
-        }
-
-        user.tokens += amount;
-        await user.save();
-
-        // Обновление кеша токенов на клиенте
-        const cacheKey = `tokens_${telegramId}`;
-        if (typeof localStorage !== 'undefined') {
-            localStorage.removeItem(cacheKey);
-        }
-
-        return res.json({ success: true, newBalance: user.tokens });
-    } catch (error) {
-        console.error('Ошибка обновления токенов:', error);
         res.status(500).json({ error: 'Внутренняя ошибка сервера' });
     }
 });
@@ -126,6 +92,7 @@ app.post('/update-tokens/:telegramId', async (req, res) => {
 // Объявляем URL изображения
 const imageUrl = 'https://res.cloudinary.com/dvjohgg6j/image/upload/v1725631955/Banner/Novella%20banner.jpg'; // Публичный URL вашего изображения
 
+// Обработчик команды /start
 bot.onText(/\/start/, async (msg) => {
     const chatId = msg.chat.id;
     const userId = msg.from.id;
@@ -138,7 +105,6 @@ bot.onText(/\/start/, async (msg) => {
             user = new User({
                 telegramId: userId,
                 username: userName,
-                userId: uuidv4(),  // Генерируем уникальный userId
                 lastLogin: new Date(),
                 tokens: 0
             });
@@ -159,6 +125,7 @@ bot.onText(/\/start/, async (msg) => {
         const welcomeMessage = user.username ? `Welcome, ${user.username}!` : `Welcome!`;
         const webAppUrl = `https://novella-telegram-bot.onrender.com/loading?telegramId=${userId}`;
 
+        // Теперь создаем объект options с использованием webAppUrl
         const options = {
             reply_markup: {
                 inline_keyboard: [
@@ -175,8 +142,8 @@ bot.onText(/\/start/, async (msg) => {
                 ]
             }
         };
-
-        // Отправляем фото и сообщение
+		
+		// Отправляем фото и сообщение
         bot.sendPhoto(chatId, imageUrl, {
             caption: welcomeMessage,
             reply_markup: options.reply_markup
