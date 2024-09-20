@@ -97,11 +97,9 @@ body {
     border-radius: 20px; /* Закругление */
     padding: 20px;
     text-align: center;
-    margin: 20px 0;
-    width: 100%;
+    margin: 20px auto; /* Центрирование блока */
+    width: 100%; /* Ширина блока 100% */
     max-width: 400px; /* Ограничение по ширине */
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .daily-reward-title {
@@ -146,6 +144,27 @@ body {
     font-size: 16px;
     color: #ffffff;
 }
+
+/* Медиа-запросы для мобильных устройств */
+@media (max-width: 480px) {
+    .daily-reward-container {
+        padding: 15px; /* Уменьшаем отступы для мобильных */
+    }
+
+    .daily-reward-title {
+        font-size: 16px; /* Уменьшаем размер шрифта */
+    }
+
+    .daily-reward-button {
+        padding: 8px 16px; /* Уменьшаем отступы кнопки */
+        font-size: 14px; /* Уменьшаем размер шрифта кнопки */
+    }
+
+    .timer {
+        font-size: 14px; /* Уменьшаем размер шрифта таймера */
+    }
+}
+
 
 /* Стили для нижнего меню */
 .bottom-menu {
