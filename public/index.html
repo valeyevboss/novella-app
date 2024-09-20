@@ -55,38 +55,39 @@
             </a>
         </nav>
     </div>
-	<script>
-		const updateTokenBalance = () => {
-			const userId = document.body.dataset.userId;
+    
+    <script>
+        const updateTokenBalance = () => {
+            const userId = document.body.dataset.userId;
 
-			if (!userId) {
-				console.error('User ID is not defined.');
-				return; // Завершите выполнение, если userId не найден
-			}
+            if (!userId) {
+                console.error('User ID is not defined.');
+                return; // Завершите выполнение, если userId не найден
+            }
 
-			fetch(`/get-tokens/${userId}`)
-				.then(response => {
-					if (!response.ok) {
-						throw new Error('Network response was not ok');
-					}
-					return response.json();
-				})
-				.then(data => {
-					if (data.tokens !== undefined) {
-						document.getElementById('token-balance').innerText = data.tokens;
-					}
-				})
-				.catch(error => {
-					console.error('Ошибка при обновлении баланса токенов:', error);
-				});
-		};
+            fetch(`/get-tokens/${userId}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.tokens !== undefined) {
+                        document.getElementById('token-balance').innerText = data.tokens;
+                    }
+                })
+                .catch(error => {
+                    console.error('Ошибка при обновлении баланса токенов:', error);
+                });
+        };
 
-		// Обновление баланса каждые 15 секунд
-		setInterval(updateTokenBalance, 15000);
-		// Начальное обновление при загрузке
-		updateTokenBalance();
-		
-		<!-- Подключение скрипта dailyreward.js -->
-		<script src="dailyreward.js"></script>
-<body>
+        // Обновление баланса каждые 15 секунд
+        setInterval(updateTokenBalance, 15000);
+        // Начальное обновление при загрузке
+        updateTokenBalance();
+    </script>
+    
+    <script src="dailyreward.js"></script>
+</body>
 </html>
