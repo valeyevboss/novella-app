@@ -12,30 +12,27 @@
     </div>
     <script>
         // Получаем telegramId из URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const telegramId = urlParams.get('telegramId');
-		
-        if (telegramId) {
-            // Проверяем статус пользователя
-            fetch(`/check-user/${telegramId}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.redirect) {
-                        // Перенаправляем на нужную страницу в зависимости от ответа сервера
-                        window.location.href = data.redirect;
-                    } else {
-                        console.error('Ошибка получения данных пользователя');
-                        window.location.href = '/loadingerror';
-                    }
-                })
-                .catch(error => {
-                    console.error('Произошла ошибка:', error);
-                    window.location.href = '/loadingerror';
-                });
-        } else {
-            console.error('Telegram ID отсутствует в URL, перенаправляем на loadingerror');
-            window.location.href = '/loadingerror';
-        }
+	const urlParams = new URLSearchParams(window.location.search);
+	const userId = urlParams.get('userId');
+
+	if (userId) {
+		fetch(`/check-user/${userId}`)
+			.then(response => response.json())
+			.then(data => {
+				if (data.redirect) {
+					window.location.href = data.redirect;
+				} else {
+					document.getElementById('token-balance').innerText = data.tokens;
+				}
+			})
+			.catch(error => {
+				console.error('Произошла ошибка:', error);
+				window.location.href = '/loadingerror';
+			});
+	} else {
+		console.error('User ID отсутствует в URL, перенаправляем на loadingerror');
+		window.location.href = '/loadingerror';
+	}
     </script>
 </body>
 </html>

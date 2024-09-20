@@ -61,33 +61,30 @@ async function startServer() {
 startServer();
 
 // Проверка статуса пользователя и наличия username
-app.get('/check-user/:telegramId', async (req, res) => {
+app.get('/check-user/:userId', async (req, res) => {
     try {
-        const { telegramId } = req.params;
-        const user = await User.findOne({ telegramId });
+        const { userId } = req.params;
+        const user = await User.findOne({ userId });
 
         if (!user) {
-            // Если пользователь не найден, отправляем ошибку
             return res.status(404).json({ error: 'User not found' });
         }
 
-        // Проверка статуса
         if (user.status === 'banned') {
             return res.json({ redirect: '/banned' });
         }
 
-        // Если пользователь не заблокирован, проверяем наличие username
         if (!user.username) {
             return res.json({ redirect: '/loadingerror' });
         }
 
-        // Если все нормально, перенаправляем на главную страницу index.html
-        return res.json({ redirect: '/' });
+        return res.json({ tokens: user.tokens, redirect: '/' });
     } catch (error) {
         console.error('Ошибка проверки пользователя:', error);
         res.status(500).json({ error: 'Внутренняя ошибка сервера' });
     }
 });
+
 
 // Объявляем URL изображения
 const imageUrl = 'https://res.cloudinary.com/dvjohgg6j/image/upload/v1725631955/Banner/Novella%20banner.jpg'; // Публичный URL вашего изображения
@@ -96,15 +93,15 @@ const imageUrl = 'https://res.cloudinary.com/dvjohgg6j/image/upload/v1725631955/
 bot.onText(/\/start/, async (msg) => {
     const chatId = msg.chat.id;
     const userId = msg.from.id;
-    const userName = msg.from.username || ''; // Оставляем пустым, если username нет
+    const userName = msg.from.username || '';
 
     try {
-        // Ищем пользователя в базе данных или создаем нового
         let user = await User.findOne({ telegramId: userId });
         if (!user) {
             user = new User({
                 telegramId: userId,
                 username: userName,
+                userId: uuidv4(), // Генерируем уникальный userId
                 lastLogin: new Date(),
                 tokens: 0
             });
@@ -112,44 +109,35 @@ bot.onText(/\/start/, async (msg) => {
         } else {
             user.lastLogin = new Date();
             if (userName) {
-                user.username = userName; // Обновляем username, если он существует
+                user.username = userName;
             }
             await user.save();
         }
 
-        // Проверяем статус пользователя перед отправкой сообщения
+        // Проверка статуса
         if (user.status === 'banned') {
-            return bot.sendMessage(chatId, 'The action cannot be performed because your account has been blocked. Please contact support.');
+            return bot.sendMessage(chatId, 'Your account has been blocked. Please contact support.');
         }
 
         const welcomeMessage = user.username ? `Welcome, ${user.username}!` : `Welcome!`;
-        const webAppUrl = `https://novella-telegram-bot.onrender.com/loading?telegramId=${userId}`;
+        const webAppUrl = `https://novella-telegram-bot.onrender.com/loading?userId=${user.userId}`;
 
-        // Теперь создаем объект options с использованием webAppUrl
+        // Отправка сообщения
         const options = {
             reply_markup: {
-                inline_keyboard: [
-                    [
-                        {
-                            text: 'Play Now',
-                            web_app: { url: webAppUrl }
-                        },
-                        {
-                            text: 'Join Novella Community',
-                            url: 'https://t.me/novellatoken_community'
-                        }
-                    ]
-                ]
+                inline_keyboard: [[
+                    { text: 'Play Now', web_app: { url: webAppUrl } },
+                    { text: 'Join Novella Community', url: 'https://t.me/novellatoken_community' }
+                ]]
             }
         };
-		
-		// Отправляем фото и сообщение
+        
         bot.sendPhoto(chatId, imageUrl, {
             caption: welcomeMessage,
             reply_markup: options.reply_markup
         });
     } catch (err) {
         console.error('Error handling /start:', err);
-        bot.sendMessage(chatId, 'The action cannot be performed because your account has been blocked. Please contact support.');
+        bot.sendMessage(chatId, 'Your account has been blocked. Please contact support.');
     }
 });
