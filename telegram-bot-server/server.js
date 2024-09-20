@@ -126,7 +126,6 @@ app.post('/update-tokens/:telegramId', async (req, res) => {
 // Объявляем URL изображения
 const imageUrl = 'https://res.cloudinary.com/dvjohgg6j/image/upload/v1725631955/Banner/Novella%20banner.jpg'; // Публичный URL вашего изображения
 
-// Обработчик команды /start
 bot.onText(/\/start/, async (msg) => {
     const chatId = msg.chat.id;
     const userId = msg.from.id;
@@ -139,6 +138,7 @@ bot.onText(/\/start/, async (msg) => {
             user = new User({
                 telegramId: userId,
                 username: userName,
+                userId: uuidv4(),  // Генерируем уникальный userId
                 lastLogin: new Date(),
                 tokens: 0
             });
@@ -159,7 +159,6 @@ bot.onText(/\/start/, async (msg) => {
         const welcomeMessage = user.username ? `Welcome, ${user.username}!` : `Welcome!`;
         const webAppUrl = `https://novella-telegram-bot.onrender.com/loading?telegramId=${userId}`;
 
-        // Теперь создаем объект options с использованием webAppUrl
         const options = {
             reply_markup: {
                 inline_keyboard: [
@@ -176,8 +175,8 @@ bot.onText(/\/start/, async (msg) => {
                 ]
             }
         };
-		
-		// Отправляем фото и сообщение
+
+        // Отправляем фото и сообщение
         bot.sendPhoto(chatId, imageUrl, {
             caption: welcomeMessage,
             reply_markup: options.reply_markup
