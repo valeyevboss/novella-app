@@ -56,10 +56,20 @@
         </nav>
     </div>
 	<script>
-		const userId = '<%= userId %>'; // Передай userId из шаблона, если используешь серверный рендеринг
+		const userId = document.body.dataset.userId;
 		const updateTokenBalance = () => {
+			if (!userId) {
+				console.error('User ID is not defined.');
+				return;
+			}
+
 			fetch(`/get-tokens/${userId}`)
-				.then(response => response.json())
+				.then(response => {
+					if (!response.ok) {
+						throw new Error('Network response was not ok');
+					}
+					return response.json();
+				})
 				.then(data => {
 					if (data.tokens !== undefined) {
 						document.getElementById('token-balance').innerText = data.tokens;
@@ -78,5 +88,6 @@
 	
 	<!-- Подключение скрипта dailyreward.js -->
     <script src="dailyreward.js"></script>
-</body>
+	
+<body data-user-id="<%= userId %>">
 </html>
