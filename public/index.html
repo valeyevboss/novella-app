@@ -56,14 +56,14 @@
         </nav>
     </div>
 	<script>
-		const userId = document.body.dataset.userId;
-
-		if (!userId) {
-			console.error('User ID is not defined.');
-			return; // Завершите выполнение, если userId не найден
-		}
-
 		const updateTokenBalance = () => {
+			const userId = document.body.dataset.userId;
+
+			if (!userId) {
+				console.error('User ID is not defined.');
+				return; // Завершите выполнение, если userId не найден
+			}
+
 			fetch(`/get-tokens/${userId}`)
 				.then(response => {
 					if (!response.ok) {
