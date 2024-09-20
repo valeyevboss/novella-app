@@ -10,6 +10,9 @@
     <link rel="preload" href="/fonts/Unispace.woff2" as="font" type="font/woff2" crossorigin="anonymous">
 </head>
 <body data-user-id="<%= userId %>">
+    <script>
+        console.log('User ID from data attribute:', document.body.dataset.userId);
+    </script>
     <div class="main-page">
         <header>
             <button class="freedurov-button" onclick="window.open('https://www.change.org/p/free-pavel-durov-freedurov?source_location=tag_')">
@@ -77,9 +80,10 @@
                         document.getElementById('token-balance').innerText = data.tokens;
                     }
                 })
-                .catch(error => {
-                    console.error('Ошибка при обновлении баланса токенов:', error);
-                });
+				.catch(error => {
+					console.error('Ошибка при обновлении баланса токенов:', error);
+					console.error('Ошибка HTTP:', error.response ? error.response.data : 'No response data');
+				});
         };
 
         // Обновление баланса каждые 15 секунд
