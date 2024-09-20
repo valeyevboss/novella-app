@@ -57,12 +57,13 @@
     </div>
 	<script>
 		const userId = document.body.dataset.userId;
-		const updateTokenBalance = () => {
+
 		if (!userId) {
 			console.error('User ID is not defined.');
-			return; // Если userId не определен, выходим из функции
+			return; // Завершите выполнение, если userId не найден
 		}
 
+		const updateTokenBalance = () => {
 			fetch(`/get-tokens/${userId}`)
 				.then(response => {
 					if (!response.ok) {
@@ -84,10 +85,8 @@
 		setInterval(updateTokenBalance, 15000);
 		// Начальное обновление при загрузке
 		updateTokenBalance();
-	</script>
-	
-	<!-- Подключение скрипта dailyreward.js -->
-    <script src="dailyreward.js"></script>
-	
-<body data-user-id="<%= userId %>">
+		
+		<!-- Подключение скрипта dailyreward.js -->
+		<script src="dailyreward.js"></script>
+<body>
 </html>

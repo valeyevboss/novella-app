@@ -25,9 +25,13 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 
 // Отдача index.html по умолчанию
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
     const userId = req.query.userId; // Получите userId из параметров запроса
-    res.render('index', { userId }); // Передайте userId в рендер
+    res.sendFile(path.join(__dirname, '..', 'public', 'index.html'), () => {
+        // Здесь мы можем передать userId в index.html через скрипт
+        const script = `<script>document.body.dataset.userId = "${userId}";</script>`;
+        res.write(script);
+        res.end();
+    });
 });
 
 // Отдача loading.html и loadingerror.html по запросу
