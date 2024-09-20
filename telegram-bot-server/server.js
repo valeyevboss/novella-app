@@ -86,6 +86,24 @@ app.get('/check-user/:userId', async (req, res) => {
     }
 });
 
+// Маршрут для получения актуального баланса токенов
+app.get('/get-tokens/:userId', async (req, res) => {
+    const { userId } = req.params;
+
+    try {
+        const user = await User.findOne({ userId });
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        res.json({ tokens: user.tokens });
+    } catch (error) {
+        console.error('Ошибка получения баланса токенов:', error);
+        res.status(500).json({ error: 'Внутренняя ошибка сервера' });
+    }
+});
+
 // Маршрут для начисления токенов
 app.post('/add-tokens/:userId', async (req, res) => {
     const { userId } = req.params;
@@ -107,8 +125,6 @@ app.post('/add-tokens/:userId', async (req, res) => {
         res.status(500).json({ error: 'Внутренняя ошибка сервера' });
     }
 });
-
-
 
 // Объявляем URL изображения
 const imageUrl = 'https://res.cloudinary.com/dvjohgg6j/image/upload/v1725631955/Banner/Novella%20banner.jpg'; // Публичный URL вашего изображения
