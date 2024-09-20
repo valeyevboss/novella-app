@@ -99,7 +99,7 @@ body {
     text-align: center;
     margin: 20px auto; /* Центрирование блока */
     width: 100%; /* Ширина блока 100% */
-    max-width: 400px; /* Ограничение по ширине */
+    max-width: 300px; /* Ограничение по ширине */
 }
 
 .daily-reward-title {
@@ -114,8 +114,8 @@ body {
     background-color: #ffffff; /* Цвет кнопки */
     border: none;
     color: black;
-    padding: 10px 20px;
-    font-size: 16px;
+    padding: 10px 10px;
+    font-size: 12px;
     border-radius: 50px; /* Скругление кнопки */
     cursor: pointer;
     transition: background-color 0.3s;
@@ -164,7 +164,6 @@ body {
         font-size: 14px; /* Уменьшаем размер шрифта таймера */
     }
 }
-
 
 /* Стили для нижнего меню */
 .bottom-menu {
