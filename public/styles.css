@@ -113,9 +113,9 @@ body {
 }
 
 .daily-reward-button {
-    background-color: #4caf50; /* Цвет кнопки */
+    background-color: #ffffff; /* Цвет кнопки */
     border: none;
-    color: white;
+    color: black;
     padding: 10px 20px;
     font-size: 16px;
     border-radius: 50px; /* Скругление кнопки */
