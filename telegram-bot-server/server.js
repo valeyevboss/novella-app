@@ -16,19 +16,13 @@ if (!telegramBotToken) {
 
 const bot = new TelegramBot(telegramBotToken, { polling: true });
 
-const bodyParser = require('body-parser');
-app.use(bodyParser.json()); // для обновления токенов и данных
-
-
 // Подключение папки для статических файлов
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
 // Отдача index.html по умолчанию
 app.get('/', (req, res) => {
-    const userId = req.query.userId;
-    res.render('index', { userId }); // Используйте res.render вместо res.sendFile
+    res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
 });
-
 
 // Отдача loading.html и loadingerror.html по запросу
 app.get('/loading', (req, res) => {
