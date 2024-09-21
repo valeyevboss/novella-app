@@ -16,6 +16,9 @@ if (!telegramBotToken) {
 
 const bot = new TelegramBot(telegramBotToken, { polling: true });
 
+const bodyParser = require('body-parser');
+app.use(bodyParser.json()); // для обновления токенов и данных
+
 // Подключение папки для статических файлов
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
