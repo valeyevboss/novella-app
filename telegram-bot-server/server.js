@@ -97,16 +97,26 @@ bot.onText(/\/start/, async (msg) => {
     try {
         // Ищем пользователя по Telegram ID
         let user = await User.findOne({ telegramId });
+
         if (!user) {
-            // Создаем нового пользователя с уникальным userId
-            user = new User({
-                userId: uuidv4(), // Генерация нового уникального userId
-                telegramId: telegramId,
-                username: userName,
-                lastLogin: new Date(),
-                tokens: 0
-            });
-            await user.save();
+            try {
+                // Создаем нового пользователя с уникальным userId
+                user = new User({
+                    userId: uuidv4(), // Генерация нового уникального userId
+                    telegramId: telegramId,
+                    username: userName,
+                    lastLogin: new Date(),
+                    tokens: 0
+                });
+                await user.save();
+            } catch (err) {
+                if (err.code === 11000) {
+                    console.error('User already exists with this telegramId');
+                } else {
+                    console.error('Error saving user:', err);
+                }
+                return;
+            }
         } else {
             // Обновляем последний вход
             user.lastLogin = new Date();
