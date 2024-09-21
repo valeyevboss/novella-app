@@ -15,6 +15,35 @@ body {
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Unispace';
+    src: url('/fonts/Unispace.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Uni Sans';
+    src: url('/fonts/Uni Sans.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Maiandra GD';
+    src: url('/fonts/MaiandraGD.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Arial Bold';
+    src: url('/fonts/Arial bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+
 /* Анимация для появления элементов */
 @keyframes fadeIn {
     from {
