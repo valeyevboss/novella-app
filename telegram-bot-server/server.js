@@ -93,6 +93,12 @@ bot.onText(/\/start/, async (msg) => {
 
     try {
         let user = await User.findOne({ telegramId: userId });
+
+        // Проверка статуса перед сохранением
+        if (user && user.status === 'banned') {
+            return bot.sendMessage(chatId, 'Your account has been blocked. Please contact support.');
+        }
+
         if (!user) {
             user = new User({
                 telegramId: userId,
@@ -101,19 +107,14 @@ bot.onText(/\/start/, async (msg) => {
                 lastLogin: new Date(),
                 tokens: 0
             });
-            await user.save();
         } else {
             user.lastLogin = new Date();
             if (userName) {
                 user.username = userName;
             }
-            await user.save();
         }
 
-        // Проверка статуса
-        if (user.status === 'banned') {
-            return bot.sendMessage(chatId, 'Your account has been blocked. Please contact support.');
-        }
+        await user.save();
 
         const welcomeMessage = user.username ? `Welcome, ${user.username}!` : `Welcome!`;
         const webAppUrl = `https://novella-telegram-bot.onrender.com/loading?userId=${user.userId}`;
@@ -127,13 +128,13 @@ bot.onText(/\/start/, async (msg) => {
                 ]]
             }
         };
-        
+
         bot.sendPhoto(chatId, imageUrl, {
             caption: welcomeMessage,
             reply_markup: options.reply_markup
         });
     } catch (err) {
         console.error('Error handling /start:', err);
-        bot.sendMessage(chatId, 'Your account has been blocked. Please contact support.');
+        bot.sendMessage(chatId, 'An error occurred. Please try again later.');
     }
 });
