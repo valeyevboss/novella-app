@@ -1,5 +1,5 @@
 // Подключаем SDK TON Connect
-const TonConnect = window.TonConnect;
+const { TonConnect } = window.ton;
 
 // Создаем инстанс TON Connect
 const tonConnect = new TonConnect();
@@ -11,7 +11,7 @@ const connectButton = document.getElementById('connectButton');
 async function connectWallet() {
     try {
         // Подключаем кошелек
-        await tonConnect.connect();
+        await tonConnect.connectWallet();
         // Успешное подключение
         alert("Wallet connected successfully!");
     } catch (error) {
