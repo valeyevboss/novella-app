@@ -1,14 +1,21 @@
-// Ждем загрузки страницы
-window.addEventListener('load', function () {
-    const checkTonConnect = setInterval(() => {
+window.addEventListener('load', function () { 
+    // Проверяем наличие TonConnect // Ждем загрузки страницы
+    const checkSDK = setInterval(() => {
         if (window.TonConnect) {
-            clearInterval(checkTonConnect);
+            clearInterval(checkSDK);
+            
+            // Создаем инстанс TON Connect
             const tonConnect = new window.TonConnect();
+
+            // Получаем элемент кнопки
             const connectButton = document.getElementById('connectButton');
 
+            // Функция для подключения к кошельку
             async function connectWallet() {
                 try {
+                    // Подключаем кошелек
                     await tonConnect.connect();
+                    // Успешное подключение
                     alert("Wallet connected successfully!");
                 } catch (error) {
                     console.error("Error connecting wallet:", error);
@@ -16,9 +23,8 @@ window.addEventListener('load', function () {
                 }
             }
 
+            // Привязываем обработчик клика к кнопке
             connectButton.addEventListener('click', connectWallet);
-        } else {
-            console.error("TonConnect SDK is still not available.");
         }
-    }, 1000); // Проверка каждые 1000 мс (1 секунда)
+    }, 100); // Проверяем каждую 100 миллисекунд
 });

@@ -258,6 +258,33 @@ body {
     margin-top: -10px;
 }
 
+/* Стили для страницы Friends */
+.friends-header {
+    text-align: center;
+    margin: 20px 0;
+}
+
+/* Иконка: Mouse Friends */
+.friends-icon {
+    width: 70px;
+    height: 70px;
+}
+
+/* Заголовок: Friends */
+.friends-title {
+    font-family: 'hooge05_55cyr2', sans-serif;
+    font-size: 30px;
+    margin-top: 10px;
+}
+
+/* Описание под заголовком */
+.friends-subtitle {
+    font-family: 'Maiandra GD', sans-serif;
+    font-size: 14px;
+    color: grey;
+    margin-top: -10px;
+}
+
 /* Стили для страницы Airdrop */
 .airdrop-header {
     text-align: center;
@@ -329,7 +356,7 @@ body {
     text-align: center;
 }
 
-/* Стили для страницы Leadres.html */
+/* Стили для страницы Leaders.html */
 .leaderboard-header {
     text-align: center;
     margin: 20px 0;
