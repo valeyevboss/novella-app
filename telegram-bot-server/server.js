@@ -108,6 +108,7 @@ bot.onText(/\/start/, async (msg) => {
                     lastLogin: new Date(),
                     tokens: 0
                 });
+				console.log('Generated userId:', user.userId); // Для проверки в логах
                 await user.save();
             } catch (err) {
                 if (err.code === 11000) {
