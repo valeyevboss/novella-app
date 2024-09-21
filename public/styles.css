@@ -303,29 +303,29 @@ body {
 
 /* Полупрозрачный белый блок под кнопкой */
 .wallet-warning-block {
-    background-color: rgba(255, 255, 255, 0.6); /* Полупрозрачный белый */
-    border-radius: 20px; /* Скругленные углы */
-    padding: 10px;
+    background-color: #2c2f33; /* Тёмный фон */
+    border-radius: 15px; /* Скругленные углы немного уменьшены */
+    padding: 8px 20px; /* Внутренние отступы уменьшены */
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 20px auto; /* Центрирование блока */
-    width: 100%; /* Ширина блока */
-    max-width: 400px; /* Максимальная ширина */
+    margin: 15px auto; /* Уменьшено расстояние от кнопки */
+    width: 90%; /* Ширина чуть меньше */
+    max-width: 350px; /* Уменьшена максимальная ширина */
 }
 
 /* Иконка предупреждения */
 .warning-icon {
-    width: 50px;
-    height: 50px;
-    margin-right: 10px; /* Расстояние между иконкой и текстом */
+    width: 40px; /* Уменьшена ширина иконки */
+    height: 40px; /* Уменьшена высота иконки */
+    margin-right: 8px; /* Меньшее расстояние между иконкой и текстом */
 }
 
 /* Текст предупреждения */
 .warning-text {
     font-family: 'MaiandraGD', sans-serif;
-    font-size: 15px;
-    color: #ffff; /* Темный цвет для контраста */
+    font-size: 14px; /* Немного уменьшен размер текста */
+    color: #ffffff;
     text-align: center;
 }
 

@@ -1,15 +1,15 @@
 // Проверяем, доступен ли объект TonConnect
-const TonConnect = window.TonConnect ? new window.TonConnect() : null;
-
-if (TonConnect) {
+if (window.TonConnect) {
+    const tonConnect = new window.TonConnect();
+    
     // Получаем элемент кнопки
     const connectButton = document.getElementById('connectButton');
-
+    
     // Функция для подключения к кошельку
     async function connectWallet() {
         try {
             // Подключаем кошелек
-            await TonConnect.connectWallet();
+            await tonConnect.connectWallet();
             // Успешное подключение
             alert("Wallet connected successfully!");
         } catch (error) {
@@ -17,7 +17,7 @@ if (TonConnect) {
             alert("Failed to connect wallet. Please try again.");
         }
     }
-
+    
     // Привязываем обработчик клика к кнопке
     connectButton.addEventListener('click', connectWallet);
 } else {
