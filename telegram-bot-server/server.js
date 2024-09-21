@@ -100,7 +100,7 @@ bot.onText(/\/start/, async (msg) => {
             user = new User({
                 telegramId: userId,
                 username: userName,
-                userId: uuidv4(), // Генерируем уникальный userId
+                userId: uuidv4(), // Генерация уникального userId
                 lastLogin: new Date(),
                 tokens: 0
             });
@@ -137,6 +137,6 @@ bot.onText(/\/start/, async (msg) => {
         });
     } catch (err) {
         console.error('Error handling /start:', err);
-        bot.sendMessage(chatId, 'Your account has been blocked. Please contact support.');
+        bot.sendMessage(chatId, 'An error occurred. Please try again later.');
     }
 });
