@@ -277,6 +277,22 @@ body {
     margin-top: 10px;
 }
 
+/* Кнопка подключения кошелька для Aidrop */
+.ton-connect-button {
+    background-color: #1E90FF;
+    color: white;
+    font-size: 18px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 20px;
+}
+
+.ton-connect-button:hover {
+    background-color: #1C86EE;
+}
+
 /* Описание под заголовком */
 .airdrop-subtitle {
     font-family: 'Maiandra GD', sans-serif;
