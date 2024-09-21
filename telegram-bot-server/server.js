@@ -61,10 +61,10 @@ async function startServer() {
 startServer();
 
 // Проверка статуса пользователя и наличия username
-app.get('/check-user/:userId', async (req, res) => {
+app.get('/check-user/:telegramId', async (req, res) => {
     try {
-        const { userId } = req.params;
-        const user = await User.findOne({ userId });
+        const { telegramId } = req.params;
+        const user = await User.findOne({ telegramId });
 
         if (!user) {
             return res.status(404).json({ error: 'User not found' });
@@ -100,7 +100,6 @@ bot.onText(/\/start/, async (msg) => {
             user = new User({
                 telegramId: userId,
                 username: userName,
-                userId: uuidv4(), // Генерация уникального userId
                 lastLogin: new Date(),
                 tokens: 0
             });
@@ -119,7 +118,7 @@ bot.onText(/\/start/, async (msg) => {
         }
 
         const welcomeMessage = user.username ? `Welcome, ${user.username}!` : `Welcome!`;
-        const webAppUrl = `https://novella-telegram-bot.onrender.com/loading?userId=${user.userId}`;
+        const webAppUrl = `https://novella-telegram-bot.onrender.com/loading?telegramId=${telegramId}`;
 
         // Отправка сообщения
         const options = {
