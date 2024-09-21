@@ -277,28 +277,56 @@ body {
     margin-top: 10px;
 }
 
-/* Кнопка подключения кошелька для Aidrop */
-.ton-connect-button {
-    background-color: #1E90FF;
-    color: white;
-    font-size: 18px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin: 20px;
-}
-
-.ton-connect-button:hover {
-    background-color: #1C86EE;
-}
-
 /* Описание под заголовком */
 .airdrop-subtitle {
     font-family: 'Maiandra GD', sans-serif;
     font-size: 14px;
     color: grey;
     margin-top: -10px;
+}
+
+/* Кнопка подключения кошелька для Aidrop */
+.ton-connect-button {
+    background-color: #1E90FF;
+    color: white;
+    font-size: 21px;
+    padding: 15px 70px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    margin: 30px;
+}
+
+.ton-connect-button:hover {
+    background-color: #1C86EE;
+}
+
+/* Полупрозрачный белый блок под кнопкой */
+.wallet-warning-block {
+    background-color: rgba(255, 255, 255, 0.6); /* Полупрозрачный белый */
+    border-radius: 20px; /* Скругленные углы */
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto; /* Центрирование блока */
+    width: 100%; /* Ширина блока */
+    max-width: 400px; /* Максимальная ширина */
+}
+
+/* Иконка предупреждения */
+.warning-icon {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px; /* Расстояние между иконкой и текстом */
+}
+
+/* Текст предупреждения */
+.warning-text {
+    font-family: 'MaiandraGD', sans-serif;
+    font-size: 15px;
+    color: #ffff; /* Темный цвет для контраста */
+    text-align: center;
 }
 
 /* Стили для страницы Leadres.html */
