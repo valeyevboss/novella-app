@@ -13,10 +13,10 @@
     <script>
         // Получаем telegramId из URL
         const urlParams = new URLSearchParams(window.location.search);
-        const userId = urlParams.get('userId');
+        const telegramId = urlParams.get('userId');
 
-        if (userId) {
-            fetch(`/check-user/${userId}`)
+        if (telegramId) {
+            fetch(`/check-user/${telegramId}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data.redirect) {
@@ -35,7 +35,7 @@
                     }, 3000); // Задержка в 3 секунды
                 });
         } else {
-            console.error('User ID отсутствует в URL, перенаправляем на loadingerror');
+            console.error('username ID отсутствует в URL, перенаправляем на loadingerror');
             setTimeout(() => {
                 window.location.href = '/loadingerror';
             }, 3000); // Задержка в 2 секунды

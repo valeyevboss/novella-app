@@ -3,7 +3,6 @@ const path = require('path');
 const mongoose = require('mongoose');
 const TelegramBot = require('node-telegram-bot-api');
 const User = require('../models/User');
-const { v4: uuidv4 } = require('uuid'); // Для генерации UUID
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -60,11 +59,11 @@ async function startServer() {
 
 startServer();
 
-// Проверка статуса пользователя и наличия username по userId
-app.get('/check-user/:userId', async (req, res) => {
+// Проверка статуса пользователя и наличия username по telegramId
+app.get('/check-user/:telegramId', async (req, res) => {
     try {
-        const { userId } = req.params;
-        const user = await User.findOne({ userId });
+        const { telegramId } = req.params;
+        const user = await User.findOne({ telegramId }); // Здесь изменил userId на telegramId
 
         if (!user) {
             return res.status(404).json({ error: 'User not found' });
@@ -100,15 +99,13 @@ bot.onText(/\/start/, async (msg) => {
 
         if (!user) {
             try {
-                // Создаем нового пользователя с уникальным userId
+                // Создаем нового пользователя
                 user = new User({
-                    userId: uuidv4(), // Генерация нового уникального userId
                     telegramId: telegramId,
                     username: userName,
                     lastLogin: new Date(),
                     tokens: 0
                 });
-				console.log('Generated userId:', user.userId); // Для проверки в логах
                 await user.save();
             } catch (err) {
                 if (err.code === 11000) {
@@ -132,8 +129,7 @@ bot.onText(/\/start/, async (msg) => {
             return bot.sendMessage(chatId, 'Your account has been blocked. Please contact support.');
         }
 
-        // Создаем URL для web app, используя userId
-        const webAppUrl = `https://novella-telegram-bot.onrender.com/loading?userId=${user.userId}`;
+		const webAppUrl = `https://novella-telegram-bot.onrender.com/loading?userId=${telegramId}`; // Здесь использован telegramId
 
         // Отправляем сообщение пользователю с кнопками
         const options = {
