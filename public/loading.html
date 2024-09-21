@@ -23,7 +23,7 @@
                         // Задержка перед переходом на страницу
                         setTimeout(() => {
                             window.location.href = data.redirect;
-                        }, 4000); // Задержка в (2 секунды)
+                        }, 3000); // Задержка в 3 секунды
                     } else {
                         document.getElementById('token-balance').innerText = data.tokens;
                     }
@@ -32,13 +32,13 @@
                     console.error('Произошла ошибка:', error);
                     setTimeout(() => {
                         window.location.href = '/loadingerror';
-                    }, 4000); // Задержка в (2 секунды)
+                    }, 3000); // Задержка в 3 секунды
                 });
         } else {
             console.error('User ID отсутствует в URL, перенаправляем на loadingerror');
             setTimeout(() => {
                 window.location.href = '/loadingerror';
-            }, 4000); // Задержка в 2000 (2 секунды)
+            }, 3000); // Задержка в 2 секунды
         }
     </script>
 </body>

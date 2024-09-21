@@ -3,7 +3,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const TelegramBot = require('node-telegram-bot-api');
 const User = require('../models/User');
-const { v4: uuidv4 } = require('uuid');
+const { v4: uuidv4 } = require('uuid'); // Для генерации UUID
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -60,11 +60,11 @@ async function startServer() {
 
 startServer();
 
-// Проверка статуса пользователя и наличия username
-app.get('/check-user/:telegramId', async (req, res) => {
+// Проверка статуса пользователя и наличия username по userId
+app.get('/check-user/:userId', async (req, res) => {
     try {
-        const { telegramId } = req.params;
-        const user = await User.findOne({ telegramId });
+        const { userId } = req.params;
+        const user = await User.findOne({ userId });
 
         if (!user) {
             return res.status(404).json({ error: 'User not found' });
@@ -91,20 +91,24 @@ const imageUrl = 'https://res.cloudinary.com/dvjohgg6j/image/upload/v1725631955/
 // Обработчик команды /start
 bot.onText(/\/start/, async (msg) => {
     const chatId = msg.chat.id;
-    const userId = msg.from.id;
+    const telegramId = msg.from.id; // Телеграм ID пользователя
     const userName = msg.from.username || '';
 
     try {
-        let user = await User.findOne({ telegramId: userId });
+        // Ищем пользователя по Telegram ID
+        let user = await User.findOne({ telegramId });
         if (!user) {
+            // Создаем нового пользователя с уникальным userId
             user = new User({
-                telegramId: userId,
+                userId: uuidv4(), // Генерация нового уникального userId
+                telegramId: telegramId,
                 username: userName,
                 lastLogin: new Date(),
                 tokens: 0
             });
             await user.save();
         } else {
+            // Обновляем последний вход
             user.lastLogin = new Date();
             if (userName) {
                 user.username = userName;
@@ -112,15 +116,15 @@ bot.onText(/\/start/, async (msg) => {
             await user.save();
         }
 
-        // Проверка статуса
+        // Проверка статуса пользователя
         if (user.status === 'banned') {
             return bot.sendMessage(chatId, 'Your account has been blocked. Please contact support.');
         }
 
-        const welcomeMessage = user.username ? `Welcome, ${user.username}!` : `Welcome!`;
-        const webAppUrl = `https://novella-telegram-bot.onrender.com/loading?telegramId=${telegramId}`;
+        // Создаем URL для web app, используя userId
+        const webAppUrl = `https://novella-telegram-bot.onrender.com/loading?userId=${user.userId}`;
 
-        // Отправка сообщения
+        // Отправляем сообщение пользователю с кнопками
         const options = {
             reply_markup: {
                 inline_keyboard: [[
@@ -129,9 +133,9 @@ bot.onText(/\/start/, async (msg) => {
                 ]]
             }
         };
-        
+
         bot.sendPhoto(chatId, imageUrl, {
-            caption: welcomeMessage,
+            caption: `Welcome, ${user.username || 'Guest'}!`,
             reply_markup: options.reply_markup
         });
     } catch (err) {
