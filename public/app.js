@@ -25,6 +25,8 @@ window.addEventListener('load', function () {
 
             // Привязываем обработчик клика к кнопке
             connectButton.addEventListener('click', connectWallet);
+        } else {
+            console.error("TonConnect SDK is still not available.");
         }
-    }, 100); // Проверяем каждую 100 миллисекунд
+    }, 1000); // Проверяем наличие SDK каждую секунду
 });

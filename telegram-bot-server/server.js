@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const TelegramBot = require('node-telegram-bot-api');
 const User = require('../models/User');
 const { v4: uuidv4 } = require('uuid');
+const cors = require('cors');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -15,6 +16,13 @@ if (!telegramBotToken) {
 }
 
 const bot = new TelegramBot(telegramBotToken, { polling: true });
+
+// Добавьте эту строку перед объявлением маршрутов
+app.use(cors({
+    origin: 'https://novella-telegram-bot.onrender.com',
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 // Подключение папки для статических файлов
 app.use(express.static(path.join(__dirname, '..', 'public')));
