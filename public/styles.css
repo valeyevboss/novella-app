@@ -115,13 +115,14 @@ body {
 .token-icon {
     width: 250px; /* Увеличиваем иконку */
     height: 250px;
+	margin-top: -45px;
 }
 
 .token-balance {
     font-family: 'Maiandra GD', sans-serif;
     font-size: 32px;
     color: white;
-    margin-top: 10px;
+    margin-top: -15px;
 }
 
 /* Стили для блока Daily Rewards */
@@ -130,7 +131,7 @@ body {
     border-radius: 20px; /* Закругление */
     padding: 20px;
     text-align: center;
-    margin: 20px auto; /* Центрирование блока */
+    margin: -5px auto; /* Центрирование блока */
     width: 100%; /* Ширина блока 100% */
     max-width: 300px; /* Ограничение по ширине */
 }
