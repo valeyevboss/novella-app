@@ -353,6 +353,15 @@ body {
 }
 
 /* Стили для страницы Airdrop */
+
+.airdrop-page {
+	display: flex;
+    flex-direction: column;
+	padding-top: 5vh; /* Отступ сверху для иконки */
+    overflow-y: auto; /* Вертикальная прокрутка */
+    padding-bottom: 100px; /* Отступ внизу для нижнего меню */
+}
+
 .airdrop-header {
     text-align: center;
     margin: 20px 0;
