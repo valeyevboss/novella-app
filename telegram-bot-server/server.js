@@ -3,6 +3,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const TelegramBot = require('node-telegram-bot-api');
 const User = require('../models/User');
+const BannedIP = require('../models/BannedIP');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -59,33 +60,45 @@ async function startServer() {
 
 startServer();
 
-// Проверка статуса пользователя и наличия username по telegramId
+// Маршрут для проверки пользователя, наличие username, блокировок, токенов и записи IP
 app.get('/check-user/:telegramId', async (req, res) => {
+    const telegramId = req.params.telegramId;
+    const userIp = getUserIP(req); // Получаем IP пользователя
+
     try {
-        const { telegramId } = req.params;
-        const user = await User.findOne({ telegramId }); // Здесь изменил userId на telegramId
+        // Проверяем, заблокирован ли IP
+        const bannedIP = await BannedIP.findOne({ ip: userIp });
+        if (bannedIP) {
+            return res.json({ redirect: `/banned?userId=${telegramId}` });
+        }
+
+        // Ищем пользователя по Telegram ID
+        let user = await User.findOne({ telegramId });
 
         if (!user) {
-            return res.status(404).json({ error: 'User not found' });
-        }
-
-        if (user.status === 'banned') {
-            return res.json({ redirect: '/banned' });
-        }
-
-        if (!user.username) {
             return res.json({ redirect: '/loadingerror' });
         }
 
-        return res.json({ tokens: user.tokens, redirect: '/' });
+        // Обновляем IP и последний вход пользователя
+        user.ip = userIp;
+        user.lastLogin = new Date();
+        await user.save();
+
+        // Отправляем ответ с информацией о токенах
+        res.json({ tokens: user.tokens, redirect: '/index' });
     } catch (error) {
-        console.error('Ошибка проверки пользователя:', error);
-        res.status(500).json({ error: 'Внутренняя ошибка сервера' });
+        console.error('Ошибка при проверке пользователя:', error);
+        res.status(500).json({ redirect: '/loadingerror' });
     }
 });
 
 // Объявляем URL изображения
 const imageUrl = 'https://res.cloudinary.com/dvjohgg6j/image/upload/v1725631955/Banner/Novella%20banner.jpg'; // Публичный URL вашего изображения
+
+// Получение IP-адреса пользователя
+const getUserIP = (req) => {
+    return req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+};
 
 // Обработчик команды /start
 bot.onText(/\/start/, async (msg) => {
@@ -94,6 +107,13 @@ bot.onText(/\/start/, async (msg) => {
     const userName = msg.from.username || '';
 
     try {
+		const userIp = getUserIP(req); // Получаем IP пользователя
+				
+		// Проверяем, заблокирован ли IP
+		const bannedIP = await BannedIP.findOne({ ip: userIp });
+		if (bannedIP) {
+			return bot.sendMessage(chatId, `Dear @${userName}, You have been blocked by IP address for multiple violations of our rules, with respect, team Novella App.`);
+		}
         // Ищем пользователя по Telegram ID
         let user = await User.findOne({ telegramId });
 
@@ -105,6 +125,7 @@ bot.onText(/\/start/, async (msg) => {
                     username: userName,
                     lastLogin: new Date(),
                     tokens: 0
+					ip: userIp // Сохраняем IP при создании нового пользователя
                 });
                 await user.save();
             } catch (err) {
@@ -116,11 +137,12 @@ bot.onText(/\/start/, async (msg) => {
                 return;
             }
         } else {
-            // Обновляем последний вход
+            // Обновляем последний вход и IP
             user.lastLogin = new Date();
             if (userName) {
                 user.username = userName;
             }
+			user.ip = userIp; // Обновляем IP пользователя
             await user.save();
         }
 
