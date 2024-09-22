@@ -3,8 +3,10 @@ body {
     background-color: #000;
     font-family: 'Uni Sans', sans-serif;
     margin: 0;
-    padding: 0;
+    padding: 0; 
     color: white;
+	overflow-y: auto; /* Вертикальная прокрутка при необходимости */
+    overflow-x: hidden; /* Отключаем горизонтальную прокрутку */
 }
 
 /* Инициализация шрифтов */
@@ -425,8 +427,8 @@ body {
 /* Что такое: Airdrop? */
 .airdrop-descript-title {
     text-align: center; /* Центрирование текста */
-    margin-top: 20px; /* Отступ сверху для разделения от предыдущих элементов */
-    margin-bottom: -25px; /* Отступ снизу для разделения с описанием */
+    margin-top: 50px; /* Отступ сверху для разделения от предыдущих элементов */
+    margin-bottom: -35px; /* Отступ снизу для разделения с описанием */
     font-family: 'Uni Sans', sans-serif; /* Шрифт Uni Sans */
     font-size: 22px; /* Размер текста */
     color: #ffffff; /* Цвет текста */
