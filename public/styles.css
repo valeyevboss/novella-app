@@ -73,25 +73,27 @@ body {
 }
 
 .freedurov-button {
-    background: linear-gradient(90deg, #ffffff, #1E90FF);
+    background: linear-gradient(90deg, #c9f7fd, #1d8cfc);
     color: white;
     font-family: 'Unispace', sans-serif;
-    font-size: 3.0vw; /* Адаптивный шрифт */
+    font-size: 5.0vw; /* Адаптивный шрифт */
     border: none;
     padding: 2vh 5vw; /* Адаптивные отступы */
     cursor: pointer;
     border-radius: 35px;
-    width: 50vw; /* Ширина кнопки 50% экрана */
+    width: 70vw; /* Ширина кнопки 70% экрана */
     text-align: center;
     white-space: nowrap;
     position: relative;
-    transition: transform 0.2s ease, background 0.5s ease, opacity 0.2s ease;
+    transition: transform 0.2s ease, background 0.5s ease, opacity 0.2s ease, box-shadow 0.3s ease; /* Добавлено box-shadow */
 }
 
+/* Эффект неона при наведении */
 .freedurov-button:hover {
     transform: scale(1.05); /* Лёгкое увеличение кнопки при наведении */
     background: linear-gradient(90deg, #ffffff, #1E90FF, #1C86EE); /* Перелив градиента при наведении */
     opacity: 0.95; /* Лёгкое затемнение для контраста */
+    box-shadow: 0 0 20px #1E90FF, 0 0 30px #1E90FF; /* Неоновое свечение */
 }
 
 .freedurov-button::after {
