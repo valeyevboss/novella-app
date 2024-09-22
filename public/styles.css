@@ -272,6 +272,14 @@ body {
 
 
 /* Стили для страницы Task */
+.task-page {
+	display: flex;
+    flex-direction: column;
+	padding-top: 5vh; /* Отступ сверху для иконки */
+    overflow-y: auto; /* Вертикальная прокрутка */
+    padding-bottom: 100px; /* Отступ внизу для нижнего меню */
+}
+
 .task-header {
     text-align: center;
     margin: 20px 0;
@@ -299,6 +307,14 @@ body {
 }
 
 /* Стили для страницы Wallet */
+.wallet-page {
+	display: flex;
+    flex-direction: column;
+	padding-top: 5vh; /* Отступ сверху для иконки */
+    overflow-y: auto; /* Вертикальная прокрутка */
+    padding-bottom: 100px; /* Отступ внизу для нижнего меню */
+}
+
 .wallet-header {
     text-align: center;
     margin: 20px 0;
@@ -326,6 +342,14 @@ body {
 }
 
 /* Стили для страницы Friends */
+.friends-page {
+	display: flex;
+    flex-direction: column;
+	padding-top: 5vh; /* Отступ сверху для иконки */
+    overflow-y: auto; /* Вертикальная прокрутка */
+    padding-bottom: 100px; /* Отступ внизу для нижнего меню */
+}
+
 .friends-header {
     text-align: center;
     margin: 20px 0;
@@ -350,10 +374,10 @@ body {
     font-size: 14px;
     color: grey;
     margin-top: -10px;
+    text-align: center; /* Центрирование текста */
 }
 
 /* Стили для страницы Airdrop */
-
 .airdrop-page {
 	display: flex;
     flex-direction: column;
@@ -499,6 +523,14 @@ body {
 }
 
 /* Стили для страницы Leaders.html */
+.leaders-page {
+	display: flex;
+    flex-direction: column;
+	padding-top: 5vh; /* Отступ сверху для иконки */
+    overflow-y: auto; /* Вертикальная прокрутка */
+    padding-bottom: 100px; /* Отступ внизу для нижнего меню */
+}
+
 .leaderboard-header {
     text-align: center;
     margin: 20px 0;
