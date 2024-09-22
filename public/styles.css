@@ -422,6 +422,16 @@ body {
     width: 100%; /* Задайте нужную ширину для блока */
 }
 
+.airdrop-description {
+    padding: 20px; /* Внутренние отступы */
+    color: #ffffff; /* Цвет текста */
+    font-family: 'MaiandraGD', sans-serif; /* Шрифт текста */
+    font-size: 14px; /* Размер текста */
+    max-width: 90%; /* Ограничение по ширине */
+    margin: 20px auto; /* Центрирование блока */
+    line-height: 1.5; /* Высота строки для лучшего чтения */
+}
+
 /* Стили для страницы Leaders.html */
 .leaderboard-header {
     text-align: center;
