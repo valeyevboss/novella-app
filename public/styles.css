@@ -122,7 +122,7 @@ body {
 
 /* Стили для блока Daily Rewards */
 .daily-reward-container {
-    background-color: #2c2f33; /* Тёмный фон */
+    background-color: #1f1f1f; /* Тёмный фон */
     border-radius: 20px; /* Закругление */
     padding: 20px;
     text-align: center;
@@ -136,36 +136,72 @@ body {
     font-weight: bold;
     color: #ffffff;
     font-size: 18px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
+	margin-right: 170px;
+    margin-top: -0px; /* Отрицательный отступ для поднятия заголовка вверх */
+	white-space: nowrap; /* Отключает перенос текста */
+}
+
+
+.daily-reward-wrapper {
+	position: relative; /* Позволяет абсолютное позиционирование для дочерних элементов */
 }
 
 .daily-reward-button {
-    background-color: #ffffff; /* Цвет кнопки */
+    background-color: #ffffff;
     border: none;
     color: black;
-    padding: 10px 10px;
+    padding: 0 40px;
     font-size: 12px;
-    border-radius: 50px; /* Скругление кнопки */
+    border-radius: 50px;
     cursor: pointer;
     transition: background-color 0.3s;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+    margin-bottom: 14px; /* Отступ для размещения таймера ниже кнопки */
 }
 
-.daily-reward-button:disabled {
-    background-color: #a9a9a9; /* Отключённая кнопка */
+.premium-reward-button {
+    background-color: #ffffff;
+    border: none;
+    color: black;
+    padding: 0 20px;
+    font-size: 13px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+    margin-top: 14px; /* Отступ для премиум кнопки */
+	margin-right: 60px;
+}
+
+.daily-reward-button:disabled,
+.premium-reward-button:disabled {
+    background-color: #a9a9a9;
     cursor: not-allowed;
 }
+
 
 .timer-container {
     display: flex;
     align-items: center;
-    justify-content: center;
-    margin-top: 10px;
+    position: absolute; /* Абсолютное позиционирование */
+    top: 50%; /* Центрирование по вертикали относительно кнопки */
+    right: -1px; /* Сдвиг вправо для расположения рядом с кнопкой */
+    transform: translateY(-160%);
 }
 
 .timer-icon {
     width: 20px;
     height: 20px;
-    margin-right: 8px;
+    margin-right: 3px;
 }
 
 .timer {
@@ -357,9 +393,9 @@ body {
     background-color: #1C86EE;
 }
 
-/* Полупрозрачный белый блок под кнопкой */
+/* блок под кнопкой */
 .wallet-warning-block {
-    background-color: #2c2f33; /* Тёмный фон */
+    background-color: #1f1f1f; /* Тёмный фон */
     border-radius: 15px; /* Скругленные углы немного уменьшены */
     padding: 8px 20px; /* Внутренние отступы уменьшены */
     display: flex;

@@ -10,7 +10,6 @@
     <link rel="preload" href="/fonts/Unispace.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 </head>
 <body>
-    </script>
     <div class="main-page">
         <header>
             <button class="freedurov-button" onclick="window.open('https://www.change.org/p/free-pavel-durov-freedurov?source_location=tag_')">
@@ -18,20 +17,23 @@
             </button>
         </header>
         <div class="token-section">
-            <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/Novellacoin.png" alt="Token Icon" class="token-icon">
+            <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/Novellacoin.png" alt="Token Icon" class="token-icon" id="token-icon">
             <p id="token-balance" class="token-balance">0</p>
         </div>
-		
-		<!-- Daily Reward - Ежедневный вход и бонусы -->
-		<div class="daily-reward-container">
-			<p class="daily-reward-title">DAILY REWARDS</p>
-			<button id="claim-reward-button" class="daily-reward-button" onclick="claimReward()">Daily Check in +100 $Novella</button>
-			<div class="timer-container">
-				<img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1726574752/Element/Timer.png" alt="Timer" class="timer-icon">
-				<span id="timer" class="timer">24:00:00</span>
-			</div>
-		</div>
-    
+
+        <!-- Daily Reward - Ежедневный вход и бонусы -->
+        <div class="daily-reward-container">
+            <p class="daily-reward-title">DAILY REWARDS</p>
+            <div class="daily-reward-wrapper">
+                <button id="claim-reward-button" class="daily-reward-button" onclick="claimReward()">Daily Check in +100 $Novella</button>
+                <button id="premium-reward-button" class="premium-reward-button" onclick="claimPremiumReward()">Premium Check in +1000 $Novella</button>
+                <div class="timer-container">
+                    <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1726574752/Element/Timer.png" alt="Timer" class="timer-icon">
+                    <span id="timer" class="timer">24:00:00</span>
+                </div>
+            </div>
+        </div>
+
         <!-- Нижнее меню -->
         <nav class="bottom-menu">
             <a href="index.html" class="menu-item active">
@@ -56,5 +58,14 @@
             </a>
         </nav>
     </div>
+
+    <script>
+        const tokenIcon = document.getElementById('token-icon');
+
+        tokenIcon.addEventListener('click', () => {
+            const audio = new Audio('public/sound/nose-sound.mp3');
+            audio.play();
+        });
+    </script>
 </body>
 </html>
