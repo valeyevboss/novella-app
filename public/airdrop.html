@@ -27,7 +27,7 @@
 		
 		<!-- Полупрозрачный белый блок под кнопкой -->
 	<div class="airdrop-warning-block">
-		<img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1726932286/Element/Warning.png" alt="Warning Icon" class="warning-icon">
+		<img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1726932286/Element/Warning.png" alt="Warning Icon" class="warning-icon" id="warning-icon">
 		<p class="warning-text">The wallet can only be connected to this account.</p>
 	</div>
 	
@@ -63,13 +63,15 @@
     </div>
     <script src="app.js"></script>
 	
-	<!-- Скрипт для воспроизведения звука при нажатии на иконку warning --!>
+	<!-- Скрипт для воспроизведения звука при нажатии на иконку warning -->
     <script>
         const tokenIcon = document.getElementById('warning-icon');
 
         tokenIcon.addEventListener('click', () => {
-            const audio = new Audio('/sound/!.mp3');
-            audio.play();
+            const audio = new Audio('/sound/warning.mp3');
+            audio.play().catch(error => {
+                console.error('Ошибка при воспроизведении звука:', error);
+            });
         });
     </script>
 </body>
