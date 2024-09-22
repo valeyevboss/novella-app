@@ -379,9 +379,9 @@ body {
     margin-top: -10px;
 }
 
-/* Кнопка подключения кошелька для Aidrop */
+/* Кнопка подключения кошелька для Airdrop */
 .ton-connect-button {
-    background-color: #1E90FF;
+    background-color: #1E90FF; /* По умолчанию цвет */
     color: white;
     font-size: 21px;
     padding: 15px 70px;
@@ -389,7 +389,32 @@ body {
     border-radius: 15px;
     cursor: pointer;
     margin: 30px;
+    transition: all 0.3s ease; /* Плавный переход при изменении размеров */
 }
+
+/* Эффект при наведении: увеличение */
+.ton-connect-button:hover {
+    transform: scale(1.1); /* Увеличение кнопки */
+}
+
+/* Эффект при нажатии: запуск анимации градиента */
+.ton-connect-button:active {
+    animation: gradientMove 1s ease; /* Запуск анимации */
+}
+
+/* Анимация градиента */
+@keyframes gradientMove {
+    0% {
+        background-color: #1E90FF; /* Исходный цвет */
+    }
+    50% {
+        background: linear-gradient(to right, #ADD8E6, #4682B4); /* Градиент слева направо */
+    }
+    100% {
+        background-color: #1E90FF; /* Возвращение к исходному цвету */
+    }
+}
+
 
 .ton-connect-button:hover {
     background-color: #1C86EE;
@@ -435,6 +460,26 @@ body {
 }
 
 .airdrop-description {
+    padding: 20px; /* Внутренние отступы */
+    color: #ffffff; /* Цвет текста */
+    font-family: 'MaiandraGD', sans-serif; /* Шрифт текста */
+    font-size: 14px; /* Размер текста */
+    max-width: 90%; /* Ограничение по ширине */
+    margin: 20px auto; /* Центрирование блока */
+    line-height: 1.5; /* Высота строки для лучшего чтения */
+}
+
+/* Что такое: Listing? */ 
+.listing-descript-title {
+    text-align: center; /* Центрирование текста */
+    margin-top: -30px; /* Отступ сверху для разделения от предыдущих элементов */
+    margin-bottom: -35px; /* Отступ снизу для разделения с описанием */
+    font-family: 'Uni Sans', sans-serif; /* Шрифт Uni Sans */
+    font-size: 22px; /* Размер текста */
+    color: #ffffff; /* Цвет текста */
+}
+
+.listing-description {
     padding: 20px; /* Внутренние отступы */
     color: #ffffff; /* Цвет текста */
     font-family: 'MaiandraGD', sans-serif; /* Шрифт текста */
