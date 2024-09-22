@@ -26,7 +26,7 @@
         <button id="connectButton" class="ton-connect-button">Connect Wallet</button>
 		
 		<!-- Полупрозрачный белый блок под кнопкой -->
-	<div class="wallet-warning-block">
+	<div class="airdrop-warning-block">
 		<img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1726932286/Element/Warning.png" alt="Warning Icon" class="warning-icon">
 		<p class="warning-text">The wallet can only be connected to this account.</p>
 	</div>
@@ -56,5 +56,15 @@
         </nav>
     </div>
     <script src="app.js"></script>
+	
+	<!-- Скрипт для воспроизведения звука при нажатии на иконку warning --!>
+    <script>
+        const tokenIcon = document.getElementById('warning-icon');
+
+        tokenIcon.addEventListener('click', () => {
+            const audio = new Audio('/sound/!.mp3');
+            audio.play();
+        });
+    </script>
 </body>
 </html>

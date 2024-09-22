@@ -394,16 +394,16 @@ body {
 }
 
 /* блок под кнопкой */
-.wallet-warning-block {
+.airdrop-warning-block {
     background-color: #1f1f1f; /* Тёмный фон */
     border-radius: 15px; /* Скругленные углы немного уменьшены */
     padding: 8px 20px; /* Внутренние отступы уменьшены */
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 15px auto; /* Уменьшено расстояние от кнопки */
+    margin: 1px auto; /* Уменьшено расстояние от кнопки */
     width: 90%; /* Ширина чуть меньше */
-    max-width: 350px; /* Уменьшена максимальная ширина */
+    max-width: 325px; /* Уменьшена максимальная ширина */
 }
 
 /* Иконка предупреждения */
@@ -418,7 +418,8 @@ body {
     font-family: 'MaiandraGD', sans-serif;
     font-size: 14px; /* Немного уменьшен размер текста */
     color: #ffffff;
-    text-align: center;
+    text-align: left; /* Выравнивание текста по левому краю */
+    width: 100%; /* Задайте нужную ширину для блока */
 }
 
 /* Стили для страницы Leaders.html */
