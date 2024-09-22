@@ -422,6 +422,16 @@ body {
     width: 100%; /* Задайте нужную ширину для блока */
 }
 
+/* Что такое: Airdrop? */
+.airdrop-descript-title {
+    text-align: center; /* Центрирование текста */
+    margin-top: 20px; /* Отступ сверху для разделения от предыдущих элементов */
+    margin-bottom: -25px; /* Отступ снизу для разделения с описанием */
+    font-family: 'Uni Sans', sans-serif; /* Шрифт Uni Sans */
+    font-size: 22px; /* Размер текста */
+    color: #ffffff; /* Цвет текста */
+}
+
 .airdrop-description {
     padding: 20px; /* Внутренние отступы */
     color: #ffffff; /* Цвет текста */
