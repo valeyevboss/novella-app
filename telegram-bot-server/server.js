@@ -71,7 +71,7 @@
 			}
 			
 			// Обновляем IP-адрес
-			user.ip = userIp;
+			user.ip = userIp.split(', ')[0]; // Берем первый IP-адрес
 			await user.save(); // Сохраняем изменения
 
 			if (user.status === 'banned') {
@@ -134,11 +134,6 @@
 			if (user.status === 'banned') {
 				return bot.sendMessage(chatId, 'Your account has been blocked. Please contact support.');
 			}
-			
-			// Получаем реальный IP-адрес при запросе
-			const userIp = msg.from.ip || ''; // Измените этот код для получения IP-адреса при следующем запросе к вашему серверу
-			user.ip = userIp; // Обновляем IP-адрес
-			await user.save(); // Сохраняем изменения
 
 			const webAppUrl = `https://novella-telegram-bot.onrender.com/loading?userId=${telegramId}`; // Здесь использован telegramId
 
