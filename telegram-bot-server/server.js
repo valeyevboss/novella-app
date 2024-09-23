@@ -3,6 +3,7 @@
 	const mongoose = require('mongoose');
 	const TelegramBot = require('node-telegram-bot-api');
 	const User = require('../models/User');
+	const BannedIP = require('../models/BannedIP');
 
 	const app = express();
 	const port = process.env.PORT || 3000;
@@ -97,7 +98,13 @@
 		const chatId = msg.chat.id;
 		const telegramId = msg.from.id; // Телеграм ID пользователя
 		const userName = msg.from.username || '';
-
+		
+		// Проверка, заблокирован ли IP
+		const bannedIP = await BannedIP.findOne({ ip: userIp });
+		if (bannedIP) {
+			return bot.sendMessage(chatId, `Уважаемый @${msg.from.username}, вы были заблокированы по IP-адресу. С Уважением, команда Novella App`);
+		}
+	
 		try {
 			// Ищем пользователя по Telegram ID
 			let user = await User.findOne({ telegramId });

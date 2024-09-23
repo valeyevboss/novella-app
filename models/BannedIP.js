@@ -1,11 +1,22 @@
-	const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-	const bannedIPSchema = new mongoose.Schema({
-		ip: { type: String, unique: true, required: true },
-		reason: String,
-		banDate: { type: Date, default: Date.now }
-	});
+const bannedIPSchema = new mongoose.Schema({
+    ip: { type: String, required: true, unique: true },
+    reason: { type: String, default: 'Banned for violating rules' },
+    createdAt: { type: Date, default: Date.now, expires: '30d' } // Удаление через 30 дней
+});
 
-	const BannedIP = mongoose.model('BannedIP', bannedIPSchema);
+// Создание модели BannedIP
+const BannedIP = mongoose.model('BannedIP', bannedIPSchema);
 
-	module.exports = BannedIP;
+// Функция для блокировки IP-адреса
+const banUserByIp = async (ip, reason) => {
+    const bannedIp = new BannedIP({ ip, reason });
+    await bannedIp.save();
+    console.log(`IP ${ip} заблокирован.`);
+};
+
+module.exports = {
+    BannedIP,
+    banUserByIp
+};
