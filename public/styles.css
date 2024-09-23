@@ -616,8 +616,8 @@ body {
 }
 
 .social-icon {
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
     transition: transform 0.3s ease; /* Плавный переход для увеличения */
 }
 
