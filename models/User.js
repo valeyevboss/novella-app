@@ -6,7 +6,7 @@ const UserSchema = new mongoose.Schema({
     lastLogin: Date,
     tokens: { type: Number, default: 0 },
     status: { type: String, enum: ['No banned', 'banned'], default: 'No banned' },
-	ip: String // Добавляем IP-адрес пользователя
+	ip: String
 });
 
 module.exports = mongoose.model('User', UserSchema);

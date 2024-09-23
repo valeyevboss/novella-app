@@ -1,11 +1,11 @@
-const mongoose = require('mongoose');
+	const mongoose = require('mongoose');
 
-const bannedIPSchema = new mongoose.Schema({
-    ip: { type: String, unique: true, required: true },
-    reason: String,
-    banDate: { type: Date, default: Date.now }
-});
+	const bannedIPSchema = new mongoose.Schema({
+		ip: { type: String, unique: true, required: true },
+		reason: String,
+		banDate: { type: Date, default: Date.now }
+	});
 
-const BannedIP = mongoose.model('BannedIP', bannedIPSchema);
+	const BannedIP = mongoose.model('BannedIP', bannedIPSchema);
 
-module.exports = BannedIP;
+	module.exports = BannedIP;
