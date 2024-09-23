@@ -63,7 +63,7 @@
 	app.get('/check-user/:telegramId', async (req, res) => {
 		try {
 			const { telegramId } = req.params;
-			const userIp = req.ip; // Получаем IP-адрес
+			const userIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress; // Получаем IP-адрес
 			const user = await User.findOne({ telegramId }); // Здесь telegramId
 
 			if (!user) {
@@ -135,8 +135,10 @@
 				return bot.sendMessage(chatId, 'Your account has been blocked. Please contact support.');
 			}
 			
-			// IP-адрес можно сохранять только при запросах к вашему серверу, так что мы можем использовать его позже
-			const userIp = null; // Получите IP-адрес при следующем запросе к вашему серверу
+			// Получаем реальный IP-адрес при запросе
+			const userIp = msg.from.ip || ''; // Измените этот код для получения IP-адреса при следующем запросе к вашему серверу
+			user.ip = userIp; // Обновляем IP-адрес
+			await user.save(); // Сохраняем изменения
 
 			const webAppUrl = `https://novella-telegram-bot.onrender.com/loading?userId=${telegramId}`; // Здесь использован telegramId
 
