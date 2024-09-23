@@ -100,16 +100,6 @@
 		const userName = msg.from.username || '';
 	
 		try {
-			// Получаем IP-адрес
-			const userIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress; // Передается с сервера
-
-			// Проверка заблокированного IP-адреса
-			const bannedIP = await BannedIP.findOne({ ip: userIp.split(', ')[0] });
-			if (bannedIP) {
-				return bot.sendMessage(chatId, `Dear @${userName}, You have been blocked by IP address. Sincerely, Novella App Team`);
-			}
-
-		
 			// Ищем пользователя по Telegram ID
 			let user = await User.findOne({ telegramId });
 
@@ -120,8 +110,7 @@
 						telegramId: telegramId,
 						username: userName,
 						lastLogin: new Date(),
-						tokens: 0,
-						ip: userIp.split(', ')[0] // Сохраняем первый IP в случае прокси
+						tokens: 0
 					});
 					await user.save();
 				} catch (err) {
@@ -138,7 +127,6 @@
 				if (userName) {
 					user.username = userName;
 				}
-				user.ip = userIp.split(', ')[0]; // Обновляем IP
 				await user.save();
 			}
 
