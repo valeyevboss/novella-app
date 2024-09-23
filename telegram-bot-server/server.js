@@ -63,11 +63,16 @@
 	app.get('/check-user/:telegramId', async (req, res) => {
 		try {
 			const { telegramId } = req.params;
-			const user = await User.findOne({ telegramId }); // Здесь изменил userId на telegramId
+			const userIp = req.ip; // Получаем IP-адрес
+			const user = await User.findOne({ telegramId }); // Здесь telegramId
 
 			if (!user) {
 				return res.status(404).json({ error: 'User not found' });
 			}
+			
+			// Обновляем IP-адрес
+			user.ip = userIp;
+			await user.save(); // Сохраняем изменения
 
 			if (user.status === 'banned') {
 				return res.json({ redirect: '/banned' });
@@ -92,24 +97,20 @@
 		const chatId = msg.chat.id;
 		const telegramId = msg.from.id; // Телеграм ID пользователя
 		const userName = msg.from.username || '';
-		const userIp = msg.from.ip || ''; // Обработка ip-адреса
 
 		try {
 			// Ищем пользователя по Telegram ID
 			let user = await User.findOne({ telegramId });
 
 			if (!user) {
-				try {
-					// Получаем IP-адрес пользователя
-					const userIp = msg.ip || msg.forwarded_ip || ''; // В зависимости от того, как бот получает данные о пользователе
-					
+				try {				
 					// Создаем нового пользователя
 					user = new User({
 						telegramId: telegramId,
 						username: userName,
 						lastLogin: new Date(),
 						tokens: 0,
-						ip: userIp // Сохранение IP-адреса
+						ip: null // Сохранение IP-адреса
 					});
 					await user.save();
 				} catch (err) {
@@ -126,7 +127,6 @@
 				if (userName) {
 					user.username = userName;
 				}
-				user.ip = msg.ip || user.ip; // Обновляем IP-адрес, если его нет
 				await user.save();
 			}
 
@@ -134,6 +134,9 @@
 			if (user.status === 'banned') {
 				return bot.sendMessage(chatId, 'Your account has been blocked. Please contact support.');
 			}
+			
+			// IP-адрес можно сохранять только при запросах к вашему серверу, так что мы можем использовать его позже
+			const userIp = null; // Получите IP-адрес при следующем запросе к вашему серверу
 
 			const webAppUrl = `https://novella-telegram-bot.onrender.com/loading?userId=${telegramId}`; // Здесь использован telegramId
 
