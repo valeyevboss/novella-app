@@ -124,7 +124,7 @@ bot.onText(/\/start/, async (msg) => {
                     telegramId: telegramId,
                     username: userName,
                     lastLogin: new Date(),
-                    tokens: 0
+                    tokens: 0,
 					ip: userIp // Сохраняем IP при создании нового пользователя
                 });
                 await user.save();
