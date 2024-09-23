@@ -47,7 +47,7 @@ body {
 
 @font-face {
     font-family: 'Polaris'; /* Изменяем имя на 'Polaris' */
-    src: url('/fonts/polaris-regular.otf') format('opentype');
+    src: url('/fonts/Polaris.otf') format('opentype');
     font-weight: normal; 
     font-style: normal;
 }
