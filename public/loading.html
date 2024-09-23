@@ -10,6 +10,33 @@
     <div class="loading-container">
         <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/Novellacoin.png" alt="Loading Icon" class="loading-icon">
     </div>
+	
+	<!-- Название NOVELLA -->
+    <div class="novella-title">
+        <span>N</span><span>O</span><span>V</span><span>E</span><span>L</span><span>L</span><span>A</span>
+    </div>
+	
+	<!-- Блок для иконок социальных сетей -->
+    <div class="social-icons">
+        <a href="https://www.instagram.com/novellatoken_community" target="_blank">
+            <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1727110754/Social/Instagram-load_icon.png" alt="Instagram Icon" class="social-icon">
+        </a>
+        <a href="https://www.youtube.com/@NovellaApp" target="_blank">
+            <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1727110754/Social/Youtube-load_icon.png" alt="YouTube Icon" class="social-icon">
+        </a>
+        <a href="https://t.me/novellatoken_community" target="_blank">
+            <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1727110754/Social/Telegram-load_icon.png" alt="Telegram Icon" class="social-icon">
+        </a>
+        <a href="https://x.com/novellatoken_community" target="_blank">
+            <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1727110754/Social/X-load_icon.png" alt="X Icon" class="social-icon">
+        </a>
+    </div>
+  
+    <!-- Версия приложения -->
+    <div class="app-version">
+        Version: 1.0.0
+    </div>
+	
     <script>
         // Получаем telegramId из URL
         const urlParams = new URLSearchParams(window.location.search);
@@ -23,7 +50,7 @@
                         // Задержка перед переходом на страницу
                         setTimeout(() => {
                             window.location.href = data.redirect;
-                        }, 3000); // Задержка в 3 секунды
+                        }, 5000); // Задержка в 5 секунды
                     } else {
                         document.getElementById('token-balance').innerText = data.tokens;
                     }
@@ -32,14 +59,15 @@
                     console.error('Произошла ошибка:', error);
                     setTimeout(() => {
                         window.location.href = '/loadingerror';
-                    }, 3000); // Задержка в 3 секунды
+                    }, 5000); // Задержка в 5 секунды
                 });
         } else {
             console.error('username ID отсутствует в URL, перенаправляем на loadingerror');
             setTimeout(() => {
                 window.location.href = '/loadingerror';
-            }, 3000); // Задержка в 2 секунды
+            }, 5000); // Задержка в 5 секунды
         }
-    </script>
+    </script>	
+
 </body>
 </html>
