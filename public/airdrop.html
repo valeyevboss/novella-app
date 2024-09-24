@@ -7,7 +7,9 @@
     <link rel="stylesheet" href="styles.css">
 	<link rel="preload" href="/fonts/hooge05_55cyr2.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 	<link rel="preload" href="/fonts/MaiandraGD.ttf" as="font" type="font/ttf" crossorigin="anonymous">
-    <script src="https://unpkg.com/@tonconnect/sdk@3.0.5/lib/cjs/index.cjs"></script>
+    <script src="path/to/tonconnect-sdk.js" async></script>
+    <script src="https://unpkg.com/@tonconnect/sdk@latest/dist/tonconnect-sdk.min.js"></script>
+    <script src="/app.js" defer></script>
 </head>
 <body>
     <div class="airdrop-page">
@@ -72,10 +74,7 @@
         </a>
         </nav>
     </div>
-	
-    <!-- Скрипт логики TonConnect Wallet -->
-    <script src="/app.js"></script>
-	
+
 	<!-- Скрипт для воспроизведения звука при нажатии на иконку warning -->
     <script>
         const tokenIcon = document.getElementById('warning-icon');
@@ -87,5 +86,6 @@
             });
         });
     </script>
+
 </body>
 </html>
