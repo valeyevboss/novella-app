@@ -1,7 +1,8 @@
-let dayCounter = 1;
+let dayCounter = localStorage.getItem('dayCounter') ? parseInt(localStorage.getItem('dayCounter')) : 1;
 const rewards = [100, 250, 500, 750, 800, 900, 1500]; // Награды по дням
 let timerInterval;
-let isRewardClaimed = false;
+let isRewardClaimed = localStorage.getItem('isRewardClaimed') === 'true';
+let timeLeft = localStorage.getItem('timeLeft') ? parseInt(localStorage.getItem('timeLeft')) : 24 * 60 * 60; // Время, оставшееся с предыдущей сессии
 
 // Функция для обновления кнопки и награды
 function updateButton() {
@@ -10,22 +11,24 @@ function updateButton() {
         dayCounter = 1;
     }
     button.innerText = `Daily Check in +${rewards[dayCounter - 1]} $Novella`;
+
+    if (isRewardClaimed) {
+        button.disabled = true;
+        startTimer();
+    } else {
+        button.disabled = false;
+    }
 }
 
 // Функция получения награды
 function claimReward() {
     if (isRewardClaimed) return;
+
     console.log('Кнопка нажата, начинаем получение награды');
-
     const rewardAmount = rewards[dayCounter - 1];
-    const userId = '<%= userId %>'; // Используем userId из шаблона
+    const telegramId = '<%= telegramId %>'; // Убедитесь, что telegramId передается корректно на страницу
 
-    if (!userId) {
-        console.error('User ID не найден');
-        return;
-    }
-
-    fetch(`/add-tokens/${userId}`, {
+    fetch(`/add-tokens/${telegramId}`, {  // Используем telegramId вместо userId
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -36,6 +39,7 @@ function claimReward() {
     .then(data => {
         if (data.success) {
             isRewardClaimed = true;
+            localStorage.setItem('isRewardClaimed', 'true');
             document.getElementById('claim-reward-button').disabled = true;
             console.log('Награда получена');
             startTimer();
@@ -54,8 +58,6 @@ function startTimer() {
         return;
     }
 
-    let timeLeft = 24 * 60 * 60; // 24 часа
-
     clearInterval(timerInterval);
     timerInterval = setInterval(() => {
         timeLeft--;
@@ -66,12 +68,18 @@ function startTimer() {
 
         timerDisplay.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 
+        localStorage.setItem('timeLeft', timeLeft);
+
         if (timeLeft <= 0) {
             clearInterval(timerInterval);
             isRewardClaimed = false;
+            localStorage.setItem('isRewardClaimed', 'false');
             document.getElementById('claim-reward-button').disabled = false;
             dayCounter++;
+            localStorage.setItem('dayCounter', dayCounter);
             updateButton();
+            timeLeft = 24 * 60 * 60; // Сбросить таймер на 24 часа
+            localStorage.setItem('timeLeft', timeLeft);
         }
     }, 1000);
 }
@@ -79,4 +87,7 @@ function startTimer() {
 // Инициализация
 window.onload = function() {
     updateButton();
+    if (isRewardClaimed && timeLeft > 0) {
+        startTimer(); // Запустить таймер при загрузке страницы, если награда была получена
+    }
 }

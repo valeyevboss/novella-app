@@ -17,6 +17,7 @@
 	const bot = new TelegramBot(telegramBotToken, { polling: true });
 
 	const bodyParser = require('body-parser');
+
 	app.use(bodyParser.json()); // для обновления токенов и данных
 
 	// Подключение папки для статических файлов
@@ -87,6 +88,34 @@
 		} catch (error) {
 			console.error('Ошибка проверки пользователя:', error);
 			res.status(500).json({ error: 'Внутренняя ошибка сервера' });
+		}
+	});
+
+	// Проверка и начисление токенов пользователю
+	app.post('/add-tokens/:telegramId', async (req, res) => {
+		try {
+			const { telegramId } = req.params;
+			const { amount } = req.body;
+
+			// Проверка корректности введенной суммы
+			if (typeof amount !== 'number' || amount <= 0) {
+				return res.status(400).json({ error: 'Invalid amount. Must be a positive number.' });
+			}
+
+			const user = await User.findOne({ telegramId });
+
+			if (!user) {
+				return res.status(404).json({ error: 'User not found' });
+			}
+
+			// Обновляем баланс токенов
+			user.tokens += amount;
+			await user.save();
+
+			res.json({ success: true, tokens: user.tokens });
+		} catch (error) {
+			console.error('Ошибка при добавлении токенов:', error);
+			res.status(500).json({ error: 'Ошибка сервера' });
 		}
 	});
 

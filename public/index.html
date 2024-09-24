@@ -58,8 +58,8 @@
             </a>
         </nav>
     </div>
-	
-	<!-- Скрипт для воспроизведения звука при нажатии на иконку токена -->
+    
+    <!-- Скрипт для воспроизведения звука при нажатии на иконку токена -->
     <script>
         const tokenIcon = document.getElementById('token-icon');
 
@@ -67,8 +67,24 @@
             const audio = new Audio('/sound/nose-sound.mp3');
             audio.play();
         });
+
+        // Функция для обновления баланса
+        function updateBalance(newBalance) {
+            const balanceElement = document.getElementById('token-balance');
+            balanceElement.textContent = newBalance;
+        }
+
+        // Получение баланса при загрузке страницы
+        const telegramId = '<%= telegramId %>'; // Убедитесь, что telegramId передается корректно на страницу
+        fetch(`/get-balance/${telegramId}`)
+            .then(response => response.json())
+            .then(data => {
+                updateBalance(data.tokens); // Обновляем отображение баланса на странице
+            })
+            .catch(error => console.error('Ошибка получения баланса:', error));
     </script>
 
+    <!-- Скрипт ежедневной награды -->
     <script src="/dailyreward.js"></script>
 </body>
 </html>
