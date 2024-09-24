@@ -314,6 +314,90 @@ body {
     color: grey;
     margin-top: -10px;
 }
+/* Cтилизация для секций заданий */
+.section-title {
+    font-size: 22px;
+    color: #ffffff;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    margin-bottom: -20px;
+    text-align: left;
+    margin-left: 20px; /* Регулируй этот отступ для сдвига заголовка от края */
+}
+
+
+/* Блок с заданием */
+.tasks-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px;
+}
+
+.tasks {
+    display: flex;
+    align-items: center;
+    background-color: #1f1f1f; /* Тёмный фон, как у Daily Rewards */
+    border-radius: 20px; /* Закругление */
+    padding: 12px;
+    margin: 10px 0;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Лёгкая тень */
+}
+
+.tasks-icon {
+    width: 55px;
+    height: 55px;
+    margin-right: 8px;
+	object-fit: contain; /* Поддержание пропорций */
+}
+
+.tasks-details {
+    flex-grow: 1;
+}
+
+.tasks-title {
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    color: #ffffff;
+    margin: -3;
+}
+
+.tasks-reward {
+    font-size: 14px;
+    color: #aaaaaa;
+    margin-top: -12px;
+}
+
+.tasks-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 12px 28px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    align-self: center;
+    transition: background-color 0.3s ease;
+}
+
+.tasks-btn.start:hover {
+    background-color: #0056b3;
+}
+
+/* Дополнительные состояния кнопки */
+.tasks-btn.check {
+    background-color: #28a745;
+}
+
+.tasks-btn.claim {
+    background-color: #ffc107;
+}
+
+.tasks-btn.completed {
+    background-color: #444;
+    cursor: not-allowed;
+}
+
 
 /* Стили для страницы Wallet */
 .wallet-page {
