@@ -67,21 +67,35 @@
             const audio = new Audio('/sound/nose-sound.mp3');
             audio.play();
         });
+    </script>
 
+    <!-- Скрипт для получения баланса -->
+    <script>
+        // Функция для извлечения параметров из URL
+        function getTelegramIdFromURL() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('userId');
+        }
+
+        // Получение баланса при загрузке страницы
+        const telegramId = getTelegramIdFromURL(); // Теперь мы получаем telegramId из URL
+        
+        if (telegramId) {
+            fetch(`/get-balance/${telegramId}`)
+                .then(response => response.json())
+                .then(data => {
+                    updateBalance(data.tokens); // Обновляем отображение баланса на странице
+                })
+                .catch(error => console.error('Ошибка получения баланса:', error));
+        } else {
+            console.error('Telegram ID не найден в URL');
+        }
+        
         // Функция для обновления баланса
         function updateBalance(newBalance) {
             const balanceElement = document.getElementById('token-balance');
             balanceElement.textContent = newBalance;
         }
-
-        // Получение баланса при загрузке страницы
-        const telegramId = '<%= telegramId %>'; // Убедитесь, что telegramId передается корректно на страницу
-        fetch(`/get-balance/${telegramId}`)
-            .then(response => response.json())
-            .then(data => {
-                updateBalance(data.tokens); // Обновляем отображение баланса на странице
-            })
-            .catch(error => console.error('Ошибка получения баланса:', error));
     </script>
 
     <!-- Скрипт ежедневной награды -->
