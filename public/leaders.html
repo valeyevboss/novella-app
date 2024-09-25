@@ -5,26 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>Novella App - Leaderboard</title>
 	<link rel="stylesheet" href="styles.css">
-	<link rel="preload" href="/fonts/hooge05_55cyr2.ttf" as="font" type="font/ttf" crossorigin="anonymous">
-	<link rel="preload" href="/fonts/MaiandraGD.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 </head>
 <body>
 	<div class="leaders-page">
     <header class="leaderboard-header">
-	
-		<!-- Иконка Leaderboard с возможностью контролировать её размер через CSS -->
+        <!-- Иконка Leaderboard -->
         <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1726003706/Element/Leaderboard.png" alt="Leaderboard Icon" class="leaderboard-icon">
 		
-		<!-- Заголовок Leaderboard -->
+        <!-- Заголовок Leaderboard -->
         <h1 class="leaderboard-title">LEADERBOARD</h1>
 		
-		<!-- Описание ниже заголовка -->
+        <!-- Описание ниже заголовка -->
         <p class="leader-subtitle">The list of the best users, break into the top!</p>
-		</header>
+    </header>
+    
+    <!-- Закругленный блок с аватаром, именем, балансом и номером топа -->
+    <div class="user-info-block">
+        <img src="https://s3.blum.codes/9867294b-803f-473c-afbb-97cf528b2fcc/19d714c0-ffe2-427e-9667-9cc6286515fe" alt="User Avatar" class="user-avatar">
+        <div class="user-details">
+            <span class="username">valeyevboss</span>
+            <span class="token-balance">150,000 $Novella</span>
+        </div>
+        <span class="user-rank">#1000</span>
     </div>
-	
+
+    <!-- Кнопка Boost score -->
+    <button class="boost-score-button">Boost score</button>
+    
+    <!-- Текст Total users -->
+    <p class="total-users">10,000,000 users</p>
+    
+	</div>
+    
 	<!-- Нижнее меню -->
-	    <nav class="bottom-menu">
+    <nav class="bottom-menu">
         <a href="index.html" class="menu-item">
             <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1726420961/Menu/Button%20version%202/Main_iconmenu.png" alt="Main">
             <span>Main</span>
@@ -46,5 +60,7 @@
             <span>Leaders</span>
         </a>
     </nav>
+    <!-- В leaders.html -->
+    <script src="/totaluser.js"></script>
 </body>
 </html>

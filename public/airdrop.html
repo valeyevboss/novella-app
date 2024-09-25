@@ -76,9 +76,9 @@
 
 	<!-- Скрипт для воспроизведения звука при нажатии на иконку warning -->
     <script>
-        const tokenIcon = document.getElementById('warning-icon');
+        const WarningIcon = document.getElementById('warning-icon');
 
-        tokenIcon.addEventListener('click', () => {
+        WarningIcon.addEventListener('click', () => {
             const audio = new Audio('/sound/warning.mp3');
             audio.play().catch(error => {
                 console.error('Ошибка при воспроизведении звука:', error);

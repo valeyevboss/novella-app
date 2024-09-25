@@ -650,6 +650,76 @@ body {
     margin-top: -10px;
 }
 
+/* Стиль для закругленного блока с информацией о пользователе */
+.user-info-block {
+    background-color: #1f1f1f;
+    border-radius: 15px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 350px;
+}
+
+/* Стиль для аватарки */
+.user-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+/* Стиль для username */
+.username {
+    font-size: 20px; /* Регулируемый размер */
+    color: #fff;
+    font-weight: bold;
+    margin-bottom: 2px; /* Отступ снизу для управления расстоянием до баланса */
+    margin-right: 50px;  /* Отступ вправо */
+}
+
+/* Стиль для balance */
+.token-balance {
+    font-size: 15px; /* Регулируемый размер */
+    color: #a5a5a5;
+    margin-top: 3px; /* Отступ сверху для дополнительного контроля */
+    white-space: nowrap; /* Запрещает перенос текста на новую строку */
+    margin-right: 30px;  /* Отступ вправо */
+}
+
+/* Стиль для user rank */
+.user-rank {
+    font-size: 20px;
+    color: #fff;
+    font-weight: bold;
+    margin-left: auto; /* Сдвигаем rank в правую часть */
+}
+
+/* Стиль для кнопки Boost score */
+.boost-score-button {
+    background-color: #fff;
+    color: #000;
+    border: none;
+    border-radius: 20px;
+    padding: 15px 90px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    display: block;
+    margin: 5px auto;
+    text-align: center;
+}
+
+/* Стиль для текста Total users */
+.total-users {
+    font-size: 18px; /* Увеличен размер шрифта */
+    color: #ffffff; /* Белый цвет текста */
+    text-align: left; /* Выравнивание по левому краю */
+    margin-left: 25px; /* Небольшой отступ слева для выравнивания */
+}
+
 /* Стили для загрузочного экрана */
 .loading-container {
     display: flex;

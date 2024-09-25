@@ -91,6 +91,18 @@
 		}
 	});
 
+	// Получение общего количества пользователей
+	app.get('/total-users', async (req, res) => {
+		try {
+			const userCount = await User.countDocuments(); // Получаем общее количество документов в коллекции User
+			res.json({ totalUsers: userCount });
+		} catch (error) {
+			console.error('Ошибка при получении количества пользователей:', error);
+			res.status(500).json({ error: 'Внутренняя ошибка сервера' });
+		}
+	});
+
+
 	// Проверка и начисление токенов пользователю
 	app.post('/add-tokens/:telegramId', async (req, res) => {
 		try {
