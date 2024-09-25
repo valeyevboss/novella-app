@@ -1,6 +1,6 @@
 async function fetchTotalUsers() {
     try {
-        const response = await fetch('/api/total-users'); // URL, который вы будете использовать для получения общего числа пользователей
+        const response = await fetch('/total-users');
         const data = await response.json();
         
         if (response.ok) {
