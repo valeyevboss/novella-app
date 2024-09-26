@@ -134,43 +134,32 @@
 	// Объявляем URL изображения
 	const imageUrl = 'https://res.cloudinary.com/dvjohgg6j/image/upload/v1725631955/Banner/Novella%20banner.jpg'; // Публичный URL вашего изображения
 
+
 	// Обработчик команды /start
 	bot.onText(/\/start/, async (msg) => {
 		const chatId = msg.chat.id;
-		const telegramId = msg.from.id; // Телеграм ID пользователя
+		const telegramId = msg.from.id; // Telegram ID пользователя
 		const userName = msg.from.username || '';
-	
+
 		try {
-			// Ищем пользователя по Telegram ID
 			let user = await User.findOne({ telegramId });
 
 			if (!user) {
-				try {				
-					// Создаем нового пользователя
-					user = new User({
-						telegramId: telegramId,
-						username: userName,
-						lastLogin: new Date(),
-						tokens: 0
-					});
-					await user.save();
-				} catch (err) {
-					if (err.code === 11000) {
-						console.error('User already exists with this telegramId');
-					} else {
-						console.error('Error saving user:', err);
-					}
-					return;
-				}
+				// Создаем нового пользователя
+				user = new User({
+					telegramId: telegramId,
+					username: userName,
+					lastLogin: new Date(),
+					tokens: 0
+				});
+				await user.save();
 			} else {
 				// Обновляем последний вход
 				user.lastLogin = new Date();
-				if (userName) {
-					user.username = userName;
+				user.username = userName;
 
 				// Получаем аватар пользователя
 				const profilePhotos = await bot.getUserProfilePhotos(telegramId, { limit: 1 });
-				console.log('Profile Photos:', profilePhotos); // Логирование для проверки
 
 				if (profilePhotos.total_count > 0) {
 					const fileId = profilePhotos.photos[0][0].file_id;
@@ -180,11 +169,12 @@
 				} else {
 					user.avatarUrl = 'https://res.cloudinary.com/dvjohgg6j/image/upload/v1727389118/default-avatar.jpg'; // Замените на вашу ссылку
 				}
+
 				// Сохраняем изменения
 				await user.save();
 				console.log('User saved:', user); // Проверяем, что аватарка сохранена
-				}
 			}
+
 
 			// Проверка статуса пользователя
 			if (user.status === 'banned') {
