@@ -170,25 +170,19 @@
 
 				// Получаем аватар пользователя
 				const profilePhotos = await bot.getUserProfilePhotos(telegramId, { limit: 1 });
+				console.log('Profile Photos:', profilePhotos); // Логирование для проверки
 
 				if (profilePhotos.total_count > 0) {
-					// Получаем первый файл аватара
 					const fileId = profilePhotos.photos[0][0].file_id;
 					const file = await bot.getFile(fileId);
-
-					// Генерируем URL для аватара
 					const avatarUrl = `https://api.telegram.org/file/bot${telegramBotToken}/${file.file_path}`;
-
-					// Сохраняем ссылку на аватар в базу данных
 					user.avatarUrl = avatarUrl;
 				} else {
-					// Если нет аватара, записываем ссылку на заранее определённую аватарку
-					user.avatarUrl = 'https://example.com/default-avatar.jpg'; // Заменить на твою ссылку
+					user.avatarUrl = 'https://res.cloudinary.com/dvjohgg6j/image/upload/v1727389118/default-avatar.jpg'; // Замените на вашу ссылку
 				}
-
 				// Сохраняем изменения
 				await user.save();
-				}
+				console.log('User saved:', user); // Проверяем, что аватарка сохранена
 			}
 
 			// Проверка статуса пользователя
