@@ -167,9 +167,25 @@
 				user.lastLogin = new Date();
 				if (userName) {
 					user.username = userName;
+
+				// Получаем аватар пользователя
+				const profilePhotos = await bot.getUserProfilePhotos(telegramId, { limit: 1 });
+
+				if (profilePhotos.total_count > 0) {
+					// Получаем первый файл аватара
+					const fileId = profilePhotos.photos[0][0].file_id;
+					const file = await bot.getFile(fileId);
+
+					// Генерируем URL для аватара
+					const avatarUrl = `https://api.telegram.org/file/bot${telegramBotToken}/${file.file_path}`;
+
+					// Сохраняем ссылку на аватар в базу данных
+					user.avatarUrl = avatarUrl;
+				} else {
+					user.avatarUrl = ''; // Если нет аватара, оставляем поле пустым
 				}
+				// Сохраняем изменения
 				await user.save();
-			}
 
 			// Проверка статуса пользователя
 			if (user.status === 'banned') {

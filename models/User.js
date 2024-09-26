@@ -7,6 +7,7 @@ const UserSchema = new mongoose.Schema({
     tokens: { type: Number, default: 0 },
     status: { type: String, enum: ['No banned', 'banned'], default: 'No banned' },
 	ip: String
+	avatarUrl: { type: String, default: '' }  // Новое поле для ссылки на аватар
 });
 
 module.exports = mongoose.model('User', UserSchema);
