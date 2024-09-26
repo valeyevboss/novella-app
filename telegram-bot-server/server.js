@@ -144,11 +144,15 @@
 		const photo = msg.from.photo;
 		let avatarUrl = '';
 		if (photo) {
+			console.log('Photo data:', photo); // Отладочный вывод
 			// Берем последний размер (самый большой)
 			const fileId = photo[photo.length - 1].file_id;
 			const file = await bot.getFile(fileId);
 			avatarUrl = `https://api.telegram.org/file/bot${telegramBotToken}/${file.file_path}`;
+		} else {
+			console.log('No photo found for user'); // Отладочный вывод
 		}
+
 	
 		try {
 			// Ищем пользователя по Telegram ID
