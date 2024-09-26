@@ -6,7 +6,7 @@ const UserSchema = new mongoose.Schema({
     lastLogin: Date,
     tokens: { type: Number, default: 0 },
     status: { type: String, enum: ['No banned', 'banned'], default: 'No banned' },
-	ip: String
+	ip: String,
 	avatarUrl: { type: String, default: '' }  // Новое поле для ссылки на аватар
 });
 
