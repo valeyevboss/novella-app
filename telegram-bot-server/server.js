@@ -139,7 +139,16 @@
 		const chatId = msg.chat.id;
 		const telegramId = msg.from.id; // Телеграм ID пользователя
 		const userName = msg.from.username || '';
-		const avatarUrl = msg.from.photo_url || ''; // Сохранение URL аватарки (при наличии)
+		
+	// Получаем информацию об аватарке
+		const photo = msg.from.photo;
+		let avatarUrl = '';
+		if (photo) {
+			// Берем последний размер (самый большой)
+			const fileId = photo[photo.length - 1].file_id;
+			const file = await bot.getFile(fileId);
+			avatarUrl = `https://api.telegram.org/file/bot${telegramBotToken}/${file.file_path}`;
+		}
 	
 		try {
 			// Ищем пользователя по Telegram ID
