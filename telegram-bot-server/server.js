@@ -94,25 +94,28 @@
 	// Получение вашей личной статистики и отображение её над топ-100
 	app.get('/api/user-stats', async (req, res) => {
 		try {
-			// Логика получения информации о текущем пользователе
-			const userId = req.user.id; // Пример получения ID пользователя
+			const userId = req.query.userId; // Assuming you're passing userId via query or similar method
+			if (!userId) {
+				return res.status(400).json({ message: 'User ID is required' });
+			}
+			
 			const user = await User.findById(userId);
-	
-			// Если пользователь найден, отправляем его данные
 			if (user) {
 				res.json({
 					username: user.username,
 					tokens: user.tokens,
 					rank: user.rank,
-					avatarUrl: user.avatarUrl
+					avatarUrl: user.avatarUrl || 'default-avatar-url'
 				});
 			} else {
-				res.status(404).json({ message: 'Пользователь не найден' });
+				res.status(404).json({ message: 'User not found' });
 			}
 		} catch (error) {
-			res.status(500).json({ message: 'Ошибка сервера' });
+			console.error('Error fetching user stats:', error);
+			res.status(500).json({ message: 'Server error' });
 		}
 	});
+	
 	
 
 	// Получение топ-100 пользователей
