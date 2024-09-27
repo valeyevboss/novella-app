@@ -1,7 +1,3 @@
-const mongoose = require('mongoose');
-const User = require('./models/User'); // Импортируем модель User
-
-// Функция для получения топ-100 пользователей
 async function getTopUsers() {
     try {
         const response = await fetch('/api/top-users');
