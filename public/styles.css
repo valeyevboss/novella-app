@@ -650,56 +650,56 @@ body {
     margin-top: -10px;
 }
 
-/* Стиль для закругленного блока с информацией о пользователе */
-.user-info-block {
-    background-color: #1f1f1f;
-    border-radius: 15px;
-    padding: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    margin: 20px auto;
-    width: 90%;
-    max-width: 350px;
-}
+    /* Стиль для закругленного блока с информацией о пользователе */
+    .user-info-block {
+        background-color: #1f1f1f;
+        border-radius: 15px;
+        padding: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin: 20px auto;
+        width: 90%;
+        max-width: 350px;
+    }
 
-/* Стиль для аватарки */
-.user-avatar {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin-right: 15px;
-}
+    /* Стиль для аватарки */
+    .user-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-right: 15px;
+    }
 
-/* Стиль для контейнера с username и балансом */
-.user-details {
-    display: flex;
-    flex-direction: column; /* Обеспечивает вертикальное выравнивание */
-    margin-right: 50px;  /* Отступ вправо */
-}
+    /* Стиль для контейнера с username и балансом */
+    .user-details {
+        display: flex;
+        flex-direction: column; /* Обеспечивает вертикальное выравнивание */
+        margin-right: 50px;  /* Отступ вправо */
+    }
 
-/* Стиль для username */
-.username {
-    font-size: 20px; /* Регулируемый размер */
-    color: #fff;
-    font-weight: bold;
-}
+    /* Стиль для username */
+    .username {
+        font-size: 20px; /* Регулируемый размер */
+        color: #fff;
+        font-weight: bold;
+    }
 
-/* Стиль для balance */
-.token-balance {
-    font-size: 15px; /* Регулируемый размер */
-    color: #a5a5a5;
-    margin-top: 3px; /* Отступ сверху для дополнительного контроля */
-    white-space: nowrap; /* Запрещает перенос текста на новую строку */
-}
+    /* Стиль для balance */
+    .token-balance {
+        font-size: 15px; /* Регулируемый размер */
+        color: #a5a5a5;
+        margin-top: 3px; /* Отступ сверху для дополнительного контроля */
+        white-space: nowrap; /* Запрещает перенос текста на новую строку */
+    }
 
-/* Стиль для user rank */
-.user-rank {
-    font-size: 20px;
-    color: #fff;
-    font-weight: bold;
-    margin-left: auto; /* Сдвигаем rank в правую часть */
-}
+    /* Стиль для user rank */
+    .user-rank {
+        font-size: 20px;
+        color: #fff;
+        font-weight: bold;
+        margin-left: auto; /* Сдвигаем rank в правую часть */
+    }
 
 /* Стиль для кнопки Boost score */
 .boost-score-button {
@@ -722,6 +722,76 @@ body {
     color: #ffffff; /* Белый цвет текста */
     text-align: left; /* Выравнивание по левому краю */
     margin-left: 25px; /* Небольшой отступ слева для выравнивания */
+}
+
+/* Стиль для заголовка секции топ-100 */
+.top100-title {
+    font-size: 22px; /* Размер шрифта заголовка */
+    color: #fff; /* Цвет текста заголовка */
+    font-weight: bold; /* Жирный шрифт */
+    margin-bottom: 20px; /* Отступ снизу для разделения с другими элементами */
+    text-align: center; /* Центрирование заголовка */
+}
+
+/* Для секции топ-100 пользователей */
+.top100-section {
+    margin: 20px auto; /* Центрирование блока с равными отступами */
+    margin-top: 50px; /* Дополнительный отступ сверху */
+    background-color: #2a2a2a; /* Задний фон для топа */
+    border-radius: 15px;
+    padding: 20px;
+    width: 90%; 
+    max-width: 350px; 
+}
+
+
+/* Стиль для блока с информацией о пользователе в топе */
+.top100-user-info-block {
+    background-color: #1f1f1f;
+    border-radius: 15px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 10px 0; /* Отступ между пользователями */
+}
+
+/* Стиль для аватарки пользователя в топе */
+.top100-user-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+/* Стиль для контейнера с username и балансом в топе */
+.top100-user-details {
+    display: flex;
+    flex-direction: column;
+    margin-right: 50px;
+}
+
+/* Стиль для username в топе */
+.top100-username {
+    font-size: 20px; /* Увеличен размер до 20px */
+    color: #fff;
+    font-weight: bold;
+}
+
+/* Стиль для balance в топе */
+.top100-token-balance {
+    font-size: 15px; /* Увеличен размер до 15px */
+    color: #a5a5a5;
+    margin-top: 3px; /* Отступ сверху для дополнительного контроля */
+    white-space: nowrap; /* Запрещает перенос текста на новую строку */
+}
+
+/* Стиль для user rank в топе */
+.top100-user-rank {
+    font-size: 20px; /* Размер оставлен без изменений */
+    color: #fff;
+    font-weight: bold;
+    margin-left: auto; /* Сдвигаем rank в правую часть */
 }
 
 /* Стили для загрузочного экрана */

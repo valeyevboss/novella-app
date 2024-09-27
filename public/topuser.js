@@ -1,36 +1,39 @@
-// Массив с данными пользователей
-const users = [
-    { username: "Kira Princess", balance: "150,000", rank: "#1", avatar: "https://sun9-63.userapi.com/impg/TIpJIGYq1_oPXv71w2_8pP5W_i411FByDeGfxA/hzK7C9aRykc.jpg?size=799x800&quality=95&sign=216297ffd8f6f0ccdca6fd5dab00d67a&type=album" },
-    { username: "Nikita Valeyev", balance: "120,000", rank: "#2", avatar: "https://sun9-43.userapi.com/impg/jcKq6UzBGPWmSDzURKj94cREpsRPkLMLTuRpeQ/Uq7RdTnncL4.jpg?size=810x1080&quality=95&sign=0e98642c4d7b442c31c8a38ca2653bf5&type=album" },
-    // Добавь сюда остальных пользователей до 100
-];
+const mongoose = require('mongoose');
+const User = require('./models/User'); // Импортируем модель User
 
-// Функция для создания блока пользователя
-function createUserBlock(user) {
-    const userBlock = document.createElement('div');
-    userBlock.classList.add('user-info-block');
-    
-    userBlock.innerHTML = `
-        <img src="${user.avatar}" alt="User Avatar" class="user-avatar">
-        <div class="user-details">
-            <span class="username">${user.username}</span>
-            <span class="token-balance">${user.balance}</span>
-        </div>
-        <span class="user-rank">${user.rank}</span>
-    `;
-    
-    return userBlock;
+// Функция для получения топ-100 пользователей
+async function getTopUsers() {
+    try {
+        const topUsers = await User.find().sort({ tokens: -1 }).limit(100); // Сортировка по токенам, по убыванию
+        displayTopUsers(topUsers);
+    } catch (error) {
+        console.error('Ошибка при получении пользователей:', error);
+    }
 }
 
-// Функция для рендеринга списка пользователей
-function renderLeaderboard() {
-    const leaderboardContainer = document.getElementById('leaderboard-container');
-    
-    users.forEach(user => {
-        const userBlock = createUserBlock(user);
+// Функция для отображения пользователей
+function displayTopUsers(users) {
+    const leaderboardContainer = document.createElement('div');
+    leaderboardContainer.classList.add('top100-container');
+
+    users.forEach((user, index) => {
+        const userBlock = document.createElement('div');
+        userBlock.classList.add('top100-user-info-block');
+
+        userBlock.innerHTML = `
+            <img src="${user.avatarUrl}" alt="User Avatar" class="top100-user-avatar">
+            <div class="top100-user-details">
+                <span class="top100-username">${user.username}</span>
+                <span class="top100-token-balance">${user.tokens}</span>
+            </div>
+            <span class="top100-user-rank">#${index + 1}</span>
+        `;
+
         leaderboardContainer.appendChild(userBlock);
     });
+
+    document.body.appendChild(leaderboardContainer);
 }
 
-// Вызов функции для отображения пользователей
-document.addEventListener('DOMContentLoaded', renderLeaderboard);
+// Вызов функции при загрузке страницы
+window.onload = getTopUsers;
