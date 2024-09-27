@@ -4,7 +4,7 @@ async function fetchTotalUsers() {
         const data = await response.json();
         
         if (response.ok) {
-            document.querySelector('.total-users').textContent = `${data.totalUsers} users`; // Обновляем текст на странице
+            document.querySelector('.total-users').textContent = `Total: ${data.totalUsers} users`; // Обновляем текст на странице
         } else {
             console.error('Error fetching total users:', data.error);
         }
