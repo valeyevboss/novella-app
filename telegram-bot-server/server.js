@@ -143,7 +143,6 @@ app.get('/total-users', async (req, res) => {
 	}
 });
 
-
 // Проверка и начисление токенов пользователю
 app.post('/add-tokens/:telegramId', async (req, res) => {
 	try {
