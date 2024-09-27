@@ -91,6 +91,17 @@
 		}
 	});
 
+	// Получение топ-100 пользователей
+	app.get('/api/top-users', async (req, res) => {
+		try {
+			const topUsers = await User.find().sort({ tokens: -1 }).limit(100);
+			res.json(topUsers);
+		} catch (error) {
+			console.error('Ошибка при получении пользователей:', error);
+			res.status(500).send('Ошибка сервера');
+		}
+	});
+
 	// Получение общего количества пользователей
 	app.get('/total-users', async (req, res) => {
 		try {

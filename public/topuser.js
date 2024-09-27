@@ -4,7 +4,11 @@ const User = require('./models/User'); // Импортируем модель Us
 // Функция для получения топ-100 пользователей
 async function getTopUsers() {
     try {
-        const topUsers = await User.find().sort({ tokens: -1 }).limit(100); // Сортировка по токенам, по убыванию
+        const response = await fetch('/api/top-users');
+        if (!response.ok) {
+            throw new Error('Сеть не отвечает');
+        }
+        const topUsers = await response.json();
         displayTopUsers(topUsers);
     } catch (error) {
         console.error('Ошибка при получении пользователей:', error);
