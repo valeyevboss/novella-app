@@ -714,11 +714,21 @@ body {
     display: block;
     margin: 5px auto;
     text-align: center;
+
+    /* Добавляем плавный переход для всех свойств */
+    transition: transform 0.3s ease;
+}
+
+/* Анимация при наведении */
+.boost-score-button:hover {
+    /* Увеличиваем кнопку */
+    transform: scale(1.1);
 }
 
 /* Стиль для текста Total users */
 .total-users {
-    font-size: 18px; /* Увеличен размер шрифта */
+    font-size: 22px; /* Увеличен размер шрифта */
+    font-weight: bold; /* Сделан жирный шрифт */
     color: #ffffff; /* Белый цвет текста */
     text-align: left; /* Выравнивание по левому краю */
     margin-left: 25px; /* Небольшой отступ слева для выравнивания */

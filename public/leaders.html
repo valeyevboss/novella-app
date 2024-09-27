@@ -31,6 +31,14 @@
 
     <!-- Кнопка Boost score -->
     <button class="boost-score-button">Boost score</button>
+
+    <script>
+        // Добавляем обработчик события click на кнопку
+        document.querySelector('.boost-score-button').addEventListener('click', function() {
+            // Переход на страницу task.html
+            window.location.href = 'task.html';
+        });
+    </script>
     
     <!-- Текст Total users -->
     <p class="total-users">0</p>
