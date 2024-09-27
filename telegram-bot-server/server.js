@@ -93,32 +93,30 @@ app.get('/check-user/:telegramId', async (req, res) => {
 
 // Получение вашей личной статистики и отображение её над топ-100
 app.get('/api/user-stats', async (req, res) => {
-	try {
-		const userId = req.query.userId;
-		console.log('Получен userId:', userId); // Логирование
-		if (!userId) {
-			return res.status(400).json({ message: 'User ID is required' });
-		}
-		
-		const user = await User.findById(userId);
-		console.log('Найден пользователь:', user); // Логирование
-		if (user) {
-			res.json({
-				username: user.username,
-				tokens: user.tokens,
-				rank: user.rank,
-				avatarUrl: user.avatarUrl || 'default-avatar-url'
-			});
-		} else {
-			res.status(404).json({ message: 'User not found' });
-		}
-	} catch (error) {
-		console.error('Error fetching user stats:', error);
-		res.status(500).json({ message: 'Server error' });
-	}
+    try {
+        // Если ты используешь сессии, можно брать текущего пользователя из сессии:
+        const userId = req.session?.userId || req.userId;
+        
+        if (!userId) {
+            return res.status(400).json({ message: 'User ID is required' });
+        }
+
+        const user = await User.findById(userId);
+        if (user) {
+            res.json({
+                username: user.username,
+                tokens: user.tokens,
+                rank: user.rank,
+                avatarUrl: user.avatarUrl || 'default-avatar-url'
+            });
+        } else {
+            res.status(404).json({ message: 'User not found' });
+        }
+    } catch (error) {
+        console.error('Error fetching user stats:', error);
+        res.status(500).json({ message: 'Server error' });
+    }
 });
-
-
 
 
 // Получение топ-100 пользователей
