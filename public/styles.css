@@ -686,7 +686,7 @@ body {
     }
 
     /* Стиль для balance */
-    .token-balance {
+    .top-token-balance {
         font-size: 15px; /* Регулируемый размер */
         color: #a5a5a5;
         margin-top: 3px; /* Отступ сверху для дополнительного контроля */

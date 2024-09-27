@@ -91,6 +91,30 @@
 		}
 	});
 
+	// Получение вашей личной статистики и отображение её над топ-100
+	app.get('/api/user-stats', async (req, res) => {
+		try {
+			// Логика получения информации о текущем пользователе
+			const userId = req.user.id; // Пример получения ID пользователя
+			const user = await User.findById(userId);
+	
+			// Если пользователь найден, отправляем его данные
+			if (user) {
+				res.json({
+					username: user.username,
+					tokens: user.tokens,
+					rank: user.rank,
+					avatarUrl: user.avatarUrl
+				});
+			} else {
+				res.status(404).json({ message: 'Пользователь не найден' });
+			}
+		} catch (error) {
+			res.status(500).json({ message: 'Ошибка сервера' });
+		}
+	});
+	
+
 	// Получение топ-100 пользователей
 	app.get('/api/top-users', async (req, res) => {
 		try {
