@@ -725,14 +725,11 @@ body {
 }
 
 /* Стиль для текста Total users */
-.total-users-section {
-    font-size: 22px;
-    color: #ffffff;
-    font-family: 'Arial', sans-serif;
-    font-weight: bold;
-    margin-bottom: -20px;
+.total-users {
+    font-size: 24px; /* Увеличен размер шрифта */
+    color: #ffffff; /* Белый цвет текста */
     text-align: left; /* Выравнивание по левому краю */
-    margin-left: 25px; /* Небольшой отступ слева для выравнивания */ 
+    margin-left: 25px; /* Небольшой отступ слева для выравнивания */
 }
 
 /* Контейнер для секции топ-100 с прокруткой */
@@ -740,8 +737,8 @@ body {
     display: flex;
     flex-direction: column;
     gap: 10px; /* Отступы между пользователями */
-    margin: 20px; /* Отступ для всего контейнера */
-    max-height: 500px; /* Установите желаемую максимальную высоту */
+    margin: 0 20px; /* Уберите лишний отступ для всего контейнера */
+    max-height: calc(100vh - 100px); /* Установите максимальную высоту */
     overflow-y: auto; /* Вертикальная прокрутка при превышении высоты */
 }
 
