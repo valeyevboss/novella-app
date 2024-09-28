@@ -474,7 +474,7 @@ body {
     font-weight: bold;
     margin-bottom: 10px;
     text-align: left;
-    margin-left: 16px; /* Добавлен отступ слева */
+    margin-left: 21px; /* Добавлен отступ слева */
 }
 
 .friends-list {
@@ -504,7 +504,7 @@ body {
     border-radius: 15px;
     padding: 15px;
     width: 90%;
-    max-width: 350px;
+    max-width: 340px;
     margin: 0 auto; /* Центрируем блок */
 }
 
@@ -552,11 +552,15 @@ body {
 
 /* Контейнер для обеих кнопок */
 .invite-buttons-container {
+    position: fixed; /* Фиксированное положение */
+    bottom: 80px; /* Расстояние от нижней грани экрана */
+    left: 0; /* Выравнивание по левому краю */
+    right: 0; /* Выравнивание по правому краю */
     display: flex;
     align-items: center;
     justify-content: center; /* Центрирование кнопок */
     gap: 10px; /* Отступ между кнопками */
-    margin-top: 250px; /* Увеличьте значение, если нужно опустить вниз */
+    z-index: 1000; /* Поверх остальных элементов */
 }
 
 /* Кнопка "Invite Friends" */
@@ -584,14 +588,15 @@ body {
     border-radius: 10px;
     padding: 22px; /* Увеличена высота за счёт padding */
     cursor: pointer;
-    width: 40px;
-    height: 40px; /* Можно оставить, или убрать, если нужно только padding */
+    width: 40px; /* Ширина иконки */
+    height: 40px; /* Высота иконки */
 }
 
 .copy-icon {
     width: 25px;
     height: 25px;
 }
+
 
 /* Стили для страницы Airdrop */
 .airdrop-page {
