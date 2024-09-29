@@ -4,6 +4,12 @@ document.addEventListener("DOMContentLoaded", function() {
     const refInfoBlock = document.querySelector('.ref-info-block');
     const friendsCountElem = document.querySelector('.friends-count');
 
+    // Проверка наличия необходимых элементов
+    if (!inviteButton || !inviteCopyButton || !refInfoBlock || !friendsCountElem) {
+        console.error('One or more required elements not found.');
+        return;
+    }
+
     // Извлекаем telegramId из URL
     const params = new URLSearchParams(window.location.search);
     const telegramId = params.get('userId'); // Предполагаем, что параметр называется userId
@@ -13,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function() {
         return;
     }
 
-    const referralLink = `https://t.me/Novella_bot/app?startapp=onetime${telegramId}`;
+    const referralLink = `https://t.me/Novella_bot/app?startapp=onetime&userId=${telegramId}`;
     let friendsCount = 0;
 
     // Функция для обновления информации о друзьях
@@ -21,6 +27,8 @@ document.addEventListener("DOMContentLoaded", function() {
         friendsCountElem.textContent = `${friendsCount} friends`;
         if (friendsCount > 0) {
             refInfoBlock.style.display = 'block'; // Показываем блок информации о рефералах
+        } else {
+            refInfoBlock.style.display = 'none'; // Скрываем блок, если друзей нет
         }
     }
 
