@@ -146,7 +146,7 @@
 		}
 	});
 
-	// Реферальная система и обработка
+	// Реферальная система
 	app.post('/referral/:invitedId', async (req, res) => {
 		try {
 			const { invitedId } = req.params;
@@ -157,27 +157,29 @@
 				return res.status(404).json({ message: 'Referrer not found' });
 			}
 	
+			// Найти пригласившего пользователя
 			const invitedUser = await User.findOne({ telegramId: invitedId });
 			if (!invitedUser) {
-				const newUser = new User({ telegramId: invitedId, invitedBy: referrerId });
-				await newUser.save();
-	
-				// Начисление бонусов пригласившему
-				referrer.tokens += 100;
-				referrer.friendsCount += 1;
-				await referrer.save();
-	
-				res.status(201).json({ message: 'User invited successfully' });
-			} else {
-				res.status(400).json({ message: 'User already exists' });
+				return res.status(404).json({ message: 'Invited user not found' });
 			}
+	
+			// Начисляем токены и обновляем данные
+			invitedUser.tokens += 100; // Начисляем токены за приглашение
+			referrer.invitedBy = invitedId; // Обновляем поле пригласившего
+			await invitedUser.save();
+			await referrer.save();
+	
+			// Увеличиваем количество друзей у пригласившего
+			referrer.friendsCount = (referrer.friendsCount || 0) + 1;
+			await referrer.save();
+	
+			res.json({ success: true, tokens: invitedUser.tokens });
 		} catch (error) {
 			console.error('Error processing referral:', error);
-			res.status(500).json({ error: 'Server error' });
+			res.status(500).json({ message: 'Internal server error' });
 		}
 	});
 	
-
 	startServer();
 
 	// Объявляем URL изображения
@@ -243,7 +245,9 @@
 				return bot.sendMessage(chatId, 'Your account has been blocked. Please contact support.');
 			}
 
-			const webAppUrl = `https://novella-telegram-bot.onrender.com/loading?userId=${telegramId}`; // Здесь использован telegramId
+			const telegramId = msg.from.id; // Здесь вы получаете telegramId пользователя
+			const webAppUrl = `https://novella-telegram-bot.onrender.com/loading?userId=${telegramId}`; // Используйте telegramId
+
 
 			// Отправляем сообщение пользователю с кнопками
 			const options = {
