@@ -3,16 +3,13 @@ document.addEventListener("DOMContentLoaded", function() {
     const inviteCopyButton = document.querySelector('.invite-copy-button');
     const refInfoBlock = document.querySelector('.ref-info-block');
     const friendsCountElem = document.querySelector('.friends-count');
+    const telegramId = getTelegramIdFromURL(); // Функция для извлечения telegramId
 
     // Проверка наличия необходимых элементов
     if (!inviteButton || !inviteCopyButton || !refInfoBlock || !friendsCountElem) {
         console.error('One or more required elements not found.');
         return;
     }
-
-    // Извлекаем telegramId из URL
-    const params = new URLSearchParams(window.location.search);
-    const telegramId = params.get('userId'); // Предполагаем, что параметр называется userId
 
     if (!telegramId) {
         console.error('Telegram ID не найден в URL');
@@ -34,7 +31,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Обработчик нажатия на кнопку приглашения друзей
     inviteButton.addEventListener('click', function() {
-        // Открываем диалоговое окно для выбора мессенджера
         window.open(`https://t.me/share/url?url=${encodeURIComponent(referralLink)}`, '_blank');
     });
 
@@ -49,12 +45,40 @@ document.addEventListener("DOMContentLoaded", function() {
             });
     });
 
-    // Пример функции для добавления друга (здесь должна быть ваша логика добавления)
-    function addFriend() {
-        friendsCount += 1;
-        updateFriendsCount();
+    // Функция для извлечения telegramId из URL
+    function getTelegramIdFromURL() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get('userId'); // Предполагаем, что параметр называется userId
     }
 
-    // Для тестирования, добавьте друга
-    addFriend(); // Уберите это или измените по мере необходимости
+    // Функция для обработки реферальной информации
+    async function processReferral() {
+        const referrerId = localStorage.getItem('referrerId'); // Получаем ID пригласившего пользователя из localStorage
+
+        if (referrerId) {
+            try {
+                const response = await fetch(`/referral/${telegramId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ referrerId })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    friendsCount += 1; // Увеличиваем количество друзей
+                    updateFriendsCount(); // Обновляем отображение
+                } else {
+                    const errorData = await response.json();
+                    console.error('Ошибка:', errorData.message);
+                }
+            } catch (error) {
+                console.error('Ошибка при обработке реферальной ссылки:', error);
+            }
+        }
+    }
+
+    // Вызов функции для обработки рефералов при загрузке страницы
+    processReferral();
 });
