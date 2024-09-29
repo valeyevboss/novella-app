@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const TelegramBot = require('node-telegram-bot-api');
 const User = require('../models/User');
 const BannedIP = require('../models/BannedIP');
+const bodyParser = require('body-parser');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -16,30 +17,24 @@ if (!telegramBotToken) {
 
 const bot = new TelegramBot(telegramBotToken, { polling: true });
 
-const bodyParser = require('body-parser');
+app.use(bodyParser.json()); // Для обновления токенов и данных
+app.use(express.static(path.join(__dirname, '..', 'public'))); // Подключение папки для статических файлов
 
-app.use(bodyParser.json()); // для обновления токенов и данных
-
-// Подключение папки для статических файлов
-app.use(express.static(path.join(__dirname, '..', 'public')));
-
-// Отдача index.html по умолчанию
+// Отдача различных HTML-страниц по запросу
 app.get('/', (req, res) => {
-	res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
+    res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
 });
 
-// Отдача loading.html и loadingerror.html по запросу
 app.get('/loading', (req, res) => {
-	res.sendFile(path.join(__dirname, '..', 'public', 'loading.html'));
+    res.sendFile(path.join(__dirname, '..', 'public', 'loading.html'));
 });
 
 app.get('/loadingerror', (req, res) => {
-	res.sendFile(path.join(__dirname, '..', 'public', 'loadingerror.html'));
+    res.sendFile(path.join(__dirname, '..', 'public', 'loadingerror.html'));
 });
 
-// Отдача banned.html по запросу
 app.get('/banned', (req, res) => {
-	res.sendFile(path.join(__dirname, '..', 'public', 'banned.html'));
+    res.sendFile(path.join(__dirname, '..', 'public', 'banned.html'));
 });
 
 // Подключение к MongoDB с ожиданием
@@ -49,17 +44,14 @@ async function startServer() {
 		});
 		console.log('Connected to MongoDB');
 
-		// Запуск сервера только после успешного подключения к базе данных
 		app.listen(port, () => {
 			console.log(`Server is running on http://localhost:${port}`);
 		});
 	} catch (err) {
 		console.error('MongoDB connection error:', err);
-		process.exit(1); // Останавливаем сервер при ошибке подключения
+		process.exit(1);
 	}
 }
-
-startServer();
 
 // Проверка статуса пользователя и наличия username по telegramId
 app.get('/check-user/:telegramId', async (req, res) => {
@@ -168,6 +160,41 @@ app.post('/add-tokens/:telegramId', async (req, res) => {
 		res.status(500).json({ error: 'Ошибка сервера' });
 	}
 });
+
+// Обработка регистрации по реферальной ссылке
+app.post('/referral/:invitedId', async (req, res) => {
+    try {
+        const { invitedId } = req.params;
+        const { referrerId } = req.body; // ID пригласившего
+
+        // Проверка, существует ли пригласивший пользователь
+        const referrer = await User.findOne({ telegramId: referrerId });
+        if (!referrer) {
+            return res.status(404).json({ message: 'Referrer not found' });
+        }
+
+        // Проверяем, не приглашен ли пользователь уже
+        const invitedUser = await User.findOne({ telegramId: invitedId });
+        if (invitedUser && invitedUser.invitedBy) {
+            return res.status(400).json({ message: 'User has already been invited by someone.' });
+        }
+
+        // Сохраняем, кто пригласил этого пользователя
+        invitedUser.invitedBy = referrerId;
+        await invitedUser.save();
+
+        // Начисление бонуса пригласившему
+        referrer.tokens += 100;  // Бонус за приглашение
+        await referrer.save();
+
+        res.json({ success: true, message: 'Referral bonus added', tokens: referrer.tokens });
+    } catch (error) {
+        console.error('Referral error:', error);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
+startServer();
 
 // Объявляем URL изображения
 const imageUrl = 'https://res.cloudinary.com/dvjohgg6j/image/upload/v1725631955/Banner/Novella%20banner.jpg'; // Публичный URL вашего изображения

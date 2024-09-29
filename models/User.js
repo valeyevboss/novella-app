@@ -1,14 +1,15 @@
 const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
-    telegramId: { type: String, unique: true },
-    username: { type: String, default: '' },
-    avatarUrl: { type: String, default: '' },
-    lastLogin: Date,
-    tokens: { type: Number, default: 0 },
-    status: { type: String, enum: ['No banned', 'banned'], default: 'No banned' },
-    ip: String,
-    rank: { type: Number, default: 0 } // Новое поле для хранения ранга
+    telegramId: { type: String, unique: true }, // telegram id
+    username: { type: String, default: '' }, // username
+    avatarUrl: { type: String, default: '' }, // avatar username
+    lastLogin: Date, // last session
+    tokens: { type: Number, default: 0 }, // Token balance
+    status: { type: String, enum: ['No banned', 'banned'], default: 'No banned' }, // banned system
+    ip: String, // ip adress
+    rank: { type: Number, default: 0 }, // number top
+    invitedBy: { type: String, default: null } // who invited?
 });
 
 module.exports = mongoose.model('User', UserSchema);
