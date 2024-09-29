@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const refInfoBlock = document.querySelector('.ref-info-block');
     
     // Получаем ID текущего пользователя через сервер или другой способ
-    const telegramId = '{{ user.telegramId }}'; // Например, передать через шаблон
+    const telegramId = user.telegramId; // Предполагается, что user уже определен в вашем контексте
     const uniqueReferralLink = `https://t.me/Novella_bot/app?startapp=onetime${telegramId}`;
 
     // Функция копирования ссылки в буфер обмена

@@ -20,6 +20,12 @@
 
 	app.use(bodyParser.json()); // для обновления токенов и данных
 
+	// Использование Clipboard API
+	app.use((req, res, next) => {
+		res.setHeader('Permissions-Policy', 'clipboard=();');
+		next();
+	});	
+
 	// Подключение папки для статических файлов
 	app.use(express.static(path.join(__dirname, '..', 'public')));
 
