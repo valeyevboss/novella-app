@@ -3,8 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const inviteCopyButton = document.querySelector('.invite-copy-button');
     const refInfoBlock = document.querySelector('.ref-info-block');
     
-    // Получаем Telegram ID пользователя
-    const telegramId = window.Telegram.WebApp.initDataUnsafe.user.id;
+    // Получаем ID текущего пользователя через сервер или другой способ
+    const telegramId = '{{ user.telegramId }}'; // Например, передать через шаблон
     const uniqueReferralLink = `https://t.me/Novella_bot/app?startapp=onetime${telegramId}`;
 
     // Функция копирования ссылки в буфер обмена
@@ -25,20 +25,21 @@ document.addEventListener('DOMContentLoaded', () => {
             text: 'Join Novella and get rewards!',
             url: uniqueReferralLink,
         };
-        if (navigator.share) {
-            navigator.share(shareData)
-                .then(() => console.log('Referral link shared successfully!'))
-                .catch(err => console.error('Error sharing referral link: ', err));
-        } else {
-            alert('Sharing is not supported on this device.');
-        }
+        navigator.share(shareData)
+            .then(() => console.log('Referral link shared successfully!'))
+            .catch(err => console.error('Error sharing referral link: ', err));
     });
 
     // Показываем блок информации, если есть хотя бы один приглашённый
     fetch(`/api/get-invited-friends/${telegramId}`)
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
         .then(data => {
-            if (data.friends.length > 0) {
+            if (data.friends && data.friends.length > 0) {
                 refInfoBlock.style.display = 'block';
             } else {
                 refInfoBlock.style.display = 'none';
