@@ -542,14 +542,16 @@ body {
 .ref-token-bonus {
     font-size: 14px;
     color: #a5a5a5;
-    margin-right: 5px;
+    margin-right: 1px; /* 1 */
+    margin-top: 2px; /* Немного опускаем текст */
 }
 
 .ref-token-icon {
     width: 30px;
     height: 30px;
-    margin-top: -2.4px; /* Поднимаем иконку на 1 пиксель вверх */
+    margin-top: 1.1px; /* Поднимаем иконку */
 }
+
 
 /* Контейнер для обеих кнопок */
 .invite-buttons-container {
