@@ -14,15 +14,26 @@ function copyReferralLink(link) {
 
 // Функция для приглашения друзей
 function inviteFriends(link) {
-    // Логика для отправки ссылки через Telegram или другое приложение
     window.open(`tg://msg?text=Join me on Novella App: ${link}`, '_blank');
 }
 
-// Получаем данные пользователя (например, из базы данных или через запрос)
+// Получаем данные пользователя
 fetch('/api/user-stats')
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+        }
+        return response.json();
+    })
     .then(user => {
         const telegramId = user.telegramId;
+
+        // Проверка на наличие telegramId
+        if (!telegramId) {
+            console.error('Telegram ID is undefined');
+            return;
+        }
+
         const referralLink = generateReferralLink(telegramId);
 
         // Привязываем ссылку к кнопке "Invite Friends"
@@ -35,13 +46,14 @@ fetch('/api/user-stats')
     })
     .catch(error => console.error('Error fetching user data:', error));
 
-// Получаем параметры URL (например, referrerId)
+// Получаем параметры URL
 const urlParams = new URLSearchParams(window.location.search);
 const referrerId = urlParams.get('startapp');
 
 // Если есть параметр referrerId, отправляем его на сервер
 if (referrerId) {
-    fetch(`/referral/${referrerId}`, {
+    const telegramId = 'ваш_telegram_id'; // Здесь нужно добавить ваш Telegram ID
+    fetch(`/referral/${telegramId}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ referrerId })

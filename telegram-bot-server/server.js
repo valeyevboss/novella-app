@@ -86,9 +86,8 @@ app.get('/check-user/:telegramId', async (req, res) => {
 // Получение вашей личной статистики и отображение её над топ-100
 app.get('/api/user-stats', async (req, res) => {
     try {
-        // Если ты используешь сессии, можно брать текущего пользователя из сессии:
-        const userId = req.session?.userId || req.userId;
-        
+        const userId = req.query.userId; // Берем userId из query параметров
+
         if (!userId) {
             return res.status(400).json({ message: 'User ID is required' });
         }
