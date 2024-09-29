@@ -549,7 +549,7 @@ body {
 .ref-token-icon {
     width: 30px;
     height: 30px;
-    margin-top: 2.0px; /* Поднимаем иконку */
+    margin-top: 1px; /* Поднимаем иконку */
 }
 
 
