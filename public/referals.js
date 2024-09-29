@@ -3,7 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const inviteCopyButton = document.querySelector('.invite-copy-button');
     const refInfoBlock = document.querySelector('.ref-info-block');
     
-    const telegramId = '<YOUR_TELEGRAM_ID>'; // Подставь ID текущего пользователя
+    // Получаем Telegram ID пользователя
+    const telegramId = window.Telegram.WebApp.initDataUnsafe.user.id;
     const uniqueReferralLink = `https://t.me/Novella_bot/app?startapp=onetime${telegramId}`;
 
     // Функция копирования ссылки в буфер обмена
@@ -24,9 +25,13 @@ document.addEventListener('DOMContentLoaded', () => {
             text: 'Join Novella and get rewards!',
             url: uniqueReferralLink,
         };
-        navigator.share(shareData)
-            .then(() => console.log('Referral link shared successfully!'))
-            .catch(err => console.error('Error sharing referral link: ', err));
+        if (navigator.share) {
+            navigator.share(shareData)
+                .then(() => console.log('Referral link shared successfully!'))
+                .catch(err => console.error('Error sharing referral link: ', err));
+        } else {
+            alert('Sharing is not supported on this device.');
+        }
     });
 
     // Показываем блок информации, если есть хотя бы один приглашённый
