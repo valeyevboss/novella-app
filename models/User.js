@@ -9,7 +9,8 @@ const UserSchema = new mongoose.Schema({
     status: { type: String, enum: ['No banned', 'banned'], default: 'No banned' }, // banned system
     ip: String, // ip adress
     rank: { type: Number, default: 0 }, // number top
-    invitedBy: { type: String, default: null } // who invited?
+    invitedBy: { type: String, default: null }, // who invited?
+    friendsCount: { type: Number, default: 0 } // Count invited
 });
 
 module.exports = mongoose.model('User', UserSchema);

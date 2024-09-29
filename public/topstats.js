@@ -1,7 +1,6 @@
 async function getYourStats() {
     try {
-        const telegramId = '1096695986'; // Replace with the real telegramId from Telegram API
-        const response = await fetch(`/api/user-stats?userId=${telegramId}`);
+        const response = await fetch('/api/user-stats');
         if (!response.ok) {
             throw new Error('Сеть не отвечает');
         }
