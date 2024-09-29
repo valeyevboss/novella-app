@@ -1,7 +1,7 @@
 async function getYourStats() {
     try {
-        const userId = 'ID_пользователя'; // Здесь укажи реальный userId
-        const response = await fetch(`/api/user-stats?userId=${userId}`);
+        const telegramId = '1096695986'; // Replace with the real telegramId from Telegram API
+        const response = await fetch(`/api/user-stats?userId=${telegramId}`);
         if (!response.ok) {
             throw new Error('Сеть не отвечает');
         }
@@ -11,7 +11,6 @@ async function getYourStats() {
         console.error('Ошибка при получении статистики пользователя:', error);
     }
 }
-
 
 // Функция для отображения статистики пользователя
 function displayYourStats(user) {

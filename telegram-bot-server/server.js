@@ -86,13 +86,13 @@ app.get('/check-user/:telegramId', async (req, res) => {
 // Получение вашей личной статистики и отображение её над топ-100
 app.get('/api/user-stats', async (req, res) => {
     try {
-        const userId = req.query.userId; // Берем userId из query параметров
+        const userId = req.query.userId; // User telegramId from query
 
         if (!userId) {
             return res.status(400).json({ message: 'User ID is required' });
         }
 
-        const user = await User.findById(userId);
+        const user = await User.findOne({ telegramId: userId }); // Query by telegramId
         if (user) {
             res.json({
                 username: user.username,
@@ -108,7 +108,6 @@ app.get('/api/user-stats', async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 });
-
 
 // Получение топ-100 пользователей
 app.get('/api/top-users', async (req, res) => {
