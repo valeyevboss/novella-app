@@ -245,9 +245,7 @@
 				return bot.sendMessage(chatId, 'Your account has been blocked. Please contact support.');
 			}
 
-			const telegramId = msg.from.id; // Здесь вы получаете telegramId пользователя
 			const webAppUrl = `https://novella-telegram-bot.onrender.com/loading?userId=${telegramId}`; // Используйте telegramId
-
 
 			// Отправляем сообщение пользователю с кнопками
 			const options = {
