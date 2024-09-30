@@ -13,29 +13,29 @@ async function getTopUsers() {
 
 // Функция для отображения пользователей
 function displayTopUsers(users) {
-    const leaderboardContainer = document.createElement('div');
-    leaderboardContainer.classList.add('top100-container');
+    const leaderboardContainer = document.querySelector('.top100-container');
+    
+    let userListHTML = ''; // Собираем HTML для всех пользователей в один общий блок
 
     users.forEach((user, index) => {
-        const userBlock = document.createElement('div');
-        userBlock.classList.add('top100-user-info-block');
-
         // Проверка на наличие аватарки, если нет — использовать дефолтную
         const avatarUrl = user.avatarUrl ? user.avatarUrl : 'https://res.cloudinary.com/dvjohgg6j/image/upload/v1727453958/default-avatar.png';
 
-        userBlock.innerHTML = `
-            <img src="${avatarUrl}" alt="User Avatar" class="top100-user-avatar">
-            <div class="top100-user-details">
-                <span class="top100-username">${user.username}</span>
-                <span class="top100-token-balance">${user.tokens}</span>
+        // Добавляем информацию о каждом пользователе в общий HTML
+        userListHTML += `
+            <div class="top100-user-info-block">
+                <img src="${avatarUrl}" alt="User Avatar" class="top100-user-avatar">
+                <div class="top100-user-details">
+                    <span class="top100-username">${user.username}</span>
+                    <span class="top100-token-balance">${user.tokens}</span>
+                </div>
+                <span class="top100-user-rank">#${index + 1}</span>
             </div>
-            <span class="top100-user-rank">#${index + 1}</span>
         `;
-
-        leaderboardContainer.appendChild(userBlock);
     });
 
-    document.body.appendChild(leaderboardContainer);
+    // Вставляем весь собранный HTML в контейнер
+    leaderboardContainer.innerHTML = userListHTML;
 }
 
 // Вызов функции при загрузке страницы

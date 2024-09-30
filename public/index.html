@@ -79,6 +79,8 @@
                     return;
                 }
 
+                console.log(`Телеграм айди успешно найдено: ${telegramId}`); // Логируем Telegram ID
+
                 const response = await fetch(`/check-user/${telegramId}`);
                 const data = await response.json();
 
