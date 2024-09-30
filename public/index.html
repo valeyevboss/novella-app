@@ -21,11 +21,6 @@
             <p id="token-balance" class="token-balance">0</p>
         </div>
 
-        <!-- Telegram ID -->
-        <div id="telegram-id-container">
-            <p id="telegram-id" class="user-id-number">You userId: </p>
-        </div>
-
         <!-- Daily Reward - Ежедневный вход и бонусы -->
         <div class="daily-reward-container">
             <p class="daily-reward-title">DAILY REWARDS</p>
@@ -39,7 +34,7 @@
             </div>
         </div>
 
-        <!-- Bottom Menu -->
+        <!-- Нижнее меню -->
         <nav class="bottom-menu">
             <a href="index.html" class="menu-item active">
                 <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1726420961/Menu/Button%20version%202/Main_iconmenu.png" alt="Main">
@@ -63,54 +58,18 @@
             </a>
         </nav>
     </div>
-    <script src="/dailyreward.js"></script>
-
+    
+    <!-- Скрипт для воспроизведения звука при нажатии на иконку токена -->
     <script>
-        // Получаем telegramId из URL
-        const urlParams = new URLSearchParams(window.location.search);
-        const telegramId = urlParams.get('userId');
-    
-        // Проверяем, есть ли telegramId, и если да, отображаем его
-        if (telegramId) {
-            document.getElementById('telegram-id').innerText += telegramId;
-        } else {
-            document.getElementById('telegram-id').innerText += "User id Not found.";
-        }
-    </script> 
-    
-        <!-- Скрипт для воспроизведения звука при нажатии на иконку токена -->
-        <script>
-            const tokenIcon = document.getElementById('token-icon');
-    
-            tokenIcon.addEventListener('click', () => {
-                const audio = new Audio('/sound/nose-sound.mp3');
-                audio.play();
-            });
-        </script>
-    
-        <!-- Скрипт для получения баланса -->
-        <script>
-            // Функция для извлечения параметров из URL
-            function getTelegramIdFromURL() {
-                const params = new URLSearchParams(window.location.search);
-                return params.get('userId');
-            }
-            if (telegramId) {
-                fetch(`/get-balance/${telegramId}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        updateBalance(data.tokens); // Обновляем отображение баланса на странице
-                    })
-                    .catch(error => console.error('Ошибка получения баланса:', error));
-            } else {
-                console.error('Telegram ID не найден в URL');
-            }
-            
-            // Функция для обновления баланса
-            function updateBalance(newBalance) {
-                const balanceElement = document.getElementById('token-balance');
-                balanceElement.textContent = newBalance;
-            }
-        </script>
+        const tokenIcon = document.getElementById('token-icon');
+
+        tokenIcon.addEventListener('click', () => {
+            const audio = new Audio('/sound/nose-sound.mp3');
+            audio.play();
+        });
+    </script>
+
+    <!-- Скрипт ежедневной награды -->
+    <script src="/dailyreward.js"></script>
 </body>
 </html>
