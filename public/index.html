@@ -21,7 +21,12 @@
             <p id="token-balance" class="token-balance">0</p>
         </div>
 
-        <!-- Daily Reward - Ежедневный вход и бонусы -->
+        <!-- Telegram ID -->
+        <div id="telegram-id-container">
+            <p id="telegram-id" class="user-id-number">Ваш телеграм айди: </p>
+        </div>
+
+        <!-- Daily Reward -->
         <div class="daily-reward-container">
             <p class="daily-reward-title">DAILY REWARDS</p>
             <div class="daily-reward-wrapper">
@@ -34,7 +39,7 @@
             </div>
         </div>
 
-        <!-- Нижнее меню -->
+        <!-- Bottom Menu -->
         <nav class="bottom-menu">
             <a href="index.html" class="menu-item active">
                 <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1726420961/Menu/Button%20version%202/Main_iconmenu.png" alt="Main">
@@ -58,18 +63,8 @@
             </a>
         </nav>
     </div>
-    
-    <!-- Скрипт для воспроизведения звука при нажатии на иконку токена -->
-    <script>
-        const tokenIcon = document.getElementById('token-icon');
 
-        tokenIcon.addEventListener('click', () => {
-            const audio = new Audio('/sound/nose-sound.mp3');
-            audio.play();
-        });
-    </script>
-
-    <!-- Скрипт для получения и загрузки данных пользователя -->
+    <!-- Скрипт для звука и загрузки данных -->
     <script>
         async function loadUserData() {
             try {
@@ -79,7 +74,9 @@
                     return;
                 }
 
-                console.log(`Телеграм айди успешно найдено: ${telegramId}`); // Логируем Telegram ID
+                console.log(`Телеграм айди успешно найдено: ${telegramId}`);
+
+                document.getElementById('telegram-id').textContent += telegramId; // Отображаем Telegram ID
 
                 const response = await fetch(`/check-user/${telegramId}`);
                 const data = await response.json();
@@ -87,24 +84,19 @@
                 if (data.redirect) {
                     window.location.href = data.redirect;
                 } else {
-                    updateBalance(data.tokens || 0); // Обновляем отображение баланса на странице
+                    updateBalance(data.tokens || 0);
                 }
             } catch (error) {
                 console.error('Error fetching user data:', error);
             }
         }
 
-        // Функция для обновления баланса
         function updateBalance(newBalance) {
             const balanceElement = document.getElementById('token-balance');
             balanceElement.textContent = newBalance;
         }
 
-        // Загружаем данные пользователя после загрузки страницы
         window.onload = loadUserData;
     </script>
-
-    <!-- Скрипт ежедневной награды -->
-    <script src="/dailyreward.js"></script>
 </body>
 </html>
