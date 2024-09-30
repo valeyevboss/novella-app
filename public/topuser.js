@@ -26,7 +26,7 @@ function displayTopUsers(users) {
         // Определяем значок на основе индекса
         let rankIcon = '';
         if (index === 0) {
-            rankIcon = '<img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1727725289/Pin/Diamond-pin.png" alt="Top 1" class="rank-icon">';
+            rankIcon = '<img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1727726249/Pin/Gold-pin.png" alt="Top 1" class="rank-icon">';
         } else if (index === 1) {
             rankIcon = '<img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1727725289/Pin/Silver-pin.png" alt="Top 2" class="rank-icon">';
         } else if (index === 2) {
