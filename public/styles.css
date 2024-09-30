@@ -923,6 +923,14 @@ body {
     margin-left: auto; /* Сдвигаем rank в правую часть */
 }
 
+/* Стили для значков рангов */
+.rank-icon {
+    width: 15px; /* Ширина значка */
+    height: 15px; /* Высота значка */
+    margin-right: 5px; /* Отступ справа от значка */
+    vertical-align: middle; /* Выравнивание по центру */
+}
+
 /* Стили для загрузочного экрана */
 .loading-container {
     display: flex;
