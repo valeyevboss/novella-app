@@ -5,19 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Novella App - Loading</title>
     <link rel="stylesheet" href="styles.css">
-	<link rel="preload" href="/fonts/Polaris.otf" as="font" type="font/otf" crossorigin="anonymous">
+    <link rel="preload" href="/fonts/Polaris.otf" as="font" type="font/otf" crossorigin="anonymous">
 </head>
 <body>
     <div class="loading-container">
         <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/Novellacoin.png" alt="Loading Icon" class="loading-icon">
     </div>
-	
-	<!-- Название NOVELLA -->
+    
+    <!-- Название NOVELLA -->
     <div class="novella-title">
         <span>N</span><span>O</span><span>V</span><span>E</span><span>L</span><span>L</span><span>A</span>
     </div>
-	
-	<!-- Блок для иконок социальных сетей -->
+    
+    <!-- Блок для иконок социальных сетей -->
     <div class="social-icons">
         <a href="https://www.instagram.com/novellatoken_community" target="_blank">
             <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1727110754/Social/Instagram-load_icon.png" alt="Instagram Icon" class="social-icon">
@@ -37,7 +37,7 @@
     <div class="app-version">
         Version: 1.0.0
     </div>
-	
+    
     <script>
         // Получаем telegramId из URL
         const urlParams = new URLSearchParams(window.location.search);
@@ -48,27 +48,30 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.redirect) {
-                        // Задержка перед переходом на страницу
+                        // Если требуется перенаправление на другую страницу
                         setTimeout(() => {
                             window.location.href = data.redirect;
-                        }, 5000); // Задержка в 5 секунды
+                        }, 5000); // Задержка в 5 секунд
                     } else {
-                        document.getElementById('token-balance').innerText = data.tokens;
+                        // Перенаправляем на index.html с userId
+                        setTimeout(() => {
+                            window.location.href = `/index.html?userId=${telegramId}`;
+                        }, 5000); // Задержка в 5 секунд
                     }
                 })
                 .catch(error => {
                     console.error('Произошла ошибка:', error);
                     setTimeout(() => {
                         window.location.href = '/loadingerror';
-                    }, 5000); // Задержка в 5 секунды
+                    }, 5000); // Задержка в 5 секунд
                 });
         } else {
             console.error('username ID отсутствует в URL, перенаправляем на loadingerror');
             setTimeout(() => {
                 window.location.href = '/loadingerror';
-            }, 5000); // Задержка в 5 секунды
+            }, 5000); // Задержка в 5 секунд
         }
-    </script>	
+    </script>    
 
 </body>
 </html>

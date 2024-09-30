@@ -63,41 +63,6 @@
             </a>
         </nav>
     </div>
-
-    <!-- Скрипт для звука и загрузки данных -->
-    <script>
-        async function loadUserData() {
-            try {
-                console.log("Функция loadUserData вызвана");
-                const telegramId = new URLSearchParams(window.location.search).get('userId');
-                if (!telegramId) {
-                    console.error("Telegram ID not provided in URL");
-                    document.body.insertAdjacentHTML('beforeend', `<p class="user-id-number">Telegram ID не предоставлен.</p>`);
-                    return;
-                }
-
-                console.log(`Телеграм айди успешно найдено: ${telegramId}`);
-                document.getElementById('telegram-id').innerText = `Ваш Telegram ID: ${telegramId}`; // Обновляем существующий элемент
-
-                const response = await fetch(`/check-user/${telegramId}`);
-                const data = await response.json();
-
-                if (data.redirect) {
-                    window.location.href = data.redirect;
-                } else {
-                    updateBalance(data.tokens || 0);
-                }
-            } catch (error) {
-                console.error('Error fetching user data:', error);
-            }
-        }
-    </script>
-
-    <script>
-        console.log("Скрипт загружен"); // Это сообщение должно появиться в консоли
-        loadUserData();
-    </script>
-
     <script src="/dailyreward.js"></script>
 </body>
 </html>

@@ -23,39 +23,10 @@ app.use(bodyParser.json()); // для обновления токенов и д�
 // Подключение папки для статических файлов
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
-// Отдача index.html по умолчанию с параметром userId
-app.get('/index.html', (req, res) => {
-	const userId = req.query.userId; // Получаем userId из параметров запроса
-	res.send(`
-		<!DOCTYPE html>
-		<html lang="en">
-		<head>
-			<meta charset="UTF-8">
-			<meta name="viewport" content="width=device-width, initial-scale=1.0">
-			<title>Novella App - Main</title>
-			<link rel="stylesheet" href="styles.css">
-			<link rel="preload" href="/fonts/Uni Sans.ttf" as="font" type="font/ttf" crossorigin="anonymous">
-			<link rel="preload" href="/fonts/MaiandraGD.ttf" as="font" type="font/ttf" crossorigin="anonymous">
-			<link rel="preload" href="/fonts/Unispace.ttf" as="font" type="font/ttf" crossorigin="anonymous">
-		</head>
-		<body>
-			<div class="main-page">
-				<!-- Ваша разметка -->
-				<div id="telegram-id-container">
-					<p id="telegram-id" class="user-id-number">Ваш телеграм айди: ${userId}</p>
-				</div>
-				<!-- Остальная часть страницы -->
-			</div>
-			<script>
-				const userId = "${userId}";
-				// Вызов функции для загрузки данных пользователя
-				loadUserData(userId);
-			</script>
-		</body>
-		</html>
-	`);
+// Отдача index.html по умолчанию
+app.get('/', (req, res) => {
+	res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
 });
-
 
 // Отдача loading.html и loadingerror.html по запросу
 app.get('/loading', (req, res) => {
