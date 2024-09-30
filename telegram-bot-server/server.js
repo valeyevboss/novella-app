@@ -100,6 +100,33 @@ app.get('/api/top-users', async (req, res) => {
 	}
 });
 
+// Получение статистики пользователя по Telegram ID
+app.get('/api/user-stats/:telegramId', async (req, res) => {
+	try {
+		const { telegramId } = req.params;
+		const user = await User.findOne({ telegramId });
+
+		if (!user) {
+			return res.status(404).json({ error: 'User not found' });
+		}
+
+		// Формируем объект с данными о пользователе
+		const userStats = {
+			telegramId: user.telegramId,
+			username: user.username,
+			tokens: user.tokens,
+			lastLogin: user.lastLogin,
+			friendsCount: user.friendsCount,
+			status: user.status,
+		};
+
+		res.json(userStats);
+	} catch (error) {
+		console.error('Ошибка при получении статистики пользователя:', error);
+		res.status(500).json({ error: 'Внутренняя ошибка сервера' });
+	}
+});
+
 // Получение общего количества пользователей
 app.get('/total-users', async (req, res) => {
 	try {
