@@ -1,6 +1,6 @@
 async function getYourStats() {
     try {
-        const response = await fetch('/api/user-stats');
+        const response = await fetch('/api/top-users');
         if (!response.ok) {
             throw new Error('Сеть не отвечает');
         }
