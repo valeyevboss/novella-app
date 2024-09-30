@@ -100,31 +100,36 @@ app.get('/api/top-users', async (req, res) => {
 	}
 });
 
-// Получение статистики пользователя по Telegram ID
-app.get('/api/user-stats/:telegramId', async (req, res) => {
-	try {
-		const { telegramId } = req.params;
-		const user = await User.findOne({ telegramId });
+// Получение статистики пользователя
+app.get('/api/user-stats', async (req, res) => {
+    try {
+        // Предполагаем, что идентификатор пользователя хранится в сессии или токене
+        const telegramId = req.session.telegramId || req.user.telegramId; // Убедитесь, что у вас есть правильный способ получения telegramId
 
-		if (!user) {
-			return res.status(404).json({ error: 'User not found' });
-		}
+        if (!telegramId) {
+            return res.status(400).json({ error: 'Необходим идентификатор Telegram' });
+        }
 
-		// Формируем объект с данными о пользователе
-		const userStats = {
-			telegramId: user.telegramId,
-			username: user.username,
-			tokens: user.tokens,
-			lastLogin: user.lastLogin,
-			friendsCount: user.friendsCount,
-			status: user.status,
-		};
+        const user = await User.findOne({ telegramId });
 
-		res.json(userStats);
-	} catch (error) {
-		console.error('Ошибка при получении статистики пользователя:', error);
-		res.status(500).json({ error: 'Внутренняя ошибка сервера' });
-	}
+        if (!user) {
+            return res.status(404).json({ error: 'Пользователь не найден' });
+        }
+
+        // Формируем объект с данными о пользователе
+        const userStats = {
+            telegramId: user.telegramId,
+            username: user.username,
+            avatarUrl: user.avatarUrl,
+            tokens: user.tokens,
+            rank: user.rank,
+        };
+
+        res.json(userStats);
+    } catch (error) {
+        console.error('Ошибка при получении статистики пользователя:', error);
+        res.status(500).json({ error: 'Внутренняя ошибка сервера' });
+    }
 });
 
 // Получение общего количества пользователей
