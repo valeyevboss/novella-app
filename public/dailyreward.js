@@ -4,6 +4,10 @@ let timerInterval;
 let isRewardClaimed = localStorage.getItem('isRewardClaimed') === 'true';
 let timeLeft = localStorage.getItem('timeLeft') ? parseInt(localStorage.getItem('timeLeft')) : 24 * 60 * 60; // Время, оставшееся с предыдущей сессии
 
+// Извлечение userId из URL
+const params = new URLSearchParams(window.location.search);
+const userId = params.get('userId'); // Получаем userId из параметров URL
+
 // Функция для обновления кнопки и награды
 function updateButton() {
     const button = document.getElementById('claim-reward-button');
@@ -26,9 +30,8 @@ function claimReward() {
 
     console.log('Кнопка нажата, начинаем получение награды');
     const rewardAmount = rewards[dayCounter - 1];
-    const telegramId = '<%= telegramId %>'; // Убедитесь, что telegramId передается корректно на страницу
 
-    fetch(`/add-tokens/${telegramId}`, {  // Используем telegramId вместо userId
+    fetch(`/add-tokens/${userId}`, {  // Используем userId
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

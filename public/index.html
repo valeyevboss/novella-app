@@ -64,5 +64,18 @@
         </nav>
     </div>
     <script src="/dailyreward.js"></script>
+
+    <script>
+        // Получаем telegramId из URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const telegramId = urlParams.get('userId');
+    
+        // Проверяем, есть ли telegramId, и если да, отображаем его
+        if (telegramId) {
+            document.getElementById('telegram-id').innerText += telegramId;
+        } else {
+            document.getElementById('telegram-id').innerText += "Не найден";
+        }
+    </script>    
 </body>
 </html>
