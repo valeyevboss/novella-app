@@ -23,8 +23,9 @@ app.use(bodyParser.json()); // для обновления токенов и д�
 // Подключение папки для статических файлов
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
-// Отдача index.html по умолчанию
-app.get('/', (req, res) => {
+// Отдача index.html по умолчанию с параметром userId
+app.get('/index.html', (req, res) => {
+	const userId = req.query.userId; // Получаем userId из параметров запроса
 	res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
 });
 
