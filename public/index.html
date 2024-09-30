@@ -71,12 +71,15 @@
                 const telegramId = new URLSearchParams(window.location.search).get('userId');
                 if (!telegramId) {
                     console.error("Telegram ID not provided in URL");
+                    // Выводим предупреждение на страницу
+                    document.body.insertAdjacentHTML('beforeend', `<p class="user-id-number">Telegram ID не предоставлен.</p>`);
                     return;
                 }
 
-                console.log(`Телеграм айди успешно найдено: ${telegramId}`);
+                console.log(`Телеграм айди успешно найдено: ${telegramId}`); // Логируем Telegram ID
 
-                document.getElementById('telegram-id').textContent += telegramId; // Отображаем Telegram ID
+                // Добавляем отображение Telegram ID на страницу
+                document.body.insertAdjacentHTML('beforeend', `<p class="user-id-number">Ваш Telegram ID: ${telegramId}</p>`);
 
                 const response = await fetch(`/check-user/${telegramId}`);
                 const data = await response.json();
@@ -84,19 +87,14 @@
                 if (data.redirect) {
                     window.location.href = data.redirect;
                 } else {
-                    updateBalance(data.tokens || 0);
+                    updateBalance(data.tokens || 0); // Обновляем отображение баланса на странице
                 }
             } catch (error) {
                 console.error('Error fetching user data:', error);
             }
         }
-
-        function updateBalance(newBalance) {
-            const balanceElement = document.getElementById('token-balance');
-            balanceElement.textContent = newBalance;
-        }
-
-        window.onload = loadUserData;
     </script>
+
+    <script src="/dailyreward.js"></script>
 </body>
 </html>
