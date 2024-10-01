@@ -856,10 +856,10 @@ body {
 
 /* Блок, который оборачивает всех пользователей */
 .top100-wrapper {
-    margin-top: 20px; /* Отступ сверху от текста .total-users */
+    margin-top: 10px; /* Отступ сверху от текста .total-users */
     padding: 15px; /* Внутренние отступы */
     background-color: #2c2c2c; /* Фон блока */
-    border-radius: 15px; /* Скругление блока */
+    border-radius: 20px; /* Скругление блока */
 }
 
 /* Стиль для текста Total users */
