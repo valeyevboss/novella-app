@@ -900,6 +900,16 @@ body {
     font-family: 'hooge05_55cyr2', sans-serif;
     font-size: 30px;
     margin-top: 10px;
+    overflow: hidden; /* Скрывает текст, пока он не будет набираться */
+    white-space: nowrap; /* Запрещает перенос текста на новую строку */
+    border-right: 3px solid; /* Эффект курсора */
+    animation: blink 0.75s step-end infinite; /* Анимация мигания курсора */
+}
+
+/* Анимация мигания курсора */
+@keyframes blink {
+    0%, 100% { border-color: transparent; }
+    50% { border-color: black; }
 }
 
 /* Описание под заголовком */
@@ -1023,14 +1033,19 @@ body {
 
 /* Стиль для текста Total users */
 .total-users {
-    font-size: 24px;
-    /* Увеличен размер шрифта */
-    color: #ffffff;
-    /* Белый цвет текста */
-    text-align: left;
-    /* Выравнивание по левому краю */
-    margin-left: 25px;
-    /* Небольшой отступ слева для выравнивания */
+    font-size: 24px; /* Увеличен размер шрифта */
+    color: #ffffff; /* Белый цвет текста */
+    text-align: left; /* Выравнивание по левому краю */
+    margin-left: 25px; /* Небольшой отступ слева для выравнивания */
+}
+
+/* Стиль для текста Top-100 */
+.title-top100 {
+    font-size: 18px; /* Регулируемый размер шрифта */
+    color: #a5a5a5; /* Цвет серого, чуть темнее для неактивного текста */
+    text-align: right; /* Выравнивание по правому краю */
+    margin-right: 25px; /* Отступ справа для выравнивания */
+    margin-top: -48px; /* Небольшой отступ сверху, чтобы текст был на одном уровне с Total users */
 }
 
 /* Контейнер для секции топ-100 */

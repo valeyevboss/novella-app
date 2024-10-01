@@ -35,7 +35,6 @@
         Boost score
     </button>
 
-
     <script>
         // Добавляем обработчик события click на кнопку
         document.querySelector('.boost-score-button').addEventListener('click', function() {
@@ -46,6 +45,9 @@
     
     <!-- Текст Total users -->
     <p class="total-users">0</p>
+
+    <!-- Текст топ-100 -->
+    <p class="title-top100">TOP 100</p>
 
     <!-- Контейнер для секции топ-100 -->
     <div class="top100-container">
@@ -89,9 +91,34 @@
         });
     </script>
 
-    <!-- Анимации -->
+    <!-- Анимация набора текста -->
     <script>
+        const titleElement = document.querySelector('.leaderboard-title');
+        const text = titleElement.textContent; // Получаем текст заголовка
+        titleElement.textContent = ''; // Очищаем текст
+
+        let index = 0;
+
+        function type() {
+            if (index < text.length) {
+                titleElement.textContent += text.charAt(index);
+                index++;
+                setTimeout(type, 200); // Задержка между символами (200 мс)
+            } else {
+                setTimeout(() => {
+                    // Очищаем текст для повторного набирания
+                    titleElement.textContent = '';
+                    index = 0;
+                    type(); // Начинаем снова
+                }, 4000); // Задержка перед повторным набором (4000 мс)
+            }
+        }
+
+        // Объединяем все анимации при загрузке страницы
         window.onload = function() {
+            // Запускаем анимацию текста
+            type();
+
             // Анимация кнопки при загрузке страницы
             const button = document.querySelector('.boost-score-button');
             setTimeout(() => {
