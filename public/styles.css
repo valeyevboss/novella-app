@@ -847,8 +847,7 @@ body {
     text-align: center;
 
     /* Начальная позиция кнопки за пределами экрана */
-    transform: translateX(100%);
-    opacity: 0;
+    transform: translateX(120%);
     transition: transform 0.4s ease, opacity 0.4s ease;
 }
 
@@ -862,7 +861,6 @@ body {
 /* Когда кнопка активна, она вылетает и становится видимой */
 .boost-score-button.active {
     transform: translateX(0);
-    opacity: 1;
 }
 
 /* Эффект увеличения при наведении */
