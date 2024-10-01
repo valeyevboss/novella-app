@@ -11,6 +11,12 @@ async function getTopUsers() {
     }
 }
 
+// Функция для форматирования баланса токенов
+function formatTokenBalance(value) {
+    // Преобразуем значение в строку и заменяем запятую на пробел
+    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " "); // Замените " " на "," для запятой
+}
+
 // Функция для отображения пользователей
 function displayTopUsers(users) {
     const leaderboardContainer = document.querySelector('.top100-container');
@@ -39,7 +45,7 @@ function displayTopUsers(users) {
             <img src="${avatarUrl}" alt="User Avatar" class="top100-user-avatar">
             <div class="top100-user-details">
                 <span class="top100-username">${user.username}</span>
-                <span class="top100-token-balance">${user.tokens}</span>
+                <span class="top100-token-balance">${formatTokenBalance(user.tokens)}</span>
             </div>
             <span class="top100-user-rank">${rankIcon} #${index + 1}</span>
         `;
