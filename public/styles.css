@@ -862,12 +862,12 @@ body {
     margin-left: 25px; /* Небольшой отступ слева для выравнивания */
 }
 
-/* Контейнер для секции топ-100 с прокруткой */
+/* Контейнер для секции топ-100 */
 .top100-container {
     display: flex;
     flex-direction: column;
     gap: 10px; /* Отступы между пользователями */
-    margin: 0 20px; /* Уберите лишний отступ для всего контейнера */
+    margin: 20px; /* Отступ для всего контейнера */
     max-height: calc(100vh - 100px); /* Установите максимальную высоту */
     overflow-y: auto; /* Вертикальная прокрутка при превышении высоты */
 }
@@ -882,34 +882,25 @@ body {
     justify-content: flex-start;
     width: 90%; /* Занимает 90% ширины контейнера */
     max-width: 350px; /* Максимальная ширина блока */
-    margin: 0; /* Уберите margin, чтобы избежать лишнего пространства */
 }
 
-/* Убедитесь, что отступы для аватарки и текстов также установлены в оптимальные значения */
 .top100-user-avatar {
-    width: 45px; /* Уменьшенный размер аватарки */
-    height: 45px;
+    width: 25px; /* Уменьшенный размер аватарки */ 
+    height: 25px; 
     border-radius: 50%;
     margin-right: 10px; /* Уменьшенный отступ */
 }
 
-/* Контейнер с username и балансом в топе */
-.top100-user-details {
-    display: flex;
-    flex-direction: column;
-    margin-right: 20px; /* Уменьшенный отступ */
-}
-
 /* Стиль для username в топе */
 .top100-username {
-    font-size: 20px; /* Увеличен размер до 20px */
+    font-size: 10px;
     color: #fff;
     font-weight: bold;
 }
 
 /* Стиль для balance в топе */
 .top100-token-balance {
-    font-size: 15px; /* Увеличен размер до 15px */
+    font-size: 7px; 
     color: #a5a5a5;
     margin-top: 3px; /* Отступ сверху для дополнительного контроля */
     white-space: nowrap; /* Запрещает перенос текста на новую строку */
@@ -917,7 +908,7 @@ body {
 
 /* Стиль для user rank в топе */
 .top100-user-rank {
-    font-size: 20px; /* Размер оставлен без изменений */
+    font-size: 10px; 
     color: #fff;
     font-weight: bold;
     margin-left: auto; /* Сдвигаем rank в правую часть */
@@ -925,8 +916,8 @@ body {
 
 /* Стили для значков рангов */
 .rank-icon {
-    width: 30px; /* Ширина значка */
-    height: 30px; /* Высота значка */
+    width: 15px; /* Ширина значка */ 
+    height: 15px; /* Высота значка */ 
     margin-right: 7px; /* Отступ справа от значка */
     vertical-align: middle; /* Выравнивание по центру */
 }
