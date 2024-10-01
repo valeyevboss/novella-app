@@ -30,7 +30,11 @@
     </div>
 
     <!-- Кнопка Boost score -->
-    <button class="boost-score-button">Boost score</button>
+    <button class="boost-score-button">
+        <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1727809100/Element/Fire.png" alt="Boost Icon" class="button-icon">
+        Boost score
+    </button>
+
 
     <script>
         // Добавляем обработчик события click на кнопку
@@ -38,6 +42,14 @@
             // Переход на страницу task.html
             window.location.href = 'task.html';
         });
+
+        // Анимация кнопки при загрузке страницы
+        window.onload = function() {
+            const button = document.querySelector('.boost-score-button');
+            setTimeout(() => {
+                button.classList.add('active');
+            }, 100); // Задержка 0.1 сек для плавности
+        };
     </script>
     
     <!-- Текст Total users -->

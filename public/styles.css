@@ -751,6 +751,7 @@ body {
 	padding-top: 5vh; /* Отступ сверху для иконки */
     overflow-y: auto; /* Вертикальная прокрутка */
     padding-bottom: 100px; /* Отступ внизу для нижнего меню */
+    overflow: hidden; /* Скрыть полосу прокрутки */
 }
 
 .leaderboard-header {
@@ -837,21 +838,36 @@ body {
     border: none;
     border-radius: 20px;
     padding: 15px 90px;
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 25px;
     cursor: pointer;
-    display: block;
+    display: flex; /* Используем flexbox для выравнивания */
+    align-items: center; /* Выравнивание по центру по вертикали */
+    justify-content: center; /* Центрирование контента */
     margin: 5px auto;
     text-align: center;
 
-    /* Добавляем плавный переход для всех свойств */
-    transition: transform 0.3s ease;
+    /* Начальная позиция кнопки за пределами экрана */
+    transform: translateX(100%);
+    opacity: 0;
+    transition: transform 0.4s ease, opacity 0.4s ease;
 }
 
-/* Анимация при наведении */
+/* Стиль для иконки внутри кнопки */
+.button-icon {
+    width: 25px; /* Установите ширину иконки */
+    height: 25px; /* Установите высоту иконки */
+    margin-right: 8px; /* Отступ справа от иконки */
+}
+
+/* Когда кнопка активна, она вылетает и становится видимой */
+.boost-score-button.active {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+/* Эффект увеличения при наведении */
 .boost-score-button:hover {
-    /* Увеличиваем кнопку */
-    transform: scale(1.1);
+    transform: scale(1.15); /* Увеличиваем размер кнопки */
 }
 
 /* Стиль для текста Total users */
