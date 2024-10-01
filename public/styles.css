@@ -879,8 +879,10 @@ body {
     padding: 15px;
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Увеличиваем пространство между элементами */
-    width: 100%; /* Блок занимает 100% ширины родителя */
+    justify-content: flex-start;
+    width: 90%; /* Занимает 90% ширины контейнера */
+    max-width: 350px; /* Максимальная ширина блока */
+    margin: 0; /* Уберите margin, чтобы избежать лишнего пространства */
 }
 
 /* Убедитесь, что отступы для аватарки и текстов также установлены в оптимальные значения */
@@ -891,9 +893,11 @@ body {
     margin-right: 10px; /* Уменьшенный отступ */
 }
 
-/* Контейнер с username в топе */
+/* Контейнер с username и балансом в топе */
 .top100-user-details {
-    flex-grow: 1; /* Позволяет занимать оставшееся пространство */
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px; /* Уменьшенный отступ */
 }
 
 /* Стиль для username в топе */
@@ -903,17 +907,11 @@ body {
     font-weight: bold;
 }
 
-/* Контейнер для баланса токенов */
-.top100-token-details {
-    display: flex;
-    align-items: center;
-}
-
 /* Стиль для balance в топе */
 .top100-token-balance {
     font-size: 15px; /* Увеличен размер до 15px */
     color: #a5a5a5;
-    margin-right: 5px; /* Отступ справа для разделения */
+    margin-top: 3px; /* Отступ сверху для дополнительного контроля */
     white-space: nowrap; /* Запрещает перенос текста на новую строку */
 }
 
@@ -922,13 +920,14 @@ body {
     font-size: 20px; /* Размер оставлен без изменений */
     color: #fff;
     font-weight: bold;
+    margin-left: auto; /* Сдвигаем rank в правую часть */
 }
 
 /* Стили для значков рангов */
 .rank-icon {
     width: 30px; /* Ширина значка */
     height: 30px; /* Высота значка */
-    margin-left: 5px; /* Отступ слева от значка */
+    margin-right: 7px; /* Отступ справа от значка */
     vertical-align: middle; /* Выравнивание по центру */
 }
 
