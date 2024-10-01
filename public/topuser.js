@@ -13,8 +13,10 @@ async function getTopUsers() {
 
 // Функция для отображения пользователей
 function displayTopUsers(users) {
-    const leaderboardContainer = document.createElement('div');
-    leaderboardContainer.classList.add('top100-container');
+    const leaderboardContainer = document.querySelector('.top100-container');
+
+    // Очищаем контейнер перед добавлением пользователей
+    leaderboardContainer.innerHTML = '';
 
     users.forEach((user, index) => {
         const userBlock = document.createElement('div');
@@ -44,7 +46,6 @@ function displayTopUsers(users) {
 
         leaderboardContainer.appendChild(userBlock);
     });
-
     document.body.appendChild(leaderboardContainer);
 }
 
