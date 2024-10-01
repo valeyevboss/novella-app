@@ -3,10 +3,12 @@ body {
     background-color: #000;
     font-family: 'Uni Sans', sans-serif;
     margin: 0;
-    padding: 0; 
+    padding: 0;
     color: white;
-	overflow-y: auto; /* Вертикальная прокрутка при необходимости */
-    overflow-x: hidden; /* Отключаем горизонтальную прокрутку */
+    overflow-y: auto;
+    /* Вертикальная прокрутка при необходимости */
+    overflow-x: hidden;
+    /* Отключаем горизонтальную прокрутку */
 }
 
 /* Инициализация шрифтов */
@@ -46,9 +48,10 @@ body {
 }
 
 @font-face {
-    font-family: 'Polaris'; /* Изменяем имя на 'Polaris' */
+    font-family: 'Polaris';
+    /* Изменяем имя на 'Polaris' */
     src: url('/fonts/Polaris.otf') format('opentype');
-    font-weight: normal; 
+    font-weight: normal;
     font-style: normal;
 }
 
@@ -57,6 +60,7 @@ body {
     from {
         opacity: 0;
     }
+
     to {
         opacity: 1;
     }
@@ -64,8 +68,13 @@ body {
 
 /* Анимация загрузки */
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 /* Основные стили для страницы */
@@ -73,55 +82,71 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start; /* Перемещаем элементы вверх */
+    justify-content: flex-start;
+    /* Перемещаем элементы вверх */
     height: 100vh;
-    padding-top: 5vh; /* Отступ сверху для кнопки */
+    padding-top: 5vh;
+    /* Отступ сверху для кнопки */
 }
 
 .freedurov-button {
     background: linear-gradient(90deg, #c9f7fd, #1d8cfc);
     color: white;
     font-family: 'Unispace', sans-serif;
-    font-size: 5.0vw; /* Адаптивный шрифт */
+    font-size: 5.0vw;
+    /* Адаптивный шрифт */
     border: none;
-    padding: 2vh 5vw; /* Адаптивные отступы */
+    padding: 2vh 5vw;
+    /* Адаптивные отступы */
     cursor: pointer;
     border-radius: 35px;
-    width: 70vw; /* Ширина кнопки 70% экрана */
+    width: 70vw;
+    /* Ширина кнопки 70% экрана */
     text-align: center;
     white-space: nowrap;
     position: relative;
-    transition: transform 0.2s ease, background 0.5s ease, opacity 0.2s ease, box-shadow 0.3s ease; /* Добавлено box-shadow */
+    transition: transform 0.2s ease, background 0.5s ease, opacity 0.2s ease, box-shadow 0.3s ease;
+    /* Добавлено box-shadow */
 }
 
 /* Эффект неона при наведении */
 .freedurov-button:hover {
-    transform: scale(1.05); /* Лёгкое увеличение кнопки при наведении */
-    background: linear-gradient(90deg, #ffffff, #1E90FF, #1C86EE); /* Перелив градиента при наведении */
-    opacity: 0.95; /* Лёгкое затемнение для контраста */
-    box-shadow: 0 0 20px #1E90FF, 0 0 30px #1E90FF; /* Неоновое свечение */
+    transform: scale(1.05);
+    /* Лёгкое увеличение кнопки при наведении */
+    background: linear-gradient(90deg, #ffffff, #1E90FF, #1C86EE);
+    /* Перелив градиента при наведении */
+    opacity: 0.95;
+    /* Лёгкое затемнение для контраста */
+    box-shadow: 0 0 20px #1E90FF, 0 0 30px #1E90FF;
+    /* Неоновое свечение */
 }
 
 .freedurov-button::after {
-    content: ' >'; /* Стрелка */
+    content: ' >';
+    /* Стрелка */
     display: inline-block;
-    margin-left: 8px; /* Отступ между текстом и стрелкой */
-    transition: transform 0.2s ease; /* Анимация стрелки */
+    margin-left: 8px;
+    /* Отступ между текстом и стрелкой */
+    transition: transform 0.2s ease;
+    /* Анимация стрелки */
 }
 
 .freedurov-button:hover::after {
-    transform: translateX(5px); /* Движение стрелки вправо при наведении */
+    transform: translateX(5px);
+    /* Движение стрелки вправо при наведении */
 }
 
 .token-section {
     text-align: center;
-    margin-top: 15vh; /* Смещаем иконку выше */
+    margin-top: 15vh;
+    /* Смещаем иконку выше */
 }
 
 .token-icon {
-    width: 250px; /* Увеличиваем иконку */
+    width: 250px;
+    /* Увеличиваем иконку */
     height: 250px;
-	margin-top: -45px;
+    margin-top: -45px;
 }
 
 .token-balance {
@@ -133,13 +158,18 @@ body {
 
 /* Стили для блока Daily Rewards */
 .daily-reward-container {
-    background-color: #1f1f1f; /* Тёмный фон */
-    border-radius: 20px; /* Закругление */
+    background-color: #1f1f1f;
+    /* Тёмный фон */
+    border-radius: 20px;
+    /* Закругление */
     padding: 20px;
     text-align: center;
-    margin: -5px auto; /* Центрирование блока */
-    width: 100%; /* Ширина блока 100% */
-    max-width: 300px; /* Ограничение по ширине */
+    margin: -5px auto;
+    /* Центрирование блока */
+    width: 100%;
+    /* Ширина блока 100% */
+    max-width: 300px;
+    /* Ограничение по ширине */
 }
 
 .daily-reward-title {
@@ -148,14 +178,17 @@ body {
     color: #ffffff;
     font-size: 18px;
     margin-bottom: 10px;
-	margin-right: 170px;
-    margin-top: -0px; /* Отрицательный отступ для поднятия заголовка вверх */
-	white-space: nowrap; /* Отключает перенос текста */
+    margin-right: 170px;
+    margin-top: -0px;
+    /* Отрицательный отступ для поднятия заголовка вверх */
+    white-space: nowrap;
+    /* Отключает перенос текста */
 }
 
 
 .daily-reward-wrapper {
-	position: relative; /* Позволяет абсолютное позиционирование для дочерних элементов */
+    position: relative;
+    /* Позволяет абсолютное позиционирование для дочерних элементов */
 }
 
 .daily-reward-button {
@@ -172,7 +205,8 @@ body {
     justify-content: center;
     align-items: center;
     white-space: nowrap;
-    margin-bottom: 14px; /* Отступ для размещения таймера ниже кнопки */
+    margin-bottom: 14px;
+    /* Отступ для размещения таймера ниже кнопки */
 }
 
 .premium-reward-button {
@@ -189,8 +223,9 @@ body {
     justify-content: center;
     align-items: center;
     white-space: nowrap;
-    margin-top: 14px; /* Отступ для премиум кнопки */
-	margin-right: 60px;
+    margin-top: 14px;
+    /* Отступ для премиум кнопки */
+    margin-right: 60px;
 }
 
 .daily-reward-button:disabled,
@@ -203,9 +238,12 @@ body {
 .timer-container {
     display: flex;
     align-items: center;
-    position: absolute; /* Абсолютное позиционирование */
-    top: 50%; /* Центрирование по вертикали относительно кнопки */
-    right: -1px; /* Сдвиг вправо для расположения рядом с кнопкой */
+    position: absolute;
+    /* Абсолютное позиционирование */
+    top: 50%;
+    /* Центрирование по вертикали относительно кнопки */
+    right: -1px;
+    /* Сдвиг вправо для расположения рядом с кнопкой */
     transform: translateY(-160%);
 }
 
@@ -224,20 +262,25 @@ body {
 /* Медиа-запросы для мобильных устройств */
 @media (max-width: 480px) {
     .daily-reward-container {
-        padding: 15px; /* Уменьшаем отступы для мобильных */
+        padding: 15px;
+        /* Уменьшаем отступы для мобильных */
     }
 
     .daily-reward-title {
-        font-size: 16px; /* Уменьшаем размер шрифта */
+        font-size: 16px;
+        /* Уменьшаем размер шрифта */
     }
 
     .daily-reward-button {
-        padding: 8px 16px; /* Уменьшаем отступы кнопки */
-        font-size: 14px; /* Уменьшаем размер шрифта кнопки */
+        padding: 8px 16px;
+        /* Уменьшаем отступы кнопки */
+        font-size: 14px;
+        /* Уменьшаем размер шрифта кнопки */
     }
 
     .timer {
-        font-size: 14px; /* Уменьшаем размер шрифта таймера */
+        font-size: 14px;
+        /* Уменьшаем размер шрифта таймера */
     }
 }
 
@@ -282,11 +325,14 @@ body {
 
 /* Стили для страницы Task */
 .task-page {
-	display: flex;
+    display: flex;
     flex-direction: column;
-	padding-top: 5vh; /* Отступ сверху для иконки */
-    overflow-y: auto; /* Вертикальная прокрутка */
-    padding-bottom: 100px; /* Отступ внизу для нижнего меню */
+    padding-top: 5vh;
+    /* Отступ сверху для иконки */
+    overflow-y: auto;
+    /* Вертикальная прокрутка */
+    padding-bottom: 100px;
+    /* Отступ внизу для нижнего меню */
 }
 
 .task-header {
@@ -314,6 +360,7 @@ body {
     color: grey;
     margin-top: -10px;
 }
+
 /* Cтилизация для секций заданий */
 .section-title {
     font-size: 22px;
@@ -322,7 +369,8 @@ body {
     font-weight: bold;
     margin-bottom: -20px;
     text-align: left;
-    margin-left: 20px; /* Регулируй этот отступ для сдвига заголовка от края */
+    margin-left: 20px;
+    /* Регулируй этот отступ для сдвига заголовка от края */
 }
 
 /* Блок с заданием */
@@ -336,18 +384,22 @@ body {
 .tasks {
     display: flex;
     align-items: center;
-    background-color: #1f1f1f; /* Тёмный фон, как у Daily Rewards */
-    border-radius: 20px; /* Закругление */
+    background-color: #1f1f1f;
+    /* Тёмный фон, как у Daily Rewards */
+    border-radius: 20px;
+    /* Закругление */
     padding: 12px;
     margin: 10px 0;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Лёгкая тень */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    /* Лёгкая тень */
 }
 
 .tasks-icon {
     width: 55px;
     height: 55px;
     margin-right: 8px;
-	object-fit: contain; /* Поддержание пропорций */
+    object-fit: contain;
+    /* Поддержание пропорций */
 }
 
 .tasks-details {
@@ -400,11 +452,14 @@ body {
 
 /* Стили для страницы Wallet */
 .wallet-page {
-	display: flex;
+    display: flex;
     flex-direction: column;
-	padding-top: 5vh; /* Отступ сверху для иконки */
-    overflow-y: auto; /* Вертикальная прокрутка */
-    padding-bottom: 100px; /* Отступ внизу для нижнего меню */
+    padding-top: 5vh;
+    /* Отступ сверху для иконки */
+    overflow-y: auto;
+    /* Вертикальная прокрутка */
+    padding-bottom: 100px;
+    /* Отступ внизу для нижнего меню */
 }
 
 .wallet-header {
@@ -435,11 +490,14 @@ body {
 
 /* Стили для страницы Friends */
 .friends-page {
-	display: flex;
+    display: flex;
     flex-direction: column;
-	padding-top: 5vh; /* Отступ сверху для иконки */
-    overflow-y: auto; /* Вертикальная прокрутка */
-    padding-bottom: 100px; /* Отступ внизу для нижнего меню */
+    padding-top: 5vh;
+    /* Отступ сверху для иконки */
+    overflow-y: auto;
+    /* Вертикальная прокрутка */
+    padding-bottom: 100px;
+    /* Отступ внизу для нижнего меню */
 }
 
 .friends-header {
@@ -466,7 +524,8 @@ body {
     font-size: 14px;
     color: grey;
     margin-top: -10px;
-    text-align: center; /* Центрирование текста */
+    text-align: center;
+    /* Центрирование текста */
 }
 
 .friends-count {
@@ -474,7 +533,8 @@ body {
     font-weight: bold;
     margin-bottom: 10px;
     text-align: left;
-    margin-left: 21px; /* Добавлен отступ слева */
+    margin-left: 21px;
+    /* Добавлен отступ слева */
 }
 
 .friends-list {
@@ -492,10 +552,12 @@ body {
 .ref-container {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Центрирование по горизонтали */
+    align-items: center;
+    /* Центрирование по горизонтали */
     justify-content: center;
     width: 100%;
-    height: 100vh; /* Занимаем всю высоту экрана для вертикального центрирования */
+    height: 100vh;
+    /* Занимаем всю высоту экрана для вертикального центрирования */
 }
 
 /* Контейнер для всех друзей */
@@ -505,7 +567,8 @@ body {
     padding: 15px;
     width: 90%;
     max-width: 340px;
-    margin: 0 auto; /* Центрируем блок */
+    margin: 0 auto;
+    /* Центрируем блок */
 }
 
 /* Стиль для каждого друга внутри блока */
@@ -513,7 +576,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    margin: 10px 0; /* Расстояние между друзьями */
+    margin: 10px 0;
+    /* Расстояние между друзьями */
 }
 
 .ref-user-avatar {
@@ -548,20 +612,28 @@ body {
 .ref-token-icon {
     width: 30px;
     height: 30px;
-    margin-top: -1px; /* Поднимаем иконку на 1 пиксель вверх */
+    margin-top: -1px;
+    /* Поднимаем иконку на 1 пиксель вверх */
 }
 
 /* Контейнер для обеих кнопок */
 .invite-buttons-container {
-    position: fixed; /* Фиксированное положение */
-    bottom: 80px; /* Расстояние от нижней грани экрана */
-    left: 0; /* Выравнивание по левому краю */
-    right: 0; /* Выравнивание по правому краю */
+    position: fixed;
+    /* Фиксированное положение */
+    bottom: 80px;
+    /* Расстояние от нижней грани экрана */
+    left: 0;
+    /* Выравнивание по левому краю */
+    right: 0;
+    /* Выравнивание по правому краю */
     display: flex;
     align-items: center;
-    justify-content: center; /* Центрирование кнопок */
-    gap: 10px; /* Отступ между кнопками */
-    z-index: 1000; /* Поверх остальных элементов */
+    justify-content: center;
+    /* Центрирование кнопок */
+    gap: 10px;
+    /* Отступ между кнопками */
+    z-index: 1000;
+    /* Поверх остальных элементов */
 }
 
 /* Кнопка "Invite Friends" */
@@ -570,7 +642,8 @@ body {
     color: #000;
     border: none;
     border-radius: 18px;
-    padding: 13px 45px; /* Увеличена высота за счёт padding */
+    padding: 13px 45px;
+    /* Увеличена высота за счёт padding */
     font-size: 18px;
     cursor: pointer;
 }
@@ -587,10 +660,13 @@ body {
     background-color: #fff;
     border: none;
     border-radius: 10px;
-    padding: 22px; /* Увеличена высота за счёт padding */
+    padding: 22px;
+    /* Увеличена высота за счёт padding */
     cursor: pointer;
-    width: 40px; /* Ширина иконки */
-    height: 40px; /* Высота иконки */
+    width: 40px;
+    /* Ширина иконки */
+    height: 40px;
+    /* Высота иконки */
 }
 
 .copy-icon {
@@ -601,11 +677,14 @@ body {
 
 /* Стили для страницы Airdrop */
 .airdrop-page {
-	display: flex;
+    display: flex;
     flex-direction: column;
-	padding-top: 5vh; /* Отступ сверху для иконки */
-    overflow-y: auto; /* Вертикальная прокрутка */
-    padding-bottom: 100px; /* Отступ внизу для нижнего меню */
+    padding-top: 5vh;
+    /* Отступ сверху для иконки */
+    overflow-y: auto;
+    /* Вертикальная прокрутка */
+    padding-bottom: 100px;
+    /* Отступ внизу для нижнего меню */
 }
 
 .airdrop-header {
@@ -636,7 +715,8 @@ body {
 
 /* Кнопка подключения кошелька для Airdrop */
 .ton-connect-button {
-    background-color: #1E90FF; /* По умолчанию цвет */
+    background-color: #1E90FF;
+    /* По умолчанию цвет */
     color: white;
     font-size: 21px;
     padding: 15px 70px;
@@ -644,29 +724,37 @@ body {
     border-radius: 15px;
     cursor: pointer;
     margin: 30px;
-    transition: all 0.3s ease; /* Плавный переход при изменении размеров */
+    transition: all 0.3s ease;
+    /* Плавный переход при изменении размеров */
 }
 
 /* Эффект при наведении: увеличение */
 .ton-connect-button:hover {
-    transform: scale(1.1); /* Увеличение кнопки */
+    transform: scale(1.1);
+    /* Увеличение кнопки */
 }
 
 /* Эффект при нажатии: запуск анимации градиента */
 .ton-connect-button:active {
-    animation: gradientMove 1s ease; /* Запуск анимации */
+    animation: gradientMove 1s ease;
+    /* Запуск анимации */
 }
 
 /* Анимация градиента */
 @keyframes gradientMove {
     0% {
-        background-color: #1E90FF; /* Исходный цвет */
+        background-color: #1E90FF;
+        /* Исходный цвет */
     }
+
     50% {
-        background: linear-gradient(to right, #ADD8E6, #4682B4); /* Градиент слева направо */
+        background: linear-gradient(to right, #ADD8E6, #4682B4);
+        /* Градиент слева направо */
     }
+
     100% {
-        background-color: #1E90FF; /* Возвращение к исходному цвету */
+        background-color: #1E90FF;
+        /* Возвращение к исходному цвету */
     }
 }
 
@@ -677,81 +765,123 @@ body {
 
 /* блок под кнопкой */
 .airdrop-warning-block {
-    background-color: #1f1f1f; /* Тёмный фон */
-    border-radius: 15px; /* Скругленные углы немного уменьшены */
-    padding: 8px 20px; /* Внутренние отступы уменьшены */
+    background-color: #1f1f1f;
+    /* Тёмный фон */
+    border-radius: 15px;
+    /* Скругленные углы немного уменьшены */
+    padding: 8px 20px;
+    /* Внутренние отступы уменьшены */
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 1px auto; /* Уменьшено расстояние от кнопки */
-    width: 90%; /* Ширина чуть меньше */
-    max-width: 325px; /* Уменьшена максимальная ширина */
+    margin: 1px auto;
+    /* Уменьшено расстояние от кнопки */
+    width: 90%;
+    /* Ширина чуть меньше */
+    max-width: 325px;
+    /* Уменьшена максимальная ширина */
 }
 
 /* Иконка предупреждения */
 .warning-icon {
-    width: 40px; /* Уменьшена ширина иконки */
-    height: 40px; /* Уменьшена высота иконки */
-    margin-right: 8px; /* Меньшее расстояние между иконкой и текстом */
+    width: 40px;
+    /* Уменьшена ширина иконки */
+    height: 40px;
+    /* Уменьшена высота иконки */
+    margin-right: 8px;
+    /* Меньшее расстояние между иконкой и текстом */
 }
 
 /* Текст предупреждения */
 .warning-text {
     font-family: 'MaiandraGD', sans-serif;
-    font-size: 14px; /* Немного уменьшен размер текста */
+    font-size: 14px;
+    /* Немного уменьшен размер текста */
     color: #ffffff;
-    text-align: left; /* Выравнивание текста по левому краю */
-    width: 100%; /* Задайте нужную ширину для блока */
+    text-align: left;
+    /* Выравнивание текста по левому краю */
+    width: 100%;
+    /* Задайте нужную ширину для блока */
 }
 
 /* Что такое: Airdrop? */
 .airdrop-descript-title {
-    text-align: center; /* Центрирование текста */
-    margin-top: 50px; /* Отступ сверху для разделения от предыдущих элементов */
-    margin-bottom: -35px; /* Отступ снизу для разделения с описанием */
-    font-family: 'Uni Sans', sans-serif; /* Шрифт Uni Sans */
-    font-size: 22px; /* Размер текста */
-    color: #ffffff; /* Цвет текста */
+    text-align: center;
+    /* Центрирование текста */
+    margin-top: 50px;
+    /* Отступ сверху для разделения от предыдущих элементов */
+    margin-bottom: -35px;
+    /* Отступ снизу для разделения с описанием */
+    font-family: 'Uni Sans', sans-serif;
+    /* Шрифт Uni Sans */
+    font-size: 22px;
+    /* Размер текста */
+    color: #ffffff;
+    /* Цвет текста */
 }
 
 .airdrop-description {
-    padding: 20px; /* Внутренние отступы */
-    color: #ffffff; /* Цвет текста */
-    font-family: 'MaiandraGD', sans-serif; /* Шрифт текста */
-    font-size: 14px; /* Размер текста */
-    max-width: 90%; /* Ограничение по ширине */
-    margin: 20px auto; /* Центрирование блока */
-    line-height: 1.5; /* Высота строки для лучшего чтения */
+    padding: 20px;
+    /* Внутренние отступы */
+    color: #ffffff;
+    /* Цвет текста */
+    font-family: 'MaiandraGD', sans-serif;
+    /* Шрифт текста */
+    font-size: 14px;
+    /* Размер текста */
+    max-width: 90%;
+    /* Ограничение по ширине */
+    margin: 20px auto;
+    /* Центрирование блока */
+    line-height: 1.5;
+    /* Высота строки для лучшего чтения */
 }
 
-/* Что такое: Listing? */ 
+/* Что такое: Listing? */
 .listing-descript-title {
-    text-align: center; /* Центрирование текста */
-    margin-top: -30px; /* Отступ сверху для разделения от предыдущих элементов */
-    margin-bottom: -35px; /* Отступ снизу для разделения с описанием */
-    font-family: 'Uni Sans', sans-serif; /* Шрифт Uni Sans */
-    font-size: 22px; /* Размер текста */
-    color: #ffffff; /* Цвет текста */
+    text-align: center;
+    /* Центрирование текста */
+    margin-top: -30px;
+    /* Отступ сверху для разделения от предыдущих элементов */
+    margin-bottom: -35px;
+    /* Отступ снизу для разделения с описанием */
+    font-family: 'Uni Sans', sans-serif;
+    /* Шрифт Uni Sans */
+    font-size: 22px;
+    /* Размер текста */
+    color: #ffffff;
+    /* Цвет текста */
 }
 
 .listing-description {
-    padding: 20px; /* Внутренние отступы */
-    color: #ffffff; /* Цвет текста */
-    font-family: 'MaiandraGD', sans-serif; /* Шрифт текста */
-    font-size: 14px; /* Размер текста */
-    max-width: 90%; /* Ограничение по ширине */
-    margin: 20px auto; /* Центрирование блока */
-    line-height: 1.5; /* Высота строки для лучшего чтения */
+    padding: 20px;
+    /* Внутренние отступы */
+    color: #ffffff;
+    /* Цвет текста */
+    font-family: 'MaiandraGD', sans-serif;
+    /* Шрифт текста */
+    font-size: 14px;
+    /* Размер текста */
+    max-width: 90%;
+    /* Ограничение по ширине */
+    margin: 20px auto;
+    /* Центрирование блока */
+    line-height: 1.5;
+    /* Высота строки для лучшего чтения */
 }
 
 /* Стили для страницы Leaders.html */
 .leaders-page {
-	display: flex;
+    display: flex;
     flex-direction: column;
-	padding-top: 5vh; /* Отступ сверху для иконки */
-    overflow-y: auto; /* Вертикальная прокрутка */
-    padding-bottom: 100px; /* Отступ внизу для нижнего меню */
-    overflow: hidden; /* Скрыть полосу прокрутки */
+    padding-top: 5vh;
+    /* Отступ сверху для иконки */
+    overflow-y: auto;
+    /* Вертикальная прокрутка */
+    padding-bottom: 100px;
+    /* Отступ внизу для нижнего меню */
+    overflow: hidden;
+    /* Скрыть полосу прокрутки */
 }
 
 .leaderboard-header {
@@ -780,56 +910,72 @@ body {
     margin-top: -10px;
 }
 
-    /* Стиль для закругленного блока с информацией о пользователе */
-    .user-info-block {
-        background-color: #1f1f1f;
-        border-radius: 15px;
-        padding: 15px;
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        margin: 10px auto;
-        width: 90%;
-        max-width: 330px;
-    }
+/* Стиль для закругленного блока с информацией о пользователе */
+.user-info-block {
+    background-color: #1f1f1f;
+    border-radius: 15px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 10px auto;
+    width: 90%;
+    max-width: 330px;
 
-    /* Стиль для аватарки */
-    .user-avatar {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        margin-right: 15px;
-    }
+    /* Начальная позиция блока за пределами экрана слева */
+    transform: translateX(-120%);
+    transition: transform 0.4s ease, opacity 0.4s ease;
+}
 
-    /* Стиль для контейнера с username и балансом */
-    .user-details {
-        display: flex;
-        flex-direction: column; /* Обеспечивает вертикальное выравнивание */
-        margin-right: 50px;  /* Отступ вправо */
-    }
+/* Когда блок активен, он вылетает и становится видимым */
+.user-info-block.active {
+    transform: translateX(0);
+}
 
-    /* Стиль для username */
-    .username {
-        font-size: 20px; /* Регулируемый размер */
-        color: #fff;
-        font-weight: bold;
-    }
+/* Стиль для аватарки */
+.user-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
 
-    /* Стиль для balance */
-    .top-token-balance {
-        font-size: 15px; /* Регулируемый размер */
-        color: #a5a5a5;
-        margin-top: 3px; /* Отступ сверху для дополнительного контроля */
-        white-space: nowrap; /* Запрещает перенос текста на новую строку */
-    }
+/* Стиль для контейнера с username и балансом */
+.user-details {
+    display: flex;
+    flex-direction: column;
+    /* Обеспечивает вертикальное выравнивание */
+    margin-right: 50px;
+    /* Отступ вправо */
+}
 
-    /* Стиль для user rank */
-    .user-rank {
-        font-size: 20px;
-        color: #fff;
-        font-weight: bold;
-        margin-left: auto; /* Сдвигаем rank в правую часть */
-    }
+/* Стиль для username */
+.username {
+    font-size: 20px;
+    /* Регулируемый размер */
+    color: #fff;
+    font-weight: bold;
+}
+
+/* Стиль для balance */
+.top-token-balance {
+    font-size: 15px;
+    /* Регулируемый размер */
+    color: #a5a5a5;
+    margin-top: 3px;
+    /* Отступ сверху для дополнительного контроля */
+    white-space: nowrap;
+    /* Запрещает перенос текста на новую строку */
+}
+
+/* Стиль для user rank */
+.user-rank {
+    font-size: 20px;
+    color: #fff;
+    font-weight: bold;
+    margin-left: auto;
+    /* Сдвигаем rank в правую часть */
+}
 
 /* Стиль для кнопки Boost score */
 .boost-score-button {
@@ -840,9 +986,12 @@ body {
     padding: 15px 90px;
     font-size: 25px;
     cursor: pointer;
-    display: flex; /* Используем flexbox для выравнивания */
-    align-items: center; /* Выравнивание по центру по вертикали */
-    justify-content: center; /* Центрирование контента */
+    display: flex;
+    /* Используем flexbox для выравнивания */
+    align-items: center;
+    /* Выравнивание по центру по вертикали */
+    justify-content: center;
+    /* Центрирование контента */
     margin: 5px auto;
     text-align: center;
 
@@ -853,9 +1002,12 @@ body {
 
 /* Стиль для иконки внутри кнопки */
 .button-icon {
-    width: 25px; /* Установите ширину иконки */
-    height: 25px; /* Установите высоту иконки */
-    margin-right: 8px; /* Отступ справа от иконки */
+    width: 25px;
+    /* Установите ширину иконки */
+    height: 25px;
+    /* Установите высоту иконки */
+    margin-right: 8px;
+    /* Отступ справа от иконки */
 }
 
 /* Когда кнопка активна, она вылетает и становится видимой */
@@ -865,26 +1017,36 @@ body {
 
 /* Эффект увеличения при наведении */
 .boost-score-button:hover {
-    transform: scale(1.15); /* Увеличиваем размер кнопки */
+    transform: scale(1.15);
+    /* Увеличиваем размер кнопки */
 }
 
 /* Стиль для текста Total users */
 .total-users {
-    font-size: 24px; /* Увеличен размер шрифта */
-    color: #ffffff; /* Белый цвет текста */
-    text-align: left; /* Выравнивание по левому краю */
-    margin-left: 25px; /* Небольшой отступ слева для выравнивания */
+    font-size: 24px;
+    /* Увеличен размер шрифта */
+    color: #ffffff;
+    /* Белый цвет текста */
+    text-align: left;
+    /* Выравнивание по левому краю */
+    margin-left: 25px;
+    /* Небольшой отступ слева для выравнивания */
 }
 
 /* Контейнер для секции топ-100 */
 .top100-container {
     display: flex;
     flex-direction: column;
-    gap: 10px; /* Отступы между пользователями */
-    margin: 0 auto; /* Устанавливаем автоматические отступы для центрирования */
-    width: 100%; /* Ширина контейнера на 100% */
-    max-width: 320px; /* Установите максимальную ширину контейнера */
-    align-items: center; /* Центрируем содержимое по горизонтали */
+    gap: 10px;
+    /* Отступы между пользователями */
+    margin: 0 auto;
+    /* Устанавливаем автоматические отступы для центрирования */
+    width: 100%;
+    /* Ширина контейнера на 100% */
+    max-width: 320px;
+    /* Установите максимальную ширину контейнера */
+    align-items: center;
+    /* Центрируем содержимое по горизонтали */
 }
 
 /* Стиль для блока с информацией о пользователе в топе */
@@ -895,56 +1057,72 @@ body {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    width: 95%; /* Занимает 95% ширины контейнера */
-    max-width: 350px; /* Максимальная ширина блока увеличена */
+    width: 95%;
+    /* Занимает 95% ширины контейнера */
+    max-width: 350px;
+    /* Максимальная ширина блока увеличена */
 }
 
 /* Убедитесь, что отступы для аватарки и текстов также установлены в оптимальные значения */
 .top100-user-avatar {
-    width: 45px; /* Уменьшенный размер аватарки */
+    width: 45px;
+    /* Уменьшенный размер аватарки */
     height: 45px;
     border-radius: 50%;
-    margin-right: 10px; /* Уменьшенный отступ */
+    margin-right: 10px;
+    /* Уменьшенный отступ */
 }
 
 /* Контейнер с username и балансом в топе */
 .top100-user-details {
     display: flex;
     flex-direction: column;
-    margin-right: 20px; /* Уменьшенный отступ */
+    margin-right: 20px;
+    /* Уменьшенный отступ */
 }
 
 /* Стиль для username в топе */
 .top100-username {
-    font-size: 20px; /* Увеличен размер до 20px */
+    font-size: 20px;
+    /* Увеличен размер до 20px */
     color: #fff;
     font-weight: bold;
 }
 
 /* Стиль для balance в топе */
 .top100-token-balance {
-    font-size: 15px; /* Увеличен размер до 15px */
+    font-size: 15px;
+    /* Увеличен размер до 15px */
     color: #a5a5a5;
-    margin-top: 3px; /* Отступ сверху для дополнительного контроля */
-    white-space: nowrap; /* Запрещает перенос текста на новую строку */
+    margin-top: 3px;
+    /* Отступ сверху для дополнительного контроля */
+    white-space: nowrap;
+    /* Запрещает перенос текста на новую строку */
 }
 
 /* Стиль для текстовых рангов (например, #4, #5 и так далее) */
 .top100-user-rank {
-    font-size: 20px; /* Размер шрифта */
+    font-size: 20px;
+    /* Размер шрифта */
     color: #fff;
     font-weight: bold;
-    margin-left: auto; /* Сдвигаем ранг в правую часть */
+    margin-left: auto;
+    /* Сдвигаем ранг в правую часть */
     display: flex;
-    align-items: center; /* Вертикальное выравнивание текста по центру */
+    align-items: center;
+    /* Вертикальное выравнивание текста по центру */
 }
 
 /* Стили для значков рангов */
 .rank-icon {
-    width: 30px; /* Ширина значка */
-    height: 30px; /* Высота значка */
-    margin-right: -4px; /* Отступ справа от значка */
-    vertical-align: middle; /* Выравнивание по центру */
+    width: 30px;
+    /* Ширина значка */
+    height: 30px;
+    /* Высота значка */
+    margin-right: -4px;
+    /* Отступ справа от значка */
+    vertical-align: middle;
+    /* Выравнивание по центру */
 }
 
 /* Стили для загрузочного экрана */
@@ -952,7 +1130,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-	height: 70vh; /* Уменьшаем высоту до 70% экрана */
+    height: 70vh;
+    /* Уменьшаем высоту до 70% экрана */
     background-color: #000;
     color: #fff;
 }
@@ -967,25 +1146,35 @@ body {
 }
 
 .loading-icon {
-    width: 250px; /* Размер иконки */
+    width: 250px;
+    /* Размер иконки */
     height: 250px;
     animation: spin 2s linear infinite;
 }
 
 /* Стили для названия N O V E L L A */
 .novella-title {
-    position: fixed; /* Фиксируем положение */
-    top: 35px; /* Располагаем вверху страницы с отступом */
-    left: 50%; /* Выравнивание по центру относительно ширины */
-    transform: translateX(-48%); /* Центруем относительно середины страницы */
+    position: fixed;
+    /* Фиксируем положение */
+    top: 35px;
+    /* Располагаем вверху страницы с отступом */
+    left: 50%;
+    /* Выравнивание по центру относительно ширины */
+    transform: translateX(-48%);
+    /* Центруем относительно середины страницы */
     display: flex;
-	align-items: center;
+    align-items: center;
     justify-content: center;
-    font-family: 'Polaris', sans-serif; /* Используем шрифт Polaris */
-    font-size: 38px; /* Размер шрифта */
-    letter-spacing: 10px; /* Добавляем отступы между буквами */
-    color: #fff; /* Цвет текста */
-    z-index: 10; /* Увеличиваем приоритет отображения */
+    font-family: 'Polaris', sans-serif;
+    /* Используем шрифт Polaris */
+    font-size: 38px;
+    /* Размер шрифта */
+    letter-spacing: 10px;
+    /* Добавляем отступы между буквами */
+    color: #fff;
+    /* Цвет текста */
+    z-index: 10;
+    /* Увеличиваем приоритет отображения */
 }
 
 /* Стили для иконок социальных сетей */
@@ -993,21 +1182,25 @@ body {
     display: flex;
     justify-content: center;
     gap: 20px;
-    margin-top: -100px; /* Уменьшаем отступ сверху */
+    margin-top: -100px;
+    /* Уменьшаем отступ сверху */
 }
 
 .social-icon {
     width: 35px;
     height: 35px;
-    transition: transform 0.3s ease; /* Плавный переход для увеличения */
+    transition: transform 0.3s ease;
+    /* Плавный переход для увеличения */
 }
 
 .social-icon:hover {
-    transform: scale(1.2); /* Легкое увеличение при наведении */
+    transform: scale(1.2);
+    /* Легкое увеличение при наведении */
 }
 
 .social-icon:active {
-    transform: scale(1.1); /* Легкое уменьшение при нажатии для эффекта нажатия */
+    transform: scale(1.1);
+    /* Легкое уменьшение при нажатии для эффекта нажатия */
 }
 
 /* Версия приложения */
@@ -1016,7 +1209,8 @@ body {
     font-family: Arial, sans-serif;
     color: #fff;
     margin-top: 7px;
-    margin-bottom: 10px; /* Добавляем отступ снизу */
+    margin-bottom: 10px;
+    /* Добавляем отступ снизу */
 }
 
 /* Стили для страницы загрузочной ошибки */
@@ -1032,7 +1226,8 @@ body {
 
 /* Иконка: Loading error */
 .error-container img {
-    width: 300px; /* Размер иконки */
+    width: 300px;
+    /* Размер иконки */
     height: auto;
 }
 
@@ -1041,6 +1236,7 @@ body {
     margin-top: 5px;
     color: white;
 }
+
 /* Инфо текст ошибки под иконкой */
 .loadingerror-subtitle {
     font-family: 'Maiandra GD', sans-serif;
@@ -1076,6 +1272,7 @@ body {
 
 /* Иконка: Banned */
 .banned-container img {
-    width: 300px; /* Размер иконки */
+    width: 300px;
+    /* Размер иконки */
     height: auto;
 }

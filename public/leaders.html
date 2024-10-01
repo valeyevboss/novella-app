@@ -42,14 +42,6 @@
             // Переход на страницу task.html
             window.location.href = 'task.html';
         });
-
-        // Анимация кнопки при загрузке страницы
-        window.onload = function() {
-            const button = document.querySelector('.boost-score-button');
-            setTimeout(() => {
-                button.classList.add('active');
-            }, 100); // Задержка 0.1 сек для плавности
-        };
     </script>
     
     <!-- Текст Total users -->
@@ -95,6 +87,23 @@
             getTopUsers();       // для topuser.js
             getYourStats();      // для topstats.js
         });
+    </script>
+
+    <!-- Анимации -->
+    <script>
+        window.onload = function() {
+            // Анимация кнопки при загрузке страницы
+            const button = document.querySelector('.boost-score-button');
+            setTimeout(() => {
+                button.classList.add('active');
+            }, 100); // Задержка 0.1 сек для плавности
+
+            // Анимация блока статистики при загрузке страницы
+            const userInfoBlock = document.querySelector('.user-info-block');
+            setTimeout(() => {
+                userInfoBlock.classList.add('active');
+            }, 200); // Задержка 0.2 сек для плавности
+        };
     </script>
 </body>
 </html>
