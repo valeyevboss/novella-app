@@ -787,9 +787,9 @@ body {
         display: flex;
         align-items: center;
         justify-content: flex-start;
-        margin: 20px auto;
+        margin: 10px auto;
         width: 90%;
-        max-width: 350px;
+        max-width: 330px;
     }
 
     /* Стиль для аватарки */
