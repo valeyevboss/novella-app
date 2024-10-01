@@ -860,14 +860,8 @@ body {
     padding: 15px; /* Внутренние отступы */
     background-color: #2c2c2c; /* Фон блока */
     border-radius: 20px; /* Скругление блока */
-}
-
-/* Стиль для текста Total users */
-.total-users {
-    font-size: 24px; /* Увеличен размер шрифта */
-    color: #ffffff; /* Белый цвет текста */
-    text-align: left; /* Выравнивание по левому краю */
-    margin-left: 25px; /* Небольшой отступ слева для выравнивания */
+    max-width: 95%; /* Устанавливаем максимальную ширину 95% экрана */
+    margin-left: 25px; /* Уменьшенный отступ слева для выравнивания */
 }
 
 /* Контейнер для секции топ-100 с прокруткой */
@@ -875,8 +869,9 @@ body {
     display: flex;
     flex-direction: column;
     gap: 10px; /* Отступы между пользователями */
-    max-height: calc(100vh - 100px); /* Установите максимальную высоту */
-    overflow-y: auto; /* Вертикальная прокрутка при превышении высоты */
+    max-height: 400px; /* Максимальная высота, чтобы было удобно листать */
+    overflow-y: auto; /* Вертикальная прокрутка */
+    padding-right: 10px; /* Дополнительное пространство для скроллбара */
 }
 
 /* Стиль для блока с информацией о пользователе в топе */
@@ -887,44 +882,44 @@ body {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    width: 90%; /* Занимает 90% ширины контейнера */
+    width: 100%; /* Занимает всю ширину контейнера */
     max-width: 350px; /* Максимальная ширина блока */
     margin: 0; /* Уберите margin, чтобы избежать лишнего пространства */
+    box-sizing: border-box; /* Учитываем паддинги внутри блока */
 }
 
-/* Убедитесь, что отступы для аватарки и текстов также установлены в оптимальные значения */
+/* Аватар пользователя в топе */
 .top100-user-avatar {
-    width: 45px; /* Уменьшенный размер аватарки */
-    height: 45px;
+    width: 40px; /* Уменьшенный размер аватарки */
+    height: 40px;
     border-radius: 50%;
-    margin-right: 10px; /* Уменьшенный отступ */
+    margin-right: 10px; /* Отступ справа */
 }
 
 /* Контейнер с username и балансом в топе */
 .top100-user-details {
     display: flex;
     flex-direction: column;
-    margin-right: 20px; /* Уменьшенный отступ */
+    margin-right: 10px; /* Уменьшенный отступ */
 }
 
 /* Стиль для username в топе */
 .top100-username {
-    font-size: 20px; /* Увеличен размер до 20px */
+    font-size: 18px; /* Уменьшен размер */
     color: #fff;
     font-weight: bold;
 }
 
 /* Стиль для balance в топе */
 .top100-token-balance {
-    font-size: 15px; /* Увеличен размер до 15px */
+    font-size: 14px; /* Уменьшен размер */
     color: #a5a5a5;
-    margin-top: 3px; /* Отступ сверху для дополнительного контроля */
-    white-space: nowrap; /* Запрещает перенос текста на новую строку */
+    margin-top: 3px;
 }
 
 /* Стиль для user rank в топе */
 .top100-user-rank {
-    font-size: 20px; /* Размер оставлен без изменений */
+    font-size: 18px; /* Уменьшен размер */
     color: #fff;
     font-weight: bold;
     margin-left: auto; /* Сдвигаем rank в правую часть */
@@ -932,10 +927,10 @@ body {
 
 /* Стили для значков рангов */
 .rank-icon {
-    width: 30px; /* Ширина значка */
-    height: 30px; /* Высота значка */
-    margin-right: 7px; /* Отступ справа от значка */
-    vertical-align: middle; /* Выравнивание по центру */
+    width: 25px; /* Уменьшен значок */
+    height: 25px;
+    margin-right: 5px; /* Уменьшен отступ */
+    vertical-align: middle;
 }
 
 /* Стили для загрузочного экрана */
