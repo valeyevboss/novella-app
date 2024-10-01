@@ -47,7 +47,7 @@ function displayTopUsers(users) {
                 <span class="top100-username">${user.username}</span>
                 <span class="top100-token-balance">${formatTokenBalance(user.tokens)} $Novella</span>
             </div>
-            <span class="top100-user-rank">${rankIcon} #${index + 1}</span>
+            <span class="top100-user-rank">${rankIcon}${(index < 3) ? '' : ' #' + (index + 1)}</span>
         `;
 
         leaderboardContainer.appendChild(userBlock);
