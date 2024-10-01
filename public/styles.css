@@ -927,7 +927,7 @@ body {
 .rank-icon {
     width: 30px; /* Ширина значка */
     height: 30px; /* Высота значка */
-    margin-right: 7px; /* Отступ справа от значка */
+    margin-right: -4px; /* Отступ справа от значка */
     vertical-align: middle; /* Выравнивание по центру */
 }
 
