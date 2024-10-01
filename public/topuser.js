@@ -11,9 +11,12 @@ async function getTopUsers() {
     }
 }
 
-// Функция для отображения пользователей
 function displayTopUsers(users) {
-    const leaderboardContainer = document.querySelector('.top100-container');
+    const leaderboardWrapper = document.createElement('div');
+    leaderboardWrapper.classList.add('top100-wrapper'); // Новый оберточный блок
+
+    const leaderboardContainer = document.createElement('div');
+    leaderboardContainer.classList.add('top100-container');
 
     // Очищаем контейнер перед добавлением пользователей
     leaderboardContainer.innerHTML = '';
@@ -46,8 +49,11 @@ function displayTopUsers(users) {
 
         leaderboardContainer.appendChild(userBlock);
     });
-    document.body.appendChild(leaderboardContainer);
+
+    leaderboardWrapper.appendChild(leaderboardContainer);
+    document.body.appendChild(leaderboardWrapper); // Вставляем весь блок на страницу
 }
+
 
 // Вызов функции при загрузке страницы
 window.onload = getTopUsers;
