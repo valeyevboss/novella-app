@@ -16,10 +16,11 @@ function displayTopUsers(users) {
     const leaderboardContainer = document.createElement('div');
     leaderboardContainer.classList.add('top100-container');
 
-    users.forEach((user, index) => {
-        const userBlock = document.createElement('div');
-        userBlock.classList.add('top100-user-info-block');
+    // Создаем общий блок для пользователей
+    const userBlock = document.createElement('div');
+    userBlock.classList.add('top100-user-info-block');
 
+    users.forEach((user, index) => {
         // Проверка на наличие аватарки, если нет — использовать дефолтную
         const avatarUrl = user.avatarUrl ? user.avatarUrl : 'https://res.cloudinary.com/dvjohgg6j/image/upload/v1727453958/default-avatar.png';
 
@@ -33,7 +34,10 @@ function displayTopUsers(users) {
             rankIcon = '<img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1727725289/Pin/Bronze-pin.png" alt="Top 3" class="rank-icon">';
         }
 
-        userBlock.innerHTML = `
+        // Добавляем каждого пользователя в общий блок
+        const userEntry = document.createElement('div');
+        userEntry.classList.add('top100-user-entry'); // Класс для отдельных записей
+        userEntry.innerHTML = `
             <img src="${avatarUrl}" alt="User Avatar" class="top100-user-avatar">
             <div class="top100-user-details">
                 <span class="top100-username">${user.username}</span>
@@ -42,9 +46,10 @@ function displayTopUsers(users) {
             <span class="top100-user-rank">${rankIcon} #${index + 1}</span>
         `;
 
-        leaderboardContainer.appendChild(userBlock);
+        userBlock.appendChild(userEntry);
     });
 
+    leaderboardContainer.appendChild(userBlock);
     document.body.appendChild(leaderboardContainer);
 }
 
