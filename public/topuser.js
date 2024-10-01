@@ -13,12 +13,12 @@ async function getTopUsers() {
 
 // Функция для отображения пользователей
 function displayTopUsers(users) {
-    const userListContainer = document.querySelector('.top100-user-list');
-    userListContainer.innerHTML = ''; // Очищаем контейнер перед добавлением пользователей
+    const leaderboardContainer = document.createElement('div');
+    leaderboardContainer.classList.add('top100-container');
 
     users.forEach((user, index) => {
         const userBlock = document.createElement('div');
-        userBlock.classList.add('top100-user-info');
+        userBlock.classList.add('top100-user-info-block');
 
         // Проверка на наличие аватарки, если нет — использовать дефолтную
         const avatarUrl = user.avatarUrl ? user.avatarUrl : 'https://res.cloudinary.com/dvjohgg6j/image/upload/v1727453958/default-avatar.png';
@@ -42,8 +42,10 @@ function displayTopUsers(users) {
             <span class="top100-user-rank">${rankIcon} #${index + 1}</span>
         `;
 
-        userListContainer.appendChild(userBlock);
+        leaderboardContainer.appendChild(userBlock);
     });
+
+    document.body.appendChild(leaderboardContainer);
 }
 
 // Вызов функции при загрузке страницы
