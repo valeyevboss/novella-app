@@ -27,6 +27,7 @@ function loadTranslations(lang) {
             const connectwalletButton = document.getElementById("connectButton");
             const warningText = document.getElementById('warning-text');
             const leaderSubtitle = document.getElementById('leader-subtitle');
+            const titletop100 = document.getElementById("title-top100");
 
             // Применение переводов
             if (freedurovButton) freedurovButton.textContent = data.freedurov_button;
@@ -48,6 +49,7 @@ function loadTranslations(lang) {
             if (connectwalletButton) connectwalletButton.textContent = data["connectButton"];
             if (warningText) warningText.textContent = data['warning-text'];
             if (leaderSubtitle) leaderSubtitle.textContent = data['leader-subtitle'];
+            if (titletop100) titletop100.textContent = data['title-top100'];
         })
         .catch(error => {
             console.error(error);
