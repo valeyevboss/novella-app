@@ -7,15 +7,25 @@ function loadTranslations(lang) {
             return response.json();
         })
         .then(data => {
-            document.getElementById('freedurov-button').textContent = data.freedurov_button;
-            document.getElementById('daily-reward-title').textContent = data.daily_rewards;
-            document.getElementById('claim-reward-button').textContent = data.daily_checkin;
-            document.getElementById('premium-reward-button').textContent = data.premium_checkin;
-            document.getElementById('menu-main').textContent = data.main;
-            document.getElementById('menu-task').textContent = data.task;
-            document.getElementById('menu-friends').textContent = data.friends;
-            document.getElementById('menu-airdrop').textContent = data.airdrop;
-            document.getElementById('menu-leaders').textContent = data.leaders;
+            const freedurovButton = document.getElementById('freedurov-button');
+            const dailyRewardTitle = document.getElementById('daily-reward-title');
+            const claimRewardButton = document.getElementById('claim-reward-button');
+            const premiumRewardButton = document.getElementById('premium-reward-button');
+            const menuMain = document.getElementById('menu-main');
+            const menuTask = document.getElementById('menu-task');
+            const menuFriends = document.getElementById('menu-friends');
+            const menuAirdrop = document.getElementById('menu-airdrop');
+            const menuLeaders = document.getElementById('menu-leaders');
+
+            if (freedurovButton) freedurovButton.textContent = data.freedurov_button;
+            if (dailyRewardTitle) dailyRewardTitle.textContent = data.daily_rewards;
+            if (claimRewardButton) claimRewardButton.textContent = data.daily_checkin;
+            if (premiumRewardButton) premiumRewardButton.textContent = data.premium_checkin;
+            if (menuMain) menuMain.textContent = data.main;
+            if (menuTask) menuTask.textContent = data.task;
+            if (menuFriends) menuFriends.textContent = data.friends;
+            if (menuAirdrop) menuAirdrop.textContent = data.airdrop;
+            if (menuLeaders) menuLeaders.textContent = data.leaders;
         })
         .catch(error => {
             console.error(error);
@@ -31,4 +41,6 @@ const supportedLangs = ['en-US', 'ru-RU', 'uk-UA'];
 const lang = supportedLangs.includes(userLang) ? userLang : 'en-US';
 
 // Загрузка переводов
-loadTranslations(lang);
+document.addEventListener('DOMContentLoaded', () => {
+    loadTranslations(lang);
+});
