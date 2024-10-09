@@ -24,7 +24,7 @@ app.use(bodyParser.json()); // для обновления токенов и д�
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
 // Подключение папки locales как статических файлов
-app.use('/locales', express.static(path.join(__dirname, '..', 'public', 'locales')));
+app.use('/locales', express.static(path.join(__dirname, '..', 'locales')));
 
 // Отдача index.html по умолчанию
 app.get('/', (req, res) => {
