@@ -1291,3 +1291,39 @@ body {
     /* Размер иконки */
     height: auto;
 }
+
+/* Стиль для страницы блокировки веб версии /blockedweb */
+.blockedweb-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+    animation: fadeIn 1.0s ease-in-out;
+}
+
+/* Стили для иконки Novella */
+.novella-icon {
+    width: 250px; /* Немного уменьшенный размер */
+    margin-bottom: 10px; /* Отступ ниже иконки */
+}
+
+/* Заголовок */
+.blockedweb-title {
+    font-family: 'hooge05_55cyr2', sans-serif;
+    font-size: 30px;
+    margin-top: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 3px solid;
+    animation: blink 0.75s step-end infinite;
+}
+
+/* Текст под заголовком */
+.blockedweb-subtitle {
+    font-family: 'Maiandra GD', sans-serif;
+    font-size: 16px;
+    color: grey;
+    margin-top: -10px;
+}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novella App - Blocked</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Подключение внешнего файла стилей -->
+	<link rel="preload" href="/fonts/MaiandraGD.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+</head>
+<body>
+    <div class="blockedweb-container">
+        <img id="novella-icon" class="novella-icon" alt="Novella Icon">
+        <h1 class="blockedweb-title">Access Denied</h1>
+        <p class="blockedweb-subtitle">This application is only available in the Telegram<br>mobile version.</p>
+    </div>
+
+    <!-- Анимация набора текста -->
+    <script>
+        // Список гифок
+        const gifs = [
+            "https://res.cloudinary.com/dvjohgg6j/image/upload/v1728478021/Gif/Novellablocked.gif",
+            "https://res.cloudinary.com/dvjohgg6j/image/upload/v1728478020/Gif/Novellablocked2.gif"
+        ];
+
+        // Случайный выбор гифки
+        const randomGif = gifs[Math.floor(Math.random() * gifs.length)];
+
+        // Установка выбранной гифки в элемент изображения
+        document.getElementById("novella-icon").src = randomGif;
+
+        // Анимация текста заголовка
+        const titleElement = document.querySelector('.blockedweb-title');
+        const text = titleElement.textContent; // Получаем текст заголовка
+        titleElement.textContent = ''; // Очищаем текст
+
+        let index = 0;
+
+        function type() {
+            if (index < text.length) {
+                titleElement.textContent += text.charAt(index);
+                index++;
+                setTimeout(type, 200); // Задержка между символами (200 мс)
+            } else {
+                setTimeout(() => {
+                    titleElement.textContent = '';
+                    index = 0;
+                    type(); // Начинаем снова
+                }, 4000); // Задержка перед повторным набором
+            }
+        }
+
+        window.onload = function() {
+            type(); // Запускаем анимацию текста
+        };
+    </script>
+</body>
+</html>

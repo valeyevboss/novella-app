@@ -31,9 +31,21 @@ app.get('/', (req, res) => {
 	res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
 });
 
-// Отдача loading.html и loadingerror.html по запросу
+// Проверка на доступ через Telegram Web и браузеры
 app.get('/loading', (req, res) => {
-	res.sendFile(path.join(__dirname, '..', 'public', 'loading.html'));
+    const userAgent = req.headers['user-agent'];
+
+    // Проверяем, если user-agent указывает на браузер (например, Telegram Web)
+    const isTelegramWeb = userAgent.includes('TelegramBot') || userAgent.includes('WebApp');
+    const isBrowser = !userAgent.includes('Telegram');
+
+    if (isBrowser && !isTelegramWeb) {
+        // Если это браузер, а не Telegram Web App — перенаправляем на блокированную страницу
+        return res.sendFile(path.join(__dirname, '..', 'public', 'blockedweb.html'));
+    }
+
+    // Если это Telegram Web или мобильное приложение, продолжаем загрузку
+    res.sendFile(path.join(__dirname, '..', 'public', 'loading.html'));
 });
 
 app.get('/loadingerror', (req, res) => {
