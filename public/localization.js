@@ -26,6 +26,13 @@ function loadTranslations(lang) {
             const airdropSubtitle = document.getElementById('airdrop-subtitle');
             const connectwalletButton = document.getElementById("connectButton");
             const warningText = document.getElementById('warning-text');
+            const airdropDescriptTitle = document.getElementById('airdrop-descript-title');
+            const airdropDescription1 = document.getElementById('airdrop-description-1');
+            const airdropDescription2 = document.getElementById('airdrop-description-2');
+            const airdropDescription3 = document.getElementById('airdrop-description-3');
+            const listingDescriptTitle = document.getElementById('listing-descript-title');
+            const listingDescription1 = document.getElementById('listing-description-1');
+            const listingDescription2 = document.getElementById('listing-description-2');
             const leaderSubtitle = document.getElementById('leader-subtitle');
             const titletop100 = document.getElementById("title-top100");
 
@@ -48,6 +55,13 @@ function loadTranslations(lang) {
             if (airdropSubtitle) airdropSubtitle.textContent = data['airdrop-subtitle'];
             if (connectwalletButton) connectwalletButton.textContent = data["connectButton"];
             if (warningText) warningText.textContent = data['warning-text'];
+            if (airdropDescriptTitle) airdropDescriptTitle.textContent = data['airdrop-descript-title'];
+            if (airdropDescription1) airdropDescription1.textContent = data['airdrop-description-1'];
+            if (airdropDescription2) airdropDescription2.textContent = data['airdrop-description-2'];
+            if (airdropDescription3) airdropDescription3.textContent = data['airdrop-description-3'];
+            if (listingDescriptTitle) listingDescriptTitle.textContent = data['listing-descript-title'];
+            if (listingDescription1) listingDescription1.textContent = data['listing-description-1'];
+            if (listingDescription2) listingDescription2.textContent = data['listing-description-2'];
             if (leaderSubtitle) leaderSubtitle.textContent = data['leader-subtitle'];
             if (titletop100) titletop100.textContent = data['title-top100'];
         })
