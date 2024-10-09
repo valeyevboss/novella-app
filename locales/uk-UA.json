@@ -20,7 +20,7 @@
     "friends-count": "0 друзів",
     "invite-button": "Запросити друзів",
     "airdrop-subtitle": "Слідкуйте за новинами про майбутній аірдроп.",
-    "ton-connect-button": "Підключіть гаманець",
+    "connectButton": "Підключіть гаманець",
     "warning-text": "Гаманець може бути підключений тільки до цього аккаунту.",
     "leader-subtitle": "The list of the best users, break into the top!"
 }

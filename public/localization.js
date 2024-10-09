@@ -24,7 +24,7 @@ function loadTranslations(lang) {
             const friendsCount = document.getElementById('friends-count');
             const inviteButton = document.getElementById('invite-button');
             const airdropSubtitle = document.getElementById('airdrop-subtitle');
-            const connectwalletButton = document.getElementById("ton-connect-button");
+            const connectwalletButton = document.getElementById("connectButton");
             const warningText = document.getElementById('warning-text');
             const leaderSubtitle = document.getElementById('leader-subtitle');
 
@@ -45,7 +45,7 @@ function loadTranslations(lang) {
             if (friendsCount) friendsCount.textContent = data['friends-count'];
             if (inviteButton) inviteButton.textContent = data['invite-button'];
             if (airdropSubtitle) airdropSubtitle.textContent = data['airdrop-subtitle'];
-            if (connectwalletButton) connectwalletButton.textContent = data["ton-connect-button"];
+            if (connectwalletButton) connectwalletButton.textContent = data["connectButton"];
             if (warningText) warningText.textContent = data['warning-text'];
             if (leaderSubtitle) leaderSubtitle.textContent = data['leader-subtitle'];
         })

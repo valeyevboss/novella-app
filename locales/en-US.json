@@ -20,6 +20,7 @@
     "friends-count": "0 friends",
     "invite-button": "Invite Friends",
     "airdrop-subtitle": "Stay tuned for the upcoming airdrop and rewards.",
-    "ton-connect-button": "Connect Wallet",
+    "connectButton": "Connect Wallet",
+    "warning-text": "The wallet can only be connected to this account.",
     "leader-subtitle": "The list of the best users, break into the top!"
 }  
