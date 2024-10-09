@@ -724,8 +724,8 @@ body {
     border-radius: 15px;
     cursor: pointer;
     margin: 30px;
-    transition: all 0.3s ease;
-    /* Плавный переход при изменении размеров */
+    transition: all 0.3s ease; /* Плавный переход при изменении размеров */
+    white-space: nowrap; /* Предотвращает перенос текста */
 }
 
 /* Эффект при наведении: увеличение */
