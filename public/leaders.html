@@ -80,7 +80,8 @@
 	<!-- Подключение скриптов -->
 		<script src="/totaluser.js"></script>
 		<script src="/topuser.js"></script>
-		<script src="/topstats.js"></script>
+		<script src="/topstats.js"></script>   
+        <script src="/localization.js"></script>
 
     <!-- DOMContentLoaded -->
     <script>
@@ -88,6 +89,7 @@
             fetchTotalUsers();   // для totaluser.js
             getTopUsers();       // для topuser.js
             getYourStats();      // для topstats.js
+            loadTranslations(); // для localization.js
         });
     </script>
 
