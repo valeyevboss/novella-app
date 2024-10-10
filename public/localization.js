@@ -74,28 +74,27 @@ function loadTranslations(lang) {
 }
 
 // Определение языка пользователя с fallback на en-US
-let userLang = navigator.language || 'en-US'; // Изменено на let
+const userLang = navigator.language || 'en-US';
 const supportedLangs = ['en-US', 'ru-RU', 'uk-UA'];
-let lang = supportedLangs.includes(userLang) ? userLang : 'en-US'; // Изменено на let
+let lang = supportedLangs.includes(userLang) ? userLang : 'en-US';
+
+// Функция для обработки выбора языка
+document.getElementById('save-language-btn').addEventListener('click', () => {
+    const selectedLang = document.getElementById('country-select').value;
+    if (selectedLang) {
+        lang = selectedLang;
+        loadTranslations(lang); // Загружаем выбранный язык
+        // Здесь можно добавить логику для закрытия модального окна
+        document.getElementById('SettingModalPanel').style.display = 'none';
+    }
+});
 
 // Загрузка переводов
 document.addEventListener('DOMContentLoaded', () => {
     loadTranslations(lang);
 });
 
-// Обработчик для кнопки "Сохранить"
-const saveButton = document.getElementById('save-language-btn');
-const countrySelect = document.getElementById('country-select');
-
-if (saveButton) {
-    saveButton.addEventListener('click', () => {
-        const selectedLang = countrySelect.value; // Получаем выбранный язык
-        if (selectedLang && supportedLangs.includes(selectedLang)) {
-            lang = selectedLang; // Обновляем текущий язык
-            loadTranslations(lang); // Загружаем переводы для выбранного языка
-            alert(`Language changed to ${selectedLang}`); // Уведомление о смене языка
-        } else {
-            alert('Please select a valid language.'); // Уведомление о некорректном выборе
-        }
-    });
-}
+// Закрытие модального окна
+document.getElementById('close-button').addEventListener('click', () => {
+    document.getElementById('SettingModalPanel').style.display = 'none';
+});
