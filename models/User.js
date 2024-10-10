@@ -8,6 +8,7 @@ const UserSchema = new mongoose.Schema({
     tokens: { type: Number, default: 0 }, // Token balance
     status: { type: String, enum: ['No banned', 'banned'], default: 'No banned' }, // banned system
     ip: String, // ip adress
+    country: { type: String, default: '' }, // Country
     rank: { type: Number, default: 0 }, // number top
     invitedBy: { type: String, default: null }, // who invited?
     friendsCount: { type: Number, default: 0 } // Count invited

@@ -1,4 +1,5 @@
 const express = require('express');
+const axios = require('axios');
 const path = require('path');
 const mongoose = require('mongoose');
 const TelegramBot = require('node-telegram-bot-api');
@@ -72,6 +73,17 @@ async function startServer() {
 		console.error('MongoDB connection error:', err);
 		process.exit(1); // Останавливаем сервер при ошибке подключения
 	}
+}
+
+// Функция для получения информации о стране по IP
+async function getCountryByIP(ip) {
+    try {
+        const response = await axios.get(`https://ipinfo.io/${ip}/json?token=${process.env.IPINFO_TOKEN}`);
+        return response.data.country || 'Unknown';
+    } catch (error) {
+        console.error('Ошибка получения страны по IP:', error);
+        return 'Unknown';
+    }
 }
 
 // Проверка статуса пользователя и наличия username по telegramId
@@ -191,7 +203,6 @@ app.post('/referral/:invitedId', async (req, res) => {
 
 startServer();
 
-// Объявляем URL изображения
 const imageUrl = 'https://res.cloudinary.com/dvjohgg6j/image/upload/v1725631955/Banner/Novella%20banner.jpg'; // Публичный URL вашего изображения
 
 // Обработчик команды /start
@@ -200,7 +211,7 @@ bot.onText(/\/start/, async (msg) => {
 	const telegramId = msg.from.id; // Телеграм ID пользователя
 	const userName = msg.from.username || '';
 	
-// Получаем информацию об аватарке
+	// Получаем информацию об аватарке
 	const photo = msg.from.photo;
 	let avatarUrl = '';
 	if (photo) {
@@ -212,6 +223,9 @@ bot.onText(/\/start/, async (msg) => {
 	} else {
 		console.log('No photo found for user'); // Отладочный вывод
 	}
+
+	// Получаем страну по IP
+    const country = await getCountryByIP(userIp);
 
 
 	try {
@@ -226,7 +240,8 @@ bot.onText(/\/start/, async (msg) => {
 					username: userName,
 					avatarUrl: avatarUrl, // Сохраняем аватарку
 					lastLogin: new Date(),
-					tokens: 0
+					tokens: 0,
+					country: country
 				});
 				await user.save();
 			} catch (err) {
@@ -246,6 +261,7 @@ bot.onText(/\/start/, async (msg) => {
 			if (avatarUrl) {
 				user.avatarUrl = avatarUrl; // Обновляем аватарку
 			}
+			user.country = country; // Обновляем страну
 			await user.save();
 		}
 
