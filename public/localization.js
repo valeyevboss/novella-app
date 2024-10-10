@@ -74,9 +74,9 @@ function loadTranslations(lang) {
 }
 
 // Определение языка пользователя с fallback на en-US
-const userLang = navigator.language || 'en-US';
+let userLang = navigator.language || 'en-US'; // Изменено на let
 const supportedLangs = ['en-US', 'ru-RU', 'uk-UA'];
-const lang = supportedLangs.includes(userLang) ? userLang : 'en-US';
+let lang = supportedLangs.includes(userLang) ? userLang : 'en-US'; // Изменено на let
 
 // Загрузка переводов
 document.addEventListener('DOMContentLoaded', () => {
