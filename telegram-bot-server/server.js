@@ -1,5 +1,4 @@
 const express = require('express');
-const axios = require('axios');
 const path = require('path');
 const mongoose = require('mongoose');
 const TelegramBot = require('node-telegram-bot-api');
@@ -192,6 +191,7 @@ app.post('/referral/:invitedId', async (req, res) => {
 
 startServer();
 
+// Объявляем URL изображения
 const imageUrl = 'https://res.cloudinary.com/dvjohgg6j/image/upload/v1725631955/Banner/Novella%20banner.jpg'; // Публичный URL вашего изображения
 
 // Обработчик команды /start
@@ -200,7 +200,7 @@ bot.onText(/\/start/, async (msg) => {
 	const telegramId = msg.from.id; // Телеграм ID пользователя
 	const userName = msg.from.username || '';
 	
-	// Получаем информацию об аватарке
+// Получаем информацию об аватарке
 	const photo = msg.from.photo;
 	let avatarUrl = '';
 	if (photo) {
@@ -212,6 +212,7 @@ bot.onText(/\/start/, async (msg) => {
 	} else {
 		console.log('No photo found for user'); // Отладочный вывод
 	}
+
 
 	try {
 		// Ищем пользователя по Telegram ID
@@ -225,7 +226,7 @@ bot.onText(/\/start/, async (msg) => {
 					username: userName,
 					avatarUrl: avatarUrl, // Сохраняем аватарку
 					lastLogin: new Date(),
-					tokens: 0,
+					tokens: 0
 				});
 				await user.save();
 			} catch (err) {
