@@ -242,7 +242,6 @@ bot.onText(/\/start/, async (msg) => {
 					avatarUrl: avatarUrl, // Сохраняем аватарку
 					lastLogin: new Date(),
 					tokens: 0
-					country: 'Unknown' // Устанавливаем временное значение для страны
 				});
 				await user.save();
 			} catch (err) {
