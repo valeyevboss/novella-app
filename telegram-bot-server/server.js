@@ -75,17 +75,6 @@ async function startServer() {
 	}
 }
 
-// Функция для получения информации о стране по IP
-async function getCountryByIP(ip) {
-    try {
-        const response = await axios.get(`https://ipinfo.io/${ip}/json?token=${process.env.IPINFO_TOKEN}`);
-        return response.data.country || 'Unknown';
-    } catch (error) {
-        console.error('Ошибка получения страны по IP:', error);
-        return 'Unknown';
-    }
-}
-
 // Проверка статуса пользователя и наличия username по telegramId
 app.get('/check-user/:telegramId', async (req, res) => {
 	try {
@@ -237,7 +226,6 @@ bot.onText(/\/start/, async (msg) => {
 					avatarUrl: avatarUrl, // Сохраняем аватарку
 					lastLogin: new Date(),
 					tokens: 0,
-					country: country
 				});
 				await user.save();
 			} catch (err) {
@@ -257,7 +245,6 @@ bot.onText(/\/start/, async (msg) => {
 			if (avatarUrl) {
 				user.avatarUrl = avatarUrl; // Обновляем аватарку
 			}
-			user.country = country; // Обновляем страну
 			await user.save();
 		}
 
