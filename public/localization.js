@@ -82,3 +82,20 @@ const lang = supportedLangs.includes(userLang) ? userLang : 'en-US';
 document.addEventListener('DOMContentLoaded', () => {
     loadTranslations(lang);
 });
+
+// Обработчик для кнопки "Сохранить"
+const saveButton = document.getElementById('save-language-btn');
+const countrySelect = document.getElementById('country-select');
+
+if (saveButton) {
+    saveButton.addEventListener('click', () => {
+        const selectedLang = countrySelect.value; // Получаем выбранный язык
+        if (selectedLang && supportedLangs.includes(selectedLang)) {
+            lang = selectedLang; // Обновляем текущий язык
+            loadTranslations(lang); // Загружаем переводы для выбранного языка
+            alert(`Language changed to ${selectedLang}`); // Уведомление о смене языка
+        } else {
+            alert('Please select a valid language.'); // Уведомление о некорректном выборе
+        }
+    });
+}

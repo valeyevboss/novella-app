@@ -257,6 +257,23 @@ body {
     text-align: center; /* Центрирование текста */
 }
 
+.settings-button {
+    background-color: #1f1f1f; /* Цвет кнопки открытия */
+    color: white;
+    border: none;
+    border-radius: 20px; /* Скругленная кнопка */
+    width: 50px; /* Ширина кнопки */
+    height: 50px; /* Высота кнопки */
+    font-size: 24px; /* Размер шрифта для иконки */
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute; /* Позиционирование для размещения кнопки */
+    top: 10px; /* Отступ от верхней грани */
+    right: 10px; /* Отступ от правой грани */
+}
+
 .close-button {
     background-color: #1f1f1f; /* Цвет фона модального окна */
     color: white;
@@ -277,23 +294,6 @@ body {
 
 .close-button:hover {
     background-color: darkred; /* Цвет фона при наведении */
-}
-
-.settings-button {
-    background-color: #1f1f1f; /* Цвет кнопки открытия */
-    color: white;
-    border: none;
-    border-radius: 20px; /* Скругленная кнопка */
-    width: 50px; /* Ширина кнопки */
-    height: 50px; /* Высота кнопки */
-    font-size: 24px; /* Размер шрифта для иконки */
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute; /* Позиционирование для размещения кнопки */
-    top: 10px; /* Отступ от верхней грани */
-    right: 10px; /* Отступ от правой грани */
 }
 
 /* Стили для выпадающего списка */

@@ -74,34 +74,6 @@ async function startServer() {
 	}
 }
 
-// Обновление страны пользователя
-app.post('/update-country/:telegramId', async (req, res) => {
-    try {
-        const { telegramId } = req.params;
-        const { country } = req.body;
-
-        // Проверка на корректность введенной страны
-        if (!country || typeof country !== 'string') {
-            return res.status(400).json({ error: 'Invalid country. Must be a non-empty string.' });
-        }
-
-        const user = await User.findOne({ telegramId });
-
-        if (!user) {
-            return res.status(404).json({ error: 'User not found' });
-        }
-
-        // Обновляем страну
-        user.country = country;
-        await user.save();
-
-        res.json({ success: true, country: user.country });
-    } catch (error) {
-        console.error('Ошибка при обновлении страны:', error);
-        res.status(500).json({ error: 'Ошибка сервера' });
-    }
-});
-
 // Проверка статуса пользователя и наличия username по telegramId
 app.get('/check-user/:telegramId', async (req, res) => {
 	try {
