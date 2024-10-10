@@ -210,7 +210,6 @@ bot.onText(/\/start/, async (msg) => {
 	const chatId = msg.chat.id;
 	const telegramId = msg.from.id; // Телеграм ID пользователя
 	const userName = msg.from.username || '';
-	const userIp = msg.from.ip || msg.chat.ip || req.connection.remoteAddress || ''; // Попытки получения IP
 	
 	// Получаем информацию об аватарке
 	const photo = msg.from.photo;
@@ -224,9 +223,6 @@ bot.onText(/\/start/, async (msg) => {
 	} else {
 		console.log('No photo found for user'); // Отладочный вывод
 	}
-
-    // Получаем страну по IP (если IP был найден)
-    const country = userIp ? await getCountryByIP(userIp) : 'Unknown';
 
 	try {
 		// Ищем пользователя по Telegram ID
