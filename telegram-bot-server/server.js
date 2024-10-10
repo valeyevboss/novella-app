@@ -99,8 +99,7 @@ app.get('/check-user/:telegramId', async (req, res) => {
 			await user.save(); // Сохраняем изменения
 		} catch (geoError) {
 			console.error('Ошибка получения страны по IP:', geoError);
-			// Можно обработать ошибку, например, сохранить, что страна неизвестна
-			user.country = 'Unknown';
+			user.country = 'Unknown'; // Если ошибка, сохраняем как Unknown
 			await user.save();
 		}
 
