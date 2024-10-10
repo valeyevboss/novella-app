@@ -1,7 +1,6 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
-const axios = require('axios');
 const TelegramBot = require('node-telegram-bot-api');
 const User = require('../models/User');
 const BannedIP = require('../models/BannedIP');
@@ -88,20 +87,7 @@ app.get('/check-user/:telegramId', async (req, res) => {
 		
 		// Обновляем IP-адрес
 		user.ip = userIp.split(', ')[0]; // Берем первый IP-адрес
-		
-		// Получение страны по IP-адресу
-		try {
-			const geoResponse = await axios.get(`http://api.ipstack.com/${user.ip}?access_key=${process.env.IPINFO_TOKEN}`);
-			const country = geoResponse.data.country_name; // Извлекаем страну из ответа
-
-			// Сохраняем страну в базе данных
-			user.country = country;
-			await user.save(); // Сохраняем изменения
-		} catch (geoError) {
-			console.error('Ошибка получения страны по IP:', geoError);
-			user.country = 'Unknown'; // Если ошибка, сохраняем как Unknown
-			await user.save();
-		}
+		await user.save(); // Сохраняем изменения
 
 		if (user.status === 'banned') {
 			return res.json({ redirect: '/banned' });
