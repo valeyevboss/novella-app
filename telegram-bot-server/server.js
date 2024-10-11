@@ -102,7 +102,7 @@ app.get('/check-user/:telegramId', async (req, res) => {
 			return res.json({ redirect: '/loadingerror' });
 		}
 
-		return res.json({ tokens: user.tokens, redirect: '/' });
+		return res.json({ tokens: user.tokens, redirect: `/index.html?userId=${telegramId}` });
 	} catch (error) {
 		console.error('Ошибка проверки пользователя:', error);
 		res.status(500).json({ error: 'Внутренняя ошибка сервера' });
