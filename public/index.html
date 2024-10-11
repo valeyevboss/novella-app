@@ -156,7 +156,7 @@
     
                     if (response.ok) {
                         // Обновляем баланс токенов на странице
-                        tokenBalanceElement.textContent = data.tokens;
+                        tokenBalanceElement.textContent = data.tokens.toLocaleString(); // Форматируем баланс с запятыми
                     } else {
                         console.error('Ошибка:', data.error);
                         // Если нужно, вы можете обработать редирект
