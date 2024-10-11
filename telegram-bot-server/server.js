@@ -109,6 +109,17 @@ app.get('/check-user/:telegramId', async (req, res) => {
 	}
 });
 
+// Маршрут для получения ранга пользователя
+app.post('/api/update-ranks', async (req, res) => {
+    try {
+        await updateRanks(); // Обновляем ранги
+        res.send('Ранги обновлены');
+    } catch (error) {
+        res.status(500).send('Ошибка сервера');
+    }
+});
+
+
 // Маршрут для получения статистики пользователя
 app.get('/api/top-stats/:userId', async (req, res) => {
     const { userId } = req.params;

@@ -1,5 +1,8 @@
 async function getTopUsers() {
     try {
+        // Обновляем ранги пользователей перед получением топа
+        await updateRanks();
+
         const response = await fetch('/api/top-users');
         if (!response.ok) {
             throw new Error('Сеть не отвечает');
@@ -8,6 +11,20 @@ async function getTopUsers() {
         displayTopUsers(topUsers);
     } catch (error) {
         console.error('Ошибка при получении пользователей:', error);
+    }
+}
+
+// Функция для обновления рангов пользователей
+async function updateRanks() {
+    try {
+        // Отправляем запрос на обновление рангов
+        const response = await fetch('/api/update-ranks', { method: 'POST' });
+        if (!response.ok) {
+            throw new Error('Ошибка при обновлении рангов');
+        }
+        console.log('Ранги обновлены');
+    } catch (error) {
+        console.error('Ошибка при обновлении рангов:', error);
     }
 }
 
