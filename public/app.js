@@ -1,7 +1,8 @@
 window.addEventListener('load', function () { 
-    // Проверяем наличие TonConnect // Ждем загрузки страницы
+    // Ждем загрузки страницы
     let attempts = 0;
     const maxAttempts = 10; // Максимальное количество попыток
+
     const checkSDK = setInterval(() => {
         if (window.TonConnect) {
             clearInterval(checkSDK);
@@ -33,6 +34,7 @@ window.addEventListener('load', function () {
             if (attempts >= maxAttempts) {
                 clearInterval(checkSDK);
                 console.error("TonConnect SDK is not available after multiple attempts.");
+                alert("TonConnect SDK не доступен. Пожалуйста, проверьте подключение к интернету или URL SDK.");
             }
         }
     }, 1000); // Проверяем наличие SDK каждую секунду
