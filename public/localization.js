@@ -12,6 +12,7 @@ function loadTranslations(lang) {
             const dailyRewardTitle = document.getElementById('daily-reward-title');
             const claimRewardButton = document.getElementById('claim-reward-button');
             const premiumRewardButton = document.getElementById('premium-reward-button');
+            const personalSettingsTitle = document.getElementById('personal-settings-title');
             const menuMain = document.getElementById('menu-main');
             const menuTask = document.getElementById('menu-task');
             const menuFriends = document.getElementById('menu-friends');
@@ -41,6 +42,7 @@ function loadTranslations(lang) {
             if (dailyRewardTitle) dailyRewardTitle.textContent = data.daily_rewards;
             if (claimRewardButton) claimRewardButton.textContent = data.daily_checkin;
             if (premiumRewardButton) premiumRewardButton.textContent = data.premium_checkin;
+            if (personalSettingsTitle) personalSettingsTitle.textContent = data['personal-settings-title'];
             if (menuMain) menuMain.textContent = data.main;
             if (menuTask) menuTask.textContent = data.task;
             if (menuFriends) menuFriends.textContent = data.friends;
@@ -73,28 +75,20 @@ function loadTranslations(lang) {
         });
 }
 
-// Определение языка пользователя с fallback на en-US
-const userLang = navigator.language || 'en-US';
-const supportedLangs = ['en-US', 'ru-RU', 'uk-UA'];
-let lang = supportedLangs.includes(userLang) ? userLang : 'en-US';
-
-// Функция для обработки выбора языка
+// Обработчик для сохранения выбранного языка
 document.getElementById('save-language-btn').addEventListener('click', () => {
     const selectedLang = document.getElementById('country-select').value;
-    if (selectedLang) {
-        lang = selectedLang;
-        loadTranslations(lang); // Загружаем выбранный язык
-        // Здесь можно добавить логику для закрытия модального окна
-        document.getElementById('SettingModalPanel').style.display = 'none';
-    }
+    localStorage.setItem('selectedLanguage', selectedLang); // Сохраняем язык в localStorage
+    loadTranslations(selectedLang); // Загружаем переводы для выбранного языка
 });
 
-// Загрузка переводов
+// Проверка сохранённого языка в localStorage или fallback на язык браузера
+const savedLang = localStorage.getItem('selectedLanguage'); // Проверяем, есть ли сохранённый язык
+const userLang = savedLang || (navigator.language || 'en-US'); // Если нет сохранённого, используем язык браузера
+const supportedLangs = ['en-US', 'ru-RU', 'uk-UA'];
+const lang = supportedLangs.includes(userLang) ? userLang : 'en-US';
+
+// Загрузка переводов при загрузке страницы
 document.addEventListener('DOMContentLoaded', () => {
     loadTranslations(lang);
-});
-
-// Закрытие модального окна
-document.getElementById('close-button').addEventListener('click', () => {
-    document.getElementById('SettingModalPanel').style.display = 'none';
 });
