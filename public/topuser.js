@@ -1,8 +1,7 @@
 async function getTopUsers() {
     try {
-        // Обновляем ранги пользователей перед получением топа
-        await updateRanks();
-
+        await updateRanks(); // Убедитесь, что ранги обновлены перед получением топа
+        
         const response = await fetch('/api/top-users');
         if (!response.ok) {
             throw new Error('Сеть не отвечает');
@@ -17,16 +16,21 @@ async function getTopUsers() {
 // Функция для обновления рангов пользователей
 async function updateRanks() {
     try {
-        // Отправляем запрос на обновление рангов
-        const response = await fetch('/api/update-ranks', { method: 'POST' });
-        if (!response.ok) {
-            throw new Error('Ошибка при обновлении рангов');
-        }
-        console.log('Ранги обновлены');
+        // Получаем всех пользователей и сортируем по токенам
+        const users = await User.find().sort({ tokens: -1 });
+        
+        // Обновляем ранг каждого пользователя
+        await Promise.all(users.map((user, index) => {
+            user.rank = index + 1; // Устанавливаем ранг на основе индекса
+            return user.save(); // Сохраняем изменения
+        }));
+        
+        console.log('Ранги обновлены в базе данных');
     } catch (error) {
         console.error('Ошибка при обновлении рангов:', error);
     }
 }
+
 
 // Функция для форматирования баланса токенов
 function formatTokenBalance(value) {
