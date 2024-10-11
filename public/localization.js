@@ -75,32 +75,25 @@ function loadTranslations(lang) {
         });
 }
 
-// Функция для получения языка из контекста Telegram
-function getUserLanguageFromTelegram() {
-    const tg = window.Telegram.WebApp;
-    return tg.initDataUnsafe.user.language_code || 'en-US'; // Используем 'en-US' по умолчанию
+// Функция для инициализации локализации
+function initLocalization() {
+    const savedLang = localStorage.getItem('selectedLanguage'); // Проверяем сохранённый язык
+    const userLang = savedLang || (navigator.language || 'en-US'); // Если нет сохранённого, используем язык браузера
+    const supportedLangs = ['en-US', 'ru-RU', 'uk-UA'];
+    const lang = supportedLangs.includes(userLang) ? userLang : 'en-US';
+
+    loadTranslations(lang);
 }
 
 // Обработчик для сохранения выбранного языка
-document.getElementById('save-language-btn').addEventListener('click', () => {
+document.getElementById('save-language-btn')?.addEventListener('click', () => {
     const selectedLang = document.getElementById('country-select').value;
     localStorage.setItem('selectedLanguage', selectedLang); // Сохраняем язык в localStorage
     loadTranslations(selectedLang); // Загружаем переводы для выбранного языка
 });
 
-// Проверка сохранённого языка в localStorage или использование языка Telegram
-const savedLang = localStorage.getItem('selectedLanguage'); // Проверяем, есть ли сохранённый язык
-const userLang = savedLang || getUserLanguageFromTelegram(); // Если нет сохранённого, используем язык Telegram
-const supportedLangs = ['en-US', 'ru-RU', 'uk-UA'];
-const lang = supportedLangs.includes(userLang) ? userLang : 'en-US';
-
-// Загрузка переводов при загрузке страницы
+// Запускаем локализацию при загрузке страницы
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Страница загружена, начинаем локализацию');
-    loadTranslations(lang);
-
-    // Дополнительная проверка для отображения переведенных элементов
-    if (!freedurovButton && !menuMain && !claimRewardButton) {
-        console.warn('Некоторые элементы не найдены на этой странице');
-    }
+    initLocalization();
 });
