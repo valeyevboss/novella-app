@@ -3,7 +3,10 @@ document.addEventListener("DOMContentLoaded", function() {
     const inviteCopyButton = document.querySelector('.invite-copy-button');
     const refInfoBlock = document.querySelector('.ref-info-block');
     const friendsCountElem = document.querySelector('.friends-count');
-    const telegramId = getTelegramIdFromURL(); // Функция для извлечения telegramId
+
+    // Извлечение userId из URL
+    const params = new URLSearchParams(window.location.search);
+    const userId = params.get('userId'); // Получаем userId из параметров URL
 
     // Проверка наличия необходимых элементов
     if (!inviteButton || !inviteCopyButton || !refInfoBlock || !friendsCountElem) {
@@ -11,22 +14,19 @@ document.addEventListener("DOMContentLoaded", function() {
         return;
     }
 
-    if (!telegramId) {
-        console.error('Telegram ID не найден в URL');
+    // Проверка на наличие userId
+    if (!userId) {
+        console.error('userId не найден в URL');
         return;
     }
 
-    const referralLink = `https://t.me/Novella_bot/app?startapp=onetime&userId=${telegramId}`;
+    const referralLink = `https://t.me/Novella_bot/app?startapp=onetime&userId=${userId}`;
     let friendsCount = 0;
 
     // Функция для обновления информации о друзьях
     function updateFriendsCount() {
         friendsCountElem.textContent = `${friendsCount} friends`;
-        if (friendsCount > 0) {
-            refInfoBlock.style.display = 'block'; // Показываем блок информации о рефералах
-        } else {
-            refInfoBlock.style.display = 'none'; // Скрываем блок, если друзей нет
-        }
+        refInfoBlock.style.display = friendsCount > 0 ? 'block' : 'none'; // Показываем или скрываем блок информации о рефералах
     }
 
     // Обработчик нажатия на кнопку приглашения друзей
@@ -45,19 +45,13 @@ document.addEventListener("DOMContentLoaded", function() {
             });
     });
 
-    // Функция для извлечения telegramId из URL
-    function getTelegramIdFromURL() {
-        const params = new URLSearchParams(window.location.search);
-        return params.get('userId'); // Предполагаем, что параметр называется userId
-    }
-
     // Функция для обработки реферальной информации
     async function processReferral() {
         const referrerId = localStorage.getItem('referrerId'); // Получаем ID пригласившего пользователя из localStorage
 
         if (referrerId) {
             try {
-                const response = await fetch(`/referral/${telegramId}`, {
+                const response = await fetch(`/referral/${userId}`, { // Используем userId
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

@@ -71,14 +71,14 @@
         </a>
     </nav>
 
-    <!-- Скрипт userid сheck -->
-    <script src="/userIdHandler.js"></script>
+    <script src="/userIdHandler.js"></script> <!-- Скрипт userid сheck -->
+    <script src="/referals.js"></script> <!-- Скрипт реферальной системы -->
+    <script src="/localization.js"></script> <!-- Скрипт локализации -->
 
-    <!-- Скрипт реферальной системы -->
-    <script src="/referals.js"></script>
-
-    <!-- Скрипт локализации -->    
-    <script src="/localization.js"></script>
-
+    <!-- Вызов функции для обработки рефералов при загрузке страницы -->
+    <script>
+        // Убедитесь, что функция processReferral доступна в области видимости
+        processReferral();
+    </script>
 </body>
 </html>
