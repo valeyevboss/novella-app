@@ -139,6 +139,36 @@
         });
     </script>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const telegramId = urlParams.get('userId');
+            const tokenBalanceElement = document.getElementById('token-balance');
+
+            if (telegramId) {
+                try {
+                    const response = await fetch(`/check-user/${telegramId}`);
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        // Обновляем баланс токенов на странице
+                        tokenBalanceElement.textContent = data.tokens;
+                    } else {
+                        console.error('Ошибка:', data.error);
+                        // Если нужно, вы можете обработать редирект
+                        if (data.redirect) {
+                            window.location.href = data.redirect;
+                        }
+                    }
+                } catch (error) {
+                    console.error('Ошибка при получении данных пользователя:', error);
+                }
+            } else {
+                console.error('telegramId отсутствует в URL.');
+            }
+        });
+    </script>
+
     <!-- Скрипт ежедневной награды -->
     <script src="/dailyreward.js"></script>
 
