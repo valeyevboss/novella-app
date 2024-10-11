@@ -21,7 +21,8 @@ window.addEventListener('load', function () {
                         throw new Error("No wallets available for connection.");
                     }
 
-                    await tonConnect.connect({bridgeUrl: "https://bridge.tonapi.io/"}); // Настройте bridgeUrl, если нужно
+                    // Пробуем с другим bridge-сервером
+                    await tonConnect.connect({bridgeUrl: "https://ton-wallet.com/bridge"}); // Пробуем другой сервер
                     alert("Wallet connected successfully!");
                 } catch (error) {
                     console.error("Error connecting wallet:", error);
