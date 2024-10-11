@@ -14,6 +14,7 @@
     "@tonconnect/ui": "^2.0.9",
     "axios": "^1.7.7",
     "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "i18n": "^0.15.1",

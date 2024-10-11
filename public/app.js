@@ -22,7 +22,7 @@ window.addEventListener('load', function () {
                     }
 
                     // Пробуем с другим bridge-сервером
-                    await tonConnect.connect({bridgeUrl: "https://ton.org/bridge"});
+                    await tonConnect.connect({bridgeUrl: "https://cors-anywhere.herokuapp.com/https://ton.org/bridge"});
                     alert("Wallet connected successfully!");
                 } catch (error) {
                     console.error("Error connecting wallet:", error);

@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const TelegramBot = require('node-telegram-bot-api');
 const User = require('../models/User');
 const BannedIP = require('../models/BannedIP');
@@ -19,6 +20,11 @@ const bot = new TelegramBot(telegramBotToken, { polling: true });
 const bodyParser = require('body-parser');
 
 app.use(bodyParser.json()); // для обновления токенов и данных
+
+// Разрешаем запросы с указанного домена
+app.use(cors({
+    origin: 'https://novella-telegram-bot.onrender.com' // ваш домен
+}));
 
 // Подключение папки для статических файлов
 app.use(express.static(path.join(__dirname, '..', 'public')));
