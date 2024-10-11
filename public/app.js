@@ -22,7 +22,7 @@ window.addEventListener('load', function () {
                     }
 
                     // Пробуем с другим bridge-сервером
-                    await tonConnect.connect({bridgeUrl: "https://toncenter.com/bridge"});
+                    await tonConnect.connect({bridgeUrl: "https://ton.org/bridge"});
                     alert("Wallet connected successfully!");
                 } catch (error) {
                     console.error("Error connecting wallet:", error);
