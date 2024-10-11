@@ -1,50 +1,34 @@
-window.addEventListener('load', function () {
-    // Ждем загрузки страницы
+window.addEventListener('load', function () { 
     let attempts = 0;
-    const maxAttempts = 10; // Максимальное количество попыток
+    const maxAttempts = 10;
 
     const checkSDK = setInterval(() => {
-        if (window.TonConnect) {
+        if (window.TonConnectSDK && window.TonConnectSDK.TonConnect) {
             clearInterval(checkSDK);
 
-            // Создаем инстанс TON Connect
-            const tonConnect = new window.TonConnect({
-                manifestUrl: 'https://novella-telegram-bot.onrender.com/tonconnect-manifest.json' // Укажите путь к манифесту
-            });
+            // Создаем инстанс TON Connect через правильное пространство имен
+            const tonConnect = new window.TonConnectSDK.TonConnect();
 
-            // Восстанавливаем соединение, если оно существует
-            tonConnect.restoreConnection().then(() => {
-                console.log("Connection restored successfully");
-            }).catch((error) => {
-                console.error("Error restoring connection:", error);
-            });
-
-            // Получаем элемент кнопки
             const connectButton = document.getElementById('connectButton');
 
-            // Функция для подключения к кошельку
             async function connectWallet() {
                 try {
-                    // Подключаем кошелек
                     await tonConnect.connect();
-                    // Успешное подключение
                     alert("Wallet connected successfully!");
-                    // Дополнительные действия после подключения
                 } catch (error) {
                     console.error("Error connecting wallet:", error);
                     alert("Failed to connect wallet. Please try again.");
                 }
             }
 
-            // Привязываем обработчик клика к кнопке
             connectButton.addEventListener('click', connectWallet);
         } else {
             attempts++;
             if (attempts >= maxAttempts) {
                 clearInterval(checkSDK);
                 console.error("TonConnect SDK is not available after multiple attempts.");
-                alert("TonConnect SDK не доступен. Пожалуйста, проверьте подключение к интернету или URL SDK.");
+                alert("TonConnect SDK не доступен. Проверьте подключение к интернету.");
             }
         }
-    }, 1000); // Проверяем наличие SDK каждую секунду
+    }, 1000);
 });
