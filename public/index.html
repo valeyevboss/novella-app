@@ -153,10 +153,12 @@
                 try {
                     const response = await fetch(`/check-user/${telegramId}`);
                     const data = await response.json();
-    
+
                     if (response.ok) {
-                        // Обновляем баланс токенов на странице
-                        tokenBalanceElement.textContent = data.tokens.toLocaleString(); // Форматируем баланс с запятыми
+                        // Преобразуем значение в число, если это строка
+                        const tokenCount = parseInt(data.tokens.replace(/\s/g, ''), 10);
+                        // Обновляем баланс токенов на странице с запятыми
+                        tokenBalanceElement.textContent = tokenCount.toLocaleString(); // Форматируем баланс с запятыми
                     } else {
                         console.error('Ошибка:', data.error);
                         // Если нужно, вы можете обработать редирект
