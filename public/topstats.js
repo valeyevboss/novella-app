@@ -1,6 +1,9 @@
 async function getYourStats() {
+    const params = new URLSearchParams(window.location.search);
+    const userId = params.get('userId'); // Получаем userId из параметров URL
+
     try {
-        const response = await fetch('/api/top-stats');
+        const response = await fetch(`/api/top-stats/${userId}`); // Добавили userId в путь
         if (!response.ok) {
             throw new Error('Сеть не отвечает');
         }
@@ -10,6 +13,7 @@ async function getYourStats() {
         console.error('Ошибка при получении статистики пользователя:', error);
     }
 }
+
 
 // Функция для отображения статистики пользователя
 function displayYourStats(user) {

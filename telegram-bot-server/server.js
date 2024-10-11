@@ -109,6 +109,32 @@ app.get('/check-user/:telegramId', async (req, res) => {
 	}
 });
 
+// Маршрут для получения статистики пользователя
+app.get('/api/top-stats/:userId', async (req, res) => {
+    const { userId } = req.params;
+
+    try {
+        // Ищем пользователя в базе данных
+        const user = await User.findOne({ telegramId: userId });
+
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'Пользователь не найден' });
+        }
+
+        // Возвращаем данные о статистике пользователя
+        return res.json({
+            success: true,
+            avatarUrl: user.avatarUrl,
+            username: user.username,
+            tokens: user.tokens,
+            rank: user.rank,
+        });
+    } catch (error) {
+        console.error('Ошибка при получении статистики пользователя:', error);
+        return res.status(500).json({ success: false, message: 'Внутренняя ошибка сервера' });
+    }
+});
+
 // Получение топ-100 пользователей
 app.get('/api/top-users', async (req, res) => {
 	try {
