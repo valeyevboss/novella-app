@@ -1,7 +1,5 @@
 async function getTopUsers() {
     try {
-        await updateRanks(); // Убедитесь, что ранги обновлены перед получением топа
-        
         const response = await fetch('/api/top-users');
         if (!response.ok) {
             throw new Error('Сеть не отвечает');
@@ -16,21 +14,32 @@ async function getTopUsers() {
 // Функция для обновления рангов пользователей
 async function updateRanks() {
     try {
-        // Получаем всех пользователей и сортируем по токенам
         const users = await User.find().sort({ tokens: -1 });
-        
-        // Обновляем ранг каждого пользователя
+        let updatedRanks = false;
+
+        // Обновляем ранг каждого пользователя, если он изменился
         await Promise.all(users.map((user, index) => {
-            user.rank = index + 1; // Устанавливаем ранг на основе индекса
-            return user.save(); // Сохраняем изменения
+            if (user.rank !== index + 1) {
+                user.rank = index + 1; // Устанавливаем ранг на основе индекса
+                updatedRanks = true; // Флаг для проверки обновления
+                return user.save(); // Сохраняем изменения
+            }
+            return Promise.resolve(); // Если ранг не изменился, просто разрешаем промис
         }));
-        
-        console.log('Ранги обновлены в базе данных');
+
+        if (updatedRanks) {
+            console.log('Ранги обновлены в базе данных');
+        }
     } catch (error) {
         console.error('Ошибка при обновлении рангов:', error);
     }
 }
 
+// Добавьте вызов updateRanks() перед getTopUsers()
+async function refreshTopUsers() {
+    await updateRanks(); // Обновление рангов
+    await getTopUsers(); // Получение обновленного списка пользователей
+}
 
 // Функция для форматирования баланса токенов
 function formatTokenBalance(value) {
@@ -77,3 +86,6 @@ function displayTopUsers(users) {
 
 // Вызов функции при загрузке страницы
 window.onload = getTopUsers;
+
+// Вызовите refreshTopUsers() при загрузке страницы
+window.onload = refreshTopUsers;
