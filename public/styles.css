@@ -233,6 +233,48 @@ body {
     color: #ffffff;
 }
 
+/* Стили для блока Personal Settings */
+.personal-settings-container {
+    background-color: #1f1f1f; /* Тёмный фон */
+    border-radius: 20px; /* Закругление */
+    padding: 20px;
+    text-align: center;
+    margin: 20px auto; /* Центрирование блока и отступ сверху */
+    width: 100%; /* Ширина блока 100% */
+    max-width: 290px; /* Ограничение по ширине */
+}
+
+.personal-settings-title {
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    color: #ffffff;
+    font-size: 18px;
+    margin: 0; /* Убираем все отступы */
+    white-space: nowrap; /* Отключает перенос текста */
+}
+
+.personal-settings-wrapper {
+    position: relative; /* Позволяет абсолютное позиционирование для дочерних элементов */
+    display: flex; /* Используйте flexbox для выравнивания элементов */
+    justify-content: center; /* Центрирование содержимого */
+    margin-top: 10px; /* Отступ сверху для отделения от заголовка */
+}
+
+.personal-language-button {
+    background-color: #303030; /* Цвет кнопки открытия */
+    color: white;
+    border: none;
+    border-radius: 20px; /* Скругленная кнопка */
+    width: 50px; /* Ширина кнопки */
+    height: 50px; /* Высота кнопки */
+    font-size: 24px; /* Размер шрифта для иконки */
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Убираем абсолютное позиционирование для лучшего размещения в контейнере */
+}
+
 /* Стиль для модального окна */
 .modal {
     display: none; /* Скрыто по умолчанию */
@@ -255,45 +297,6 @@ body {
     padding: 20px;
     width: 350px; /* Ширина модального окна */
     text-align: center; /* Центрирование текста */
-}
-
-.settings-button {
-    background-color: #1f1f1f; /* Цвет кнопки открытия */
-    color: white;
-    border: none;
-    border-radius: 20px; /* Скругленная кнопка */
-    width: 50px; /* Ширина кнопки */
-    height: 50px; /* Высота кнопки */
-    font-size: 24px; /* Размер шрифта для иконки */
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute; /* Позиционирование для размещения кнопки */
-    top: 10px; /* Отступ от верхней грани */
-    right: 10px; /* Отступ от правой грани */
-}
-
-.close-button {
-    background-color: #1f1f1f; /* Цвет фона модального окна */
-    color: white;
-    border: none;
-    border-radius: 20px; /* Скругленная кнопка */
-    width: 50px; /* Ширина кнопки */
-    height: 50px; /* Высота кнопки */
-    font-size: 34px; /* Размер шрифта для крестика */
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute; /* Позиционирование для размещения в углу */
-    top: 10px; /* Отступ от верхней грани */
-    right: 10px; /* Отступ от правой грани */
-    transition: background-color 0.3s; /* Плавный переход при наведении */
-}
-
-.close-button:hover {
-    background-color: darkred; /* Цвет фона при наведении */
 }
 
 /* Стили для выпадающего списка */
@@ -335,7 +338,7 @@ body {
 
 /* Стиль для кнопки "Сохранить" */
 .save-button {
-    background-color: #4CAF50; /* Цвет фона кнопки */
+    background-color: #2be731; /* Цвет фона кнопки */
     color: white; /* Цвет текста */
     border: none; /* Убираем стандартную рамку */
     border-radius: 20px; /* Скругленные углы */
@@ -349,7 +352,21 @@ body {
 
 /* Эффект при наведении на кнопку "Сохранить" */
 .save-button:hover {
-    background-color: #45a049; /* Цвет фона при наведении */
+    background-color: #22ca2a; /* Цвет фона при наведении */
+}
+
+/* Стиль для кнопки "Сохранить" */
+.close-button {
+    background-color: #e22020; /* Цвет фона кнопки */
+    color: white; /* Цвет текста */
+    border: none; /* Убираем стандартную рамку */
+    border-radius: 20px; /* Скругленные углы */
+    padding: 10px 20px; /* Отступы внутри кнопки */
+    font-size: 16px; /* Размер шрифта */
+    cursor: pointer; /* Курсор при наведении */
+    margin-top: 20px; /* Отступ сверху */
+    transition: background-color 0.3s; /* Плавный переход цвета фона */
+    width: 100%; /* Занимает всю ширину родительского элемента */
 }
 
 
