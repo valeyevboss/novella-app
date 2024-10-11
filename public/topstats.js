@@ -22,8 +22,15 @@ function displayYourStats(user) {
     // Обновляем блок пользователя
     document.querySelector('.user-avatar').src = avatarUrl;
     document.querySelector('.username').textContent = user.username;
-    document.querySelector('.top-token-balance').textContent = user.tokens;
+
+    // Форматируем баланс с пробелами
+    document.querySelector('.top-token-balance').textContent = formatBalance(user.tokens);
     document.querySelector('.user-rank').textContent = `#${user.rank}`;
+}
+
+// Функция для форматирования баланса с пробелами
+function formatBalance(balance) {
+    return balance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' '); // Добавляем пробелы через каждые три цифры
 }
 
 // Вызов функции при загрузке страницы
