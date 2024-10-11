@@ -11,18 +11,23 @@ const userId = params.get('userId'); // Получаем userId из парам�
 // Функция для обновления кнопки и награды
 function updateButton() {
     const button = document.getElementById('claim-reward-button');
+    const premiumButton = document.getElementById('premium-reward-button');
+
     if (dayCounter > rewards.length) {
         dayCounter = 1;
     }
     button.innerText = `Daily Check in +${rewards[dayCounter - 1]} $Novella`;
-
+    
     if (isRewardClaimed) {
         button.disabled = true;
+        premiumButton.disabled = true; // Делаем кнопку премиум-награды неактивной
         startTimer();
     } else {
         button.disabled = false;
+        premiumButton.disabled = false; // Делаем кнопку активной, если награда не была получена
     }
 }
+
 
 // Функция получения награды
 function claimReward() {
@@ -52,6 +57,39 @@ function claimReward() {
         }
     })
     .catch(error => console.error('Ошибка при запросе на получение награды:', error));
+}
+
+function claimPremiumReward() {
+    // Здесь вы можете добавить вашу логику, если награда уже была получена
+    const premiumRewardAmount = 1000; // Установите сумму премиум-награды
+
+    if (isRewardClaimed) {
+        console.log('Премиум награда уже получена сегодня');
+        return;
+    }
+
+    console.log('Кнопка премиум-награды нажата, начинаем получение награды');
+    
+    fetch(`/add-tokens/${userId}`, {  // Используем userId
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ amount: premiumRewardAmount }), // Передаем премиум-вознаграждение
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            isRewardClaimed = true;
+            localStorage.setItem('isRewardClaimed', 'true');
+            document.getElementById('premium-reward-button').disabled = true;
+            console.log('Премиум награда получена');
+            startTimer(); // Запускаем таймер
+        } else {
+            console.error('Ошибка при получении премиум награды:', data.error);
+        }
+    })
+    .catch(error => console.error('Ошибка при запросе на получение премиум награды:', error));
 }
 
 // Функция для таймера
