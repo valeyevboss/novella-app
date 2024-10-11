@@ -36,8 +36,9 @@ function claimReward() {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ tokens: rewardAmount }),
-    })
+        body: JSON.stringify({ amount: rewardAmount }), // Изменено на 'amount'
+    })    
+
     .then(response => response.json())
     .then(data => {
         if (data.success) {
