@@ -69,6 +69,9 @@ async function startServer() {
 		});
 		console.log('Connected to MongoDB');
 
+        // Обновляем ранги при запуске сервера
+        await updateRanks();
+
 		// Запуск сервера только после успешного подключения к базе данных
 		app.listen(port, () => {
 			console.log(`Server is running on http://localhost:${port}`);
@@ -108,17 +111,6 @@ app.get('/check-user/:telegramId', async (req, res) => {
 		res.status(500).json({ error: 'Внутренняя ошибка сервера' });
 	}
 });
-
-// Маршрут для получения ранга пользователя
-app.post('/api/update-ranks', async (req, res) => {
-    try {
-        await updateRanks(); // Обновляем ранги
-        res.send('Ранги обновлены');
-    } catch (error) {
-        res.status(500).send('Ошибка сервера');
-    }
-});
-
 
 // Маршрут для получения статистики пользователя
 app.get('/api/top-stats/:userId', async (req, res) => {
@@ -213,6 +205,9 @@ app.post('/add-tokens/:telegramId', async (req, res) => {
 		// Обновляем баланс токенов
 		user.tokens += amount;
 		await user.save();
+
+		// Обновляем ранги после изменения токенов
+		await updateRanks();
 
 		res.json({ success: true, tokens: user.tokens });
 	} catch (error) {
