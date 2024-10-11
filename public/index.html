@@ -179,8 +179,11 @@
                 const originalHref = item.getAttribute('href');
                 item.setAttribute('href', `${originalHref}?userId=${telegramId}`);
             });
+    
+            // Сохраняем telegramId в истории, чтобы при возврате оно не сбрасывалось
+            history.replaceState(null, '', `${window.location.pathname}?userId=${telegramId}`);
         }
-    </script>
+    </script>    
 
     <!-- Скрипт ежедневной награды -->
     <script src="/dailyreward.js"></script>
