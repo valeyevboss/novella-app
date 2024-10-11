@@ -17,14 +17,18 @@ function updateButton() {
         dayCounter = 1;
     }
     button.innerText = `Daily Check in +${rewards[dayCounter - 1]} $Novella`;
-    
+
     if (isRewardClaimed) {
         button.disabled = true;
-        premiumButton.disabled = true; // Делаем кнопку премиум-награды неактивной
-        startTimer();
+        startTimer(); // Запустить таймер для обычной награды
     } else {
         button.disabled = false;
-        premiumButton.disabled = false; // Делаем кнопку активной, если награда не была получена
+    }
+
+    if (isPremiumClaimed) {
+        premiumButton.disabled = true; // Делаем премиум-награду неактивной
+    } else {
+        premiumButton.disabled = false;
     }
 }
 
@@ -60,10 +64,9 @@ function claimReward() {
 }
 
 function claimPremiumReward() {
-    // Здесь вы можете добавить вашу логику, если награда уже была получена
     const premiumRewardAmount = 1000; // Установите сумму премиум-награды
 
-    if (isRewardClaimed) {
+    if (isPremiumClaimed) {
         console.log('Премиум награда уже получена сегодня');
         return;
     }
@@ -75,16 +78,15 @@ function claimPremiumReward() {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ amount: premiumRewardAmount }), // Передаем премиум-вознаграждение
+        body: JSON.stringify({ amount: premiumRewardAmount }),
     })
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            isRewardClaimed = true;
-            localStorage.setItem('isRewardClaimed', 'true');
+            isPremiumClaimed = true;
+            localStorage.setItem('isPremiumClaimed', 'true');
             document.getElementById('premium-reward-button').disabled = true;
             console.log('Премиум награда получена');
-            startTimer(); // Запускаем таймер
         } else {
             console.error('Ошибка при получении премиум награды:', data.error);
         }
