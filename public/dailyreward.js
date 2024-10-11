@@ -1,6 +1,7 @@
 let dayCounter = localStorage.getItem('dayCounter') ? parseInt(localStorage.getItem('dayCounter')) : 1;
 const rewards = [100, 250, 500, 750, 800, 900, 1500]; // Награды по дням
 let timerInterval;
+let premiumTimerInterval;
 let isRewardClaimed = localStorage.getItem('isRewardClaimed') === 'true';
 let timeLeft = localStorage.getItem('timeLeft') ? parseInt(localStorage.getItem('timeLeft')) : 24 * 60 * 60; // Время, оставшееся с предыдущей сессии
 
@@ -154,8 +155,8 @@ function startPremiumTimer() {
         return;
     }
 
-    clearInterval(timerInterval);
-    timerInterval = setInterval(() => {
+    clearInterval(premiumTimerInterval);
+    premiumTimerInterval = setInterval(() => {
         premiumTimeLeft--;
 
         const days = Math.floor(premiumTimeLeft / (24 * 3600));
@@ -168,7 +169,7 @@ function startPremiumTimer() {
         localStorage.setItem('premiumTimeLeft', premiumTimeLeft);
 
         if (premiumTimeLeft <= 0) {
-            clearInterval(timerInterval);
+            clearInterval(premiumTimerInterval);
             isPremiumRewardClaimed = false;
             localStorage.setItem('isPremiumRewardClaimed', 'false');
             document.getElementById('premium-reward-button').disabled = false;
