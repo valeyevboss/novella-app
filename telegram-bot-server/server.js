@@ -31,6 +31,11 @@ app.get('/', (req, res) => {
 	res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
 });
 
+// Отдача index.html по явному пути
+app.get('/index.html', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
+});
+
 // Проверка на доступ через Telegram Web и браузеры
 app.get('/loading', (req, res) => {
     const userAgent = req.headers['user-agent'];
