@@ -139,17 +139,21 @@
         });
     </script>
 
+    <!-- Скрипт извлечения userid, telegramid и отображение баланса, токенов -->
     <script>
+        // Получаем telegramId из URL один раз и сохраняем его в переменной
+        const urlParams = new URLSearchParams(window.location.search);
+        const telegramId = urlParams.get('userId');
+    
+        // Скрипт извлечения userid, telegramid и отображение баланса, токенов
         document.addEventListener('DOMContentLoaded', async function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const telegramId = urlParams.get('userId');
             const tokenBalanceElement = document.getElementById('token-balance');
-
+    
             if (telegramId) {
                 try {
                     const response = await fetch(`/check-user/${telegramId}`);
                     const data = await response.json();
-
+    
                     if (response.ok) {
                         // Обновляем баланс токенов на странице
                         tokenBalanceElement.textContent = data.tokens;
@@ -167,6 +171,15 @@
                 console.error('telegramId отсутствует в URL.');
             }
         });
+    
+        // Обновляем ссылки в нижнем меню, если telegramId существует
+        if (telegramId) {
+            const menuItems = document.querySelectorAll('.bottom-menu a');
+            menuItems.forEach(item => {
+                const originalHref = item.getAttribute('href');
+                item.setAttribute('href', `${originalHref}?userId=${telegramId}`);
+            });
+        }
     </script>
 
     <!-- Скрипт ежедневной награды -->
