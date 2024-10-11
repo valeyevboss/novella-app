@@ -37,7 +37,8 @@ function claimReward() {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({ amount: rewardAmount }), // Изменено на 'amount'
-    })    
+    })
+
 
     .then(response => response.json())
     .then(data => {
@@ -53,40 +54,6 @@ function claimReward() {
     })
     .catch(error => console.error('Ошибка при запросе на получение награды:', error));
 }
-
-function claimPremiumReward() {
-    // Здесь вы можете добавить вашу логику, если награда уже была получена
-    const premiumRewardAmount = 1000; // Установите сумму премиум-награды
-
-    if (isRewardClaimed) {
-        console.log('Премиум награда уже получена сегодня');
-        return;
-    }
-
-    console.log('Кнопка премиум-награды нажата, начинаем получение награды');
-    
-    fetch(`/add-tokens/${userId}`, {  // Используем userId
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ amount: premiumRewardAmount }), // Передаем премиум-вознаграждение
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            isRewardClaimed = true;
-            localStorage.setItem('isRewardClaimed', 'true');
-            document.getElementById('premium-reward-button').disabled = true;
-            console.log('Премиум награда получена');
-            startTimer(); // Запускаем таймер
-        } else {
-            console.error('Ошибка при получении премиум награды:', data.error);
-        }
-    })
-    .catch(error => console.error('Ошибка при запросе на получение премиум награды:', error));
-}
-
 
 // Функция для таймера
 function startTimer() {
