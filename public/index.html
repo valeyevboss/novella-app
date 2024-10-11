@@ -115,6 +115,30 @@
             }
         });
     </script>
+
+    <script>
+        const countrySelect = document.getElementById('country-select');
+
+        // Отслеживаем клик по выпадающему списку
+        countrySelect.addEventListener('click', () => {
+            if (countrySelect.classList.contains('open')) {
+                countrySelect.classList.remove('open'); // Закрытие списка, убираем класс open
+            } else {
+                countrySelect.classList.add('open'); // Открытие списка, добавляем класс open
+            }
+        });
+
+        // Альтернативное решение для удаления класса при выборе опции
+        countrySelect.addEventListener('change', () => {
+            countrySelect.classList.remove('open'); // Убираем класс open при выборе опции
+        });
+
+        // Используем blur для удаления класса, когда элемент теряет фокус
+        countrySelect.addEventListener('blur', () => {
+            countrySelect.classList.remove('open'); // Убираем класс open при потере фокуса
+        });
+    </script>
+
     <!-- Скрипт ежедневной награды -->
     <script src="/dailyreward.js"></script>
 

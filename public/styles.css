@@ -313,6 +313,15 @@ body {
     text-align: center; /* Центрирование текста */
     margin: 20px 0 0; /* Центрирование по горизонтали с отступами сверху */
     box-sizing: border-box; /* Учитываем padding и border в ширине */
+    background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 10 10\' fill=\'white\'%3E%3Cpolygon points=\'5,0 0,5 10,5\' /%3E%3C/svg%3E'); /* Стрелка вниз */
+    background-repeat: no-repeat;
+    background-position: right 10px center; /* Положение стрелки */
+    background-size: 10px; /* Размер стрелки */
+}
+
+/* Класс для открытого состояния выпадающего списка */
+#country-select.open {
+    background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 10 10\' fill=\'white\'%3E%3Cpolygon points=\'0,0 5,5 10,0\' /%3E%3C/svg%3E'); /* Стрелка вверх */
 }
 
 /* Убираем стандартные стили для опций */
@@ -326,14 +335,6 @@ body {
 /* Дополнительные стили для улучшения видимости выпадающего списка */
 #country-select::-ms-expand {
     display: none; /* Убираем стандартный стиль стрелки для IE */
-}
-
-/* Стиль для стрелки */
-#country-select {
-    background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 10 10\' fill=\'white\'%3E%3Cpolygon points=\'5,0 0,5 10,5\' /%3E%3C/svg%3E');
-    background-repeat: no-repeat;
-    background-position: right 10px center; /* Положение стрелки */
-    background-size: 10px; /* Размер стрелки */
 }
 
 /* Стиль для кнопки "Сохранить" */
