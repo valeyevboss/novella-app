@@ -156,7 +156,7 @@
     
                     if (response.ok) {
                         // Обновляем баланс токенов на странице с запятой
-                        tokenBalanceElement.textContent = data.tokens.toLocaleString('ru-RU'); // Форматируем с запятой
+                        tokenBalanceElement.textContent = data.tokens.toLocaleString('en-US'); // Форматируем с запятой
                     } else {
                         console.error('Ошибка:', data.error);
                         // Если нужно, вы можете обработать редирект
