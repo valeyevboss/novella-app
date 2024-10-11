@@ -6,14 +6,22 @@ window.addEventListener('load', function () {
         if (window.TonConnectSDK && window.TonConnectSDK.TonConnect) {
             clearInterval(checkSDK);
 
-            // Создаем инстанс TON Connect через правильное пространство имен
-            const tonConnect = new window.TonConnectSDK.TonConnect();
+            // Создаем инстанс TON Connect с конфигурацией
+            const tonConnect = new window.TonConnectSDK.TonConnect({
+                manifestUrl: 'https://novella-telegram-bot.onrender.com/tonconnect-manifest.json' // Путь к вашему манифесту
+            });
 
             const connectButton = document.getElementById('connectButton');
 
             async function connectWallet() {
                 try {
-                    await tonConnect.connect();
+                    // Убедимся, что tonConnect подключен к источнику
+                    const wallets = await tonConnect.getWallets();
+                    if (wallets.length === 0) {
+                        throw new Error("No wallets available for connection.");
+                    }
+
+                    await tonConnect.connect({bridgeUrl: "https://bridge.tonapi.io/"}); // Настройте bridgeUrl, если нужно
                     alert("Wallet connected successfully!");
                 } catch (error) {
                     console.error("Error connecting wallet:", error);
