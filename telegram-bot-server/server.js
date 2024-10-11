@@ -69,9 +69,6 @@ async function startServer() {
 		});
 		console.log('Connected to MongoDB');
 
-        // Обновляем ранги при запуске сервера
-        await updateRanks();
-
 		// Запуск сервера только после успешного подключения к базе данных
 		app.listen(port, () => {
 			console.log(`Server is running on http://localhost:${port}`);
@@ -205,9 +202,6 @@ app.post('/add-tokens/:telegramId', async (req, res) => {
 		// Обновляем баланс токенов
 		user.tokens += amount;
 		await user.save();
-
-		// Обновляем ранги после изменения токенов
-		await updateRanks();
 
 		res.json({ success: true, tokens: user.tokens });
 	} catch (error) {

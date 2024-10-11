@@ -6,10 +6,6 @@ async function getTopUsers() {
         }
         const topUsers = await response.json();
         displayTopUsers(topUsers);
-        
-        // Обновляем ранги после получения пользователей
-        await updateRanks(); // Убедитесь, что эта функция доступна в текущем контексте
-
     } catch (error) {
         console.error('Ошибка при получении пользователей:', error);
     }
