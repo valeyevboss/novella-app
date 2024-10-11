@@ -23,8 +23,8 @@ function displayYourStats(user) {
     document.querySelector('.user-avatar').src = avatarUrl;
     document.querySelector('.username').textContent = user.username;
 
-    // Форматируем баланс с пробелами
-    document.querySelector('.top-token-balance').textContent = formatBalance(user.tokens);
+    // Форматируем баланс с пробелами и добавляем префикс
+    document.querySelector('.top-token-balance').textContent = formatBalance(user.tokens) + ' $Novella';
     document.querySelector('.user-rank').textContent = `#${user.rank}`;
 }
 
