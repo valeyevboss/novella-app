@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const axios = require('axios');
 const TelegramBot = require('node-telegram-bot-api');
 const User = require('../models/User');
 const BannedIP = require('../models/BannedIP');
@@ -21,10 +22,19 @@ const bodyParser = require('body-parser');
 
 app.use(bodyParser.json()); // для обновления токенов и данных
 
-// Разрешаем запросы с указанного домена
-app.use(cors({
-    origin: 'https://novella-telegram-bot.onrender.com' // ваш домен
-}));
+app.get('/proxy', async (req, res) => {
+    const url = req.query.url; // Получаем URL из параметра запроса
+    try {
+        const response = await axios.get(url);
+        res.send(response.data); // Перенаправляем данные ответа
+    } catch (error) {
+        res.status(error.response.status).send(error.message); // Отправляем сообщение об ошибке
+    }
+});
+
+app.listen(PORT, () => {
+    console.log(`Proxy server is running on http://localhost:${PORT}`);
+});
 
 // Подключение папки для статических файлов
 app.use(express.static(path.join(__dirname, '..', 'public')));
