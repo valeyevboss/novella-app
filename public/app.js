@@ -1,4 +1,4 @@
-window.addEventListener('load', function () { 
+window.addEventListener('load', function () {
     // Ждем загрузки страницы
     let attempts = 0;
     const maxAttempts = 10; // Максимальное количество попыток
@@ -8,7 +8,16 @@ window.addEventListener('load', function () {
             clearInterval(checkSDK);
 
             // Создаем инстанс TON Connect
-            const tonConnect = new window.TonConnect();
+            const tonConnect = new window.TonConnect({
+                manifestUrl: 'https://novella-telegram-bot.onrender.com/tonconnect-manifest.json' // Укажите путь к манифесту
+            });
+
+            // Восстанавливаем соединение, если оно существует
+            tonConnect.restoreConnection().then(() => {
+                console.log("Connection restored successfully");
+            }).catch((error) => {
+                console.error("Error restoring connection:", error);
+            });
 
             // Получаем элемент кнопки
             const connectButton = document.getElementById('connectButton');

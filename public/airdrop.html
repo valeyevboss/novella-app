@@ -5,26 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Novella App - Airdrop</title>
     <link rel="stylesheet" href="styles.css">
-	<link rel="preload" href="/fonts/hooge05_55cyr2.ttf" as="font" type="font/ttf" crossorigin="anonymous">
-	<link rel="preload" href="/fonts/MaiandraGD.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+    <link rel="preload" href="/fonts/hooge05_55cyr2.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+    <link rel="preload" href="/fonts/MaiandraGD.ttf" as="font" type="font/ttf" crossorigin="anonymous">
     <script src="https://unpkg.com/@tonconnect/sdk@latest/dist/tonconnect-sdk.min.js"></script>
-    <script src="/app.js"></script>
+    <script src="/app.js" defer></script> <!-- Добавил defer для более корректной загрузки -->
 </head>
 <body>
     <div class="airdrop-page">
         <header class="airdrop-header">
-			<img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1726172662/Element/Airdrop.png" alt="Aidrop Icon" class="airdrop-icon">
+            <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1726172662/Element/Airdrop.png" alt="Aidrop Icon" class="airdrop-icon">
             <h1 class="airdrop-title">AIRDROP</h1>
             <p class="airdrop-subtitle" id="airdrop-subtitle">Stay tuned for the upcoming airdrop and rewards.</p>
         </header>
-		
+        
         <button id="connectButton" class="ton-connect-button">Connect Wallet</button>
-		
-		<div class="airdrop-warning-block">
-			<img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1726932286/Element/Warning.png" alt="Warning Icon" class="warning-icon" id="warning-icon">
-			<p class="warning-text" id="warning-text">The wallet can only be connected to this account.</p>
-		</div>
-	
+        
+        <div class="airdrop-warning-block">
+            <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1726932286/Element/Warning.png" alt="Warning Icon" class="warning-icon" id="warning-icon">
+            <p class="warning-text" id="warning-text">The wallet can only be connected to this account.</p>
+        </div>
+    
         <h1 class="airdrop-descript-title" id="airdrop-descript-title">What is Airdrop?</h1>
         <div class="airdrop-description" id="airdrop-description">
             <p id="airdrop-description-1">Airdrop is a distribution of tokens to players' wallets. These tokens will be traded on leading exchanges, and you can either sell or hold them. To get your tokens, complete tasks and actively participate in the development of the project.</p>
@@ -36,10 +36,10 @@
         <div class="listing-description" id="listing-description">
             <p id="listing-description-1">Listing is the process by which a token or cryptocurrency is added to a trading platform (exchange), allowing users to buy, sell, and trade it.</p>
             <p id="listing-description-2">Listing allows the token to be available for trading and increases its visibility among investors.</p>
-            <p></p> <!-- Можешь добавить дополнительный текст сюда, если нужно -->
+            <p></p>
         </div>
-		
-	    <nav class="bottom-menu">
+        
+        <nav class="bottom-menu">
             <a href="index.html" class="menu-item">
                 <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1726420961/Menu/Button%20version%202/Main_iconmenu.png" alt="Main">
                 <span id="menu-main">Main</span>
@@ -63,7 +63,7 @@
         </nav>
     </div>
 
-	<script>
+    <script>
         const WarningIcon = document.getElementById('warning-icon');
 
         WarningIcon.addEventListener('click', () => {
