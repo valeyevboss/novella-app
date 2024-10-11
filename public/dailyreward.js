@@ -37,8 +37,7 @@ function claimReward() {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({ amount: rewardAmount }), // Изменено на 'amount'
-    })
-
+    })    
 
     .then(response => response.json())
     .then(data => {
