@@ -48,6 +48,9 @@ function claimReward() {
             localStorage.setItem('isRewardClaimed', 'true');
             document.getElementById('claim-reward-button').disabled = true; // Блокируем кнопку
             startTimer(); // Запускаем таймер
+
+            // Обновляем страницу после успешного получения награды
+            location.reload(); // Перезагрузка страницы
         } else {
             console.error('Ошибка при получении награды:', data.error);
         }
