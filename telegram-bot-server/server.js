@@ -210,40 +210,37 @@ app.post('/add-tokens/:telegramId', async (req, res) => {
 
 // Реферальная система
 app.post('/referral/:invitedId', async (req, res) => {
-	try {
-		const { invitedId } = req.params;
-		const { referrerId } = req.body; // ID пригласившего
+    try {
+        const { invitedId } = req.params;
+        const { referrerId } = req.body; // ID пригласившего
 
-		const referrer = await User.findOne({ telegramId: referrerId });
-		if (!referrer) {
-			console.log('Пригласивший пользователь:', referrer);
-			return res.status(404).json({ message: 'Referrer not found' });
-		}
+        const referrer = await User.findOne({ telegramId: referrerId });
+        if (!referrer) {
+            console.log('Пригласивший пользователь не найден:', referrer);
+            return res.status(404).json({ message: 'Referrer not found' });
+        }
 
-		// Найти пригласившего пользователя
-		const invitedUser = await User.findOne({ telegramId: invitedId });
-		if (!invitedUser) {
-			console.log('Приглашенный пользователь:', invitedUser);
-			return res.status(404).json({ message: 'Invited user not found' });
-		}
+        // Найти пригласившего пользователя
+        const invitedUser = await User.findOne({ telegramId: invitedId });
+        if (!invitedUser) {
+            console.log('Приглашенный пользователь не найден:', invitedUser);
+            return res.status(404).json({ message: 'Invited user not found' });
+        }
 
-		// Начисляем токены и обновляем данные
-		invitedUser.tokens += 100; // Начисляем токены за приглашение
-		referrer.invitedBy = invitedId; // Обновляем поле пригласившего
-		await invitedUser.save();
-		await referrer.save();
+        // Обновляем поля invitedBy и friendsCount
+        invitedUser.invitedBy = referrerId; // Устанавливаем ID пригласившего
+        referrer.friendsCount += 1; // Увеличиваем счетчик друзей
 
-		// Увеличиваем количество друзей у пригласившего
-		referrer.friendsCount = (referrer.friendsCount || 0) + 1;
-		console.log('Перед сохранением:', referrer.friendsCount);
-		await referrer.save(); // Сохраняем изменения
+        await invitedUser.save(); // Сохраняем изменения для пригласившего
+        await referrer.save(); // Сохраняем изменения для пригласившего
 
-		res.json({ success: true, tokens: invitedUser.tokens });
-	} catch (error) {
-		console.error('Error processing referral:', error);
-		res.status(500).json({ message: 'Internal server error' });
-	}
+        return res.json({ success: true, message: 'Referral processed successfully' });
+    } catch (error) {
+        console.error('Ошибка при обработке реферальной ссылки:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
 });
+
 
 startServer();
 
