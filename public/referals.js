@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function() {
         return;
     }
 
-    const referralLink = `https://t.me/Novella_bot/app?startapp=onetime&userId=${userId}`;
+    const referralLink = `https://t.me/novella_bot/app?startapp=onetime&userId=${userId}`;
     let friendsCount = 0;
 
     // Функция для обновления информации о друзьях

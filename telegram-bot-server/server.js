@@ -216,15 +216,15 @@ app.post('/referral/:invitedId', async (req, res) => {
 
 		const referrer = await User.findOne({ telegramId: referrerId });
 		if (!referrer) {
-			return res.status(404).json({ message: 'Referrer not found' });
 			console.log('Пригласивший пользователь:', referrer);
+			return res.status(404).json({ message: 'Referrer not found' });
 		}
 
 		// Найти пригласившего пользователя
 		const invitedUser = await User.findOne({ telegramId: invitedId });
 		if (!invitedUser) {
-			return res.status(404).json({ message: 'Invited user not found' });
 			console.log('Приглашенный пользователь:', invitedUser);
+			return res.status(404).json({ message: 'Invited user not found' });
 		}
 
 		// Начисляем токены и обновляем данные
