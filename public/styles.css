@@ -9,10 +9,6 @@ body {
     overflow-x: hidden; /* Отключаем горизонтальную прокрутку */
 }
 
-.hidden {
-    display: none;
-}
-
 /* Инициализация шрифтов */
 @font-face {
     font-family: 'hooge05_55cyr2';
