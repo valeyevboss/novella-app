@@ -11,10 +11,10 @@ let currentRewardIndex = parseInt(localStorage.getItem(rewardIndexKey)) || 0; //
 const rewardButton = document.getElementById('claim-reward-button');
 const timerDisplay = document.getElementById('timer');
 
-// Проверяем, заблокирована ли кнопка (если прошло меньше 10 секунд)
+// Проверяем, заблокирована ли кнопка (если прошло меньше 24 часов)
 const lastClaimTime = localStorage.getItem(lastClaimTimeKey);
-if (lastClaimTime && (Date.now() - lastClaimTime < 10000)) { // 10000 миллисекунд = 10 секунд
-    const remainingTime = 10000 - (Date.now() - lastClaimTime); // Оставшееся время до разблокировки
+if (lastClaimTime && (Date.now() - lastClaimTime < 86400000)) { // 86400000 миллисекунд = 24 часа
+    const remainingTime = 86400000 - (Date.now() - lastClaimTime); // Оставшееся время до разблокировки
     disableRewardButton(remainingTime / 1000); // Запускаем таймер с оставшимся временем
 } else {
     updateRewardButton(); // Обновляем кнопку, если можно получить награду
@@ -76,7 +76,7 @@ async function claimReward() {
             localStorage.setItem(rewardIndexKey, currentRewardIndex); // Сохраняем индекс текущей награды для конкретного пользователя
             localStorage.setItem(lastClaimTimeKey, Date.now()); // Сохраняем время получения награды для конкретного пользователя
             updateRewardButton();
-            disableRewardButton(10); // Блокируем кнопку на 10 секунд (для тестирования)
+            disableRewardButton(86400); // Блокируем кнопку на 24 часа
         } else {
             const errorData = await response.json();
             alert(`Ошибка: ${errorData.error}`);
@@ -91,6 +91,9 @@ async function claimReward() {
 function updateRewardButton() {
     if (currentRewardIndex < rewards.length) {
         rewardButton.textContent = `Daily Check in +${rewards[currentRewardIndex]} $Novella`;
+        // Показываем таймер и иконку, если пользователь ещё не нажимал на кнопку
+        document.querySelector('.timer-container').classList.remove('hidden');
+
     } else {
         rewardButton.disabled = true; // Отключаем кнопку, если награды закончились
     }
@@ -104,7 +107,7 @@ function resetReward() {
         localStorage.setItem(rewardIndexKey, currentRewardIndex); // Сохраняем сброс в localStorage
     }
     updateRewardButton(); // Обновляем текст кнопки на следующий уровень награды
-    timerDisplay.textContent = '00:00:10'; // Сброс таймера (для тестирования)
+    timerDisplay.textContent = '00:00:00'; // Сброс таймера
 }
 
 // Инициализация
