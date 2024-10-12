@@ -4,19 +4,22 @@ const rewards = [100, 250, 500, 750, 800, 900, 1500]; // Награды по д�
 const params = new URLSearchParams(window.location.search);
 const userId = params.get('userId'); // Получаем userId из параметров URL
 
-// Сброс значений при входе с новым аккаунтом
+// Очистка localStorage и установка начальных значений при входе с новым аккаунтом
 if (localStorage.getItem('userId') !== userId) {
-    localStorage.setItem('dayCounter', 1);
-    localStorage.setItem('isRewardClaimed', 'false');
-    localStorage.setItem('timeLeft', 24 * 60 * 60); // 24 часа в секундах
-    localStorage.setItem('userId', userId); // Сохраняем текущий userId
+    localStorage.clear(); // Очищаем все значения в localStorage, чтобы сбросить состояние
+    
+    // Сохраняем текущий userId
+    localStorage.setItem('userId', userId); 
+    // Инициализация значений в sessionStorage
+    sessionStorage.setItem('dayCounter', 1);
+    sessionStorage.setItem('isRewardClaimed', 'false');
+    sessionStorage.setItem('timeLeft', 24 * 60 * 60); // 24 часа в секундах
 }
 
 // Инициализация значений
-let dayCounter = parseInt(localStorage.getItem('dayCounter')) || 1;
-let isRewardClaimed = localStorage.getItem('isRewardClaimed') === 'true';
-let timeLeft = parseInt(localStorage.getItem('timeLeft')) || 24 * 60 * 60; // 24 часа в секундах
-let timerInterval; // Объявляем переменную timerInterval здесь
+let dayCounter = parseInt(sessionStorage.getItem('dayCounter')) || 1;
+let isRewardClaimed = sessionStorage.getItem('isRewardClaimed') === 'true';
+let timeLeft = parseInt(sessionStorage.getItem('timeLeft')) || 24 * 60 * 60; // 24 часа в секундах
 
 // Обновление кнопок награды
 function updateButton() {
@@ -45,12 +48,9 @@ function claimReward() {
     .then(data => {
         if (data.success) {
             isRewardClaimed = true; // Устанавливаем статус награды
-            localStorage.setItem('isRewardClaimed', 'true');
+            sessionStorage.setItem('isRewardClaimed', 'true'); // Сохраняем в sessionStorage
             document.getElementById('claim-reward-button').disabled = true; // Блокируем кнопку
             startTimer(); // Запускаем таймер
-
-            // Обновляем страницу после успешного получения награды
-            location.reload(); // Перезагрузка страницы
         } else {
             console.error('Ошибка при получении награды:', data.error);
         }
@@ -61,7 +61,7 @@ function claimReward() {
 // Таймер для обычной награды
 function startTimer() {
     const timerDisplay = document.getElementById('timer');
-    clearInterval(timerInterval); // Очищаем предыдущий интервал
+    clearInterval(timerInterval);
     timerInterval = setInterval(() => {
         timeLeft--;
 
@@ -71,18 +71,18 @@ function startTimer() {
         const seconds = timeLeft % 60;
 
         timerDisplay.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        localStorage.setItem('timeLeft', timeLeft);
+        sessionStorage.setItem('timeLeft', timeLeft); // Сохраняем оставшееся время в sessionStorage
 
         if (timeLeft <= 0) {
             clearInterval(timerInterval);
             isRewardClaimed = false; // Разрешаем получение награды
-            localStorage.setItem('isRewardClaimed', 'false');
+            sessionStorage.setItem('isRewardClaimed', 'false'); // Обновляем статус в sessionStorage
             document.getElementById('claim-reward-button').disabled = false; // Активируем кнопку
             dayCounter++;
-            localStorage.setItem('dayCounter', dayCounter);
+            sessionStorage.setItem('dayCounter', dayCounter); // Обновляем dayCounter в sessionStorage
             updateButton(); // Обновляем текст кнопки
             timeLeft = 24 * 60 * 60; // Сбросить таймер на 24 часа
-            localStorage.setItem('timeLeft', timeLeft);
+            sessionStorage.setItem('timeLeft', timeLeft); // Сохраняем новое значение таймера
         }
     }, 1000);
 }
