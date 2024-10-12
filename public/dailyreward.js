@@ -1,95 +1,79 @@
 const rewards = [100, 250, 500, 750, 800, 900, 1500]; // Награды по дням
+let currentRewardIndex = 0; // Индекс текущей награды
+const rewardButton = document.getElementById('claim-reward-button');
+const timerDisplay = document.getElementById('timer');
 
-// Извлечение userId из URL
+// Получение userId из URL
 const params = new URLSearchParams(window.location.search);
 const userId = params.get('userId'); // Получаем userId из параметров URL
 
-// Сброс значений при входе с новым аккаунтом
-if (localStorage.getItem('userId') !== userId) {
-    // Сброс всех значений
-    localStorage.clear(); 
-    localStorage.setItem('userId', userId); // Сохраняем текущий userId
-    // Установка начальных значений
-    localStorage.setItem('dayCounter', 1);
-    localStorage.setItem('isRewardClaimed', 'false');
-    localStorage.setItem('timeLeft', 24 * 60 * 60); // 24 часа в секундах
-}
+// Функция для начала обратного отсчета
+function startTimer(duration) {
+    let timer = duration, hours, minutes, seconds;
+    const countdownInterval = setInterval(() => {
+        hours = parseInt(timer / 3600, 10);
+        minutes = parseInt((timer % 3600) / 60, 10);
+        seconds = parseInt(timer % 60, 10);
 
-// Инициализация значений
-let dayCounter = parseInt(localStorage.getItem('dayCounter')) || 1;
-let isRewardClaimed = localStorage.getItem('isRewardClaimed') === 'true';
-let timeLeft = parseInt(localStorage.getItem('timeLeft')) || 24 * 60 * 60; // 24 часа в секундах
+        // Добавление нуля перед числами меньше 10
+        hours = hours < 10 ? "0" + hours : hours;
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
 
-// Обновление кнопок награды
-function updateButton() {
-    const button = document.getElementById('claim-reward-button');
-    if (dayCounter > rewards.length) {
-        dayCounter = 1;
-    }
-    button.innerText = `Daily Check in +${rewards[dayCounter - 1]} $Novella`;
-    button.disabled = isRewardClaimed; // Упрощаем условие
-}
+        timerDisplay.textContent = `${hours}:${minutes}:${seconds}`;
 
-// Функция получения обычной награды
-function claimReward() {
-    if (isRewardClaimed) return; // Проверка, была ли уже получена награда
-
-    const rewardAmount = rewards[dayCounter - 1];
-
-    fetch(`/add-tokens/${userId}`, {  // Используем userId
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ amount: rewardAmount }),
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            isRewardClaimed = true; // Устанавливаем статус награды
-            localStorage.setItem('isRewardClaimed', 'true'); // Сохраняем в localStorage
-            document.getElementById('claim-reward-button').disabled = true; // Блокируем кнопку
-            startTimer(); // Запускаем таймер
-        } else {
-            console.error('Ошибка при получении награды:', data.error);
-        }
-    })
-    .catch(error => console.error('Ошибка при запросе на получение награды:', error));
-}
-
-// Таймер для обычной награды
-function startTimer() {
-    const timerDisplay = document.getElementById('timer');
-    clearInterval(timerInterval);
-    timerInterval = setInterval(() => {
-        timeLeft--;
-
-        // Обновление отображения таймера
-        const hours = Math.floor(timeLeft / 3600);
-        const minutes = Math.floor((timeLeft % 3600) / 60);
-        const seconds = timeLeft % 60;
-
-        timerDisplay.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        localStorage.setItem('timeLeft', timeLeft); // Сохраняем оставшееся время в localStorage
-
-        if (timeLeft <= 0) {
-            clearInterval(timerInterval);
-            isRewardClaimed = false; // Разрешаем получение награды
-            localStorage.setItem('isRewardClaimed', 'false'); // Обновляем статус в localStorage
-            document.getElementById('claim-reward-button').disabled = false; // Активируем кнопку
-            dayCounter++;
-            localStorage.setItem('dayCounter', dayCounter); // Обновляем dayCounter в localStorage
-            updateButton(); // Обновляем текст кнопки
-            timeLeft = 24 * 60 * 60; // Сбросить таймер на 24 часа
-            localStorage.setItem('timeLeft', timeLeft); // Сохраняем новое значение таймера
+        if (--timer < 0) {
+            clearInterval(countdownInterval);
+            resetReward(); // Сброс кнопки после истечения времени
         }
     }, 1000);
 }
 
-// Инициализация
-window.onload = function() {
-    updateButton(); // Обновляем состояние кнопок
-    if (isRewardClaimed && timeLeft > 0) {
-        startTimer(); // Запускаем таймер при загрузке, если награда была получена
+// Функция для обновления награды и отправки запроса на сервер
+async function claimReward() {
+    if (currentRewardIndex < rewards.length) {
+        const rewardAmount = rewards[currentRewardIndex];
+
+        // Отправка POST запроса на сервер для добавления токенов
+        const response = await fetch(`/add-tokens/${userId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ amount: rewardAmount })
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            alert(`Вы получили ${rewardAmount} $Novella!`);
+            currentRewardIndex++; // Переход к следующей награде
+            updateRewardButton();
+            startTimer(86400); // Запуск таймера на 24 часа (86400 секунд)
+        } else {
+            const errorData = await response.json();
+            alert(`Ошибка: ${errorData.error}`);
+        }
+    } else {
+        alert('Вы уже получили все награды!');
     }
 }
+
+// Функция для обновления текста на кнопке
+function updateRewardButton() {
+    if (currentRewardIndex < rewards.length) {
+        rewardButton.textContent = `Daily Check in +${rewards[currentRewardIndex]} $Novella`;
+    } else {
+        rewardButton.disabled = true; // Отключаем кнопку, если награды закончились
+    }
+}
+
+// Функция для сброса кнопки после истечения времени
+function resetReward() {
+    rewardButton.disabled = false; // Включаем кнопку
+    currentRewardIndex = 0; // Сбрасываем индекс награды
+    updateRewardButton(); // Обновляем текст кнопки
+    timerDisplay.textContent = '24:00:00'; // Сброс таймера
+}
+
+// Инициализация
+updateRewardButton(); // Устанавливаем начальный текст кнопки

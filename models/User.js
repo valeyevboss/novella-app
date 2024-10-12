@@ -8,8 +8,7 @@ const UserSchema = new mongoose.Schema({
     tokens: { type: Number, default: 0 }, // Token balance
     status: { type: String, enum: ['No banned', 'banned'], default: 'No banned' }, // banned system
     ip: { type: String }, // ip adress
-    rank: { type: Number, default: 0 }, // Leader rank #top
-    isPremium: { type: Boolean, default: false } // Check Telegram Premium
+    rank: { type: Number, default: 0 } // Leader rank #top
 }, { timestamps: true });
 
 module.exports = mongoose.model('User', UserSchema);

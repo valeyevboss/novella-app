@@ -155,31 +155,6 @@ app.get('/total-users', async (req, res) => {
 	}
 });
 
-// Маршрут для проверки статуса премиум-аккаунта
-app.get('/check-premium/:userId', async (req, res) => {
-    const { userId } = req.params;
-
-    try {
-        // Ищем пользователя по telegramId
-        const user = await User.findOne({ telegramId: userId });
-
-        if (!user) {
-            return res.status(404).json({ success: false, message: 'Пользователь не найден' });
-        }
-
-        // Проверка на премиум статус
-        if (user.isPremium) {
-            return res.json({ isPremium: true });
-        } else {
-            return res.json({ isPremium: false });
-        }
-    } catch (error) {
-        console.error('Ошибка при проверке статуса премиум-аккаунта:', error);
-        return res.status(500).json({ success: false, message: 'Внутренняя ошибка сервера' });
-    }
-});
-
-
 // Проверка и начисление токенов пользователю
 app.post('/add-tokens/:telegramId', async (req, res) => {
 	try {
