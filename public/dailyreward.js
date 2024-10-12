@@ -1,6 +1,5 @@
 const rewards = [100, 250, 500, 750, 800, 900, 1500]; // Награды по дням
 
-
 // Извлечение userId из URL
 const params = new URLSearchParams(window.location.search);
 const userId = params.get('userId'); // Получаем userId из параметров URL
@@ -10,7 +9,6 @@ if (localStorage.getItem('userId') !== userId) {
     localStorage.setItem('dayCounter', 1);
     localStorage.setItem('isRewardClaimed', 'false');
     localStorage.setItem('timeLeft', 24 * 60 * 60); // 24 часа в секундах
-    // Можно добавить сброс других значений, если это необходимо
     localStorage.setItem('userId', userId); // Сохраняем текущий userId
 }
 
@@ -18,6 +16,7 @@ if (localStorage.getItem('userId') !== userId) {
 let dayCounter = parseInt(localStorage.getItem('dayCounter')) || 1;
 let isRewardClaimed = localStorage.getItem('isRewardClaimed') === 'true';
 let timeLeft = parseInt(localStorage.getItem('timeLeft')) || 24 * 60 * 60; // 24 часа в секундах
+let timerInterval; // Объявляем переменную timerInterval здесь
 
 // Обновление кнопок награды
 function updateButton() {
@@ -26,7 +25,6 @@ function updateButton() {
         dayCounter = 1;
     }
     button.innerText = `Daily Check in +${rewards[dayCounter - 1]} $Novella`;
-
     button.disabled = isRewardClaimed; // Упрощаем условие
 }
 
@@ -60,7 +58,7 @@ function claimReward() {
 // Таймер для обычной награды
 function startTimer() {
     const timerDisplay = document.getElementById('timer');
-    clearInterval(timerInterval);
+    clearInterval(timerInterval); // Очищаем предыдущий интервал
     timerInterval = setInterval(() => {
         timeLeft--;
 
