@@ -91,14 +91,13 @@ async function claimReward() {
 function updateRewardButton() {
     if (currentRewardIndex < rewards.length) {
         rewardButton.textContent = `Daily Check in +${rewards[currentRewardIndex]} $Novella`;
-
-        // Показываем таймер и иконку, если пользователь ещё не нажимал на кнопку
-        document.querySelector('.timer-container').style.display = 'block'; // Показываем элемент
+        document.querySelector('.timer-container').style.display = 'flex'; // Показываем таймер
     } else {
         rewardButton.disabled = true; // Отключаем кнопку, если награды закончились
-        document.querySelector('.timer-container').style.display = 'none'; // Скрываем элемент
+        document.querySelector('.timer-container').style.display = 'none'; // Скрываем таймер
     }
 }
+
 
 // Функция для сброса кнопки после истечения времени
 function resetReward() {
@@ -109,7 +108,6 @@ function resetReward() {
     }
     updateRewardButton(); // Обновляем текст кнопки на следующий уровень награды
     timerDisplay.textContent = '00:00:00'; // Сброс таймера
-    document.querySelector('.timer-container').style.display = 'none'; // Скрываем таймер после сброса
 }
 
 // Инициализация
