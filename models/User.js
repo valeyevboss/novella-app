@@ -10,8 +10,8 @@ const UserSchema = new mongoose.Schema({
     ip: { type: String }, // ip adress
     rank: { type: Number, default: 0 }, // Leader rank #top
     isPremium: { type: Boolean, default: false }, // Check Telegram Premium
-    invitedBy: { type: String, default: null }, // Who invited?
-    friendsCount: { type: Number, default: 0 } // Count invited
+    referrerId: { type: String, default: '' }, // ID пригласившего пользователя
+    friendsCount: { type: Number, default: 0 } // Количество приглашенных друзей
 }, { timestamps: true });
 
 module.exports = mongoose.model('User', UserSchema);

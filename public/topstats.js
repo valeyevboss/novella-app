@@ -1,37 +1,35 @@
-async function getYourStats() {
-    const params = new URLSearchParams(window.location.search);
-    const userId = params.get('userId'); // Получаем userId из параметров URL
+// Получаем userId из параметров URL
+const params = new URLSearchParams(window.location.search);
+const telegramId = params.get('userId'); // Получаем userId из параметров URL
 
-    try {
-        const response = await fetch(`/api/top-stats/${userId}`); // Добавили userId в путь
-        if (!response.ok) {
-            throw new Error('Сеть не отвечает');
+document.getElementById('invite-copy-button').addEventListener('click', function() {
+    const referralLink = `https://t.me/Novella_bot?start=${telegramId}`;
+    navigator.clipboard.writeText(referralLink).then(() => {
+        alert('Реферальная ссылка скопирована!');
+    });
+});
+
+document.getElementById('invite-button').addEventListener('click', function() {
+    const referralLink = `https://t.me/Novella_bot?start=${telegramId}`;
+    
+    const message = `Привет! Приглашаю тебя присоединиться к приложению! Вот моя реферальная ссылка: ${referralLink}`;
+    const url = `https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=${encodeURIComponent(message)}`;
+    
+    window.open(url, '_blank');
+});
+
+async function fetchFriendsCount() {
+    const response = await fetch(`/api/get-friends-count/${telegramId}`);
+    const data = await response.json();
+    
+    if (data.success) {
+        document.getElementById('friends-count').textContent = `${data.friendsCount} friends`;
+        
+        if (data.friendsCount > 0) {
+            document.querySelector('.ref-info-block').style.display = 'block'; // Показываем блок
         }
-        const userStats = await response.json();
-        displayYourStats(userStats);
-    } catch (error) {
-        console.error('Ошибка при получении статистики пользователя:', error);
     }
 }
 
-
-// Функция для отображения статистики пользователя
-function displayYourStats(user) {
-    const avatarUrl = user.avatarUrl ? user.avatarUrl : 'https://res.cloudinary.com/dvjohgg6j/image/upload/v1727453958/default-avatar.png';
-    
-    // Обновляем блок пользователя
-    document.querySelector('.user-avatar').src = avatarUrl;
-    document.querySelector('.username').textContent = user.username;
-
-    // Форматируем баланс с пробелами и добавляем префикс
-    document.querySelector('.top-token-balance').textContent = formatBalance(user.tokens) + ' $Novella';
-    document.querySelector('.user-rank').textContent = `#${user.rank}`;
-}
-
-// Функция для форматирования баланса с пробелами
-function formatBalance(balance) {
-    return balance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' '); // Добавляем пробелы через каждые три цифры
-}
-
 // Вызов функции при загрузке страницы
-window.onload = getYourStats;
+fetchFriendsCount();
