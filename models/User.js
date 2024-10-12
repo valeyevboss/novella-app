@@ -9,9 +9,7 @@ const UserSchema = new mongoose.Schema({
     status: { type: String, enum: ['No banned', 'banned'], default: 'No banned' }, // banned system
     ip: { type: String }, // ip adress
     rank: { type: Number, default: 0 }, // Leader rank #top
-    isPremium: { type: Boolean, default: false }, // Check Telegram Premium
-    referrerId: { type: String, default: '' }, // ID пригласившего пользователя
-    friendsCount: { type: Number, default: 0 } // Количество приглашенных друзей
+    isPremium: { type: Boolean, default: false } // Check Telegram Premium
 }, { timestamps: true });
 
 module.exports = mongoose.model('User', UserSchema);

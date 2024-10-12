@@ -208,40 +208,6 @@ app.post('/add-tokens/:telegramId', async (req, res) => {
 	}
 });
 
-app.post('/referral/:telegramId', async (req, res) => {
-    const { referrerId } = req.body; // Получаем ID пригласившего пользователя
-    const telegramId = req.params.telegramId; // Получаем telegramId из параметров URL
-
-    if (!referrerId) {
-        return res.status(400).json({ message: 'Referrer ID is required' });
-    }
-
-    try {
-        // Поиск пользователя по telegramId
-        const user = await User.findOne({ telegramId });
-        const referrer = await User.findOne({ telegramId: referrerId });
-
-        if (!user) {
-            return res.status(404).json({ message: 'User not found' });
-        }
-
-        if (referrer) {
-            // Обновление информации о пригласившем пользователе
-            referrer.tokens += 100; // Добавляем токены
-            referrer.friendsCount += 1; // Увеличиваем количество друзей
-            await referrer.save(); // Сохраняем изменения
-
-            user.referrerId = referrerId; // Устанавливаем referrerId у нового пользователя
-            await user.save(); // Сохраняем нового пользователя
-        }
-
-        res.status(200).json({ username: user.username });
-    } catch (error) {
-        console.error('Error processing referral:', error);
-        res.status(500).json({ message: 'Internal server error' });
-    }
-});
-
 startServer();
 
 // Объявляем URL изображения
