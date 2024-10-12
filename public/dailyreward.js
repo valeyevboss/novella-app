@@ -1,14 +1,25 @@
-let dayCounter = localStorage.getItem('dayCounter') ? parseInt(localStorage.getItem('dayCounter')) : 1;
 const rewards = [100, 250, 500, 750, 800, 900, 1500]; // Награды по дням
-let timerInterval;
-let isRewardClaimed = localStorage.getItem('isRewardClaimed') === 'true';
-let timeLeft = localStorage.getItem('timeLeft') ? parseInt(localStorage.getItem('timeLeft')) : 24 * 60 * 60; // Время, оставшееся с предыдущей сессии
+
 
 // Извлечение userId из URL
 const params = new URLSearchParams(window.location.search);
 const userId = params.get('userId'); // Получаем userId из параметров URL
 
-// Функция для обновления кнопок награды
+// Сброс значений при входе с новым аккаунтом
+if (localStorage.getItem('userId') !== userId) {
+    localStorage.setItem('dayCounter', 1);
+    localStorage.setItem('isRewardClaimed', 'false');
+    localStorage.setItem('timeLeft', 24 * 60 * 60); // 24 часа в секундах
+    // Можно добавить сброс других значений, если это необходимо
+    localStorage.setItem('userId', userId); // Сохраняем текущий userId
+}
+
+// Инициализация значений
+let dayCounter = parseInt(localStorage.getItem('dayCounter')) || 1;
+let isRewardClaimed = localStorage.getItem('isRewardClaimed') === 'true';
+let timeLeft = parseInt(localStorage.getItem('timeLeft')) || 24 * 60 * 60; // 24 часа в секундах
+
+// Обновление кнопок награды
 function updateButton() {
     const button = document.getElementById('claim-reward-button');
     if (dayCounter > rewards.length) {
@@ -16,14 +27,13 @@ function updateButton() {
     }
     button.innerText = `Daily Check in +${rewards[dayCounter - 1]} $Novella`;
 
-    button.disabled = isRewardClaimed; // Блокируем кнопку, если награда уже получена
+    button.disabled = isRewardClaimed; // Упрощаем условие
 }
 
 // Функция получения обычной награды
 function claimReward() {
     if (isRewardClaimed) return; // Проверка, была ли уже получена награда
 
-    console.log('Кнопка нажата, начинаем получение награды');
     const rewardAmount = rewards[dayCounter - 1];
 
     fetch(`/add-tokens/${userId}`, {  // Используем userId
@@ -31,7 +41,7 @@ function claimReward() {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ amount: rewardAmount }), // Изменено на 'amount'
+        body: JSON.stringify({ amount: rewardAmount }),
     })
     .then(response => response.json())
     .then(data => {
@@ -39,7 +49,6 @@ function claimReward() {
             isRewardClaimed = true; // Устанавливаем статус награды
             localStorage.setItem('isRewardClaimed', 'true');
             document.getElementById('claim-reward-button').disabled = true; // Блокируем кнопку
-            console.log('Награда получена');
             startTimer(); // Запускаем таймер
         } else {
             console.error('Ошибка при получении награды:', data.error);
@@ -51,21 +60,16 @@ function claimReward() {
 // Таймер для обычной награды
 function startTimer() {
     const timerDisplay = document.getElementById('timer');
-    if (!timerDisplay) {
-        console.error('Таймер не найден на странице');
-        return;
-    }
-
     clearInterval(timerInterval);
     timerInterval = setInterval(() => {
         timeLeft--;
 
+        // Обновление отображения таймера
         const hours = Math.floor(timeLeft / 3600);
         const minutes = Math.floor((timeLeft % 3600) / 60);
         const seconds = timeLeft % 60;
 
         timerDisplay.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-
         localStorage.setItem('timeLeft', timeLeft);
 
         if (timeLeft <= 0) {
@@ -76,9 +80,7 @@ function startTimer() {
             dayCounter++;
             localStorage.setItem('dayCounter', dayCounter);
             updateButton(); // Обновляем текст кнопки
-
-            // Сбросить таймер на 24 часа
-            timeLeft = 24 * 60 * 60; 
+            timeLeft = 24 * 60 * 60; // Сбросить таймер на 24 часа
             localStorage.setItem('timeLeft', timeLeft);
         }
     }, 1000);
