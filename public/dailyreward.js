@@ -7,10 +7,10 @@ const timerDisplay = document.getElementById('timer');
 const params = new URLSearchParams(window.location.search);
 const userId = params.get('userId'); // Получаем userId из параметров URL
 
-// Проверяем, заблокирована ли кнопка (если прошло меньше 24 часов)
+// Проверяем, заблокирована ли кнопка (если прошло меньше 10 секунд)
 const lastClaimTime = localStorage.getItem('lastClaimTime');
-if (lastClaimTime && (Date.now() - lastClaimTime < 86400000)) {
-    const remainingTime = 86400000 - (Date.now() - lastClaimTime); // Оставшееся время до разблокировки
+if (lastClaimTime && (Date.now() - lastClaimTime < 10000)) { // 10000 миллисекунд = 10 секунд
+    const remainingTime = 10000 - (Date.now() - lastClaimTime); // Оставшееся время до разблокировки
     disableRewardButton(remainingTime / 1000); // Запускаем таймер с оставшимся временем
 } else {
     updateRewardButton(); // Обновляем кнопку, если можно получить награду
@@ -69,7 +69,7 @@ async function claimReward() {
             localStorage.setItem('rewardIndex', currentRewardIndex); // Сохраняем индекс текущей награды
             localStorage.setItem('lastClaimTime', Date.now()); // Сохраняем время получения награды
             updateRewardButton();
-            disableRewardButton(86400); // Блокируем кнопку на 24 часа
+            disableRewardButton(10); // Блокируем кнопку на 10 секунд
         } else {
             const errorData = await response.json();
             alert(`Ошибка: ${errorData.error}`);
@@ -95,7 +95,7 @@ function resetReward() {
     localStorage.removeItem('rewardIndex'); // Очищаем сохранённый индекс награды
     localStorage.removeItem('lastClaimTime'); // Очищаем сохранённое время получения награды
     updateRewardButton(); // Обновляем текст кнопки
-    timerDisplay.textContent = '24:00:00'; // Сброс таймера
+    timerDisplay.textContent = '00:00:10'; // Сброс таймера
 }
 
 // Инициализация
