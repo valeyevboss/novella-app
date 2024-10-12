@@ -69,13 +69,14 @@ async function claimReward() {
             localStorage.setItem('rewardIndex', currentRewardIndex); // Сохраняем индекс текущей награды
             localStorage.setItem('lastClaimTime', Date.now()); // Сохраняем время получения награды
             updateRewardButton();
-            disableRewardButton(10); // Блокируем кнопку на 10 секунд
+            disableRewardButton(10); // Блокируем кнопку на 10 секунд (для тестирования)
         } else {
             const errorData = await response.json();
             alert(`Ошибка: ${errorData.error}`);
         }
     } else {
         alert('Вы уже получили все награды!');
+        rewardButton.disabled = true; // Отключаем кнопку, если награды закончились
     }
 }
 
@@ -91,11 +92,9 @@ function updateRewardButton() {
 // Функция для сброса кнопки после истечения времени
 function resetReward() {
     rewardButton.disabled = false; // Включаем кнопку
-    currentRewardIndex = 0; // Сбрасываем индекс награды
-    localStorage.removeItem('rewardIndex'); // Очищаем сохранённый индекс награды
-    localStorage.removeItem('lastClaimTime'); // Очищаем сохранённое время получения награды
-    updateRewardButton(); // Обновляем текст кнопки
-    timerDisplay.textContent = '00:00:10'; // Сброс таймера
+    // Не сбрасываем currentRewardIndex и не удаляем его из localStorage
+    updateRewardButton(); // Обновляем текст кнопки на следующий уровень награды
+    timerDisplay.textContent = '00:00:10'; // Сброс таймера (для тестирования)
 }
 
 // Инициализация
