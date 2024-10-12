@@ -57,7 +57,7 @@ async function checkPremiumStatus() {
 
 // Функция получения обычной награды
 function claimReward() {
-    if (isRewardClaimed) return;
+    if (isRewardClaimed) return; // Проверка, была ли уже получена награда
 
     console.log('Кнопка нажата, начинаем получение награды');
     const rewardAmount = rewards[dayCounter - 1];
@@ -72,11 +72,11 @@ function claimReward() {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            isRewardClaimed = true;
+            isRewardClaimed = true; // Устанавливаем статус награды
             localStorage.setItem('isRewardClaimed', 'true');
-            document.getElementById('claim-reward-button').disabled = true;
+            document.getElementById('claim-reward-button').disabled = true; // Блокируем кнопку
             console.log('Награда получена');
-            startTimer();
+            startTimer(); // Запускаем таймер
         } else {
             console.error('Ошибка при получении награды:', data.error);
         }
@@ -135,13 +135,16 @@ function startTimer() {
 
         if (timeLeft <= 0) {
             clearInterval(timerInterval);
-            isRewardClaimed = false;
+            // Обновляем состояние награды и кнопок
+            isRewardClaimed = false; // Разрешаем получение награды
             localStorage.setItem('isRewardClaimed', 'false');
-            document.getElementById('claim-reward-button').disabled = false;
+            document.getElementById('claim-reward-button').disabled = false; // Активируем кнопку
             dayCounter++;
             localStorage.setItem('dayCounter', dayCounter);
-            updateButton();
-            timeLeft = 24 * 60 * 60; // Сбросить таймер на 24 часа
+            updateButton(); // Обновляем текст кнопки
+
+            // Сбросить таймер на 24 часа
+            timeLeft = 24 * 60 * 60; 
             localStorage.setItem('timeLeft', timeLeft);
         }
     }, 1000);
@@ -182,11 +185,11 @@ function startPremiumTimer() {
 
 // Инициализация
 window.onload = function() {
-    updateButton();
+    updateButton(); // Обновляем состояние кнопок
     if (isRewardClaimed && timeLeft > 0) {
-        startTimer(); // Запустить таймер при загрузке страницы, если награда была получена
+        startTimer(); // Запускаем таймер при загрузке, если награда была получена
     }
     if (isPremiumRewardClaimed && premiumTimeLeft > 0) {
-        startPremiumTimer(); // Запустить таймер для премиум, если награда была получена
+        startPremiumTimer(); // Запускаем таймер для премиум, если награда была получена
     }
 }
