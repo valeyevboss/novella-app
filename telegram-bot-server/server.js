@@ -217,12 +217,14 @@ app.post('/referral/:invitedId', async (req, res) => {
 		const referrer = await User.findOne({ telegramId: referrerId });
 		if (!referrer) {
 			return res.status(404).json({ message: 'Referrer not found' });
+			console.log('Пригласивший пользователь:', referrer);
 		}
 
 		// Найти пригласившего пользователя
 		const invitedUser = await User.findOne({ telegramId: invitedId });
 		if (!invitedUser) {
 			return res.status(404).json({ message: 'Invited user not found' });
+			console.log('Приглашенный пользователь:', invitedUser);
 		}
 
 		// Начисляем токены и обновляем данные
@@ -233,7 +235,8 @@ app.post('/referral/:invitedId', async (req, res) => {
 
 		// Увеличиваем количество друзей у пригласившего
 		referrer.friendsCount = (referrer.friendsCount || 0) + 1;
-		await referrer.save();
+		console.log('Перед сохранением:', referrer.friendsCount);
+		await referrer.save(); // Сохраняем изменения
 
 		res.json({ success: true, tokens: invitedUser.tokens });
 	} catch (error) {
