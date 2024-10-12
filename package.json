@@ -1,6 +1,6 @@
 {
   "name": "novellacoin-app",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "main": "app.js",
   "scripts": {
     "start": "node telegram-bot-server/server.js",
@@ -9,7 +9,7 @@
   "keywords": [],
   "author": "Novella App",
   "license": "ISC",
-  "description": "Novella Coin Web App",
+  "description": "Novella Web App",
   "dependencies": {
     "@tonconnect/ui": "^2.0.9",
     "axios": "^1.7.7",
@@ -25,6 +25,5 @@
     "request": "^2.88.2",
     "telegraf": "^4.16.3",
     "uuid": "^10.0.0",
-    "walletconnect-monorepo": "github:WalletConnect/walletconnect-monorepo"
   }
 }
