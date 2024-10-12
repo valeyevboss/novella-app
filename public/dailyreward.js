@@ -29,8 +29,18 @@ function startTimer(duration) {
     }, 1000);
 }
 
+// Функция блокировки кнопки на 24 часа
+function disableRewardButton() {
+    rewardButton.disabled = true; // Отключаем кнопку
+    startTimer(86400); // Запускаем таймер на 24 часа (86400 секунд)
+}
+
 // Функция для обновления награды и отправки запроса на сервер
 async function claimReward() {
+    if (rewardButton.disabled) {
+        return; // Если кнопка уже заблокирована, ничего не делаем
+    }
+
     if (currentRewardIndex < rewards.length) {
         const rewardAmount = rewards[currentRewardIndex];
 
@@ -48,7 +58,7 @@ async function claimReward() {
             alert(`Вы получили ${rewardAmount} $Novella!`);
             currentRewardIndex++; // Переход к следующей награде
             updateRewardButton();
-            startTimer(86400); // Запуск таймера на 24 часа (86400 секунд)
+            disableRewardButton(); // Блокируем кнопку на 24 часа
         } else {
             const errorData = await response.json();
             alert(`Ошибка: ${errorData.error}`);
