@@ -1,14 +1,18 @@
 const rewards = [100, 250, 500, 750, 800, 900, 1500]; // Награды по дням
-let currentRewardIndex = parseInt(localStorage.getItem('rewardIndex')) || 0; // Индекс текущей награды
+
+// Получаем userId из URL (или создаём уникальный ключ для каждого пользователя)
+const params = new URLSearchParams(window.location.search);
+const userId = params.get('userId'); // Получаем userId из параметров URL
+const rewardIndexKey = `rewardIndex_${userId}`; // Уникальный ключ для индекса награды
+const lastClaimTimeKey = `lastClaimTime_${userId}`; // Уникальный ключ для времени последнего получения награды
+
+let currentRewardIndex = parseInt(localStorage.getItem(rewardIndexKey)) || 0; // Индекс текущей награды
+
 const rewardButton = document.getElementById('claim-reward-button');
 const timerDisplay = document.getElementById('timer');
 
-// Получение userId из URL
-const params = new URLSearchParams(window.location.search);
-const userId = params.get('userId'); // Получаем userId из параметров URL
-
 // Проверяем, заблокирована ли кнопка (если прошло меньше 10 секунд)
-const lastClaimTime = localStorage.getItem('lastClaimTime');
+const lastClaimTime = localStorage.getItem(lastClaimTimeKey);
 if (lastClaimTime && (Date.now() - lastClaimTime < 10000)) { // 10000 миллисекунд = 10 секунд
     const remainingTime = 10000 - (Date.now() - lastClaimTime); // Оставшееся время до разблокировки
     disableRewardButton(remainingTime / 1000); // Запускаем таймер с оставшимся временем
@@ -69,8 +73,8 @@ async function claimReward() {
             if (currentRewardIndex >= rewards.length) {
                 currentRewardIndex = 0; // Сбрасываем индекс после последнего бонуса
             }
-            localStorage.setItem('rewardIndex', currentRewardIndex); // Сохраняем индекс текущей награды
-            localStorage.setItem('lastClaimTime', Date.now()); // Сохраняем время получения награды
+            localStorage.setItem(rewardIndexKey, currentRewardIndex); // Сохраняем индекс текущей награды для конкретного пользователя
+            localStorage.setItem(lastClaimTimeKey, Date.now()); // Сохраняем время получения награды для конкретного пользователя
             updateRewardButton();
             disableRewardButton(10); // Блокируем кнопку на 10 секунд (для тестирования)
         } else {
@@ -97,7 +101,7 @@ function resetReward() {
     rewardButton.disabled = false; // Включаем кнопку
     if (currentRewardIndex >= rewards.length) {
         currentRewardIndex = 0; // Сбрасываем индекс награды на 0 при начале новой недели
-        localStorage.setItem('rewardIndex', currentRewardIndex); // Сохраняем сброс в localStorage
+        localStorage.setItem(rewardIndexKey, currentRewardIndex); // Сохраняем сброс в localStorage
     }
     updateRewardButton(); // Обновляем текст кнопки на следующий уровень награды
     timerDisplay.textContent = '00:00:10'; // Сброс таймера (для тестирования)
