@@ -214,33 +214,47 @@ app.post('/referral/:invitedId', async (req, res) => {
         const { invitedId } = req.params;
         const { referrerId } = req.body; // ID пригласившего
 
+        // Проверка валидности referrerId
+        if (!referrerId || typeof referrerId !== 'string') {
+            return res.status(400).json({ message: 'Valid Referrer ID is required' });
+        }
+
         const referrer = await User.findOne({ telegramId: referrerId });
         if (!referrer) {
-            console.log('Пригласивший пользователь не найден:', referrer);
+            console.log('Пригласивший пользователь не найден:', referrerId);
             return res.status(404).json({ message: 'Referrer not found' });
         }
 
         // Найти пригласившего пользователя
         const invitedUser = await User.findOne({ telegramId: invitedId });
         if (!invitedUser) {
-            console.log('Приглашенный пользователь не найден:', invitedUser);
+            console.log('Приглашенный пользователь не найден:', invitedId);
             return res.status(404).json({ message: 'Invited user not found' });
+        }
+
+        // Проверка, был ли пользователь уже приглашён
+        if (invitedUser.invitedBy) {
+            return res.status(400).json({ message: 'User has already been invited' });
         }
 
         // Обновляем поля invitedBy и friendsCount
         invitedUser.invitedBy = referrerId; // Устанавливаем ID пригласившего
         referrer.friendsCount += 1; // Увеличиваем счетчик друзей
 
-        await invitedUser.save(); // Сохраняем изменения для пригласившего
-        await referrer.save(); // Сохраняем изменения для пригласившего
+        // Используем Promise.all для одновременного сохранения
+        await Promise.all([invitedUser.save(), referrer.save()]);
 
-        return res.json({ success: true, message: 'Referral processed successfully' });
+        return res.json({
+            success: true,
+            message: 'Referral processed successfully',
+            friendsCount: referrer.friendsCount,
+            invitedBy: invitedUser.invitedBy,
+        });
     } catch (error) {
         console.error('Ошибка при обработке реферальной ссылки:', error);
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500).json({ error: 'Internal server error', details: error.message });
     }
 });
-
 
 startServer();
 

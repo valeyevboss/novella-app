@@ -24,9 +24,48 @@ document.addEventListener("DOMContentLoaded", function() {
     let friendsCount = 0;
 
     // Функция для обновления информации о друзьях
-    function updateFriendsCount() {
+    function updateFriendsCount(username) {
+        friendsCount += 1; // Увеличиваем количество друзей
         friendsCountElem.textContent = `${friendsCount} friends`;
-        refInfoBlock.style.display = friendsCount > 0 ? 'block' : 'none'; // Показываем или скрываем блок информации о рефералах
+        
+        // Обновление блока информации о рефералах
+        const refFriendDiv = document.createElement('div');
+        refFriendDiv.className = 'ref-friend';
+
+        const avatar = document.createElement('img');
+        avatar.src = "https://res.cloudinary.com/dvjohgg6j/image/upload/v1727453958/default-avatar.png"; // Путь к аватару
+        avatar.alt = "User Avatar";
+        avatar.className = 'ref-user-avatar';
+
+        const userDetailsDiv = document.createElement('div');
+        userDetailsDiv.className = 'ref-user-details';
+
+        const usernameSpan = document.createElement('span');
+        usernameSpan.className = 'ref-username';
+        usernameSpan.textContent = username; // Имя пользователя
+
+        userDetailsDiv.appendChild(usernameSpan);
+        refFriendDiv.appendChild(avatar);
+        refFriendDiv.appendChild(userDetailsDiv);
+
+        const tokenDetailsDiv = document.createElement('div');
+        tokenDetailsDiv.className = 'ref-token-details';
+
+        const tokenBonusSpan = document.createElement('span');
+        tokenBonusSpan.className = 'ref-token-bonus';
+        tokenBonusSpan.textContent = '+100'; // Количество токенов
+
+        const tokenIcon = document.createElement('img');
+        tokenIcon.src = "https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/novellacoin.png"; // Путь к иконке токена
+        tokenIcon.alt = "Token Icon";
+        tokenIcon.className = 'ref-token-icon';
+
+        tokenDetailsDiv.appendChild(tokenBonusSpan);
+        tokenDetailsDiv.appendChild(tokenIcon);
+        refFriendDiv.appendChild(tokenDetailsDiv);
+
+        refInfoBlock.appendChild(refFriendDiv); // Добавляем информацию о друге в блок
+        refInfoBlock.style.display = 'block'; // Показываем блок, если есть друзья
     }
 
     // Обработчик нажатия на кнопку приглашения друзей
@@ -61,8 +100,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 if (response.ok) {
                     const data = await response.json();
-                    friendsCount += 1; // Увеличиваем количество друзей
-                    updateFriendsCount(); // Обновляем отображение
+                    updateFriendsCount(data.username); // Добавляем имя пользователя
                 } else {
                     const errorData = await response.json();
                     console.error('Ошибка:', errorData.message);
