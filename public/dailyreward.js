@@ -1,11 +1,20 @@
 const rewards = [100, 250, 500, 750, 800, 900, 1500]; // Награды по дням
-let currentRewardIndex = 0; // Индекс текущей награды
+let currentRewardIndex = parseInt(localStorage.getItem('rewardIndex')) || 0; // Индекс текущей награды
 const rewardButton = document.getElementById('claim-reward-button');
 const timerDisplay = document.getElementById('timer');
 
 // Получение userId из URL
 const params = new URLSearchParams(window.location.search);
 const userId = params.get('userId'); // Получаем userId из параметров URL
+
+// Проверяем, заблокирована ли кнопка (если прошло меньше 24 часов)
+const lastClaimTime = localStorage.getItem('lastClaimTime');
+if (lastClaimTime && (Date.now() - lastClaimTime < 86400000)) {
+    const remainingTime = 86400000 - (Date.now() - lastClaimTime); // Оставшееся время до разблокировки
+    disableRewardButton(remainingTime / 1000); // Запускаем таймер с оставшимся временем
+} else {
+    updateRewardButton(); // Обновляем кнопку, если можно получить награду
+}
 
 // Функция для начала обратного отсчета
 function startTimer(duration) {
@@ -29,10 +38,10 @@ function startTimer(duration) {
     }, 1000);
 }
 
-// Функция блокировки кнопки на 24 часа
-function disableRewardButton() {
+// Функция блокировки кнопки на указанное количество секунд
+function disableRewardButton(duration) {
     rewardButton.disabled = true; // Отключаем кнопку
-    startTimer(86400); // Запускаем таймер на 24 часа (86400 секунд)
+    startTimer(duration); // Запускаем таймер
 }
 
 // Функция для обновления награды и отправки запроса на сервер
@@ -57,8 +66,10 @@ async function claimReward() {
             const data = await response.json();
             alert(`Вы получили ${rewardAmount} $Novella!`);
             currentRewardIndex++; // Переход к следующей награде
+            localStorage.setItem('rewardIndex', currentRewardIndex); // Сохраняем индекс текущей награды
+            localStorage.setItem('lastClaimTime', Date.now()); // Сохраняем время получения награды
             updateRewardButton();
-            disableRewardButton(); // Блокируем кнопку на 24 часа
+            disableRewardButton(86400); // Блокируем кнопку на 24 часа
         } else {
             const errorData = await response.json();
             alert(`Ошибка: ${errorData.error}`);
@@ -81,6 +92,8 @@ function updateRewardButton() {
 function resetReward() {
     rewardButton.disabled = false; // Включаем кнопку
     currentRewardIndex = 0; // Сбрасываем индекс награды
+    localStorage.removeItem('rewardIndex'); // Очищаем сохранённый индекс награды
+    localStorage.removeItem('lastClaimTime'); // Очищаем сохранённое время получения награды
     updateRewardButton(); // Обновляем текст кнопки
     timerDisplay.textContent = '24:00:00'; // Сброс таймера
 }
