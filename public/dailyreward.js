@@ -65,7 +65,14 @@ async function claimReward() {
         if (response.ok) {
             const data = await response.json();
             alert(`Вы получили ${rewardAmount} $Novella!`);
+
             currentRewardIndex++; // Переход к следующей награде
+            if (currentRewardIndex >= rewards.length) {
+                // Если получили последнюю награду, сбрасываем индекс на 0 (новый цикл)
+                currentRewardIndex = 0;
+                alert('Новая неделя! Бонусы сброшены до 100 $Novella.');
+            }
+
             localStorage.setItem('rewardIndex', currentRewardIndex); // Сохраняем индекс текущей награды
             localStorage.setItem('lastClaimTime', Date.now()); // Сохраняем время получения награды
             updateRewardButton();
@@ -92,7 +99,6 @@ function updateRewardButton() {
 // Функция для сброса кнопки после истечения времени
 function resetReward() {
     rewardButton.disabled = false; // Включаем кнопку
-    // Не сбрасываем currentRewardIndex и не удаляем его из localStorage
     updateRewardButton(); // Обновляем текст кнопки на следующий уровень награды
     timerDisplay.textContent = '00:00:10'; // Сброс таймера (для тестирования)
 }
