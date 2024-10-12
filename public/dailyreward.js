@@ -9,6 +9,12 @@ const userId = params.get('userId'); // Получаем userId из парам�
 
 // Проверяем, заблокирована ли кнопка (если прошло меньше 10 секунд)
 const lastClaimTime = localStorage.getItem('lastClaimTime');
+if (lastClaimTime && (Date.now() - lastClaimTime < 10000)) { // 10000 миллисекунд = 10 секунд
+    const remainingTime = 10000 - (Date.now() - lastClaimTime); // Оставшееся время до разблокировки
+    disableRewardButton(remainingTime / 1000); // Запускаем таймер с оставшимся временем
+} else {
+    updateRewardButton(); // Обновляем кнопку, если можно получить награду
+}
 
 // Функция для начала обратного отсчета
 function startTimer(duration) {
@@ -59,14 +65,10 @@ async function claimReward() {
         if (response.ok) {
             const data = await response.json();
             alert(`Вы получили ${rewardAmount} $Novella!`);
-
             currentRewardIndex++; // Переход к следующей награде
             if (currentRewardIndex >= rewards.length) {
-                // Если получили последнюю награду, сбрасываем индекс на 0 (новый цикл)
-                currentRewardIndex = 0;
-                alert('Новая неделя! Бонусы сброшены до 100 $Novella.');
+                currentRewardIndex = 0; // Сбрасываем индекс после последнего бонуса
             }
-
             localStorage.setItem('rewardIndex', currentRewardIndex); // Сохраняем индекс текущей награды
             localStorage.setItem('lastClaimTime', Date.now()); // Сохраняем время получения награды
             updateRewardButton();
@@ -93,21 +95,13 @@ function updateRewardButton() {
 // Функция для сброса кнопки после истечения времени
 function resetReward() {
     rewardButton.disabled = false; // Включаем кнопку
+    if (currentRewardIndex >= rewards.length) {
+        currentRewardIndex = 0; // Сбрасываем индекс награды на 0 при начале новой недели
+        localStorage.setItem('rewardIndex', currentRewardIndex); // Сохраняем сброс в localStorage
+    }
     updateRewardButton(); // Обновляем текст кнопки на следующий уровень награды
     timerDisplay.textContent = '00:00:10'; // Сброс таймера (для тестирования)
 }
 
-// Инициализация при загрузке страницы
-function initializeDailyReward() {
-    // Если последний раз награда была получена более чем 10 секунд назад, активируем кнопку
-    if (lastClaimTime && (Date.now() - lastClaimTime < 10000)) { 
-        const remainingTime = 10000 - (Date.now() - lastClaimTime); // Оставшееся время до разблокировки
-        disableRewardButton(remainingTime / 1000); // Запускаем таймер с оставшимся временем
-    } else {
-        updateRewardButton(); // Обновляем кнопку, если можно получить награду
-        rewardButton.disabled = false; // Убедитесь, что кнопка активна при загрузке, если нет таймера
-    }
-}
-
 // Инициализация
-initializeDailyReward();
+updateRewardButton(); // Устанавливаем начальный текст кнопки
