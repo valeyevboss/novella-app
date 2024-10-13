@@ -294,6 +294,8 @@ app.post('/activate-referral', async (req, res) => {
             return res.status(400).json({ message: 'Referral code already used' });
         }
 
+        // Сохраняем реферального пользователя для начисления токенов
+        user.refUserId = refUser._id; // Сохраняем ID реферального пользователя у активировавшего код
         user.refUsed = true; // Отмечаем, что код использован
 
         await user.save();
@@ -315,8 +317,8 @@ app.post('/claim-referral', async (req, res) => {
             return res.status(404).json({ message: 'User not found' });
         }
 
-        // Найдем пользователя, который является рефералом
-        const refUser = await User.findOne({ refcode: user.refCode }); // предполагается, что у пользователя есть поле refCode
+        // Найдем пользователя, который является рефералом по сохраненному ID
+        const refUser = await User.findById(user.refUserId); // используем refUserId
         if (!refUser) {
             return res.status(404).json({ message: 'Referral user not found' });
         }
