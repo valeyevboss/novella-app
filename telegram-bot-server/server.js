@@ -294,8 +294,6 @@ app.post('/activate-referral', async (req, res) => {
             return res.status(400).json({ message: 'Referral code already used' });
         }
 
-        // Сохраняем реферального пользователя для начисления токенов
-        user.refUserId = refUser._id; // Сохраняем ID реферального пользователя у активировавшего код
         user.refUsed = true; // Отмечаем, что код использован
 
         await user.save();
@@ -317,23 +315,13 @@ app.post('/claim-referral', async (req, res) => {
             return res.status(404).json({ message: 'User not found' });
         }
 
-        // Найдем пользователя, который является рефералом по сохраненному ID
-        const refUser = await User.findById(user.refUserId); // используем refUserId
-        if (!refUser) {
-            return res.status(404).json({ message: 'Referral user not found' });
-        }
-
         // Начисляем токены
-        user.tokens += 1000;  // Начисляем токены пользователю, который активировал код
-        refUser.tokens += 500; // Начисляем токены рефералу
-        refUser.friendsCount += 1; // Увеличиваем счетчик друзей реферала
-
+        user.tokens += 1000; // Начисляем 1000 токенов
         await user.save();
-        await refUser.save();
 
         res.status(200).json({ message: 'Tokens claimed successfully' });
     } catch (error) {
-        console.error('Error claiming referral tokens:', error);
+        console.error(error);
         res.status(500).json({ message: 'Server error' });
     }
 });
