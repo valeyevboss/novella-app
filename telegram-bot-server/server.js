@@ -257,6 +257,23 @@ app.post('/add-tokens/:telegramId', async (req, res) => {
 	}
 });
 
+// Проверка реферального кода
+app.get('/referral-code/:telegramId', async (req, res) => {
+    try {
+        const { telegramId } = req.params;
+        const user = await User.findOne({ telegramId });
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        return res.json({ refCode: user.refcode }); // Вернуть реферальный код
+    } catch (error) {
+        console.error('Ошибка получения реферального кода:', error);
+        res.status(500).json({ error: 'Внутренняя ошибка сервера' });
+    }
+});
+
 // Проверка введеного кода и награждение
 app.post('/activate-referral', async (req, res) => {
     const { telegramId, enteredRefCode } = req.body;

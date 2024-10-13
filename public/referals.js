@@ -1,3 +1,25 @@
+// Получаем идентификатор пользователя из URL
+const urlParams = new URLSearchParams(window.location.search);
+const userId = urlParams.get('userId');
+
+// Получаем реферальный код на основе userId
+async function fetchReferralCode() {
+    try {
+        const response = await fetch(`/referral-code/${userId}`); // Изменено на userId
+        if (response.ok) {
+            const data = await response.json();
+            document.getElementById('ref-сode-count').textContent = data.refCode; // Установить реферальный код
+        } else {
+            console.error('Ошибка загрузки реферального кода:', response.statusText);
+        }
+    } catch (error) {
+        console.error('Ошибка при получении реферального кода:', error);
+    }
+}
+
+// Вызов функции для получения реферального кода
+fetchReferralCode();
+
 // Обработчик клика для кнопки приглашения
 document.getElementById('invite-button').addEventListener('click', function() {
     const refCode = document.getElementById('ref-сode-count').textContent;
@@ -25,7 +47,7 @@ document.querySelector('.ref-activate.btn').addEventListener('click', async func
     const response = await fetch('/activate-referral', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ telegramId: userid, enteredRefCode: enteredCode })
+        body: JSON.stringify({ telegramId: userId, enteredRefCode: enteredCode }) // Изменено на userId
     });
 
     const result = await response.json();
