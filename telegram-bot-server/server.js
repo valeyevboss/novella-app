@@ -309,6 +309,11 @@ app.post('/activate-referral', async (req, res) => {
             return res.status(404).json({ message: 'Referral code not found' });
         }
 
+        // Проверка на то, что пользователь не может активировать свой собственный код
+        if (user.refcode === enteredRefCode) {
+            return res.status(400).json({ message: 'You cannot activate your own referral code' });
+        }
+
         // Проверка на то, что пользователь еще не использовал реферальный код
         if (user.refUsed) {
             return res.status(400).json({ message: 'Referral code already used' });
@@ -335,6 +340,7 @@ app.post('/activate-referral', async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 });
+
 
 startServer();
 
