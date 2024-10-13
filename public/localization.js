@@ -63,7 +63,7 @@ function loadTranslations(lang) {
             if (sectionTitleIngame) sectionTitleIngame.textContent = data['section-title-ingame'];
             if (sectionTitlePartners) sectionTitlePartners.textContent = data['section-title-partners'];
             if (friendsSubtitle) friendsSubtitle.textContent = data['friends-subtitle'];
-            if (refCodeTitle) refCodeTitle.textContent = data["ref-code-title"];
+            if (refCodeTitle) refCodeTitle.textContent = data["ref-сode-title"];
             if (refYouCodeText) refYouCodeText.textContent = data["ref-youсode-text"];
             if (refActivateTitle) refActivateTitle.textContent = data["ref-activate-title"];
             if (claimButton) claimButton.textContent = data["claim-button"];
