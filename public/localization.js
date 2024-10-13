@@ -10,11 +10,12 @@ function loadTranslations(lang) {
             // Объекты на страницах
             const freedurovButton = document.getElementById('freedurov-button');
             const dailyRewardTitle = document.getElementById('daily-reward-title');
-            const claimRewardButton = document.getElementById('claim-reward-button');
-            const premiumRewardButton = document.getElementById('premium-reward-button');
             const personalAchievementsTitle = document.getElementById("personal-achievements-title");
             const achievementTextDays = document.getElementById("achievement-text-days");
             const personalSettingsTitle = document.getElementById('personal-settings-title');
+            const selectLanguageText = document.getElementById('select-language-text');
+            const saveLanguageBtn = document.getElementById('save-language-btn');
+            const closeLanguageBtn = document.getElementById('close-language-btn');
             const menuMain = document.getElementById('menu-main');
             const menuTask = document.getElementById('menu-task');
             const menuFriends = document.getElementById('menu-friends');
@@ -43,11 +44,12 @@ function loadTranslations(lang) {
             // Применение переводов
             if (freedurovButton) freedurovButton.textContent = data.freedurov_button;
             if (dailyRewardTitle) dailyRewardTitle.textContent = data.daily_rewards;
-            if (claimRewardButton) claimRewardButton.textContent = data.daily_checkin;
-            if (premiumRewardButton) premiumRewardButton.textContent = data.premium_checkin;
             if (personalAchievementsTitle) personalAchievementsTitle.textContent = data['personal-achievements-title'];
             if (achievementTextDays) achievementTextDays.textContent = data['achievement-text-days'];
             if (personalSettingsTitle) personalSettingsTitle.textContent = data['personal-settings-title'];
+            if (selectLanguageText) selectLanguageText.textContent = data['select-language-text'];
+            if (saveLanguageBtn) saveLanguageBtn.textContent = data['save-language-btn'];
+            if (closeLanguageBtn) closeLanguageBtn.textContent = data['close-language-btn'];
             if (menuMain) menuMain.textContent = data.main;
             if (menuTask) menuTask.textContent = data.task;
             if (menuFriends) menuFriends.textContent = data.friends;
