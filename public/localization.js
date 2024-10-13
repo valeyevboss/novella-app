@@ -26,7 +26,7 @@ function loadTranslations(lang) {
             const sectionTitlePartners = document.getElementById('section-title-partners');
             const friendsSubtitle = document.getElementById('friends-subtitle');
             const refCodeTitle = document.getElementById("ref-сode-title");
-            const refCodeTextDays = document.getElementById("ref-youсode-text");
+            const refYouCodeText = document.getElementById("ref-youсode-text");
             const refActivateTitle = document.getElementById("ref-activate-title");
             const claimButton = document.getElementById("claim-button");
             const friendsCount = document.getElementById('friends-count');
@@ -64,7 +64,7 @@ function loadTranslations(lang) {
             if (sectionTitlePartners) sectionTitlePartners.textContent = data['section-title-partners'];
             if (friendsSubtitle) friendsSubtitle.textContent = data['friends-subtitle'];
             if (refCodeTitle) refCodeTitle.textContent = data["ref-code-title"];
-            if (refCodeTextDays) refCodeTextDays.textContent = data["ref-code-text-days"];
+            if (refYouCodeText) refYouCodeText.textContent = data["ref-code-text-days"];
             if (refActivateTitle) refActivateTitle.textContent = data["ref-youсode-text"];
             if (claimButton) claimButton.textContent = data["claim-button"];
             if (friendsCount) friendsCount.textContent = data['friends-count'];
