@@ -29,7 +29,7 @@ document.getElementById('invite-button').addEventListener('click', function() {
 
 // Обработчик клика для кнопки копирования реферального кода
 document.querySelector('.invite-copy-button').addEventListener('click', function() {
-    const refCode = document.getElementById('ref-сode-count').textContent;
+    const refCode = document.getElementById('ref-сode-count').textContent; // Здесь ID должен быть правильным
     navigator.clipboard.writeText(refCode).then(() => {
         alert('Referral code copied!');
     });
