@@ -107,6 +107,52 @@ app.get('/check-user/:telegramId', async (req, res) => {
 	}
 });
 
+// Функция для генерации уникального реферального кода
+function generateRefCode(length = 6) {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let refcode = '';
+    for (let i = 0; i < length; i++) {
+        refcode += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return refcode;
+}
+
+// Создание пользователя с генерацией реферального кода
+app.post('/create-user', async (req, res) => {
+    const { telegramId, username, avatarUrl } = req.body;
+
+    try {
+        let refcode;
+        let isUnique = false;
+
+        // Генерация уникального реферального кода
+        while (!isUnique) {
+            refcode = generateRefCode();
+            const existingUser = await User.findOne({ refcode });
+            if (!existingUser) {
+                isUnique = true;
+            }
+        }
+
+        // Создание пользователя
+        const newUser = new User({
+            telegramId,
+            username,
+            avatarUrl,
+            refcode,
+            lastLogin: new Date(),
+            tokens: 0, // начальное количество токенов
+        });
+
+        await newUser.save();
+        res.status(201).json({ message: 'User created', refcode });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
+
 // Маршрут для получения дней пользователя
 app.get('/api/user-days/:userId', async (req, res) => {
     const { userId } = req.params;
@@ -211,6 +257,42 @@ app.post('/add-tokens/:telegramId', async (req, res) => {
 	}
 });
 
+// Проверка введеного кода и награждение
+app.post('/activate-referral', async (req, res) => {
+    const { telegramId, enteredRefCode } = req.body;
+
+    try {
+        const user = await User.findOne({ telegramId });
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        const refUser = await User.findOne({ refcode: enteredRefCode });
+        if (!refUser) {
+            return res.status(404).json({ message: 'Referral code not found' });
+        }
+
+        // Проверка на то, что пользователь еще не использовал реферальный код
+        if (user.refUsed) {
+            return res.status(400).json({ message: 'Referral code already used' });
+        }
+
+        // Начисляем токены
+        user.tokens += 1000;
+        refUser.tokens += 500;
+        refUser.friendsCount += 1;
+        user.refUsed = true; // Отмечаем, что код использован
+
+        await user.save();
+        await refUser.save();
+
+        res.status(200).json({ message: 'Referral activated' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
 startServer();
 
 // Объявляем URL изображения
@@ -222,7 +304,7 @@ bot.onText(/\/start/, async (msg) => {
 	const telegramId = msg.from.id; // Телеграм ID пользователя
 	const userName = msg.from.username || '';
 	
-// Получаем информацию об аватарке
+	// Получаем информацию об аватарке
 	const photo = msg.from.photo;
 	let avatarUrl = '';
 	if (photo) {
@@ -237,27 +319,34 @@ bot.onText(/\/start/, async (msg) => {
 
 
 	try {
-		// Ищем пользователя по Telegram ID
-		let user = await User.findOne({ telegramId });
+        // Ищем пользователя по Telegram ID
+        let user = await User.findOne({ telegramId });
 
-		if (!user) {
-			try {				
-				// Создаем нового пользователя
-				user = new User({
-					telegramId: telegramId,
-					username: userName,
-					avatarUrl: avatarUrl, // Сохраняем аватарку
-					lastLogin: new Date(),
-					tokens: 0
-				});
-				await user.save();
-			} catch (err) {
-				if (err.code === 11000) {
-					console.error('User already exists with this telegramId');
-				} else {
-					console.error('Error saving user:', err);
-				}
-				return;
+        if (!user) {
+            // Создаем нового пользователя с реферальным кодом
+            const response = await fetch('https://novella-app-novella-app.up.railway.app/create-user', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ telegramId, username: userName, avatarUrl }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                user = {
+                    telegramId,
+                    username: userName,
+                    avatarUrl: avatarUrl,
+                    refcode: data.refcode,
+                    lastLogin: new Date(),
+                    tokens: 0,
+                };
+                console.log(`User created with refcode: ${data.refcode}`);
+            } else {
+                console.error('Error creating user:', data.message);
+                return bot.sendMessage(chatId, 'Failed to create user. Please try again later.');
 			}
 		} else {
 			// Обновляем последний вход

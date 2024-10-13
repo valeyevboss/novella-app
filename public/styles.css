@@ -723,6 +723,132 @@ body {
     /* Занимаем всю высоту экрана для вертикального центрирования */
 }
 
+/* Стили для блока Referal code */ 
+.ref-сode-container {
+    background-color: #1f1f1f; /* Тёмный фон */
+    border-radius: 20px; /* Закругление */
+    padding: 20px;
+    text-align: center;
+    margin: 20px auto; /* Центрирование блока и отступ сверху */
+    width: 100%; /* Ширина блока 100% */
+    max-width: 290px; /* Ограничение по ширине */
+}
+
+.ref-сode-title {
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    color: #ffffff;
+    font-size: 18px;
+    margin-bottom: -2px;
+    margin-right: 220px;
+    margin-top: -0px; /* Отрицательный отступ для поднятия заголовка вверх */
+    white-space: nowrap; /* Отключает перенос текста */
+}
+
+.ref-сode-wrapper {
+    display: flex;
+    justify-content: space-between; /* Равномерное распределение пространства */
+    margin-top: 10px; /* Отступ сверху для отделения от заголовка */
+    padding: 10px 0; /* Отступы для внутреннего пространства */
+}
+
+.ref-сode-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; /* Ширина контейнера с элементами */
+    color: #fff;
+    font-family: Arial, sans-serif;
+}
+
+.ref-сode-text {
+    font-size: 14px; /* Размер текста описания */
+    color: #ffffff;
+}
+
+.ref-сode-count {
+    font-size: 16px; /* Размер числа дней */
+    font-weight: bold;
+    color: #ffcc00; /* Яркий цвет для выделения */
+}
+
+/* Стили для блока Referal code */
+.ref-activate-container {
+    background-color: #1f1f1f; /* Тёмный фон */
+    border-radius: 20px; /* Закругление */
+    padding: 20px;
+    text-align: center;
+    margin: 5px auto; /* Центрирование блока и отступ сверху */
+    width: 100%; /* Ширина блока 100% */
+    max-width: 290px; /* Ограничение по ширине */
+}
+
+.ref-activate-title {
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    color: #ffffff;
+    font-size: 18px;
+    margin-bottom: 20px; /* Отступ снизу для заголовка */
+    text-align: left; /* Выравнивание текста по левому краю */
+    margin-top: 0px; /* Уменьшение отступа сверху */
+    padding-top: 5px; /* Добавление небольшого отступа сверху */
+}
+
+
+.ref-activate-wrapper {
+    display: flex;
+    justify-content: center; /* Центрирование контента */
+    margin-top: 10px;
+}
+
+.ref-activate-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; /* Занимает всю ширину блока */
+    color: #fff;
+    font-family: Arial, sans-serif;
+    gap: 10px; /* Добавляем промежуток между кнопкой и полем */
+}
+
+/* Поле для ввода реферального кода */
+.ref-activate__field {
+    flex-grow: 2; /* Поле для ввода занимает больше места */
+    background: #252525; /* Тёмный фон */
+    color: #fff; /* Цвет текста */
+    font: inherit;
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, .1); /* Тень */
+    border: 0; /* Без рамки */
+    outline: 0; /* Без обводки при фокусе */
+    padding: 15px; /* Внутренние отступы */
+    border-radius: 12px; /* Скругленные углы */
+    width: 100%; /* Поле будет растягиваться по ширине */
+}
+
+/* Стили для кнопки */
+.ref-activate.btn {
+    flex-grow: 1; /* Кнопка занимает меньше места, чем поле ввода */
+    background: #8A2BE2; /* Фиолетовый основной цвет кнопки */
+    color: #fff; /* Цвет текста */
+    font: inherit;
+    border: 0;
+    outline: 0;
+    padding: 15px; /* Внутренние отступы */
+    border-radius: 12px; /* Скругленные углы */
+    transition: all 200ms ease-in; /* Плавный переход при наведении */
+    cursor: pointer;
+    box-shadow: 0 0 10px 2px rgba(0, 0, 0, .1); /* Тень */
+}
+
+.ref-activate.btn:hover {
+    background: #7A1FDB; /* Темный фиолетовый цвет при наведении */
+}
+
+.ref-activate.btn:active {
+    background: #8A2BE2; /* Основной цвет при нажатии */
+    box-shadow: inset 0 0 10px 2px rgba(0, 0, 0, .2); /* Внутренняя тень при нажатии */
+}
+
 /* Контейнер для всех друзей */
 .ref-info-block {
     background-color: #1f1f1f;
