@@ -25,6 +25,10 @@ function loadTranslations(lang) {
             const sectionTitleIngame = document.getElementById('section-title-ingame');
             const sectionTitlePartners = document.getElementById('section-title-partners');
             const friendsSubtitle = document.getElementById('friends-subtitle');
+            const refCodeTitle = document.getElementById("ref-code-title");
+            const refCodeTextDays = document.getElementById("ref-code-text-days");
+            const refActivateTitle = document.getElementById("ref-activate-title");
+            const claimButton = document.getElementById("claim-button");
             const friendsCount = document.getElementById('friends-count');
             const inviteButton = document.getElementById('invite-button');
             const airdropSubtitle = document.getElementById('airdrop-subtitle');
@@ -59,6 +63,10 @@ function loadTranslations(lang) {
             if (sectionTitleIngame) sectionTitleIngame.textContent = data['section-title-ingame'];
             if (sectionTitlePartners) sectionTitlePartners.textContent = data['section-title-partners'];
             if (friendsSubtitle) friendsSubtitle.textContent = data['friends-subtitle'];
+            if (refCodeTitle) refCodeTitle.textContent = data["ref-code-title"];
+            if (refCodeTextDays) refCodeTextDays.textContent = data["ref-code-text-days"];
+            if (refActivateTitle) refActivateTitle.textContent = data["ref-activate-title"];
+            if (claimButton) claimButton.textContent = data["claim-button"];
             if (friendsCount) friendsCount.textContent = data['friends-count'];
             if (inviteButton) inviteButton.textContent = data['invite-button'];
             if (airdropSubtitle) airdropSubtitle.textContent = data['airdrop-subtitle'];
