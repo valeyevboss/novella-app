@@ -1,9 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // Получаем идентификатор пользователя из URL
     const urlParams = new URLSearchParams(window.location.search);
     const userId = urlParams.get('userId');
 
-    // Получаем реферальный код на основе userId
     async function fetchReferralCode() {
         try {
             const response = await fetch(`/referral-code/${userId}`);
@@ -20,14 +18,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
     fetchReferralCode();
 
-    // Обработчик клика для кнопки приглашения
     document.getElementById('invite-button').addEventListener('click', function() {
         const refCode = document.getElementById('ref-сode-count').textContent;
         const message = `Log in to the Novella App, activate the code: ${refCode}. Don't miss the chance to get $1000 Novella tokens for free! https://t.me/novella_bot?start=startapp`;
         window.open(`https://t.me/share/url?url=${encodeURIComponent(message)}`, '_blank');
     });
 
-    // Обработчик клика для кнопки копирования реферального кода
     document.querySelector('.invite-copy-button').addEventListener('click', function() {
         const refCode = document.getElementById('ref-сode-count').textContent;
         navigator.clipboard.writeText(refCode).then(() => {
@@ -44,7 +40,6 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
 
-        // Отправка запроса на активацию кода
         const response = await fetch('/activate-referral', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -54,34 +49,36 @@ document.addEventListener("DOMContentLoaded", function() {
         const result = await response.json();
 
         if (response.ok) {
-            alert('Referral code activated! Now click "Claim" to get your tokens.');
-            document.querySelector('.ref-activate.btn').textContent = 'Claim'; // Меняем текст на Claim
-            document.querySelector('.ref-activate.btn').setAttribute('data-activated', 'true'); // Добавляем атрибут для отслеживания активации
+            alert('Referral code activated! Click Claim to receive your tokens.');
+            document.querySelector('.ref-activate.btn').textContent = 'Claim';
+
+            // Сохраним состояние, что код активирован
+            document.querySelector('.ref-activate.btn').setAttribute('data-activated', 'true');
         } else {
             alert(result.message || 'Error activating referral code');
         }
     });
 
-    // Обработчик клика для получения токенов
+    // Обработчик клика для кнопки Claim
     document.querySelector('.ref-activate.btn').addEventListener('click', async function() {
-        if (this.getAttribute('data-activated') === 'true') { // Проверяем, активирован ли код
+        const isActivated = this.getAttribute('data-activated') === 'true';
+
+        if (isActivated) {
             const response = await fetch('/claim-referral', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ telegramId: userId })
+                body: JSON.stringify({ telegramId: userId }) // Отправляем telegramId для начисления токенов
             });
 
             const result = await response.json();
 
             if (response.ok) {
-                alert('Tokens claimed! +1000 tokens awarded.');
-                this.textContent = 'Claimed'; // Меняем текст кнопки на Claimed
-                this.setAttribute('data-activated', 'false'); // Сбрасываем атрибут
+                alert('You have successfully claimed your tokens!');
+                this.textContent = 'Claimed'; // Меняем текст кнопки после успешного начисления
+                this.setAttribute('data-activated', 'false'); // Сбрасываем состояние
             } else {
                 alert(result.message || 'Error claiming tokens');
             }
-        } else {
-            alert('You need to activate the referral code first.');
         }
     });
 });

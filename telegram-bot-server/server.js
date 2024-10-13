@@ -305,7 +305,7 @@ app.post('/activate-referral', async (req, res) => {
     }
 });
 
-// Начисление токенов после нажатия Claim
+// Обработчик для начисления токенов
 app.post('/claim-referral', async (req, res) => {
     const { telegramId } = req.body;
 
@@ -323,7 +323,7 @@ app.post('/claim-referral', async (req, res) => {
         await user.save();
         await refUser.save();
 
-        res.status(200).json({ message: 'Tokens claimed' });
+        res.status(200).json({ message: 'Tokens claimed successfully' });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Server error' });
