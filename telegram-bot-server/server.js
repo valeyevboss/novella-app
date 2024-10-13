@@ -229,6 +229,25 @@ app.get('/total-users', async (req, res) => {
 	}
 });
 
+// Маршрут для получения количества приглашенных друзей
+app.get('/api/friends-count/:userId', async (req, res) => {
+    const { userId } = req.params;
+
+    try {
+        const user = await User.findOne({ telegramId: userId });
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'Пользователь не найден' });
+        }
+
+        // Здесь мы предполагаем, что у вас есть поле "friendsCount" в модели пользователя
+        return res.json({ success: true, friendsCount: user.friendsCount || 0 });
+    } catch (error) {
+        console.error('Ошибка при получении количества друзей:', error);
+        return res.status(500).json({ success: false, message: 'Внутренняя ошибка сервера' });
+    }
+});
+
+
 // Проверка и начисление токенов пользователю
 app.post('/add-tokens/:telegramId', async (req, res) => {
 	try {

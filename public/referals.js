@@ -20,6 +20,27 @@ document.addEventListener("DOMContentLoaded", function() {
 
     fetchReferralCode();
 
+    // Функция для получения количества друзей
+    async function fetchFriendsCount() {
+        try {
+            const response = await fetch(`/api/friends-count/${userId}`);
+            if (response.ok) {
+                const data = await response.json();
+                if (data.success) {
+                    document.getElementById('friends-count').textContent = `${data.friendsCount} friends`;
+                } else {
+                    console.error('Ошибка получения друзей:', data.message);
+                }
+            } else {
+                console.error('Ошибка загрузки количества друзей:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Ошибка при получении количества друзей:', error);
+        }
+    }
+
+    fetchFriendsCount();
+
     // Проверяем, активирован ли код
     const isActivated = localStorage.getItem(`referralActivated_${userId}`);
     if (isActivated === 'true') {
