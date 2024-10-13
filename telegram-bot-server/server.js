@@ -274,16 +274,17 @@ app.get('/referral-code/:telegramId', async (req, res) => {
     }
 });
 
-// Проверка введеного кода и пометка его как активированного
 app.post('/activate-referral', async (req, res) => {
     const { telegramId, enteredRefCode } = req.body;
 
     try {
+        // Поиск пользователя, который активирует реферальный код
         const user = await User.findOne({ telegramId });
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
 
+        // Поиск реферера по реферальному коду
         const refUser = await User.findOne({ refcode: enteredRefCode });
         if (!refUser) {
             return res.status(404).json({ message: 'Referral code not found' });
@@ -294,34 +295,24 @@ app.post('/activate-referral', async (req, res) => {
             return res.status(400).json({ message: 'Referral code already used' });
         }
 
+        // Начисление токенов
+        user.tokens += 1000; // Начисляем 1000 токенов
+        refUser.tokens += 500; // Начисляем 500 токенов рефереру
+        refUser.friendsCount += 1; // Увеличиваем счетчик друзей
         user.refUsed = true; // Отмечаем, что код использован
 
+        // Логирование перед сохранением
+        console.log('User tokens:', user.tokens);
+        console.log('RefUser tokens:', refUser.tokens);
+        console.log('RefUser friendsCount:', refUser.friendsCount);
+
+        // Сохраняем данные
         await user.save();
+        await refUser.save();
 
-        res.status(200).json({ message: 'Referral activated' });
+        res.status(200).json({ message: 'Referral activated and tokens awarded' });
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Server error' });
-    }
-});
-
-// Обработчик для начисления токенов
-app.post('/claim-referral', async (req, res) => {
-    const { telegramId } = req.body;
-
-    try {
-        const user = await User.findOne({ telegramId });
-        if (!user) {
-            return res.status(404).json({ message: 'User not found' });
-        }
-
-        // Начисляем токены
-        user.tokens += 1000; // Начисляем 1000 токенов
-        await user.save();
-
-        res.status(200).json({ message: 'Tokens claimed successfully' });
-    } catch (error) {
-        console.error(error);
+        console.error('Ошибка при активации реферального кода:', error);
         res.status(500).json({ message: 'Server error' });
     }
 });
