@@ -78,9 +78,6 @@ async function claimReward() {
             localStorage.setItem(lastClaimTimeKey, Date.now()); // Сохраняем время получения награды для конкретного пользователя
             updateRewardButton();
             disableRewardButton(86400); // Блокируем кнопку на 24 часа
-
-            // Обновляем текст на кнопке с переводом
-            await loadTranslations(lang, rewardAmount); // Передаем значение rewardAmount в функцию loadTranslations
         } else {
             const errorData = await response.json();
             alert(`Ошибка: ${errorData.error}`);
@@ -112,18 +109,6 @@ function resetReward() {
 
     // Скрываем таймер после истечения времени
     document.querySelector('.timer-container').style.display = 'none'; // Скрываем таймер
-}
-
-// Функция для загрузки переводов
-async function loadTranslations(lang, rewardAmount) {
-    const response = await fetch(`/translations/${lang}.json`);
-    const data = await response.json();
-
-    // Обновление текста на основе переводов
-    if (rewardButton) {
-        rewardButton.textContent = data.daily_checkin.replace("{amount}", rewardAmount); // Обновляем текст на кнопке
-    }
-    // Обновление других текстовых элементов...
 }
 
 // Инициализация
