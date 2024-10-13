@@ -234,8 +234,8 @@ body {
     color: #ffffff;
 }
 
-/* Стили для блока Personal Settings */
-.personal-settings-container {
+/* Стили для блока Personal Achievements */ 
+.personal-achievements-container {
     background-color: #1f1f1f; /* Тёмный фон */
     border-radius: 20px; /* Закругление */
     padding: 20px;
@@ -245,12 +245,62 @@ body {
     max-width: 290px; /* Ограничение по ширине */
 }
 
+.personal-achievements-title {
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    color: #ffffff;
+    font-size: 18px;
+    margin-bottom: -2px;
+    margin-right: 220px;
+    margin-top: -0px; /* Отрицательный отступ для поднятия заголовка вверх */
+    white-space: nowrap; /* Отключает перенос текста */
+}
+
+.personal-achievements-wrapper {
+    display: flex;
+    justify-content: space-between; /* Равномерное распределение пространства */
+    margin-top: 10px; /* Отступ сверху для отделения от заголовка */
+    padding: 10px 0; /* Отступы для внутреннего пространства */
+}
+
+.achievement-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; /* Ширина контейнера с элементами */
+    color: #fff;
+    font-family: Arial, sans-serif;
+}
+
+.achievement-text {
+    font-size: 14px; /* Размер текста описания */
+    color: #ffffff;
+}
+
+.daily-count {
+    font-size: 16px; /* Размер числа дней */
+    font-weight: bold;
+    color: #ffcc00; /* Яркий цвет для выделения */
+}
+
+/* Стили для блока Personal Settings */
+.personal-settings-container {
+    background-color: #1f1f1f; /* Тёмный фон */
+    border-radius: 20px; /* Закругление */
+    padding: 20px;
+    text-align: center;
+    margin: -2px auto; /* Центрирование блока и отступ сверху */
+    width: 100%; /* Ширина блока 100% */
+    max-width: 290px; /* Ограничение по ширине */
+}
+
 .personal-settings-title {
     font-family: Arial, sans-serif;
     font-weight: bold;
     color: #ffffff;
     font-size: 18px;
-    margin: 0; /* Убираем все отступы */
+    margin-right: 220px;
+    margin-top: -0px; /* Отрицательный отступ для поднятия заголовка вверх */
     white-space: nowrap; /* Отключает перенос текста */
 }
 
@@ -277,7 +327,7 @@ body {
 }
 
 /* Стиль для модального окна */
-.modal {
+.modal-language {
     display: none; /* Скрыто по умолчанию */
     position: fixed;
     z-index: 1;
@@ -292,11 +342,11 @@ body {
 }
 
 /* Стили для модального окна */
-.modal-content {
+.modal-language-content {
     background-color: #1f1f1f; /* Цвет фона модального окна */
     border-radius: 20px; /* Скругленные углы */
     padding: 20px;
-    width: 350px; /* Ширина модального окна */
+    width: 330px; /* Ширина модального окна */
     text-align: center; /* Центрирование текста */
 }
 

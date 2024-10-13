@@ -3,7 +3,9 @@
     "daily_rewards": "🎁 DAILY REWARDS",
     "daily_checkin": "Daily Check in +100 $Novella",
     "premium_checkin": "Premium Check in +1000 $Novella",
-    "personal-settings-title": "⚙️ PERSONAL SETTINGS",
+    "personal-achievements-title": "⭐ ACHIEVEMENTS",
+    "achievement-text-days": "Days in the game:",
+    "personal-settings-title": "⚙️ SETTINGS",
     "main": "Main",
     "task": "Task",
     "friends": "Friends",
@@ -31,5 +33,6 @@
     "listing-description-2": "Listing allows the token to be available for trading and increases its visibility among investors.",
     "warning-text": "The wallet can only be connected to this account.",
     "leader-subtitle": "The list of the best users, break into the top!",
+    "boost-score-button": "Boost score",
     "title-top100": "TOP 100"
 }  

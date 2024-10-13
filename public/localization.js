@@ -12,6 +12,8 @@ function loadTranslations(lang) {
             const dailyRewardTitle = document.getElementById('daily-reward-title');
             const claimRewardButton = document.getElementById('claim-reward-button');
             const premiumRewardButton = document.getElementById('premium-reward-button');
+            const personalAchievementsTitle = document.getElementById("personal-achievements-title");
+            const achievementTextDays = document.getElementById("achievement-text-days");
             const personalSettingsTitle = document.getElementById('personal-settings-title');
             const menuMain = document.getElementById('menu-main');
             const menuTask = document.getElementById('menu-task');
@@ -35,13 +37,16 @@ function loadTranslations(lang) {
             const listingDescription1 = document.getElementById('listing-description-1');
             const listingDescription2 = document.getElementById('listing-description-2');
             const leaderSubtitle = document.getElementById('leader-subtitle');
+            const boostScoreButton = document.getElementById("boost-score-button");
             const titletop100 = document.getElementById("title-top100");
-
+            
             // Применение переводов
             if (freedurovButton) freedurovButton.textContent = data.freedurov_button;
             if (dailyRewardTitle) dailyRewardTitle.textContent = data.daily_rewards;
             if (claimRewardButton) claimRewardButton.textContent = data.daily_checkin;
             if (premiumRewardButton) premiumRewardButton.textContent = data.premium_checkin;
+            if (personalAchievementsTitle) personalAchievementsTitle.textContent = data['personal-achievements-title'];
+            if (achievementTextDays) achievementTextDays.textContent = data['achievement-text-days'];
             if (personalSettingsTitle) personalSettingsTitle.textContent = data['personal-settings-title'];
             if (menuMain) menuMain.textContent = data.main;
             if (menuTask) menuTask.textContent = data.task;
@@ -66,6 +71,7 @@ function loadTranslations(lang) {
             if (listingDescription2) listingDescription2.textContent = data['listing-description-2'];
             if (leaderSubtitle) leaderSubtitle.textContent = data['leader-subtitle'];
             if (titletop100) titletop100.textContent = data['title-top100'];
+            if (boostScoreButton) boostScoreButton.textContent = data['boost-score-button'];
         })
         .catch(error => {
             console.error(error);

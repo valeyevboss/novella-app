@@ -107,6 +107,34 @@ app.get('/check-user/:telegramId', async (req, res) => {
 	}
 });
 
+// Маршрут для получения дней пользователя
+app.get('/api/user-days/:userId', async (req, res) => {
+    const { userId } = req.params;
+
+    try {
+        // Ищем пользователя в базе данных
+        const user = await User.findOne({ telegramId: userId });
+
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'Пользователь не найден' });
+        }
+
+        // Рассчитываем количество дней с момента старта
+        const now = new Date();
+        const startDate = user.startDate || now;
+        const daysInGame = (now - startDate) / (1000 * 60 * 60 * 24); // Переводим миллисекунды в дни
+
+        return res.json({
+            success: true,
+            daysInGame: daysInGame
+        });
+    } catch (error) {
+        console.error('Ошибка при получении дней в игре:', error);
+        return res.status(500).json({ success: false, message: 'Внутренняя ошибка сервера' });
+    }
+});
+
+
 // Маршрут для получения статистики пользователя
 app.get('/api/top-stats/:userId', async (req, res) => {
     const { userId } = req.params;

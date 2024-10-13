@@ -34,7 +34,19 @@
             </div>
         </div>
 
-        <!-- Личный кабинет - Personal Settings -->
+        <!-- Personal Achievements --> 
+        <div class="personal-achievements-container"> 
+            <p class="personal-achievements-title" id="personal-achievements-title">⭐ ACHIEVEMENTS</p> 
+            <div class="personal-achievements-wrapper">
+                <!-- Статистика Дней в игре -->
+                <div class="achievement-item">
+                    <span class="achievement-text" id="achievement-text-days">Days in the game:</span>
+                    <span class="daily-count" id="daily-count">0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Personal Settings -->
         <div class="personal-settings-container">
             <p class="personal-settings-title" id="personal-settings-title">⚙️ PERSONAL SETTINGS</p>
             <div class="personal-settings-wrapper">
@@ -43,9 +55,9 @@
         </div>
 
     <!-- Модальное окно -->
-    <div id="LanguageModalPanel" class="modal">
-        <div class="modal-content">
-            <h2>· Select Language ·</h2>
+    <div id="LanguageModalPanel" class="modal-language">
+        <div class="modal-language-content">
+            <h2>👨🏻‍💻 Select Language 👨🏻‍💻</h2>
             <select id="country-select">
                 <option value="en-US">English 🇺🇸</option>
                 <option value="ru-RU">Russian 🇷🇺</option>
@@ -184,6 +196,9 @@
 
     <!-- Скрипт ежедневной награды -->
     <script src="/dailyreward.js"></script>
+
+    <!-- Скрипт достижений игрока -->
+    <script src="/achievements.js"></script>
 
     <!-- Скрипт локализации -->    
     <script src="/localization.js"></script>
