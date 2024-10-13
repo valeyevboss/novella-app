@@ -64,8 +64,8 @@ function loadTranslations(lang) {
             if (sectionTitlePartners) sectionTitlePartners.textContent = data['section-title-partners'];
             if (friendsSubtitle) friendsSubtitle.textContent = data['friends-subtitle'];
             if (refCodeTitle) refCodeTitle.textContent = data["ref-code-title"];
-            if (refYouCodeText) refYouCodeText.textContent = data["ref-code-text-days"];
-            if (refActivateTitle) refActivateTitle.textContent = data["ref-youсode-text"];
+            if (refYouCodeText) refYouCodeText.textContent = data["ref-youсode-text"];
+            if (refActivateTitle) refActivateTitle.textContent = data["ref-activate-title"];
             if (claimButton) claimButton.textContent = data["claim-button"];
             if (friendsCount) friendsCount.textContent = data['friends-count'];
             if (inviteButton) inviteButton.textContent = data['invite-button'];
