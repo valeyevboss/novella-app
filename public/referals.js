@@ -6,10 +6,10 @@ document.addEventListener("DOMContentLoaded", function() {
     // Получаем реферальный код на основе userId
     async function fetchReferralCode() {
         try {
-            const response = await fetch(`/referral-code/${userId}`); // Изменено на userId
+            const response = await fetch(`/referral-code/${userId}`);
             if (response.ok) {
                 const data = await response.json();
-                document.getElementById('ref-сode-count').textContent = data.refCode; // Установить реферальный код
+                document.getElementById('ref-сode-count').textContent = data.refCode;
             } else {
                 console.error('Ошибка загрузки реферального кода:', response.statusText);
             }
@@ -18,7 +18,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // Вызов функции для получения реферального кода
     fetchReferralCode();
 
     // Обработчик клика для кнопки приглашения
@@ -30,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Обработчик клика для кнопки копирования реферального кода
     document.querySelector('.invite-copy-button').addEventListener('click', function() {
-        const refCode = document.getElementById('ref-сode-count').textContent; // Здесь ID должен быть правильным
+        const refCode = document.getElementById('ref-сode-count').textContent;
         navigator.clipboard.writeText(refCode).then(() => {
             alert('Referral code copied!');
         });
@@ -45,19 +44,44 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
 
+        // Отправка запроса на активацию кода
         const response = await fetch('/activate-referral', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ telegramId: userId, enteredRefCode: enteredCode }) // Изменено на userId
+            body: JSON.stringify({ telegramId: userId, enteredRefCode: enteredCode })
         });
 
         const result = await response.json();
 
         if (response.ok) {
-            alert('Referral code activated! +1000 tokens awarded');
-            document.querySelector('.ref-activate.btn').textContent = 'Claim';
+            alert('Referral code activated! Now click "Claim" to get your tokens.');
+            document.querySelector('.ref-activate.btn').textContent = 'Claim'; // Меняем текст на Claim
+            document.querySelector('.ref-activate.btn').setAttribute('data-activated', 'true'); // Добавляем атрибут для отслеживания активации
         } else {
             alert(result.message || 'Error activating referral code');
+        }
+    });
+
+    // Обработчик клика для получения токенов
+    document.querySelector('.ref-activate.btn').addEventListener('click', async function() {
+        if (this.getAttribute('data-activated') === 'true') { // Проверяем, активирован ли код
+            const response = await fetch('/claim-referral', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ telegramId: userId })
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                alert('Tokens claimed! +1000 tokens awarded.');
+                this.textContent = 'Claimed'; // Меняем текст кнопки на Claimed
+                this.setAttribute('data-activated', 'false'); // Сбрасываем атрибут
+            } else {
+                alert(result.message || 'Error claiming tokens');
+            }
+        } else {
+            alert('You need to activate the referral code first.');
         }
     });
 });

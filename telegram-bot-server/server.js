@@ -267,14 +267,14 @@ app.get('/referral-code/:telegramId', async (req, res) => {
             return res.status(404).json({ error: 'User not found' });
         }
 
-        return res.json({ refCode: user.refcode }); // Вернуть реферальный код
+        return res.json({ refCode: user.refcode });
     } catch (error) {
         console.error('Ошибка получения реферального кода:', error);
         res.status(500).json({ error: 'Внутренняя ошибка сервера' });
     }
 });
 
-// Проверка введеного кода и награждение
+// Проверка введеного кода и пометка его как активированного
 app.post('/activate-referral', async (req, res) => {
     const { telegramId, enteredRefCode } = req.body;
 
@@ -294,16 +294,36 @@ app.post('/activate-referral', async (req, res) => {
             return res.status(400).json({ message: 'Referral code already used' });
         }
 
+        user.refUsed = true; // Отмечаем, что код использован
+
+        await user.save();
+
+        res.status(200).json({ message: 'Referral activated' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
+// Начисление токенов после нажатия Claim
+app.post('/claim-referral', async (req, res) => {
+    const { telegramId } = req.body;
+
+    try {
+        const user = await User.findOne({ telegramId });
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
         // Начисляем токены
         user.tokens += 1000;
         refUser.tokens += 500;
         refUser.friendsCount += 1;
-        user.refUsed = true; // Отмечаем, что код использован
 
         await user.save();
         await refUser.save();
 
-        res.status(200).json({ message: 'Referral activated' });
+        res.status(200).json({ message: 'Tokens claimed' });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Server error' });
