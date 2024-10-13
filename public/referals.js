@@ -20,6 +20,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
     fetchReferralCode();
 
+    // Проверяем, активирован ли код
+    const isActivated = localStorage.getItem(`referralActivated_${userId}`);
+    if (isActivated === 'true') {
+        document.querySelector('.ref-activate-container').style.display = 'none';
+    }
+
     // Обработчик клика для кнопки приглашения
     document.getElementById('invite-button').addEventListener('click', function() {
         const refCode = document.getElementById('ref-сode-count').textContent;
@@ -60,6 +66,7 @@ document.addEventListener("DOMContentLoaded", function() {
             
             // Скрываем блок активации реферального кода
             document.querySelector('.ref-activate-container').style.display = 'none';
+            localStorage.setItem(`referralActivated_${userId}`, 'true'); // Сохраняем состояние активации в localStorage
         } else {
             alert(result.message || 'Error activating referral code');
         }
