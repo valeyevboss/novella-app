@@ -25,7 +25,7 @@ function loadTranslations(lang) {
             const sectionTitleIngame = document.getElementById('section-title-ingame');
             const sectionTitlePartners = document.getElementById('section-title-partners');
             const friendsSubtitle = document.getElementById('friends-subtitle');
-            const refCodeTitle = document.getElementById("ref-сode-title");
+            const refCodeTitle = document.getElementById("ref-code-title");
             const refYouCodeText = document.getElementById("ref-youсode-text");
             const refActivateTitle = document.getElementById("ref-activate-title");
             const claimButton = document.getElementById("claim-button");
@@ -63,7 +63,7 @@ function loadTranslations(lang) {
             if (sectionTitleIngame) sectionTitleIngame.textContent = data['section-title-ingame'];
             if (sectionTitlePartners) sectionTitlePartners.textContent = data['section-title-partners'];
             if (friendsSubtitle) friendsSubtitle.textContent = data['friends-subtitle'];
-            if (refCodeTitle) refCodeTitle.textContent = data["ref-сode-title"];
+            if (refCodeTitle) refCodeTitle.textContent = data["ref-code-title"];
             if (refYouCodeText) refYouCodeText.textContent = data["ref-youсode-text"];
             if (refActivateTitle) refActivateTitle.textContent = data["ref-activate-title"];
             if (claimButton) claimButton.textContent = data["claim-button"];
