@@ -289,7 +289,7 @@ body {
     border-radius: 20px; /* Закругление */
     padding: 20px;
     text-align: center;
-    margin: -2px auto; /* Центрирование блока и отступ сверху */
+    margin: -4px auto 60px auto; /* Центрирование блока и отступ сверху/снизу */
     width: 100%; /* Ширина блока 100% */
     max-width: 290px; /* Ограничение по ширине */
 }
