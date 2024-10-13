@@ -57,11 +57,13 @@ document.addEventListener("DOMContentLoaded", function() {
             alert('Referral code activated! +1000 tokens awarded to you and +500 to the referrer.');
             document.querySelector('.ref-activate.btn').textContent = 'Claim'; // Меняем текст на Claim
             document.querySelector('.ref-activate.btn').setAttribute('data-activated', 'true'); // Добавляем атрибут для отслеживания активации
+            
+            // Скрываем блок активации реферального кода
+            document.querySelector('.ref-activate-container').style.display = 'none';
         } else {
             alert(result.message || 'Error activating referral code');
         }
     });
-
 
     // Обработчик клика для получения токенов
     document.querySelector('.ref-activate.btn').addEventListener('click', async function() {
