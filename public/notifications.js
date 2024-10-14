@@ -28,6 +28,10 @@ function showNotification(message, isError = false) {
     const timeout = setTimeout(() => {
         notification.classList.remove('show');
         notification.style.display = 'none';
+
+        // Сброс состояния уведомления
+        notification.style.top = '-100px'; // Возвращаем уведомление за пределы экрана
+        notification.classList.add('hidden'); // Добавляем класс hidden для скрытия
     }, 5000);
 
     // Логика для свайпа закрытия
@@ -47,6 +51,8 @@ function showNotification(message, isError = false) {
             setTimeout(() => {
                 notification.classList.remove('show');
                 notification.style.display = 'none';
+                notification.style.top = '-100px'; // Возвращаем уведомление за пределы экрана
+                notification.classList.add('hidden'); // Добавляем класс hidden для скрытия
             }, 300); // Время анимации свайпа
         }
     });
