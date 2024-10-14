@@ -81,21 +81,17 @@ body {
 .notification {
     position: fixed;
     top: 20px;
-    right: 20px;
+    left: 50%; /* Центрируем по горизонтали */
+    transform: translateX(-50%); /* Сдвигаем на половину ширины элемента для центрирования */
     max-width: 300px;
     padding: 15px;
     background-color: #1f1f1f;
-    /* Цвет блока */
-    color: white;
-    /* Цвет текста */
-    border: 1px solid white;
-    /* Белая обводка */
-    border-radius: 10px;
-    /* Скругленные углы */
+    color: white; 
+    border: 1px solid white; 
+    border-radius: 10px; 
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     font-family: 'Maiandra GD', sans-serif;
-    display: none;
-    /* По умолчанию скрыто */
+    display: none; 
     z-index: 1000;
 }
 

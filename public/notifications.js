@@ -12,6 +12,12 @@ function showNotification(message, isError = false) {
 
     notification.classList.add('show');
 
+    // Начальное положение уведомления за пределами экрана
+    notification.style.top = '-100px'; // Начальная позиция за пределами экрана
+    setTimeout(() => {
+        notification.style.top = '20px'; // Позиция в видимой части экрана
+    }, 50); // Небольшая задержка, чтобы задать новую позицию после отображения
+
     // Уведомление исчезает через 5 секунд, если не было свайпа
     const timeout = setTimeout(() => {
         notification.classList.remove('show');
