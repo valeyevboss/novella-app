@@ -12,6 +12,12 @@ function showNotification(message, isError = false) {
 
     notification.classList.add('show');
 
+    // Воспроизведение звука уведомления
+    const audio = new Audio('sound/Succes-Notifications.wav');
+    audio.play().catch(error => {
+        console.error('Ошибка при воспроизведении звука:', error);
+    });
+
     // Начальное положение уведомления за пределами экрана
     notification.style.top = '-100px'; // Начальная позиция за пределами экрана
     setTimeout(() => {
