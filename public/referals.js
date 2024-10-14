@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Обработчик клика для кнопки приглашения
     document.getElementById('invite-button').addEventListener('click', function() {
         const refCode = document.getElementById('ref-сode-count').textContent;
-        const message = `Log in to the Novella App, activate the code: ${refCode}. Don't miss the chance to get $1000 Novella tokens for free! https://t.me/novella_bot?start=startapp`;
+        const message = `Activate the code: ${refCode}. Don't miss the chance to get $1000 Novella tokens for free!\n👑 Join me in @novella_bot game and earn $Novella token soon!\n⭐️ $1000 Novella tokens bonus for you.\n⭐️ $500 Novella tokens bonus if your friend joins.`;
         window.open(`https://t.me/share/url?url=${encodeURIComponent(message)}`, '_blank');
     });
 
