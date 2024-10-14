@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelector('.invite-copy-button').addEventListener('click', function() {
         const refCode = document.getElementById('ref-сode-count').textContent;
         navigator.clipboard.writeText(refCode).then(() => {
-            alert('Referral code copied!');
+            showNotification('Referral code copied!');
         });
     });
 
@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const enteredCode = document.querySelector('.ref-activate__field').value;
 
         if (!enteredCode) {
-            alert('Please enter a referral code');
+            showNotification('Please enter a referral code', true);
             return;
         }
 
@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const result = await response.json();
 
         if (response.ok) {
-            alert('Referral code activated! +1000 tokens awarded to you and +500 to the referrer.');
+            showNotification('You got +1000 $Novella!');
             document.querySelector('.ref-activate.btn').textContent = 'Claim'; // Меняем текст на Claim
             document.querySelector('.ref-activate.btn').setAttribute('data-activated', 'true'); // Добавляем атрибут для отслеживания активации
             
@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function() {
             document.querySelector('.ref-activate-container').style.display = 'none';
             localStorage.setItem(`referralActivated_${userId}`, 'true'); // Сохраняем состояние активации в localStorage
         } else {
-            alert(result.message || 'Error activating referral code');
+            showNotification(result.message || 'Error activating referral code', true);
         }
     });
 
@@ -105,14 +105,14 @@ document.addEventListener("DOMContentLoaded", function() {
             const result = await response.json();
 
             if (response.ok) {
-                alert('Tokens claimed! +1000 tokens awarded.');
+                showNotification('Tokens claimed! +1000 tokens awarded.');
                 this.textContent = 'Claimed'; // Меняем текст кнопки на Claimed
                 this.setAttribute('data-activated', 'false'); // Сбрасываем атрибут
             } else {
-                alert(result.message || 'Error claiming tokens');
+                showNotification(result.message || 'Error claiming tokens', true);
             }
         } else {
-            alert('You need to activate the referral code first.');
+            showNotification('You need to activate the referral code first.', true);
         }
     });
 });

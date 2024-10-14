@@ -5,8 +5,10 @@ body {
     margin: 0;
     padding: 0;
     color: white;
-    overflow-y: auto; /* Вертикальная прокрутка при необходимости */
-    overflow-x: hidden; /* Отключаем горизонтальную прокрутку */
+    overflow-y: auto;
+    /* Вертикальная прокрутка при необходимости */
+    overflow-x: hidden;
+    /* Отключаем горизонтальную прокрутку */
 }
 
 /* Инициализация шрифтов */
@@ -75,16 +77,90 @@ body {
     }
 }
 
+/* Основной стиль для уведомления */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    max-width: 300px;
+    padding: 15px;
+    background-color: #1f1f1f;
+    /* Цвет блока */
+    color: white;
+    /* Цвет текста */
+    border: 1px solid white;
+    /* Белая обводка */
+    border-radius: 10px;
+    /* Скругленные углы */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-family: 'Maiandra GD', sans-serif;
+    display: none;
+    /* По умолчанию скрыто */
+    z-index: 1000;
+}
+
+/* Стилизация для крестика */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+}
+
+/* Анимация для плавного появления и исчезновения */
+.notification.show {
+    display: block;
+    animation: fadein 0.5s, fadeout 0.5s 4.5s;
+    /* Исчезает через 5 сек */
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeout {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+/* Уведомление исчезает при свайпе */
+.notification.swipe {
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+}
+
+/* Для скрытия при закрытии */
+.hidden {
+    display: none;
+}
+
 /* Основные стили для страницы */
 .main-page {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start; /* Перемещаем элементы вверх */
+    justify-content: flex-start;
+    /* Перемещаем элементы вверх */
     height: 100vh;
-    padding-top: 5vh; /* Отступ сверху для кнопки */
-    overflow-y: auto; /* Вертикальная прокрутка */
-    padding-bottom: 50px; /* Отступ внизу для нижнего меню */
+    padding-top: 5vh;
+    /* Отступ сверху для кнопки */
+    overflow-y: auto;
+    /* Вертикальная прокрутка */
+    padding-bottom: 50px;
+    /* Отступ внизу для нижнего меню */
 }
 
 .freedurov-button {
@@ -103,35 +179,46 @@ body {
     text-align: center;
     white-space: nowrap;
     position: relative;
-    transition: transform 0.2s ease, background 0.5s ease, opacity 0.2s ease, box-shadow 0.3s ease; /* Добавлено box-shadow */
+    transition: transform 0.2s ease, background 0.5s ease, opacity 0.2s ease, box-shadow 0.3s ease;
+    /* Добавлено box-shadow */
 }
 
 /* Эффект неона при наведении */
 .freedurov-button:hover {
-    transform: scale(1.05); /* Лёгкое увеличение кнопки при наведении */
-    background: linear-gradient(90deg, #ffffff, #1E90FF, #1C86EE); /* Перелив градиента при наведении */
-    opacity: 0.95; /* Лёгкое затемнение для контраста */
-    box-shadow: 0 0 20px #1E90FF, 0 0 30px #1E90FF; /* Неоновое свечение */
+    transform: scale(1.05);
+    /* Лёгкое увеличение кнопки при наведении */
+    background: linear-gradient(90deg, #ffffff, #1E90FF, #1C86EE);
+    /* Перелив градиента при наведении */
+    opacity: 0.95;
+    /* Лёгкое затемнение для контраста */
+    box-shadow: 0 0 20px #1E90FF, 0 0 30px #1E90FF;
+    /* Неоновое свечение */
 }
 
 .freedurov-button::after {
-    content: ' >'; /* Стрелка */
+    content: ' >';
+    /* Стрелка */
     display: inline-block;
-    margin-left: 8px; /* Отступ между текстом и стрелкой */
-    transition: transform 0.2s ease; /* Анимация стрелки */
+    margin-left: 8px;
+    /* Отступ между текстом и стрелкой */
+    transition: transform 0.2s ease;
+    /* Анимация стрелки */
 }
 
 .freedurov-button:hover::after {
-    transform: translateX(5px); /* Движение стрелки вправо при наведении */
+    transform: translateX(5px);
+    /* Движение стрелки вправо при наведении */
 }
 
 .token-section {
     text-align: center;
-    margin-top: 15vh; /* Смещаем иконку выше */
+    margin-top: 15vh;
+    /* Смещаем иконку выше */
 }
 
 .token-icon {
-    width: 250px; /* Увеличиваем иконку */
+    width: 250px;
+    /* Увеличиваем иконку */
     height: 250px;
     margin-top: -45px;
 }
@@ -145,13 +232,18 @@ body {
 
 /* Стили для блока Daily Rewards */
 .daily-reward-container {
-    background-color: #1f1f1f; /* Тёмный фон */
-    border-radius: 20px; /* Закругление */
+    background-color: #1f1f1f;
+    /* Тёмный фон */
+    border-radius: 20px;
+    /* Закругление */
     padding: 20px;
     text-align: center;
-    margin: -5px auto; /* Центрирование блока */
-    width: 100%; /* Ширина блока 100% */
-    max-width: 300px; /* Ограничение по ширине */
+    margin: -5px auto;
+    /* Центрирование блока */
+    width: 100%;
+    /* Ширина блока 100% */
+    max-width: 300px;
+    /* Ограничение по ширине */
 }
 
 .daily-reward-title {
@@ -161,13 +253,16 @@ body {
     font-size: 18px;
     margin-bottom: 10px;
     margin-right: 170px;
-    margin-top: -0px; /* Отрицательный отступ для поднятия заголовка вверх */
-    white-space: nowrap; /* Отключает перенос текста */
+    margin-top: -0px;
+    /* Отрицательный отступ для поднятия заголовка вверх */
+    white-space: nowrap;
+    /* Отключает перенос текста */
 }
 
 
 .daily-reward-wrapper {
-    position: relative; /* Позволяет абсолютное позиционирование для дочерних элементов */
+    position: relative;
+    /* Позволяет абсолютное позиционирование для дочерних элементов */
 }
 
 .daily-reward-button {
@@ -184,7 +279,8 @@ body {
     justify-content: center;
     align-items: center;
     white-space: nowrap;
-    margin-bottom: 14px; /* Отступ для размещения таймера ниже кнопки */
+    margin-bottom: 14px;
+    /* Отступ для размещения таймера ниже кнопки */
 }
 
 .premium-reward-button {
@@ -201,7 +297,8 @@ body {
     justify-content: center;
     align-items: center;
     white-space: nowrap;
-    margin-top: 14px; /* Отступ для премиум кнопки */
+    margin-top: 14px;
+    /* Отступ для премиум кнопки */
     margin-right: 60px;
 }
 
@@ -215,11 +312,15 @@ body {
 .timer-container {
     display: flex;
     align-items: center;
-    position: absolute; /* Абсолютное позиционирование */
-    top: 50%; /* Центрирование по вертикали относительно кнопки */
-    right: -1px; /* Сдвиг вправо для расположения рядом с кнопкой */
+    position: absolute;
+    /* Абсолютное позиционирование */
+    top: 50%;
+    /* Центрирование по вертикали относительно кнопки */
+    right: -1px;
+    /* Сдвиг вправо для расположения рядом с кнопкой */
     transform: translateY(-160%);
-    display: none; /* Скрыть таймер по умолчанию */
+    display: none;
+    /* Скрыть таймер по умолчанию */
 }
 
 .timer-icon {
@@ -234,15 +335,20 @@ body {
     color: #ffffff;
 }
 
-/* Стили для блока Personal Achievements */ 
+/* Стили для блока Personal Achievements */
 .personal-achievements-container {
-    background-color: #1f1f1f; /* Тёмный фон */
-    border-radius: 20px; /* Закругление */
+    background-color: #1f1f1f;
+    /* Тёмный фон */
+    border-radius: 20px;
+    /* Закругление */
     padding: 20px;
     text-align: center;
-    margin: 20px auto; /* Центрирование блока и отступ сверху */
-    width: 100%; /* Ширина блока 100% */
-    max-width: 290px; /* Ограничение по ширине */
+    margin: 20px auto;
+    /* Центрирование блока и отступ сверху */
+    width: 100%;
+    /* Ширина блока 100% */
+    max-width: 290px;
+    /* Ограничение по ширине */
 }
 
 .personal-achievements-title {
@@ -252,46 +358,60 @@ body {
     font-size: 18px;
     margin-bottom: -2px;
     margin-right: 220px;
-    margin-top: -0px; /* Отрицательный отступ для поднятия заголовка вверх */
-    white-space: nowrap; /* Отключает перенос текста */
+    margin-top: -0px;
+    /* Отрицательный отступ для поднятия заголовка вверх */
+    white-space: nowrap;
+    /* Отключает перенос текста */
 }
 
 .personal-achievements-wrapper {
     display: flex;
-    justify-content: space-between; /* Равномерное распределение пространства */
-    margin-top: 10px; /* Отступ сверху для отделения от заголовка */
-    padding: 10px 0; /* Отступы для внутреннего пространства */
+    justify-content: space-between;
+    /* Равномерное распределение пространства */
+    margin-top: 10px;
+    /* Отступ сверху для отделения от заголовка */
+    padding: 10px 0;
+    /* Отступы для внутреннего пространства */
 }
 
 .achievement-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%; /* Ширина контейнера с элементами */
+    width: 100%;
+    /* Ширина контейнера с элементами */
     color: #fff;
     font-family: Arial, sans-serif;
 }
 
 .achievement-text {
-    font-size: 14px; /* Размер текста описания */
+    font-size: 14px;
+    /* Размер текста описания */
     color: #ffffff;
 }
 
 .daily-count {
-    font-size: 16px; /* Размер числа дней */
+    font-size: 16px;
+    /* Размер числа дней */
     font-weight: bold;
-    color: #ffcc00; /* Яркий цвет для выделения */
+    color: #ffcc00;
+    /* Яркий цвет для выделения */
 }
 
 /* Стили для блока Personal Settings */
 .personal-settings-container {
-    background-color: #1f1f1f; /* Тёмный фон */
-    border-radius: 20px; /* Закругление */
+    background-color: #1f1f1f;
+    /* Тёмный фон */
+    border-radius: 20px;
+    /* Закругление */
     padding: 20px;
     text-align: center;
-    margin: -4px auto 60px auto; /* Центрирование блока и отступ сверху/снизу */
-    width: 100%; /* Ширина блока 100% */
-    max-width: 290px; /* Ограничение по ширине */
+    margin: -4px auto 60px auto;
+    /* Центрирование блока и отступ сверху/снизу */
+    width: 100%;
+    /* Ширина блока 100% */
+    max-width: 290px;
+    /* Ограничение по ширине */
 }
 
 .personal-settings-title {
@@ -300,25 +420,36 @@ body {
     color: #ffffff;
     font-size: 18px;
     margin-right: 220px;
-    margin-top: -0px; /* Отрицательный отступ для поднятия заголовка вверх */
-    white-space: nowrap; /* Отключает перенос текста */
+    margin-top: -0px;
+    /* Отрицательный отступ для поднятия заголовка вверх */
+    white-space: nowrap;
+    /* Отключает перенос текста */
 }
 
 .personal-settings-wrapper {
-    position: relative; /* Позволяет абсолютное позиционирование для дочерних элементов */
-    display: flex; /* Используйте flexbox для выравнивания элементов */
-    justify-content: center; /* Центрирование содержимого */
-    margin-top: 10px; /* Отступ сверху для отделения от заголовка */
+    position: relative;
+    /* Позволяет абсолютное позиционирование для дочерних элементов */
+    display: flex;
+    /* Используйте flexbox для выравнивания элементов */
+    justify-content: center;
+    /* Центрирование содержимого */
+    margin-top: 10px;
+    /* Отступ сверху для отделения от заголовка */
 }
 
 .personal-language-button {
-    background-color: #303030; /* Цвет кнопки открытия */
+    background-color: #303030;
+    /* Цвет кнопки открытия */
     color: white;
     border: none;
-    border-radius: 20px; /* Скругленная кнопка */
-    width: 50px; /* Ширина кнопки */
-    height: 50px; /* Высота кнопки */
-    font-size: 24px; /* Размер шрифта для иконки */
+    border-radius: 20px;
+    /* Скругленная кнопка */
+    width: 50px;
+    /* Ширина кнопки */
+    height: 50px;
+    /* Высота кнопки */
+    font-size: 24px;
+    /* Размер шрифта для иконки */
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -328,97 +459,150 @@ body {
 
 /* Стиль для модального окна */
 .modal-language {
-    display: none; /* Скрыто по умолчанию */
+    display: none;
+    /* Скрыто по умолчанию */
     position: fixed;
     z-index: 1;
     left: 0;
     top: 0;
-    width: 100%; /* Полная ширина */
-    height: 100%; /* Полная высота */
-    overflow: auto; /* Включает прокрутку, если необходимо */
-    background-color: rgba(0, 0, 0, 0.76); /* Полупрозрачный черный фон */
-    justify-content: center; /* Центрирование по горизонтали */
-    align-items: center; /* Центрирование по вертикали */
+    width: 100%;
+    /* Полная ширина */
+    height: 100%;
+    /* Полная высота */
+    overflow: auto;
+    /* Включает прокрутку, если необходимо */
+    background-color: rgba(0, 0, 0, 0.76);
+    /* Полупрозрачный черный фон */
+    justify-content: center;
+    /* Центрирование по горизонтали */
+    align-items: center;
+    /* Центрирование по вертикали */
 }
 
 /* Стили для модального окна */
 .modal-language-content {
-    background-color: #1f1f1f; /* Цвет фона модального окна */
-    border-radius: 20px; /* Скругленные углы */
+    background-color: #1f1f1f;
+    /* Цвет фона модального окна */
+    border-radius: 20px;
+    /* Скругленные углы */
     padding: 20px;
-    width: 330px; /* Ширина модального окна */
-    text-align: center; /* Центрирование текста */
+    width: 330px;
+    /* Ширина модального окна */
+    text-align: center;
+    /* Центрирование текста */
 }
 
 /* Стили для выпадающего списка */
 #country-select {
-    background-color: #2a2a2a; /* Цвет фона для выпадающего списка */
-    color: white; /* Цвет текста */
-    border: none; /* Убираем стандартную рамку */
-    border-radius: 20px; /* Скругленные углы */
-    padding: 10px; /* Отступы внутри выпадающего списка */
-    width: 100%; /* Устанавливаем 100% ширины для ровного отображения */
-    font-size: 16px; /* Размер шрифта */
-    appearance: none; /* Убираем стандартные стили браузера */
-    outline: none; /* Убираем обводку при фокусе */
-    text-align: center; /* Центрирование текста */
-    margin: 20px 0 0; /* Центрирование по горизонтали с отступами сверху */
-    box-sizing: border-box; /* Учитываем padding и border в ширине */
-    background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 10 10\' fill=\'white\'%3E%3Cpolygon points=\'5,0 0,5 10,5\' /%3E%3C/svg%3E'); /* Стрелка вниз */
+    background-color: #2a2a2a;
+    /* Цвет фона для выпадающего списка */
+    color: white;
+    /* Цвет текста */
+    border: none;
+    /* Убираем стандартную рамку */
+    border-radius: 20px;
+    /* Скругленные углы */
+    padding: 10px;
+    /* Отступы внутри выпадающего списка */
+    width: 100%;
+    /* Устанавливаем 100% ширины для ровного отображения */
+    font-size: 16px;
+    /* Размер шрифта */
+    appearance: none;
+    /* Убираем стандартные стили браузера */
+    outline: none;
+    /* Убираем обводку при фокусе */
+    text-align: center;
+    /* Центрирование текста */
+    margin: 20px 0 0;
+    /* Центрирование по горизонтали с отступами сверху */
+    box-sizing: border-box;
+    /* Учитываем padding и border в ширине */
+    background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 10 10\' fill=\'white\'%3E%3Cpolygon points=\'5,0 0,5 10,5\' /%3E%3C/svg%3E');
+    /* Стрелка вниз */
     background-repeat: no-repeat;
-    background-position: right 10px center; /* Положение стрелки */
-    background-size: 10px; /* Размер стрелки */
+    background-position: right 10px center;
+    /* Положение стрелки */
+    background-size: 10px;
+    /* Размер стрелки */
 }
 
 /* Класс для открытого состояния выпадающего списка */
 #country-select.open {
-    background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 10 10\' fill=\'white\'%3E%3Cpolygon points=\'0,0 5,5 10,0\' /%3E%3C/svg%3E'); /* Стрелка вверх */
+    background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 10 10\' fill=\'white\'%3E%3Cpolygon points=\'0,0 5,5 10,0\' /%3E%3C/svg%3E');
+    /* Стрелка вверх */
 }
 
 /* Убираем стандартные стили для опций */
 #country-select option {
-    background-color: #2a2a2a; /* Цвет фона для опций */
-    color: white; /* Цвет текста для опций */
-    text-align: center; /* Центрирование текста для опций */
-    padding: 10px; /* Отступы для опций */
+    background-color: #2a2a2a;
+    /* Цвет фона для опций */
+    color: white;
+    /* Цвет текста для опций */
+    text-align: center;
+    /* Центрирование текста для опций */
+    padding: 10px;
+    /* Отступы для опций */
 }
 
 /* Дополнительные стили для улучшения видимости выпадающего списка */
 #country-select::-ms-expand {
-    display: none; /* Убираем стандартный стиль стрелки для IE */
+    display: none;
+    /* Убираем стандартный стиль стрелки для IE */
 }
 
 /* Стиль для кнопки "Сохранить" */
 .save-button {
-    background-color: #2be731; /* Цвет фона кнопки */
-    color: white; /* Цвет текста */
-    border: none; /* Убираем стандартную рамку */
-    border-radius: 20px; /* Скругленные углы */
-    padding: 10px 20px; /* Отступы внутри кнопки */
-    font-size: 16px; /* Размер шрифта */
-    cursor: pointer; /* Курсор при наведении */
-    margin-top: 20px; /* Отступ сверху */
-    transition: background-color 0.3s; /* Плавный переход цвета фона */
-    width: 100%; /* Занимает всю ширину родительского элемента */
+    background-color: #2be731;
+    /* Цвет фона кнопки */
+    color: white;
+    /* Цвет текста */
+    border: none;
+    /* Убираем стандартную рамку */
+    border-radius: 20px;
+    /* Скругленные углы */
+    padding: 10px 20px;
+    /* Отступы внутри кнопки */
+    font-size: 16px;
+    /* Размер шрифта */
+    cursor: pointer;
+    /* Курсор при наведении */
+    margin-top: 20px;
+    /* Отступ сверху */
+    transition: background-color 0.3s;
+    /* Плавный переход цвета фона */
+    width: 100%;
+    /* Занимает всю ширину родительского элемента */
 }
 
 /* Эффект при наведении на кнопку "Сохранить" */
 .save-button:hover {
-    background-color: #22ca2a; /* Цвет фона при наведении */
+    background-color: #22ca2a;
+    /* Цвет фона при наведении */
 }
 
 /* Стиль для кнопки "Сохранить" */
 .close-button {
-    background-color: #e22020; /* Цвет фона кнопки */
-    color: white; /* Цвет текста */
-    border: none; /* Убираем стандартную рамку */
-    border-radius: 20px; /* Скругленные углы */
-    padding: 10px 20px; /* Отступы внутри кнопки */
-    font-size: 16px; /* Размер шрифта */
-    cursor: pointer; /* Курсор при наведении */
-    margin-top: 20px; /* Отступ сверху */
-    transition: background-color 0.3s; /* Плавный переход цвета фона */
-    width: 100%; /* Занимает всю ширину родительского элемента */
+    background-color: #e22020;
+    /* Цвет фона кнопки */
+    color: white;
+    /* Цвет текста */
+    border: none;
+    /* Убираем стандартную рамку */
+    border-radius: 20px;
+    /* Скругленные углы */
+    padding: 10px 20px;
+    /* Отступы внутри кнопки */
+    font-size: 16px;
+    /* Размер шрифта */
+    cursor: pointer;
+    /* Курсор при наведении */
+    margin-top: 20px;
+    /* Отступ сверху */
+    transition: background-color 0.3s;
+    /* Плавный переход цвета фона */
+    width: 100%;
+    /* Занимает всю ширину родительского элемента */
 }
 
 
@@ -723,15 +907,20 @@ body {
     /* Занимаем всю высоту экрана для вертикального центрирования */
 }
 
-/* Стили для блока Referal code */ 
+/* Стили для блока Referal code */
 .ref-сode-container {
-    background-color: #1f1f1f; /* Тёмный фон */
-    border-radius: 20px; /* Закругление */
+    background-color: #1f1f1f;
+    /* Тёмный фон */
+    border-radius: 20px;
+    /* Закругление */
     padding: 20px;
     text-align: center;
-    margin: 20px auto; /* Центрирование блока и отступ сверху */
-    width: 100%; /* Ширина блока 100% */
-    max-width: 290px; /* Ограничение по ширине */
+    margin: 20px auto;
+    /* Центрирование блока и отступ сверху */
+    width: 100%;
+    /* Ширина блока 100% */
+    max-width: 290px;
+    /* Ограничение по ширине */
 }
 
 .ref-сode-title {
@@ -741,46 +930,60 @@ body {
     font-size: 18px;
     margin-bottom: -2px;
     margin-right: 220px;
-    margin-top: -0px; /* Отрицательный отступ для поднятия заголовка вверх */
-    white-space: nowrap; /* Отключает перенос текста */
+    margin-top: -0px;
+    /* Отрицательный отступ для поднятия заголовка вверх */
+    white-space: nowrap;
+    /* Отключает перенос текста */
 }
 
 .ref-сode-wrapper {
     display: flex;
-    justify-content: space-between; /* Равномерное распределение пространства */
-    margin-top: 10px; /* Отступ сверху для отделения от заголовка */
-    padding: 10px 0; /* Отступы для внутреннего пространства */
+    justify-content: space-between;
+    /* Равномерное распределение пространства */
+    margin-top: 10px;
+    /* Отступ сверху для отделения от заголовка */
+    padding: 10px 0;
+    /* Отступы для внутреннего пространства */
 }
 
 .ref-сode-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%; /* Ширина контейнера с элементами */
+    width: 100%;
+    /* Ширина контейнера с элементами */
     color: #fff;
     font-family: Arial, sans-serif;
 }
 
 .ref-сode-text {
-    font-size: 14px; /* Размер текста описания */
+    font-size: 14px;
+    /* Размер текста описания */
     color: #ffffff;
 }
 
 .ref-сode-count {
-    font-size: 16px; /* Размер числа дней */
+    font-size: 16px;
+    /* Размер числа дней */
     font-weight: bold;
-    color: #ffcc00; /* Яркий цвет для выделения */
+    color: #ffcc00;
+    /* Яркий цвет для выделения */
 }
 
 /* Стили для блока Referal code */
 .ref-activate-container {
-    background-color: #1f1f1f; /* Тёмный фон */
-    border-radius: 20px; /* Закругление */
+    background-color: #1f1f1f;
+    /* Тёмный фон */
+    border-radius: 20px;
+    /* Закругление */
     padding: 20px;
     text-align: center;
-    margin: 5px auto; /* Центрирование блока и отступ сверху */
-    width: 100%; /* Ширина блока 100% */
-    max-width: 290px; /* Ограничение по ширине */
+    margin: 5px auto;
+    /* Центрирование блока и отступ сверху */
+    width: 100%;
+    /* Ширина блока 100% */
+    max-width: 290px;
+    /* Ограничение по ширине */
 }
 
 .ref-activate-title {
@@ -788,16 +991,21 @@ body {
     font-weight: bold;
     color: #ffffff;
     font-size: 18px;
-    margin-bottom: 20px; /* Отступ снизу для заголовка */
-    text-align: left; /* Выравнивание текста по левому краю */
-    margin-top: 0px; /* Уменьшение отступа сверху */
-    padding-top: 5px; /* Добавление небольшого отступа сверху */
+    margin-bottom: 20px;
+    /* Отступ снизу для заголовка */
+    text-align: left;
+    /* Выравнивание текста по левому краю */
+    margin-top: 0px;
+    /* Уменьшение отступа сверху */
+    padding-top: 5px;
+    /* Добавление небольшого отступа сверху */
 }
 
 
 .ref-activate-wrapper {
     display: flex;
-    justify-content: center; /* Центрирование контента */
+    justify-content: center;
+    /* Центрирование контента */
     margin-top: 10px;
 }
 
@@ -805,48 +1013,69 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%; /* Занимает всю ширину блока */
+    width: 100%;
+    /* Занимает всю ширину блока */
     color: #fff;
     font-family: Arial, sans-serif;
-    gap: 10px; /* Добавляем промежуток между кнопкой и полем */
+    gap: 10px;
+    /* Добавляем промежуток между кнопкой и полем */
 }
 
 /* Поле для ввода реферального кода */
 .ref-activate__field {
-    flex-grow: 2; /* Поле для ввода занимает больше места */
-    background: #252525; /* Тёмный фон */
-    color: #fff; /* Цвет текста */
+    flex-grow: 2;
+    /* Поле для ввода занимает больше места */
+    background: #252525;
+    /* Тёмный фон */
+    color: #fff;
+    /* Цвет текста */
     font: inherit;
-    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, .1); /* Тень */
-    border: 0; /* Без рамки */
-    outline: 0; /* Без обводки при фокусе */
-    padding: 15px; /* Внутренние отступы */
-    border-radius: 12px; /* Скругленные углы */
-    width: 100%; /* Поле будет растягиваться по ширине */
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, .1);
+    /* Тень */
+    border: 0;
+    /* Без рамки */
+    outline: 0;
+    /* Без обводки при фокусе */
+    padding: 15px;
+    /* Внутренние отступы */
+    border-radius: 12px;
+    /* Скругленные углы */
+    width: 100%;
+    /* Поле будет растягиваться по ширине */
 }
 
 /* Стили для кнопки */
 .ref-activate.btn {
-    flex-grow: 1; /* Кнопка занимает меньше места, чем поле ввода */
-    background: #8A2BE2; /* Фиолетовый основной цвет кнопки */
-    color: #fff; /* Цвет текста */
+    flex-grow: 1;
+    /* Кнопка занимает меньше места, чем поле ввода */
+    background: #8A2BE2;
+    /* Фиолетовый основной цвет кнопки */
+    color: #fff;
+    /* Цвет текста */
     font: inherit;
     border: 0;
     outline: 0;
-    padding: 15px; /* Внутренние отступы */
-    border-radius: 12px; /* Скругленные углы */
-    transition: all 200ms ease-in; /* Плавный переход при наведении */
+    padding: 15px;
+    /* Внутренние отступы */
+    border-radius: 12px;
+    /* Скругленные углы */
+    transition: all 200ms ease-in;
+    /* Плавный переход при наведении */
     cursor: pointer;
-    box-shadow: 0 0 10px 2px rgba(0, 0, 0, .1); /* Тень */
+    box-shadow: 0 0 10px 2px rgba(0, 0, 0, .1);
+    /* Тень */
 }
 
 .ref-activate.btn:hover {
-    background: #7A1FDB; /* Темный фиолетовый цвет при наведении */
+    background: #7A1FDB;
+    /* Темный фиолетовый цвет при наведении */
 }
 
 .ref-activate.btn:active {
-    background: #8A2BE2; /* Основной цвет при нажатии */
-    box-shadow: inset 0 0 10px 2px rgba(0, 0, 0, .2); /* Внутренняя тень при нажатии */
+    background: #8A2BE2;
+    /* Основной цвет при нажатии */
+    box-shadow: inset 0 0 10px 2px rgba(0, 0, 0, .2);
+    /* Внутренняя тень при нажатии */
 }
 
 /* Контейнер для всех друзей */
@@ -968,9 +1197,12 @@ body {
 .airdrop-page {
     display: flex;
     flex-direction: column;
-    padding-top: 5vh; /* Отступ сверху для иконки */
-    overflow-y: auto; /* Вертикальная прокрутка */
-    padding-bottom: 100px; /* Отступ внизу для нижнего меню */
+    padding-top: 5vh;
+    /* Отступ сверху для иконки */
+    overflow-y: auto;
+    /* Вертикальная прокрутка */
+    padding-bottom: 100px;
+    /* Отступ внизу для нижнего меню */
 }
 
 .airdrop-header {
@@ -1010,8 +1242,10 @@ body {
     border-radius: 15px;
     cursor: pointer;
     margin: 30px;
-    transition: all 0.3s ease; /* Плавный переход при изменении размеров */
-    white-space: nowrap; /* Предотвращает перенос текста */
+    transition: all 0.3s ease;
+    /* Плавный переход при изменении размеров */
+    white-space: nowrap;
+    /* Предотвращает перенос текста */
 }
 
 /* Эффект при наведении: увеличение */
@@ -1186,16 +1420,27 @@ body {
     font-family: 'hooge05_55cyr2', sans-serif;
     font-size: 30px;
     margin-top: 10px;
-    overflow: hidden; /* Скрывает текст, пока он не будет набираться */
-    white-space: nowrap; /* Запрещает перенос текста на новую строку */
-    border-right: 3px solid; /* Эффект курсора */
-    animation: blink 0.75s step-end infinite; /* Анимация мигания курсора */
+    overflow: hidden;
+    /* Скрывает текст, пока он не будет набираться */
+    white-space: nowrap;
+    /* Запрещает перенос текста на новую строку */
+    border-right: 3px solid;
+    /* Эффект курсора */
+    animation: blink 0.75s step-end infinite;
+    /* Анимация мигания курсора */
 }
 
 /* Анимация мигания курсора */
 @keyframes blink {
-    0%, 100% { border-color: transparent; }
-    50% { border-color: black; }
+
+    0%,
+    100% {
+        border-color: transparent;
+    }
+
+    50% {
+        border-color: black;
+    }
 }
 
 /* Описание под заголовком */
@@ -1319,19 +1564,28 @@ body {
 
 /* Стиль для текста Total users */
 .total-users {
-    font-size: 24px; /* Увеличен размер шрифта */
-    color: #ffffff; /* Белый цвет текста */
-    text-align: left; /* Выравнивание по левому краю */
-    margin-left: 25px; /* Небольшой отступ слева для выравнивания */
+    font-size: 24px;
+    /* Увеличен размер шрифта */
+    color: #ffffff;
+    /* Белый цвет текста */
+    text-align: left;
+    /* Выравнивание по левому краю */
+    margin-left: 25px;
+    /* Небольшой отступ слева для выравнивания */
 }
 
 /* Стиль для текста Top-100 */
 .title-top100 {
-    font-size: 18px; /* Регулируемый размер шрифта */
-    color: #a5a5a5; /* Цвет серого, чуть темнее для неактивного текста */
-    text-align: right; /* Выравнивание по правому краю */
-    margin-right: 25px; /* Отступ справа для выравнивания */
-    margin-top: -50px; /* Небольшой отступ сверху, чтобы текст был на одном уровне с Total users */
+    font-size: 18px;
+    /* Регулируемый размер шрифта */
+    color: #a5a5a5;
+    /* Цвет серого, чуть темнее для неактивного текста */
+    text-align: right;
+    /* Выравнивание по правому краю */
+    margin-right: 25px;
+    /* Отступ справа для выравнивания */
+    margin-top: -50px;
+    /* Небольшой отступ сверху, чтобы текст был на одном уровне с Total users */
 }
 
 /* Контейнер для секции топ-100 */
@@ -1591,8 +1845,10 @@ body {
 
 /* Стили для иконки Novella */
 .novella-icon {
-    width: 250px; /* Немного уменьшенный размер */
-    margin-bottom: 10px; /* Отступ ниже иконки */
+    width: 250px;
+    /* Немного уменьшенный размер */
+    margin-bottom: 10px;
+    /* Отступ ниже иконки */
 }
 
 /* Заголовок */

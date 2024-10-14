@@ -45,6 +45,12 @@
         </div>
     </div>
 
+    <!-- Уведомление об успешной активации или же об ошибке -->    
+    <div id="notification" class="notification hidden">
+        <p id="notification-message"></p>
+        <span id="close-notification" class="close-btn">&times;</span>
+      </div>
+
         <!-- Блок отображения приглашенных друзей -->
         <div class="friends-list">
             <p class="friends-count" id="friends-count">0 friends</p>
@@ -97,6 +103,7 @@
 
     <script src="/userIdHandler.js"></script> <!-- Скрипт userid сheck -->
     <script src="/referals.js"></script> <!-- Скрипт реферальной системы -->
+    <script src="/notifications.js"></script> <!-- Скрипт кастомных уведомлений -->
     <script src="/localization.js"></script> <!-- Скрипт локализации -->
 </body>
 </html>
