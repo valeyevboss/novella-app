@@ -13,6 +13,12 @@
         <header class="friends-header">
 			<!-- Иконка friends с возможностью контролировать её размер через CSS -->
 			<img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1726935418/Element/Friends.png" alt="friends Icon" class="friends-icon">
+
+        <!-- Уведомление (Notifications) -->    
+        <div id="notification" class="notification hidden">
+            <p id="notification-message"></p>
+            <span id="close-notification" class="close-btn">&times;</span>
+        </div>
 			
             <!-- Заголовок friends -->
             <h1 class="friends-title">INVITE FRIENDS</h1>
@@ -44,12 +50,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Уведомление об успешной активации или же об ошибке -->    
-    <div id="notification" class="notification hidden">
-        <p id="notification-message"></p>
-        <span id="close-notification" class="close-btn">&times;</span>
-      </div>
 
         <!-- Блок отображения приглашенных друзей -->
         <div class="friends-list">
