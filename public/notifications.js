@@ -44,14 +44,4 @@ function showNotification(message, isError = false) {
             }, 300); // Время анимации свайпа
         }
     });
-
-    // Закрытие по кнопке (если будет крестик для закрытия)
-    document.querySelector('.close-btn').addEventListener('click', () => {
-        notification.classList.add('swipe');
-        clearTimeout(timeout);
-        setTimeout(() => {
-            notification.classList.remove('show');
-            notification.style.display = 'none';
-        }, 300);
-    });
 }

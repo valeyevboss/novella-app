@@ -95,16 +95,6 @@ body {
     z-index: 1000;
 }
 
-/* Стилизация для крестика */
-.close-btn {
-    position: absolute;
-    top: 5px;
-    right: 10px;
-    font-size: 18px;
-    color: white;
-    cursor: pointer;
-}
-
 /* Анимация для плавного появления и исчезновения */
 .notification.show {
     display: block;
