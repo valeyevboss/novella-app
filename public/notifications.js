@@ -1,7 +1,7 @@
 function showNotification(message, isError = false) {
     const notification = document.getElementById('notification');
     const messageElement = document.getElementById('notification-message');
-
+    
     // Заполнение текстом и показ уведомления
     messageElement.textContent = message;
     notification.classList.remove('hidden', 'error', 'swipe');
@@ -26,7 +26,12 @@ function showNotification(message, isError = false) {
 
     // Уведомление исчезает через 5 секунд, если не было свайпа
     const timeout = setTimeout(() => {
-        hideNotification(notification);
+        notification.classList.remove('show');
+        notification.style.display = 'none';
+
+        // Сброс состояния уведомления
+        notification.style.top = '-100px'; // Возвращаем уведомление за пределы экрана
+        notification.classList.add('hidden'); // Добавляем класс hidden для скрытия
     }, 5000);
 
     // Логика для свайпа закрытия
@@ -41,21 +46,14 @@ function showNotification(message, isError = false) {
     notification.addEventListener('touchend', (event) => {
         const endX = event.changedTouches[0].clientX;
         if (startX - endX > 50) {
+            notification.classList.add('swipe');
             clearTimeout(timeout); // Очищаем таймер автозакрытия
-            hideNotification(notification);
+            setTimeout(() => {
+                notification.classList.remove('show');
+                notification.style.display = 'none';
+                notification.style.top = '-100px'; // Возвращаем уведомление за пределы экрана
+                notification.classList.add('hidden'); // Добавляем класс hidden для скрытия
+            }, 300); // Время анимации свайпа
         }
     });
-}
-
-// Функция для скрытия уведомления
-function hideNotification(notification) {
-    notification.classList.add('swipe'); // Добавляем класс для анимации закрытия
-
-    // Анимация и скрытие уведомления
-    setTimeout(() => {
-        notification.classList.remove('show'); // Убираем класс show
-        notification.style.display = 'none'; // Убираем уведомление
-        notification.style.top = '-100px'; // Возвращаем уведомление за пределы экрана
-        notification.classList.add('hidden'); // Добавляем класс hidden для скрытия
-    }, 300); // Время анимации закрытия
 }
