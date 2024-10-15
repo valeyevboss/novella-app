@@ -31,29 +31,30 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-// Функция для запуска таймера
-function startTimer() {
-    const miningDuration = 10 * 1000; // 10 секунд
-    let remainingTime = miningDuration;
+    // Функция для запуска таймера
+    function startTimer() {
+        const miningDuration = 10 * 1000; // 10 секунд
+        let remainingTime = miningDuration;
 
-    miningInterval = setInterval(() => {
-        if (remainingTime <= 0) {
-            clearInterval(miningInterval);
-            startMiningBtn.textContent = 'Claim';
-            startMiningBtn.disabled = false; // Активируем кнопку
+        miningInterval = setInterval(() => {
+            if (remainingTime <= 0) {
+                clearInterval(miningInterval);
+                startMiningBtn.textContent = 'Claim';
+                startMiningBtn.disabled = false; // Активируем кнопку
 
-            // Здесь можно добавить логику для получения токенов, например:
-            startMiningBtn.addEventListener('click', async () => {
-                const response = await fetch(`/mining-status/${telegramId}`);
-                const statusData = await response.json();
-                showNotification(statusData.message, true);
-            });
-        } else {
-            remainingTime -= 1000; // Уменьшаем оставшееся время на 1 секунду
-            const hours = String(Math.floor((remainingTime / (1000 * 60 * 60)) % 24)).padStart(2, '0');
-            const minutes = String(Math.floor((remainingTime / (1000 * 60)) % 60)).padStart(2, '0');
-            const seconds = String(Math.floor((remainingTime / 1000) % 60)).padStart(2, '0');
-            timerDisplay.textContent = `${hours}h ${minutes}m ${seconds}s`; // Обновляем отображение таймера
-        }
-    }, 1000); // Каждую секунду
-}
+                // Здесь можно добавить логику для получения токенов, например:
+                startMiningBtn.addEventListener('click', async () => {
+                    const response = await fetch(`/mining-status/${telegramId}`);
+                    const statusData = await response.json();
+                    showNotification(statusData.message, true);
+                });
+            } else {
+                remainingTime -= 1000; // Уменьшаем оставшееся время на 1 секунду
+                const hours = String(Math.floor((remainingTime / (1000 * 60 * 60)) % 24)).padStart(2, '0');
+                const minutes = String(Math.floor((remainingTime / (1000 * 60)) % 60)).padStart(2, '0');
+                const seconds = String(Math.floor((remainingTime / 1000) % 60)).padStart(2, '0');
+                timerDisplay.textContent = `${hours}h ${minutes}m ${seconds}s`; // Обновляем отображение таймера
+            }
+        }, 1000); // Каждую секунду
+    }
+});
