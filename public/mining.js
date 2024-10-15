@@ -59,6 +59,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 startTimer(10 * 1000);
             } catch (error) {
                 console.error('Ошибка при запуске майнинга:', error);
+                showNotification('Ошибка при запуске майнинга. Попробуйте еще раз.', true);
             }
         }
     });

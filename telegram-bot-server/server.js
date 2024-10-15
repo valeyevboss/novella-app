@@ -290,9 +290,12 @@ app.post('/start-mining/:telegramId', async (req, res) => {
             return res.status(400).json({ error: 'Майнинг уже активен' });
         }
 
+        // Обновляем статус
         user.miningActive = true;
         user.miningStartTime = Date.now();
         await user.save();
+        
+        console.log(`Майнинг запущен для пользователя: ${telegramId}`); // Логируем запуск майнинга
 
         res.json({ message: 'Майнинг запущен', miningStartTime: user.miningStartTime });
     } catch (error) {
@@ -335,10 +338,6 @@ app.get('/mining-status/:telegramId', async (req, res) => {
         console.error('Ошибка при получении статуса майнинга:', error);
         res.status(500).json({ error: 'Ошибка сервера' });
     }
-});
-
-app.get('/test', (req, res) => {
-    res.send('Сервер работает корректно');
 });
 
 // Проверка реферального кода
