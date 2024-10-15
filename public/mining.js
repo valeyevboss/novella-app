@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const startMiningBtn = document.getElementById('start-mining-btn');
     const timerDisplay = document.getElementById('timer-mining');
+    const progressFill = document.querySelector('.progress-fill'); // Элемент прогресса
     let miningInterval;
 
     // Проверяем статус майнинга при загрузке страницы
@@ -27,7 +28,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 showNotification(statusData.message, true); // Отображаем уведомление
                 startMiningBtn.textContent = 'Start Mining'; // Сбрасываем текст кнопки
                 startMiningBtn.disabled = false; // Активируем кнопку для повторного использования
-                timerDisplay.textContent = '00:00:00'; // Сбрасываем таймер
+                progressFill.style.width = '0%'; // Сбрасываем прогресс бар
             }
         } else {
             // Запуск майнинга
@@ -49,22 +50,27 @@ document.addEventListener('DOMContentLoaded', async () => {
                 console.error('Ошибка при запуске майнинга:', error);
             }
         }
-    });    
-
-    function startTimer() {
-        const miningDuration = 10 * 1000; // 10 секунд
-        let remainingTime = miningDuration;
+    });
     
+    function startTimer(duration) {
+        let remainingTime = duration || 10 * 1000; // Если duration не передан, используем 10 секунд
+        const miningDuration = 10 * 1000; // 10 секунд
+
         miningInterval = setInterval(() => {
             if (remainingTime <= 0) {
                 clearInterval(miningInterval);
                 startMiningBtn.textContent = 'Claim';
                 startMiningBtn.disabled = false; // Активируем кнопку
+                progressFill.style.width = '100%'; // Прогресс заполнен
             } else {
                 remainingTime -= 1000; // Уменьшаем оставшееся время на 1 секунду
                 const seconds = String(Math.floor((remainingTime / 1000) % 60)).padStart(2, '0');
                 timerDisplay.textContent = `00:00:${seconds}`; // Обновляем отображение таймера
+                
+                // Обновляем ширину прогресс-бара
+                const progressPercentage = ((miningDuration - remainingTime) / miningDuration) * 100;
+                progressFill.style.width = `${progressPercentage}%`; // Устанавливаем ширину прогресс-бара
             }
         }, 1000); // Каждую секунду
-    }    
+    }
 });
