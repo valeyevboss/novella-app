@@ -9,6 +9,7 @@ function loadTranslations(lang) {
         .then(data => {
             const freedurovButton = document.getElementById('freedurov-button');
             const dailyRewardTitle = document.getElementById('daily-reward-title');
+            const miningTitle = document.getElementById("mining-title");
             const personalAchievementsTitle = document.getElementById("personal-achievements-title");
             const achievementTextDays = document.getElementById("achievement-text-days");
             const personalSettingsTitle = document.getElementById('personal-settings-title');
@@ -47,6 +48,7 @@ function loadTranslations(lang) {
             // Применение переводов
             if (freedurovButton) freedurovButton.textContent = data.freedurov_button;
             if (dailyRewardTitle) dailyRewardTitle.textContent = data.daily_rewards;
+            if (miningTitle) miningTitle.textContent = data['mining-title'];
             if (personalAchievementsTitle) personalAchievementsTitle.textContent = data['personal-achievements-title'];
             if (achievementTextDays) achievementTextDays.textContent = data['achievement-text-days'];
             if (personalSettingsTitle) personalSettingsTitle.textContent = data['personal-settings-title'];
