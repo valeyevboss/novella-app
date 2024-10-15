@@ -99,4 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Инициализация
     checkMiningStatus();
+
+    // Назначаем событие для кнопки после полной загрузки DOM
+    miningButton.addEventListener('click', startMining);
 });
