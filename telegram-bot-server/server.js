@@ -277,10 +277,10 @@ app.post('/add-tokens/:telegramId', async (req, res) => {
 });
 
 // Запуск майнинга
-app.post('/start-mining/:userId', async (req, res) => {
-    const userId = req.params.userId;
+app.post('/start-mining/:telegramId', async (req, res) => {
+    const telegramId = req.params.telegramId; // Извлекаем telegramId из параметров
     try {
-        const user = await User.findById(userId);
+        const user = await User.findOne({ telegramId }); // Поиск пользователя по telegramId
         if (!user) {
             return res.status(404).json({ error: 'Пользователь не найден' });
         }
@@ -289,9 +289,9 @@ app.post('/start-mining/:userId', async (req, res) => {
             return res.status(400).json({ error: 'Майнинг уже активен' });
         }
 
-        user.miningActive = true;
-        user.miningStartTime = Date.now();
-        await user.save();
+        user.miningActive = true; // Устанавливаем статус активного майнинга
+        user.miningStartTime = Date.now(); // Устанавливаем время начала майнинга
+        await user.save(); // Сохраняем изменения
 
         res.json({ message: 'Майнинг запущен', miningStartTime: user.miningStartTime });
     } catch (error) {
@@ -301,10 +301,10 @@ app.post('/start-mining/:userId', async (req, res) => {
 });
 
 // Проверка статуса майнинга
-app.get('/mining-status/:userId', async (req, res) => {
-    const userId = req.params.userId;
+app.get('/mining-status/:telegramId', async (req, res) => {
+    const telegramId = req.params.telegramId; // Извлекаем telegramId из параметров
     try {
-        const user = await User.findById(userId);
+        const user = await User.findOne({ telegramId }); // Поиск пользователя по telegramId
         if (!user) {
             return res.status(404).json({ error: 'Пользователь не найден' });
         }
@@ -316,7 +316,7 @@ app.get('/mining-status/:userId', async (req, res) => {
         if (user.miningActive && currentTime < miningEndTime) {
             return res.json({
                 miningActive: true,
-                remainingTime: miningEndTime - currentTime,
+                remainingTime: miningEndTime - currentTime, // Остальное время до завершения
             });
         } else if (user.miningActive && currentTime >= miningEndTime) {
             // Если время майнинга истекло
