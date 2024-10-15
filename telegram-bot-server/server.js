@@ -276,86 +276,63 @@ app.post('/add-tokens/:telegramId', async (req, res) => {
 	}
 });
 
-// Начало майнинга
+// Запуск майнинга
 app.post('/start-mining/:userId', async (req, res) => {
+    const userId = req.params.userId;
     try {
-        const user = await User.findOne({ telegramId: req.params.userId });
-
+        const user = await User.findById(userId);
         if (!user) {
-            return res.status(404).json({ error: 'User not found' });
+            return res.status(404).json({ error: 'Пользователь не найден' });
         }
 
-        // Проверяем, активен ли майнинг
         if (user.miningActive) {
             return res.status(400).json({ error: 'Майнинг уже активен' });
         }
 
-        // Устанавливаем статус и время начала
         user.miningActive = true;
-        user.miningStartTime = new Date(); // Устанавливаем текущее время
+        user.miningStartTime = Date.now();
         await user.save();
 
-        res.json({ success: true, miningStartTime: user.miningStartTime });
+        res.json({ message: 'Майнинг запущен', miningStartTime: user.miningStartTime });
     } catch (error) {
         console.error('Ошибка при запуске майнинга:', error);
         res.status(500).json({ error: 'Ошибка сервера' });
     }
 });
 
-// Получение статуса майнинга
+// Проверка статуса майнинга
 app.get('/mining-status/:userId', async (req, res) => {
+    const userId = req.params.userId;
     try {
-        const user = await User.findOne({ telegramId: req.params.userId });
-
+        const user = await User.findById(userId);
         if (!user) {
-            return res.status(404).json({ error: 'User not found' });
+            return res.status(404).json({ error: 'Пользователь не найден' });
         }
 
-        console.log('Найденный пользователь:', user); // Добавьте отладочный лог
+        const currentTime = Date.now();
+        const miningDuration = 12 * 60 * 60 * 1000; // 12 часов в миллисекундах
+        const miningEndTime = user.miningStartTime + miningDuration;
 
-        const miningActive = user.miningActive;
-        const miningEndTime = user.miningStartTime 
-            ? new Date(user.miningStartTime.getTime() + miningDuration) 
-            : null;
+        if (user.miningActive && currentTime < miningEndTime) {
+            return res.json({
+                miningActive: true,
+                remainingTime: miningEndTime - currentTime,
+            });
+        } else if (user.miningActive && currentTime >= miningEndTime) {
+            // Если время майнинга истекло
+            user.miningActive = false; // Сброс статуса
+            user.tokens += 100; // Добавление токенов
+            await user.save();
 
-        console.log('Статус майнинга:', { miningActive, miningEndTime }); // Лог статуса
-
-        res.json({ miningActive, miningEndTime });
+            return res.json({
+                miningActive: false,
+                message: 'Время майнинга истекло. Вы получили 100 токенов!',
+            });
+        } else {
+            return res.json({ miningActive: false });
+        }
     } catch (error) {
-        console.error('Ошибка при проверке статуса майнинга:', error);
-        res.status(500).json({ error: 'Ошибка сервера' });
-    }
-});
-
-// Начисление награды за майнинг
-app.post('/claim-mining/:userId', async (req, res) => {
-    try {
-        const user = await User.findOne({ telegramId: req.params.userId });
-
-        if (!user) {
-            return res.status(404).json({ error: 'User not found' });
-        }
-
-        if (!user.miningActive) {
-            return res.status(400).json({ error: 'Майнинг не активен' });
-        }
-
-        // Проверяем, истек ли таймер
-        const miningEndTime = new Date(user.miningStartTime.getTime() + miningDuration);
-
-        if (Date.now() < miningEndTime.getTime()) {
-            return res.status(400).json({ error: 'Майнинг еще не завершен' });
-        }
-
-        // Начисляем токены и сбрасываем статус майнинга
-        user.tokens += 100;
-        user.miningActive = false;
-        user.miningStartTime = null;
-        await user.save();
-
-        res.json({ success: true, tokens: user.tokens });
-    } catch (error) {
-        console.error('Ошибка при начислении награды за майнинг:', error);
+        console.error('Ошибка при получении статуса майнинга:', error);
         res.status(500).json({ error: 'Ошибка сервера' });
     }
 });
