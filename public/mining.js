@@ -22,11 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
             startMiningBtn.disabled = true; // Деактивируем кнопку
             startTimer(); // Запускаем таймер
-
-            // Обработка уведомления
-            showNotification(data.message, true);
         } catch (error) {
-            showNotification(error.message, false);
             console.error('Ошибка при запуске майнинга:', error);
         }
     });
