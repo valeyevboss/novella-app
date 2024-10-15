@@ -1,6 +1,5 @@
-// mining.js
 const startMiningBtn = document.getElementById('start-mining-btn');
-const timerDisplay = document.getElementById('timer-mining');
+const miningTimerDisplay = document.getElementById('timer-mining'); // Изменили имя переменной
 let miningInterval;
 let remainingTime = 0;
 
@@ -62,7 +61,7 @@ function updateTimerDisplay() {
     const hours = Math.floor((remainingTime / (1000 * 60 * 60)) % 24);
     const minutes = Math.floor((remainingTime / (1000 * 60)) % 60);
     const seconds = Math.floor((remainingTime / 1000) % 60);
-    timerDisplay.textContent = `${hours}h ${minutes}m ${seconds}s`;
+    miningTimerDisplay.textContent = `${hours}h ${minutes}m ${seconds}s`; // Изменили имя переменной
 }
 
 function resetMining() {
@@ -70,5 +69,5 @@ function resetMining() {
     startMiningBtn.disabled = false; // Снова активируем кнопку
     remainingTime = 0;
     clearInterval(miningInterval);
-    timerDisplay.textContent = '12h 00m'; // Сбрасываем таймер
+    miningTimerDisplay.textContent = '12h 00m'; // Изменили имя переменной
 }
