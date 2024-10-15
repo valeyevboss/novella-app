@@ -79,17 +79,21 @@ document.addEventListener("DOMContentLoaded", function() {
         try {
             const response = await fetch(`/mining-status/${userId}`);
             const data = await response.json();
-
+    
+            console.log('Mining status from server:', data);
+    
             if (data.miningActive) {
                 miningEndTime = new Date(data.miningEndTime).getTime();
                 miningActive = true;
                 startMining();
+            } else {
+                console.log('Mining is not active, resetting...');
+                resetMining();
             }
         } catch (error) {
-            showNotification('Ошибка при получении статуса майнинга', false);
             console.error('Ошибка при получении статуса майнинга:', error);
         }
-    }
+    }    
 
     // Функция для получения награды
     async function claimMiningReward() {
