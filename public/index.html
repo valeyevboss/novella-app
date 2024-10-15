@@ -38,7 +38,19 @@
                 </div>
             </div>
         </div>
-
+        
+        <!-- Mining Farm - Майнинг фарм, ферма для майнинга -->
+        <div class="mining-block">
+            <p class="mining-title" id="mining-title">⚡ MINING FARM</p>
+            <div class="progress-bar">
+                <div class="mining-info-container">
+                    <span class="mining-info-text">⚡ Mining 100 $Novella</span>
+                    <span id="timer">12h 00m</span>
+                </div>
+            </div>
+            <button id="start-mining-btn" onclick="startMining()">Start Mining</button>
+        </div>        
+        
         <!-- Personal Achievements --> 
         <div class="personal-achievements-container"> 
             <p class="personal-achievements-title" id="personal-achievements-title">⭐ ACHIEVEMENTS</p> 
@@ -201,6 +213,7 @@
 
     <script src="/notifications.js"></script> <!-- Скрипт реферальной системы -->
     <script src="/dailyreward.js"></script> <!-- Скрипт ежедневной награды -->
+    <script src="/mining.js"></script> <!-- Скрипт майнинга, майнинг фермы -->
     <script src="/achievements.js"></script> <!-- Скрипт достижений игрока -->
     <script src="/localization.js"></script> <!-- Скрипт локализации --> 
 </body>

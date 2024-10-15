@@ -10,8 +10,10 @@ const UserSchema = new mongoose.Schema({
     status: { type: String, enum: ['No banned', 'banned'], default: 'No banned' }, // Banned system
     ip: { type: String }, // ip adress
     rank: { type: Number, default: 0 }, // Leader rank #top
-    refcode: { type: String, unique: true }, // Уникальный реферальный код
-    friendsCount: { type: Number, default: 0 } // Количество друзей
+    refcode: { type: String, unique: true }, // Unique referral code
+    friendsCount: { type: Number, default: 0 }, // Number of friends
+    miningActive: { type: Boolean, default: false }, // Mining Activity
+    miningStartTime: { type: Date, default: null } // Mining start time
 }, { timestamps: true });
 
 module.exports = mongoose.model('User', UserSchema);
