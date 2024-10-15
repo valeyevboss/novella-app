@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Элементы страницы
     const timerElement = document.getElementById('timer');
     const miningButton = document.getElementById('start-mining-btn');
-    const progressBarFill = document.querySelector('.progress-bar::before');
+    const progressBarFill = document.querySelector('.progress-fill'); // Изменено на .progress-fill
 
     // Статус майнинга пользователя
     let miningActive = false;

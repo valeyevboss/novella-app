@@ -350,12 +350,11 @@ body {
     overflow: hidden; /* Скрываем переполнение */
 }
 
-.progress-bar::before {
-    content: ''; /* Создаем псевдоэлемент */
-    position: absolute; /* Позиционируем относительно родителя */
-    top: 0; 
+.progress-fill {
+    position: absolute;
+    top: 0;
     left: 0;
-    height: 100%; /* Высота в 100% от родителя */
+    height: 100%;
     background-color: #3460db; /* Цвет прогресса */
     width: 0; /* Начальная ширина 0 */
     transition: width 0.3s ease; /* Плавный переход для изменения ширины */
