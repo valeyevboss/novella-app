@@ -81,17 +81,20 @@ body {
 .notification {
     position: fixed;
     top: 20px;
-    left: 50%; /* Центрируем по горизонтали */
-    transform: translateX(-50%); /* Сдвигаем на половину ширины элемента для центрирования */
-    width: 300px; /* Устанавливаем фиксированную ширину */
+    left: 50%;
+    /* Центрируем по горизонтали */
+    transform: translateX(-50%);
+    /* Сдвигаем на половину ширины элемента для центрирования */
+    width: 300px;
+    /* Устанавливаем фиксированную ширину */
     padding: 8px;
     background-color: #1f1f1f;
-    color: white; 
-    border: 1px solid white; 
-    border-radius: 10px; 
+    color: white;
+    border: 1px solid white;
+    border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     font-family: 'Maiandra GD', sans-serif;
-    display: none; 
+    display: none;
     z-index: 1000;
 }
 
@@ -298,11 +301,15 @@ body {
 .timer-container {
     display: flex;
     align-items: center;
-    position: absolute; /* Абсолютное позиционирование */
-    top: 50%; /* Центрирование по вертикали относительно кнопки */
-    right: -1px; /* Сдвиг вправо для расположения рядом с кнопкой */
+    position: absolute;
+    /* Абсолютное позиционирование */
+    top: 50%;
+    /* Центрирование по вертикали относительно кнопки */
+    right: -1px;
+    /* Сдвиг вправо для расположения рядом с кнопкой */
     transform: translateY(-160%);
-    display: none; /* Скрыть таймер по умолчанию */
+    display: none;
+    /* Скрыть таймер по умолчанию */
 }
 
 .timer-icon {
@@ -318,13 +325,20 @@ body {
 }
 
 .mining-block {
-    width: 290px; /* Максимальная ширина блока */
-    margin: 20px auto 0; /* Отступ сверху и центрирование по горизонтали, снизу 0 */
-    padding: 20px; /* Внутренние отступы для красоты */
-    background-color: #1f1f1f; /* Темный фон */
-    border-radius: 19px; /* Скругленные углы */
-    text-align: center; /* Текст по центру */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3); /* Тень для блока */
+    width: 290px;
+    /* Максимальная ширина блока */
+    margin: 20px auto 0;
+    /* Отступ сверху и центрирование по горизонтали, снизу 0 */
+    padding: 20px;
+    /* Внутренние отступы для красоты */
+    background-color: #1f1f1f;
+    /* Темный фон */
+    border-radius: 19px;
+    /* Скругленные углы */
+    text-align: center;
+    /* Текст по центру */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    /* Тень для блока */
 }
 
 .mining-title {
@@ -333,21 +347,32 @@ body {
     color: #ffffff;
     font-size: 16px;
     margin-right: 220px;
-    margin-top: -0px; /* Отрицательный отступ для поднятия заголовка вверх */
-    margin-bottom: 10px; /* Отступ снизу для отделения заголовка от прогресс-бара */
-    white-space: nowrap; /* Отключает перенос текста */
+    margin-top: -0px;
+    /* Отрицательный отступ для поднятия заголовка вверх */
+    margin-bottom: 10px;
+    /* Отступ снизу для отделения заголовка от прогресс-бара */
+    white-space: nowrap;
+    /* Отключает перенос текста */
 }
 
 .progress-bar {
-    background-color: #dd562023; /* Цвет фона полосы прогресса */
-    height: 50px; /* Увеличенная высота для вертикального пространства */
+    background-color: #dd562023;
+    /* Цвет фона полосы прогресса */
+    height: 50px;
+    /* Увеличенная высота для вертикального пространства */
     display: flex;
-    justify-content: center; /* Центрирование текста по горизонтали */
-    align-items: center; /* Центрирование текста по вертикали */
-    border-radius: 12px; /* Скругление углов полосы */
-    margin-bottom: 15px; /* Отступ под прогресс-баром */
-    position: relative; /* Задаем позицию для относительного позиционирования */
-    overflow: hidden; /* Скрываем переполнение */
+    justify-content: center;
+    /* Центрирование текста по горизонтали */
+    align-items: center;
+    /* Центрирование текста по вертикали */
+    border-radius: 12px;
+    /* Скругление углов полосы */
+    margin-bottom: 15px;
+    /* Отступ под прогресс-баром */
+    position: relative;
+    /* Задаем позицию для относительного позиционирования */
+    overflow: hidden;
+    /* Скрываем переполнение */
 }
 
 .progress-fill {
@@ -355,67 +380,178 @@ body {
     top: 0;
     left: 0;
     height: 100%;
-    background-color: #3460db; /* Цвет прогресса */
-    width: 0; /* Начальная ширина 0 */
-    transition: width 0.3s ease; /* Плавный переход для изменения ширины */
+    background-color: #3460db;
+    /* Цвет прогресса */
+    width: 0;
+    /* Начальная ширина 0 */
+    transition: width 0.3s ease;
+    /* Плавный переход для изменения ширины */
 }
 
 .mining-info-container {
-    display: flex; /* Используем flexbox */
-    justify-content: space-between; /* Разделяем текст и таймер по разным сторонам */
-    align-items: center; /* Вертикальное выравнивание по центру */
-    width: 100%; /* Ширина контейнера 100% */
-    padding: 0 10px; /* Отступы внутри для дополнительного пространства */
-    height: 50px; /* Установите фиксированную высоту, если нужно */
+    display: flex;
+    /* Используем flexbox */
+    justify-content: space-between;
+    /* Разделяем текст и таймер по разным сторонам */
+    align-items: center;
+    /* Вертикальное выравнивание по центру */
+    width: 100%;
+    /* Ширина контейнера 100% */
+    padding: 0 10px;
+    /* Отступы внутри для дополнительного пространства */
+    height: 50px;
+    /* Установите фиксированную высоту, если нужно */
 }
 
 .mining-info-container {
-    display: flex; /* Используем flexbox */
-    justify-content: space-between; /* Разделяем текст и таймер по разным сторонам */
-    width: 100%; /* Ширина контейнера 100% */
-    padding: 0 10px; /* Отступы внутри для дополнительного пространства */
+    display: flex;
+    /* Используем flexbox */
+    justify-content: space-between;
+    /* Разделяем текст и таймер по разным сторонам */
+    width: 100%;
+    /* Ширина контейнера 100% */
+    padding: 0 10px;
+    /* Отступы внутри для дополнительного пространства */
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #111;
+}
+
+@keyframes scaleUpDown {
+
+    0%,
+    100% {
+        transform: scaleY(1) scaleX(1);
+    }
+
+    50%,
+    90% {
+        transform: scaleY(1.1);
+    }
+
+    75% {
+        transform: scaleY(0.95);
+    }
+
+    80% {
+        transform: scaleX(0.95);
+    }
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: skewX(0) scale(1);
+    }
+
+    50% {
+        transform: skewX(5deg) scale(0.9);
+    }
+}
+
+@keyframes particleUp {
+    0% {
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        top: -100%;
+        transform: scale(0.5);
+    }
+}
+
+@keyframes glow {
+
+    0%,
+    100% {
+        background-color: #ef5a00;
+    }
+
+    50% {
+        background-color: #ff7800;
+    }
 }
 
 .mining-info-text {
-    color: #ffffff; /* Белый текст */
-    font-size: 14px; /* Размер шрифта */
-    font-family: 'Arial', sans-serif; /* Шрифт для текста информации о майнинге */
-    padding-left: 45px; /* Отступ слева на 10px */
+    color: #ffffff;
+    /* Белый текст */
+    font-size: 14px;
+    /* Размер шрифта */
+    font-family: 'Arial', sans-serif;
+    /* Шрифт для текста информации о майнинге */
+    padding-left: 45px;
+    /* Отступ слева на 10px */
 }
 
 #timer-mining {
-    color: #ffffff; /* Белый текст для таймера */
-    font-size: 13px; /* Размер шрифта */
-    font-family: 'Arial', sans-serif; /* Шрифт для таймера */
-    font-weight: bold; /* Делаем текст таймера жирным */
-    line-height: 50px; /* Вертикальное выравнивание с учетом высоты контейнера */
-    margin-top: 3px; /* Сдвигаем текст таймера на низ */
+    color: #ffffff;
+    /* Белый текст для таймера */
+    font-size: 13px;
+    /* Размер шрифта */
+    font-family: 'Arial', sans-serif;
+    /* Шрифт для таймера */
+    font-weight: bold;
+    /* Делаем текст таймера жирным */
+    line-height: 50px;
+    /* Вертикальное выравнивание с учетом высоты контейнера */
+    margin-top: 3px;
+    /* Сдвигаем текст таймера на низ */
 }
 
 #start-mining-btn {
-    width: 70%; /* Кнопка занимает всю ширину блока */
-    padding: 10px; /* Отступы внутри кнопки */
-    background-color: #3460db; /* Цвет кнопки */
-    color: white; /* Цвет текста на кнопке */
-    border: none; /* Убираем стандартные границы */
-    border-radius: 14px; /* Скругленные углы кнопки */
-    font-size: 14px; /* Размер текста */
-    cursor: pointer; /* Курсор руки при наведении */
-    transition: background-color 0.3s ease; /* Плавный переход цвета */
+    width: 70%;
+    /* Кнопка занимает всю ширину блока */
+    padding: 10px;
+    /* Отступы внутри кнопки */
+    background-color: #3460db;
+    /* Цвет кнопки */
+    color: white;
+    /* Цвет текста на кнопке */
+    border: none;
+    /* Убираем стандартные границы */
+    border-radius: 14px;
+    /* Скругленные углы кнопки */
+    font-size: 14px;
+    /* Размер текста */
+    cursor: pointer;
+    /* Курсор руки при наведении */
+    transition: background-color 0.3s ease;
+    /* Плавный переход цвета */
 }
 
 #start-mining-btn:hover {
-    background-color: #2980b9; /* Изменение цвета при наведении */
+    background-color: #2980b9;
+    /* Изменение цвета при наведении */
 }
 
 .personal-achievements-container {
-    background-color: #1f1f1f; /* Тёмный фон */
-    border-radius: 20px; /* Закругление */
+    background-color: #1f1f1f;
+    /* Тёмный фон */
+    border-radius: 20px;
+    /* Закругление */
     padding: 20px;
     text-align: center;
-    margin: 15px auto 18px; /* Отступ сверху 20px, снизу 10px */
-    width: 100%; /* Ширина блока 100% */
-    max-width: 290px; /* Ограничение по ширине */
+    margin: 15px auto 18px;
+    /* Отступ сверху 20px, снизу 10px */
+    width: 100%;
+    /* Ширина блока 100% */
+    max-width: 290px;
+    /* Ограничение по ширине */
 }
 
 .personal-achievements-title {
@@ -425,46 +561,60 @@ body {
     font-size: 18px;
     margin-bottom: -2px;
     margin-right: 220px;
-    margin-top: -0px; /* Отрицательный отступ для поднятия заголовка вверх */
-    white-space: nowrap; /* Отключает перенос текста */
+    margin-top: -0px;
+    /* Отрицательный отступ для поднятия заголовка вверх */
+    white-space: nowrap;
+    /* Отключает перенос текста */
 }
 
 .personal-achievements-wrapper {
     display: flex;
-    justify-content: space-between; /* Равномерное распределение пространства */
-    margin-top: 10px; /* Отступ сверху для отделения от заголовка */
-    padding: 10px 0; /* Отступы для внутреннего пространства */
+    justify-content: space-between;
+    /* Равномерное распределение пространства */
+    margin-top: 10px;
+    /* Отступ сверху для отделения от заголовка */
+    padding: 10px 0;
+    /* Отступы для внутреннего пространства */
 }
 
 .achievement-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%; /* Ширина контейнера с элементами */
+    width: 100%;
+    /* Ширина контейнера с элементами */
     color: #fff;
     font-family: Arial, sans-serif;
 }
 
 .achievement-text {
-    font-size: 14px; /* Размер текста описания */
+    font-size: 14px;
+    /* Размер текста описания */
     color: #ffffff;
 }
 
 .daily-count {
-    font-size: 16px; /* Размер числа дней */
+    font-size: 16px;
+    /* Размер числа дней */
     font-weight: bold;
-    color: #ffcc00; /* Яркий цвет для выделения */
+    color: #ffcc00;
+    /* Яркий цвет для выделения */
 }
 
 /* Стили для блока Personal Settings */
 .personal-settings-container {
-    background-color: #1f1f1f; /* Тёмный фон */
-    border-radius: 20px; /* Закругление */
+    background-color: #1f1f1f;
+    /* Тёмный фон */
+    border-radius: 20px;
+    /* Закругление */
     padding: 20px;
     text-align: center;
-    margin: -4px auto 60px auto; /* Центрирование блока и отступ сверху/снизу */
-    width: 100%; /* Ширина блока 100% */
-    max-width: 290px; /* Ограничение по ширине */
+    margin: -4px auto 60px auto;
+    /* Центрирование блока и отступ сверху/снизу */
+    width: 100%;
+    /* Ширина блока 100% */
+    max-width: 290px;
+    /* Ограничение по ширине */
 }
 
 .personal-settings-title {
@@ -473,44 +623,63 @@ body {
     color: #ffffff;
     font-size: 18px;
     margin-right: 220px;
-    margin-top: -0px; /* Отрицательный отступ для поднятия заголовка вверх */
-    white-space: nowrap; /* Отключает перенос текста */
+    margin-top: -0px;
+    /* Отрицательный отступ для поднятия заголовка вверх */
+    white-space: nowrap;
+    /* Отключает перенос текста */
 }
 
 .personal-settings-wrapper {
-    position: relative; /* Позволяет абсолютное позиционирование для дочерних элементов */
-    display: flex; /* Используйте flexbox для выравнивания элементов */
-    justify-content: center; /* Центрирование содержимого */
-    margin-top: 10px; /* Отступ сверху для отделения от заголовка */
+    position: relative;
+    /* Позволяет абсолютное позиционирование для дочерних элементов */
+    display: flex;
+    /* Используйте flexbox для выравнивания элементов */
+    justify-content: center;
+    /* Центрирование содержимого */
+    margin-top: 10px;
+    /* Отступ сверху для отделения от заголовка */
 }
 
 .personal-language-button {
-    background-color: #303030; /* Цвет кнопки открытия */
+    background-color: #303030;
+    /* Цвет кнопки открытия */
     color: white;
     border: none;
-    border-radius: 20px; /* Скругленная кнопка */
-    width: 50px; /* Ширина кнопки */
-    height: 50px; /* Высота кнопки */
-    font-size: 24px; /* Размер шрифта для иконки */
+    border-radius: 20px;
+    /* Скругленная кнопка */
+    width: 50px;
+    /* Ширина кнопки */
+    height: 50px;
+    /* Высота кнопки */
+    font-size: 24px;
+    /* Размер шрифта для иконки */
     cursor: pointer;
     display: flex;
     justify-content: center;
-    align-items: center; /* Убираем абсолютное позиционирование для лучшего размещения в контейнере */
+    align-items: center;
+    /* Убираем абсолютное позиционирование для лучшего размещения в контейнере */
 }
 
 /* Стиль для модального окна */
 .modal-language {
-    display: none; /* Скрыто по умолчанию */
+    display: none;
+    /* Скрыто по умолчанию */
     position: fixed;
     z-index: 1;
     left: 0;
     top: 0;
-    width: 100%; /* Полная ширина */
-    height: 100%; /* Полная высота */
-    overflow: auto; /* Включает прокрутку, если необходимо */
-    background-color: rgba(0, 0, 0, 0.76); /* Полупрозрачный черный фон */
-    justify-content: center; /* Центрирование по горизонтали */
-    align-items: center; /* Центрирование по вертикали */
+    width: 100%;
+    /* Полная ширина */
+    height: 100%;
+    /* Полная высота */
+    overflow: auto;
+    /* Включает прокрутку, если необходимо */
+    background-color: rgba(0, 0, 0, 0.76);
+    /* Полупрозрачный черный фон */
+    justify-content: center;
+    /* Центрирование по горизонтали */
+    align-items: center;
+    /* Центрирование по вертикали */
 }
 
 /* Стили для модального окна */
