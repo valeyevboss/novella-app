@@ -1,73 +1,115 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const params = new URLSearchParams(window.location.search);
-    const telegramId = params.get('userId'); // Получаем telegramId из параметров URL
+const rewards = [100, 250, 500, 750, 800, 900, 1500]; // Награды по дням
 
-    const startMiningBtn = document.getElementById('start-mining-btn');
-    const timerDisplay = document.getElementById('timer-mining');
-    let miningInterval;
+// Получаем userId из URL (или создаём уникальный ключ для каждого пользователя)
+const params = new URLSearchParams(window.location.search);
+const userId = params.get('userId'); // Получаем userId из параметров URL
+const rewardIndexKey = `rewardIndex_${userId}`; // Уникальный ключ для индекса награды
+const lastClaimTimeKey = `lastClaimTime_${userId}`; // Уникальный ключ для времени последнего получения награды
 
-    // Загрузка состояния из localStorage
-    const miningState = JSON.parse(localStorage.getItem('miningState'));
-    if (miningState && miningState.telegramId === telegramId) {
-        startMiningBtn.disabled = true; // Деактивируем кнопку
-        startTimer(miningState.startTime); // Запускаем таймер с сохраненного времени
-    }
+let currentRewardIndex = parseInt(localStorage.getItem(rewardIndexKey)) || 0; // Индекс текущей награды
 
-    startMiningBtn.addEventListener('click', async () => {
-        try {
-            const response = await fetch(`/start-mining/${telegramId}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-            });
+const rewardButton = document.getElementById('claim-reward-button');
+const timerDisplay = document.getElementById('timer');
 
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.error); // Обработка ошибок
-            }
+// Проверяем, заблокирована ли кнопка (если прошло меньше 24 часов)
+const lastClaimTime = localStorage.getItem(lastClaimTimeKey);
+if (lastClaimTime && (Date.now() - lastClaimTime < 86400000)) { // 86400000 миллисекунд = 24 часа
+    const remainingTime = 86400000 - (Date.now() - lastClaimTime); // Оставшееся время до разблокировки
+    disableRewardButton(remainingTime / 1000); // Запускаем таймер с оставшимся временем
+} else {
+    updateRewardButton(); // Обновляем кнопку, если можно получить награду
+}
 
-            const data = await response.json();
-            startMiningBtn.disabled = true; // Деактивируем кнопку
-            localStorage.setItem('miningState', JSON.stringify({ telegramId, startTime: Date.now() })); // Сохраняем состояние
+// Функция для начала обратного отсчета
+function startTimer(duration) {
+    let timer = duration, hours, minutes, seconds;
+    const countdownInterval = setInterval(() => {
+        hours = parseInt(timer / 3600, 10);
+        minutes = parseInt((timer % 3600) / 60, 10);
+        seconds = parseInt(timer % 60, 10);
 
-            startTimer(Date.now()); // Запускаем таймер
+        // Добавление нуля перед числами меньше 10
+        hours = hours < 10 ? "0" + hours : hours;
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
 
-            showNotification(data.message, true);
-        } catch (error) {
-            showNotification(error.message, false);
-            console.error('Ошибка при запуске майнинга:', error);
+        timerDisplay.textContent = `${hours}:${minutes}:${seconds}`;
+
+        if (--timer < 0) {
+            clearInterval(countdownInterval);
+            resetReward(); // Сброс кнопки после истечения времени
         }
-    });
+    }, 1000);
+}
 
-    // Функция для запуска таймера
-    function startTimer(startTime) {
-        const miningDuration = 12 * 60 * 60 * 1000; // 12 часов
-        let remainingTime = miningDuration;
+// Функция блокировки кнопки на указанное количество секунд
+function disableRewardButton(duration) {
+    rewardButton.disabled = true; // Отключаем кнопку
+    document.querySelector('.timer-container').style.display = 'flex'; // Показываем таймер
+    startTimer(duration); // Запускаем таймер
+}
 
-        // Определяем время завершения майнинга
-        const miningEndTime = startTime + miningDuration;
-
-        miningInterval = setInterval(() => {
-            const currentTime = Date.now();
-            remainingTime = miningEndTime - currentTime; // Обновляем оставшееся время
-
-            if (remainingTime <= 0) {
-                clearInterval(miningInterval);
-                startMiningBtn.textContent = 'Claim';
-                startMiningBtn.disabled = false; // Активируем кнопку
-
-                // Здесь можно добавить логику для получения токенов, например:
-                startMiningBtn.addEventListener('click', async () => {
-                    const response = await fetch(`/mining-status/${telegramId}`);
-                    const statusData = await response.json();
-                    showNotification(statusData.message, true);
-                    localStorage.removeItem('miningState'); // Удаляем состояние после получения токенов
-                });
-            } else {
-                const hours = String(Math.floor((remainingTime / (1000 * 60 * 60)) % 24)).padStart(2, '0');
-                const minutes = String(Math.floor((remainingTime / (1000 * 60)) % 60)).padStart(2, '0');
-                const seconds = String(Math.floor((remainingTime / 1000) % 60)).padStart(2, '0');
-                timerDisplay.textContent = `${hours}h ${minutes}m ${seconds}s`; // Обновляем отображение таймера
-            }
-        }, 1000); // Каждую секунду
+// Функция для обновления награды и отправки запроса на сервер
+async function claimReward() {
+    if (rewardButton.disabled) {
+        return; // Если кнопка уже заблокирована, ничего не делаем
     }
-});
+
+    if (currentRewardIndex < rewards.length) {
+        const rewardAmount = rewards[currentRewardIndex];
+
+        // Отправка POST запроса на сервер для добавления токенов
+        const response = await fetch(`/add-tokens/${userId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ amount: rewardAmount })
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            alert(`Вы получили ${rewardAmount} $Novella!`);
+            currentRewardIndex++; // Переход к следующей награде
+            if (currentRewardIndex >= rewards.length) {
+                currentRewardIndex = 0; // Сбрасываем индекс после последнего бонуса
+            }
+            localStorage.setItem(rewardIndexKey, currentRewardIndex); // Сохраняем индекс текущей награды для конкретного пользователя
+            localStorage.setItem(lastClaimTimeKey, Date.now()); // Сохраняем время получения награды для конкретного пользователя
+            updateRewardButton();
+            disableRewardButton(86400); // Блокируем кнопку на 24 часа
+        } else {
+            const errorData = await response.json();
+            alert(`Ошибка: ${errorData.error}`);
+        }
+    } else {
+        alert('Вы уже получили все награды!');
+        rewardButton.disabled = true; // Отключаем кнопку, если награды закончились
+    }
+}
+
+// Функция для обновления текста на кнопке
+function updateRewardButton() {
+    if (currentRewardIndex < rewards.length) {
+        rewardButton.textContent = `Daily Check in +${rewards[currentRewardIndex]} $Novella`;
+    } else {
+        rewardButton.disabled = true; // Отключаем кнопку, если награды закончились
+    }
+}
+
+// Функция для сброса кнопки после истечения времени
+function resetReward() {
+    rewardButton.disabled = false; // Включаем кнопку
+    if (currentRewardIndex >= rewards.length) {
+        currentRewardIndex = 0; // Сбрасываем индекс награды на 0 при начале новой недели
+        localStorage.setItem(rewardIndexKey, currentRewardIndex); // Сохраняем сброс в localStorage
+    }
+    updateRewardButton(); // Обновляем текст кнопки на следующий уровень награды
+    timerDisplay.textContent = '00:00:00'; // Сброс таймера
+
+    // Скрываем таймер после истечения времени
+    document.querySelector('.timer-container').style.display = 'none'; // Скрываем таймер
+}
+
+// Инициализация
+updateRewardButton(); // Устанавливаем начальный текст кнопки
