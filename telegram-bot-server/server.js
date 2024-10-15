@@ -307,6 +307,7 @@ app.post('/start-mining/:telegramId', async (req, res) => {
 // Проверка статуса майнинга
 app.get('/mining-status/:telegramId', async (req, res) => {
     const telegramId = req.params.telegramId;
+    console.log(`Статус майнинга перед запуском: ${user.miningActive}`);
     try {
         const user = await User.findOne({ telegramId });
         if (!user) {

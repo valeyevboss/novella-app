@@ -19,6 +19,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         startMiningBtn.textContent = 'Claim';
         startMiningBtn.disabled = false;
         showNotification(statusData.message, true); // Отображаем сообщение о награде
+    } else {
+        startMiningBtn.textContent = 'Start Mining';
+        startMiningBtn.disabled = false;
     }
 
     startMiningBtn.addEventListener('click', async () => {
