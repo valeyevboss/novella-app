@@ -18,22 +18,43 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     startMiningBtn.addEventListener('click', async () => {
-        const response = await fetch(`/mining-status/${telegramId}`);
-        const statusData = await response.json();
-
-        if (statusData.miningActive) {
-            // Если майнинг еще активен
-            showNotification('Mining is still active!', false);
+        if (startMiningBtn.textContent === 'Claim') {
+            const response = await fetch(`/mining-status/${telegramId}`);
+            const statusData = await response.json();
+    
+            // Проверяем, получили ли мы токены
+            if (statusData.message) {
+                showNotification(statusData.message, true); // Отображаем уведомление
+                startMiningBtn.textContent = 'Start Mining'; // Сбрасываем текст кнопки
+                startMiningBtn.disabled = false; // Активируем кнопку для повторного использования
+            }
         } else {
-            // Если время майнинга истекло
-            showNotification(statusData.message, true);
-            startMiningBtn.textContent = 'Start Mining'; // Сбрасываем кнопку
-            startMiningBtn.disabled = false; // Активируем кнопку
+            // Запуск майнинга
+            try {
+                const response = await fetch(`/start-mining/${telegramId}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                });
+    
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error); // Обработка ошибок
+                }
+    
+                const data = await response.json();
+                startMiningBtn.disabled = true; // Деактивируем кнопку
+                startTimer(); // Запускаем таймер
+            } catch (error) {
+                console.error('Ошибка при запуске майнинга:', error);
+            }
         }
     });
+    
 
-    // Функция для запуска таймера
-    function startTimer(remainingTime) {
+    function startTimer() {
+        const miningDuration = 10 * 1000; // 10 секунд
+        let remainingTime = miningDuration;
+    
         miningInterval = setInterval(() => {
             if (remainingTime <= 0) {
                 clearInterval(miningInterval);
@@ -41,11 +62,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 startMiningBtn.disabled = false; // Активируем кнопку
             } else {
                 remainingTime -= 1000; // Уменьшаем оставшееся время на 1 секунду
-                const hours = String(Math.floor((remainingTime / (1000 * 60 * 60)) % 24)).padStart(2, '0');
-                const minutes = String(Math.floor((remainingTime / (1000 * 60)) % 60)).padStart(2, '0');
                 const seconds = String(Math.floor((remainingTime / 1000) % 60)).padStart(2, '0');
-                timerDisplay.textContent = `${hours}h ${minutes}m ${seconds}s`; // Обновляем отображение таймера
+                timerDisplay.textContent = `00:00:${seconds}`; // Обновляем отображение таймера
             }
         }, 1000); // Каждую секунду
-    }
+    }    
 });
