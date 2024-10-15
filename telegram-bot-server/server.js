@@ -278,9 +278,9 @@ app.post('/add-tokens/:telegramId', async (req, res) => {
 
 // Запуск майнинга
 app.post('/start-mining/:telegramId', async (req, res) => {
-    const telegramId = req.params.telegramId; // Извлекаем telegramId из параметров
+    const telegramId = req.params.telegramId;
     try {
-        const user = await User.findOne({ telegramId }); // Поиск пользователя по telegramId
+        const user = await User.findOne({ telegramId });
         if (!user) {
             return res.status(404).json({ error: 'Пользователь не найден' });
         }
@@ -289,9 +289,9 @@ app.post('/start-mining/:telegramId', async (req, res) => {
             return res.status(400).json({ error: 'Майнинг уже активен' });
         }
 
-        user.miningActive = true; // Устанавливаем статус активного майнинга
-        user.miningStartTime = Date.now(); // Устанавливаем время начала майнинга
-        await user.save(); // Сохраняем изменения
+        user.miningActive = true;
+        user.miningStartTime = Date.now();
+        await user.save();
 
         res.json({ message: 'Майнинг запущен', miningStartTime: user.miningStartTime });
     } catch (error) {
@@ -302,15 +302,15 @@ app.post('/start-mining/:telegramId', async (req, res) => {
 
 // Проверка статуса майнинга
 app.get('/mining-status/:telegramId', async (req, res) => {
-    const telegramId = req.params.telegramId; // Извлекаем telegramId из параметров
+    const telegramId = req.params.telegramId;
     try {
-        const user = await User.findOne({ telegramId }); // Поиск пользователя по telegramId
+        const user = await User.findOne({ telegramId });
         if (!user) {
             return res.status(404).json({ error: 'Пользователь не найден' });
         }
 
         const currentTime = Date.now();
-        const miningDuration = 10 * 1000; // Изменено на 10 секунд для тестирования
+        const miningDuration = 10 * 1000; // 10 секунд
         const miningEndTime = user.miningStartTime + miningDuration;
 
         if (user.miningActive && currentTime < miningEndTime) {
@@ -319,9 +319,8 @@ app.get('/mining-status/:telegramId', async (req, res) => {
                 remainingTime: miningEndTime - currentTime, // Остальное время до завершения
             });
         } else if (user.miningActive && currentTime >= miningEndTime) {
-            // Если время майнинга истекло
-            user.miningActive = false; // Сброс статуса
-            user.tokens += 100; // Добавление токенов
+            user.miningActive = false;
+            user.tokens += 100; 
             await user.save();
 
             return res.json({

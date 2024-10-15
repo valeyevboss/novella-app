@@ -623,7 +623,7 @@ body {
     font-family: 'Arial', sans-serif; /* Шрифт для таймера */
     font-weight: bold; /* Делаем текст таймера жирным */
     line-height: 50px; /* Вертикальное выравнивание с учетом высоты контейнера */
-    margin-top: 3px; /* Сдвигаем текст таймера на низ */
+    margin-top: 2px; /* Сдвигаем текст таймера на низ */
 }
 
 #start-mining-btn {

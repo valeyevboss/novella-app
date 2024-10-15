@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const startMiningBtn = document.getElementById('start-mining-btn');
     const timerDisplay = document.getElementById('timer-mining');
-    const progressFill = document.querySelector('.progress-fill'); // Элемент прогресса
+    const progressFill = document.querySelector('.progress-fill');
     let miningInterval;
 
     // Проверяем статус майнинга при загрузке страницы
@@ -25,10 +25,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     
             // Проверяем, получили ли мы токены
             if (statusData.message) {
-                showNotification(statusData.message, true); // Отображаем уведомление
-                startMiningBtn.textContent = 'Start Mining'; // Сбрасываем текст кнопки
-                startMiningBtn.disabled = false; // Активируем кнопку для повторного использования
-                progressFill.style.width = '0%'; // Сбрасываем прогресс бар
+                showNotification(statusData.message, true);
+                startMiningBtn.textContent = 'Start Mining'; 
+                startMiningBtn.disabled = false; 
+                progressFill.style.width = '0%'; 
             }
         } else {
             // Запуск майнинга
@@ -40,12 +40,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     
                 if (!response.ok) {
                     const errorData = await response.json();
-                    throw new Error(errorData.error); // Обработка ошибок
+                    throw new Error(errorData.error);
                 }
     
                 const data = await response.json();
-                startMiningBtn.disabled = true; // Деактивируем кнопку
-                startTimer(); // Запускаем таймер
+                startMiningBtn.disabled = true; 
+                startTimer(); 
             } catch (error) {
                 console.error('Ошибка при запуске майнинга:', error);
             }
@@ -60,17 +60,17 @@ document.addEventListener('DOMContentLoaded', async () => {
             if (remainingTime <= 0) {
                 clearInterval(miningInterval);
                 startMiningBtn.textContent = 'Claim';
-                startMiningBtn.disabled = false; // Активируем кнопку
-                progressFill.style.width = '100%'; // Прогресс заполнен
+                startMiningBtn.disabled = false;
+                progressFill.style.width = '100%'; 
             } else {
                 remainingTime -= 1000; // Уменьшаем оставшееся время на 1 секунду
                 const seconds = String(Math.floor((remainingTime / 1000) % 60)).padStart(2, '0');
-                timerDisplay.textContent = `00:00:${seconds}`; // Обновляем отображение таймера
+                timerDisplay.textContent = `00:00:${seconds}`; 
                 
                 // Обновляем ширину прогресс-бара
                 const progressPercentage = ((miningDuration - remainingTime) / miningDuration) * 100;
-                progressFill.style.width = `${progressPercentage}%`; // Устанавливаем ширину прогресс-бара
+                progressFill.style.width = `${progressPercentage}%`; 
             }
-        }, 1000); // Каждую секунду
+        }, 1000);
     }
 });
