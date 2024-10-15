@@ -13,6 +13,16 @@ document.addEventListener("DOMContentLoaded", function() {
     let miningEndTime = null;
     const miningDuration = 12 * 60 * 60 * 1000; // 12 часов в миллисекундах
 
+    // Проверяем состояние майнинга из локального хранилища
+    const storedEndTime = localStorage.getItem('miningEndTime');
+    if (storedEndTime) {
+        miningEndTime = parseInt(storedEndTime);
+        miningActive = Date.now() < miningEndTime; // Проверяем, активен ли майнинг
+        if (miningActive) {
+            startMining(); // Если активен, запускаем майнинг
+        }
+    }
+
     // Функция для запуска майнинга
     function startMining() {
         if (miningActive) return; // Если майнинг уже активен
@@ -20,6 +30,9 @@ document.addEventListener("DOMContentLoaded", function() {
         // Устанавливаем время окончания майнинга
         miningEndTime = Date.now() + miningDuration;
         miningActive = true;
+
+        // Сохраняем время окончания в локальное хранилище
+        localStorage.setItem('miningEndTime', miningEndTime);
 
         // Обновляем UI
         miningButton.textContent = 'Mining...';
@@ -43,8 +56,8 @@ document.addEventListener("DOMContentLoaded", function() {
             const progressPercent = ((miningDuration - remainingTime) / miningDuration) * 100;
             progressBarFill.style.width = `${progressPercent}%`;
 
-            // Продолжаем обновление через 1 минуту
-            setTimeout(updateMiningProgress, 60000); // Обновляем каждую минуту
+            // Продолжаем обновление каждую секунду
+            setTimeout(updateMiningProgress, 1000); // Обновляем каждую секунду
         } else {
             // Майнинг завершен
             timerElement.textContent = '0h 00m';
@@ -54,6 +67,10 @@ document.addEventListener("DOMContentLoaded", function() {
             miningButton.textContent = 'Claim 100 $Novella';
             miningButton.disabled = false;
             miningButton.onclick = claimMiningReward;
+
+            // Удаляем время окончания из локального хранилища
+            localStorage.removeItem('miningEndTime');
+            miningActive = false; // Сбрасываем статус
         }
     }
 
@@ -88,6 +105,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 showNotification('Поздравляем! Вы получили 100 $Novella.', true);
                 miningButton.textContent = 'Start Mining';
                 miningButton.onclick = startMining;
+
+                // Удаляем время окончания из локального хранилища
+                localStorage.removeItem('miningEndTime');
             } else {
                 showNotification(data.message || 'Ошибка при получении награды', false);
             }
