@@ -29,6 +29,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 startMiningBtn.textContent = 'Start Mining'; 
                 startMiningBtn.disabled = false; 
                 progressFill.style.width = '0%'; 
+
+                // Обновляем страницу после получения токенов
+                location.reload();
             }
         } else {
             // Запуск майнинга
