@@ -1,6 +1,6 @@
 // Получаем идентификатор пользователя из URL
-const urlParams = new URLSearchParams(window.location.search);
-const userId = urlParams.get('userId');
+const queryParams = new URLSearchParams(window.location.search);
+const userId = queryParams.get('userId');
 
 // Элементы страницы
 const timerElement = document.getElementById('timer');
@@ -68,6 +68,7 @@ async function checkMiningStatus() {
             startMining();
         }
     } catch (error) {
+        showNotification('Ошибка при получении статуса майнинга', false);
         console.error('Ошибка при получении статуса майнинга:', error);
     }
 }
@@ -83,14 +84,17 @@ async function claimMiningReward() {
 
         if (data.success) {
             // Обновляем баланс на странице
-            alert(`Поздравляем! Вы получили 100 $Novella.`);
+            showNotification('Поздравляем! Вы получили 100 $Novella.', true);
             miningButton.textContent = 'Start Mining';
             miningButton.onclick = startMining;
+        } else {
+            showNotification(data.message || 'Ошибка при получении награды', false);
         }
     } catch (error) {
+        showNotification('Ошибка при получении награды', false);
         console.error('Ошибка при получении награды:', error);
     }
 }
 
 // Инициализация
-checkMiningStatus
+checkMiningStatus();
