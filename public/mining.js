@@ -48,18 +48,20 @@ document.addEventListener("DOMContentLoaded", function () {
         updateMiningProgress();
     }
 
-    // Функция для обновления статуса майнинга пользователя на сервере
+    // Обновление статуса майнинга пользователя на сервере
     async function updateUserMiningStatus() {
         try {
             const response = await fetch(`/start-mining/${userId}`, { method: 'POST' });
             if (!response.ok) {
-                throw new Error('Ошибка при обновлении статуса майнинга');
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Ошибка при обновлении статуса майнинга');
             }
         } catch (error) {
             console.error('Ошибка при обновлении статуса майнинга:', error);
+            showNotification('Ошибка при обновлении статуса майнинга', false);
         }
     }
-
+    
     // Обновление прогресса майнинга
     function updateMiningProgress() {
         const remainingTime = miningEndTime - Date.now();
@@ -124,11 +126,10 @@ document.addEventListener("DOMContentLoaded", function () {
             const data = await response.json();
 
             if (data.success) {
-                // Обновляем баланс на странице
                 showNotification('Поздравляем! Вы получили 100 $Novella.', true);
                 resetMining(); // Сбрасываем состояние майнинга
             } else {
-                showNotification(data.message || 'Ошибка при получении награды', false);
+                showNotification(data.error || 'Ошибка при получении награды', false);
             }
         } catch (error) {
             showNotification('Ошибка при получении награды', false);

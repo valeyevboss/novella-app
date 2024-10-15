@@ -311,10 +311,14 @@ app.get('/mining-status/:userId', async (req, res) => {
             return res.status(404).json({ error: 'User not found' });
         }
 
+        console.log('Найденный пользователь:', user); // Добавьте отладочный лог
+
         const miningActive = user.miningActive;
         const miningEndTime = user.miningStartTime 
             ? new Date(user.miningStartTime.getTime() + miningDuration) 
             : null;
+
+        console.log('Статус майнинга:', { miningActive, miningEndTime }); // Лог статуса
 
         res.json({ miningActive, miningEndTime });
     } catch (error) {
