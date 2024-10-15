@@ -383,7 +383,7 @@ body {
     padding-left: 45px; /* Отступ слева на 10px */
 }
 
-#timer {
+#timer-mining {
     color: #ffffff; /* Белый текст для таймера */
     font-size: 13px; /* Размер шрифта */
     font-family: 'Arial', sans-serif; /* Шрифт для таймера */

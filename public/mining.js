@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const userId = urlParams.get('userId');
 
     // Элементы страницы
-    const timerElement = document.getElementById('timer');
+    const timerElement = document.getElementById('timer-mining');
     const miningButton = document.getElementById('start-mining-btn');
     const progressBarFill = document.querySelector('.progress-fill'); // Изменено на .progress-fill
 
