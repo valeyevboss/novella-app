@@ -337,6 +337,10 @@ app.get('/mining-status/:telegramId', async (req, res) => {
     }
 });
 
+app.get('/test', (req, res) => {
+    res.send('Сервер работает корректно');
+});
+
 // Проверка реферального кода
 app.get('/referral-code/:telegramId', async (req, res) => {
     try {
