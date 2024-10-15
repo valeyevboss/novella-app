@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     // Получаем идентификатор пользователя из URL
     const urlParams = new URLSearchParams(window.location.search);
     const userId = urlParams.get('userId');
@@ -37,12 +37,27 @@ document.addEventListener("DOMContentLoaded", function() {
         localStorage.setItem('miningEndTime', miningEndTime);
         localStorage.setItem('miningActive', 'true');
 
+        // Здесь добавьте отправку запроса на сервер для обновления данных пользователя
+        updateUserMiningStatus();
+
         // Обновляем UI
         miningButton.textContent = 'Mining...';
         miningButton.disabled = true;
 
         // Запускаем таймер обновления
         updateMiningProgress();
+    }
+
+    // Функция для обновления статуса майнинга пользователя на сервере
+    async function updateUserMiningStatus() {
+        try {
+            const response = await fetch(`/start-mining/${userId}`, { method: 'POST' });
+            if (!response.ok) {
+                throw new Error('Ошибка при обновлении статуса майнинга');
+            }
+        } catch (error) {
+            console.error('Ошибка при обновлении статуса майнинга:', error);
+        }
     }
 
     // Обновление прогресса майнинга
