@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 showNotification(statusData.message, true); // Отображаем уведомление
                 startMiningBtn.textContent = 'Start Mining'; // Сбрасываем текст кнопки
                 startMiningBtn.disabled = false; // Активируем кнопку для повторного использования
+                timerDisplay.textContent = '00:00:00'; // Сбрасываем таймер
             }
         } else {
             // Запуск майнинга
@@ -48,8 +49,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 console.error('Ошибка при запуске майнинга:', error);
             }
         }
-    });
-    
+    });    
 
     function startTimer() {
         const miningDuration = 10 * 1000; // 10 секунд

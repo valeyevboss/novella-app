@@ -310,7 +310,7 @@ app.get('/mining-status/:telegramId', async (req, res) => {
         }
 
         const currentTime = Date.now();
-        const miningDuration = 12 * 60 * 60 * 1000; // 12 часов в миллисекундах
+        const miningDuration = 10 * 1000; // Изменено на 10 секунд для тестирования
         const miningEndTime = user.miningStartTime + miningDuration;
 
         if (user.miningActive && currentTime < miningEndTime) {
@@ -326,7 +326,7 @@ app.get('/mining-status/:telegramId', async (req, res) => {
 
             return res.json({
                 miningActive: false,
-                message: 'Время майнинга истекло. Вы получили 100 токенов!',
+                message: 'Congratulations! You have received $100 Novella!',
             });
         } else {
             return res.json({ miningActive: false });
