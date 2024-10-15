@@ -944,6 +944,7 @@ body {
     justify-content: space-around;
     background-color: #000;
     padding: 10px 0;
+    z-index: 4; /* Задаем z-index выше, чем у остальных объектов */
 }
 
 .menu-item {
