@@ -355,39 +355,6 @@ body {
     /* Отключает перенос текста */
 }
 
-.progress-bar {
-    background-color: #dd562023;
-    /* Цвет фона полосы прогресса */
-    height: 50px;
-    /* Увеличенная высота для вертикального пространства */
-    display: flex;
-    justify-content: center;
-    /* Центрирование текста по горизонтали */
-    align-items: center;
-    /* Центрирование текста по вертикали */
-    border-radius: 12px;
-    /* Скругление углов полосы */
-    margin-bottom: 15px;
-    /* Отступ под прогресс-баром */
-    position: relative;
-    /* Задаем позицию для относительного позиционирования */
-    overflow: hidden;
-    /* Скрываем переполнение */
-}
-
-.progress-fill {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    background-color: #dd5620b4;
-    /* Цвет прогресса */
-    width: 0;
-    /* Начальная ширина 0 */
-    transition: width 0.3s ease;
-    /* Плавный переход для изменения ширины */
-}
-
 .mining-info-container {
     display: flex;
     /* Используем flexbox */
@@ -404,14 +371,11 @@ body {
 }
 
 .mining-info-container {
-    display: flex;
-    /* Используем flexbox */
-    justify-content: space-between;
-    /* Разделяем текст и таймер по разным сторонам */
-    width: 100%;
-    /* Ширина контейнера 100% */
-    padding: 0 10px;
-    /* Отступы внутри для дополнительного пространства */
+    display: flex; /* Используем flexbox */
+    justify-content: space-between; /* Разделяем текст и таймер по разным сторонам */
+    width: 100%; /* Ширина контейнера 100% */
+    padding: 0 10px; /* Отступы внутри для дополнительного пространства */
+    z-index: 2; /* Устанавливаем z-index, чтобы текст и огонь отображались над прогресс-баром */
 }
 
 @keyframes scaleUpDown {
@@ -624,6 +588,29 @@ body {
     font-weight: bold; /* Делаем текст таймера жирным */
     line-height: 50px; /* Вертикальное выравнивание с учетом высоты контейнера */
     margin-top: 2px; /* Сдвигаем текст таймера на низ */
+}
+
+.progress-bar {
+    background-color: #dd562023; /* Цвет фона полосы прогресса */
+    height: 50px; /* Увеличенная высота для вертикального пространства */
+    display: flex;
+    justify-content: center; /* Центрирование текста по горизонтали */
+    align-items: center; /* Центрирование текста по вертикали */
+    border-radius: 12px; /* Скругление углов полосы */
+    margin-bottom: 15px; /* Отступ под прогресс-баром */
+    position: relative; /* Задаем позицию для относительного позиционирования */
+    overflow: hidden; /* Скрываем переполнение */
+}
+
+.progress-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: #dd5620b4; /* Цвет прогресса */
+    width: 0; /* Начальная ширина 0 */
+    transition: width 0.3s ease; /* Плавный переход для изменения ширины */
+    z-index: 1; /* Задаем z-index ниже, чем у текста и огня */
 }
 
 #start-mining-btn {
