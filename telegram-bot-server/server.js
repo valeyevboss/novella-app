@@ -279,6 +279,7 @@ app.post('/add-tokens/:telegramId', async (req, res) => {
 // Запуск майнинга
 app.post('/start-mining/:telegramId', async (req, res) => {
     const telegramId = req.params.telegramId;
+    console.log('Telegram ID:', telegramId);  // Логирование для проверки
     try {
         const user = await User.findOne({ telegramId });
         if (!user) {
