@@ -15,9 +15,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Проверяем состояние майнинга из локального хранилища
     const storedEndTime = localStorage.getItem('miningEndTime');
+    const storedMiningActive = localStorage.getItem('miningActive');
+
     if (storedEndTime) {
         miningEndTime = parseInt(storedEndTime);
-        miningActive = Date.now() < miningEndTime; // Проверяем, активен ли майнинг
+        miningActive = storedMiningActive === 'true' && Date.now() < miningEndTime; // Проверяем, активен ли майнинг
         if (miningActive) {
             startMining(); // Если активен, запускаем майнинг
         }
@@ -31,8 +33,9 @@ document.addEventListener("DOMContentLoaded", function() {
         miningEndTime = Date.now() + miningDuration;
         miningActive = true;
 
-        // Сохраняем время окончания в локальное хранилище
+        // Сохраняем время окончания и статус в локальное хранилище
         localStorage.setItem('miningEndTime', miningEndTime);
+        localStorage.setItem('miningActive', 'true');
 
         // Обновляем UI
         miningButton.textContent = 'Mining...';
@@ -68,8 +71,9 @@ document.addEventListener("DOMContentLoaded", function() {
             miningButton.disabled = false;
             miningButton.onclick = claimMiningReward;
 
-            // Удаляем время окончания из локального хранилища
+            // Удаляем время окончания и статус из локального хранилища
             localStorage.removeItem('miningEndTime');
+            localStorage.removeItem('miningActive');
             miningActive = false; // Сбрасываем статус
         }
     }
@@ -79,9 +83,9 @@ document.addEventListener("DOMContentLoaded", function() {
         try {
             const response = await fetch(`/mining-status/${userId}`);
             const data = await response.json();
-    
+
             console.log('Mining status from server:', data);
-    
+
             if (data.miningActive) {
                 miningEndTime = new Date(data.miningEndTime).getTime();
                 miningActive = true;
@@ -93,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function() {
         } catch (error) {
             console.error('Ошибка при получении статуса майнинга:', error);
         }
-    }    
+    }
 
     // Функция для получения награды
     async function claimMiningReward() {
@@ -123,6 +127,7 @@ document.addEventListener("DOMContentLoaded", function() {
         miningButton.disabled = false;
         miningButton.onclick = startMining; // Восстанавливаем обработчик события
         localStorage.removeItem('miningEndTime'); // Удаляем время окончания из локального хранилища
+        localStorage.removeItem('miningActive'); // Удаляем статус из локального хранилища
         timerElement.textContent = '12h 00m'; // Сбрасываем таймер на начальное значение
         progressBarFill.style.width = '0%'; // Сбрасываем прогресс бар
         miningActive = false; // Сбрасываем статус
