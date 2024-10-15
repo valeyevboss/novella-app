@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 startMiningBtn.disabled = false;
                 progressFill.style.width = '0%';
 
-                // Обновляем страницу после получения токенов
+                // Очищаем localStorage
                 localStorage.removeItem('remainingTime');
                 localStorage.removeItem('miningActive');
                 location.reload();
@@ -58,7 +58,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                 const data = await response.json();
                 startMiningBtn.disabled = true;
-                startTimer();
+                startMiningBtn.textContent = 'Mining...';
+
+                // Запуск таймера с 10 секундами
+                startTimer(10 * 1000);
             } catch (error) {
                 console.error('Ошибка при запуске майнинга:', error);
             }
