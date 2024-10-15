@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Элементы страницы
     const timerElement = document.getElementById('timer-mining');
     const miningButton = document.getElementById('start-mining-btn');
-    const progressBarFill = document.querySelector('.progress-fill'); // Изменено на .progress-fill
+    const progressBarFill = document.querySelector('.progress-fill');
 
     // Статус майнинга пользователя
     let miningActive = false;
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Обновление прогресса майнинга
     function updateMiningProgress() {
         const remainingTime = miningEndTime - Date.now();
-        
+
         if (remainingTime > 0) {
             // Обновляем таймер на UI
             const hours = Math.floor(remainingTime / (60 * 60 * 1000));
@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function() {
             progressBarFill.style.width = `${progressPercent}%`;
 
             // Продолжаем обновление каждую секунду
-            setTimeout(updateMiningProgress, 1000); // Обновляем каждую секунду
+            setTimeout(updateMiningProgress, 1000);
         } else {
             // Майнинг завершен
             timerElement.textContent = '0h 00m';
@@ -103,11 +103,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (data.success) {
                 // Обновляем баланс на странице
                 showNotification('Поздравляем! Вы получили 100 $Novella.', true);
-                miningButton.textContent = 'Start Mining';
-                miningButton.onclick = startMining;
-
-                // Удаляем время окончания из локального хранилища
-                localStorage.removeItem('miningEndTime');
+                resetMining(); // Сбрасываем состояние майнинга
             } else {
                 showNotification(data.message || 'Ошибка при получении награды', false);
             }
@@ -115,6 +111,17 @@ document.addEventListener("DOMContentLoaded", function() {
             showNotification('Ошибка при получении награды', false);
             console.error('Ошибка при получении награды:', error);
         }
+    }
+
+    // Функция для сброса состояния майнинга
+    function resetMining() {
+        miningButton.textContent = 'Start Mining';
+        miningButton.disabled = false;
+        miningButton.onclick = startMining; // Восстанавливаем обработчик события
+        localStorage.removeItem('miningEndTime'); // Удаляем время окончания из локального хранилища
+        timerElement.textContent = '12h 00m'; // Сбрасываем таймер на начальное значение
+        progressBarFill.style.width = '0%'; // Сбрасываем прогресс бар
+        miningActive = false; // Сбрасываем статус
     }
 
     // Инициализация
