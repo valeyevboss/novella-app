@@ -8,22 +8,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     let miningInterval;
 
     // Проверяем статус майнинга при загрузке страницы
-    const savedTime = localStorage.getItem('remainingTime');
-    const savedMiningActive = localStorage.getItem('miningActive');
+    const response = await fetch(`/mining-status/${telegramId}`);
+    const statusData = await response.json();
 
-    if (savedMiningActive === 'true' && savedTime) {
+    if (statusData.miningActive) {
         startMiningBtn.textContent = 'Claim';
         startMiningBtn.disabled = false;
-        startTimer(parseInt(savedTime)); // Запускаем таймер с сохраненным временем
-    } else {
-        const response = await fetch(`/mining-status/${telegramId}`);
-        const statusData = await response.json();
-
-        if (statusData.miningActive) {
-            startMiningBtn.textContent = 'Claim';
-            startMiningBtn.disabled = false;
-            startTimer(statusData.remainingTime);
-        }
+        startTimer(statusData.remainingTime);
+    } else if (statusData.message) {
+        startMiningBtn.textContent = 'Claim';
+        startMiningBtn.disabled = false;
+        showNotification(statusData.message, true); // Отображаем сообщение о награде
     }
 
     startMiningBtn.addEventListener('click', async () => {
@@ -72,18 +67,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         let remainingTime = duration || 10 * 1000; // Если duration не передан, используем 10 секунд
         const miningDuration = 10 * 1000; // 10 секунд
 
-        localStorage.setItem('miningActive', true); // Сохраняем статус майнинга
-
         miningInterval = setInterval(() => {
             if (remainingTime <= 0) {
                 clearInterval(miningInterval);
                 startMiningBtn.textContent = 'Claim';
                 startMiningBtn.disabled = false;
                 progressFill.style.width = '100%';
-                localStorage.removeItem('remainingTime'); // Удаляем оставшееся время из localStorage
             } else {
                 remainingTime -= 1000; // Уменьшаем оставшееся время на 1 секунду
-                localStorage.setItem('remainingTime', remainingTime); // Сохраняем оставшееся время
                 const seconds = String(Math.floor((remainingTime / 1000) % 60)).padStart(2, '0');
                 timerDisplay.textContent = `00:00:${seconds}`;
 
