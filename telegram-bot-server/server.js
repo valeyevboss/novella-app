@@ -276,6 +276,32 @@ app.post('/add-tokens/:telegramId', async (req, res) => {
 	}
 });
 
+// Начало майнинга
+app.post('/start-mining/:userId', async (req, res) => {
+    try {
+        const user = await User.findOne({ telegramId: req.params.userId });
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // Проверяем, активен ли майнинг
+        if (user.miningActive) {
+            return res.status(400).json({ error: 'Майнинг уже активен' });
+        }
+
+        // Устанавливаем статус и время начала
+        user.miningActive = true;
+        user.miningStartTime = new Date(); // Устанавливаем текущее время
+        await user.save();
+
+        res.json({ success: true, miningStartTime: user.miningStartTime });
+    } catch (error) {
+        console.error('Ошибка при запуске майнинга:', error);
+        res.status(500).json({ error: 'Ошибка сервера' });
+    }
+});
+
 // Получение статуса майнинга
 app.get('/mining-status/:userId', async (req, res) => {
     try {
