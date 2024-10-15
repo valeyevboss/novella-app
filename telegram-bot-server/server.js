@@ -276,6 +276,60 @@ app.post('/add-tokens/:telegramId', async (req, res) => {
 	}
 });
 
+// Получение статуса майнинга
+app.get('/mining-status/:userId', async (req, res) => {
+    try {
+        const user = await User.findOne({ telegramId: req.params.userId });
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        const miningActive = user.miningActive;
+        const miningEndTime = user.miningStartTime 
+            ? new Date(user.miningStartTime.getTime() + miningDuration) 
+            : null;
+
+        res.json({ miningActive, miningEndTime });
+    } catch (error) {
+        console.error('Ошибка при проверке статуса майнинга:', error);
+        res.status(500).json({ error: 'Ошибка сервера' });
+    }
+});
+
+// Начисление награды за майнинг
+app.post('/claim-mining/:userId', async (req, res) => {
+    try {
+        const user = await User.findOne({ telegramId: req.params.userId });
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        if (!user.miningActive) {
+            return res.status(400).json({ error: 'Майнинг не активен' });
+        }
+
+        // Проверяем, истек ли таймер
+        const miningEndTime = new Date(user.miningStartTime.getTime() + miningDuration);
+
+        if (Date.now() < miningEndTime.getTime()) {
+            return res.status(400).json({ error: 'Майнинг еще не завершен' });
+        }
+
+        // Начисляем токены и сбрасываем статус майнинга
+        user.tokens += 100;
+        user.miningActive = false;
+        user.miningStartTime = null;
+        await user.save();
+
+        res.json({ success: true, tokens: user.tokens });
+    } catch (error) {
+        console.error('Ошибка при начислении награды за майнинг:', error);
+        res.status(500).json({ error: 'Ошибка сервера' });
+    }
+});
+
 // Проверка реферального кода
 app.get('/referral-code/:telegramId', async (req, res) => {
     try {

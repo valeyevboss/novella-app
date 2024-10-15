@@ -1,64 +1,96 @@
-let miningInProgress = false;
-let miningDuration = 12 * 60 * 60 * 1000; // 12 часов в миллисекундах
-let startTime;
+// Получаем идентификатор пользователя из URL
+const urlParams = new URLSearchParams(window.location.search);
+const userId = urlParams.get('userId');
 
+// Элементы страницы
+const timerElement = document.getElementById('timer');
+const miningButton = document.getElementById('start-mining-btn');
+const progressBarFill = document.querySelector('.progress-bar::before');
+
+// Статус майнинга пользователя
+let miningActive = false;
+let miningEndTime = null;
+const miningDuration = 12 * 60 * 60 * 1000; // 12 часов в миллисекундах
+
+// Функция для запуска майнинга
 function startMining() {
-  if (!miningInProgress) {
-    miningInProgress = true;
-    startTime = Date.now();
+    if (miningActive) return; // Если майнинг уже активен
+
+    // Устанавливаем время окончания майнинга
+    miningEndTime = Date.now() + miningDuration;
+    miningActive = true;
+
+    // Обновляем UI
+    miningButton.textContent = 'Mining...';
+    miningButton.disabled = true;
+
+    // Запускаем таймер обновления
+    updateMiningProgress();
+}
+
+// Обновление прогресса майнинга
+function updateMiningProgress() {
+    const remainingTime = miningEndTime - Date.now();
     
-    document.getElementById('start-mining-btn').disabled = true; // Отключаем кнопку
-    
-    updateTimer();
-    updateProgressBar();
-  }
-}
+    if (remainingTime > 0) {
+        // Обновляем таймер на UI
+        const hours = Math.floor(remainingTime / (60 * 60 * 1000));
+        const minutes = Math.floor((remainingTime % (60 * 60 * 1000)) / (60 * 1000));
+        timerElement.textContent = `${hours}h ${minutes}m`;
 
-function updateTimer() {
-  const timeLeft = miningDuration - (Date.now() - startTime);
-  
-  if (timeLeft > 0) {
-    const hours = Math.floor(timeLeft / (1000 * 60 * 60));
-    const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-    
-    document.getElementById('timer').textContent = `${hours}h ${minutes}m`;
-    setTimeout(updateTimer, 1000 * 60); // Обновляем каждую минуту
-  } else {
-    completeMining();
-  }
-}
+        // Обновляем прогрессбар
+        const progressPercent = ((miningDuration - remainingTime) / miningDuration) * 100;
+        progressBarFill.style.width = `${progressPercent}%`;
 
-function updateProgressBar() {
-  const elapsed = Date.now() - startTime;
-  const progressPercent = (elapsed / miningDuration) * 100;
-  
-  // Получаем элемент .progress-bar и обновляем ширину псевдоэлемента
-  const progressBar = document.querySelector('.progress-bar');
-  progressBar.style.setProperty('--progress-width', `${progressPercent}%`);
+        // Продолжаем обновление через 1 минуту
+        setTimeout(updateMiningProgress, 60000); // Обновляем каждую минуту
+    } else {
+        // Майнинг завершен
+        timerElement.textContent = '0h 00m';
+        progressBarFill.style.width = '100%';
 
-  if (miningInProgress && progressPercent < 100) {
-    requestAnimationFrame(updateProgressBar); // Плавное обновление заполнения
-  }
-}
-
-function completeMining() {
-  miningInProgress = false;
-  document.getElementById('start-mining-btn').textContent = 'Claim 100 $Novella';
-  document.getElementById('start-mining-btn').disabled = false; // Снова активируем кнопку
-  
-  document.getElementById('start-mining-btn').onclick = claimTokens; // Меняем функцию на получение токенов
-}
-
-function claimTokens() {
-  // Логика начисления токенов на баланс
-  fetch(`/add-tokens/${userId}`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ amount: 100 })
-  }).then(response => response.json()).then(data => {
-    if (data.success) {
-      document.getElementById('start-mining-btn').textContent = 'Start Mining';
-      document.getElementById('start-mining-btn').onclick = startMining;
+        // Меняем статус кнопки
+        miningButton.textContent = 'Claim 100 $Novella';
+        miningButton.disabled = false;
+        miningButton.onclick = claimMiningReward;
     }
-  });
 }
+
+// Запрос на получение статуса майнинга с сервера
+async function checkMiningStatus() {
+    try {
+        const response = await fetch(`/mining-status/${userId}`);
+        const data = await response.json();
+
+        if (data.miningActive) {
+            miningEndTime = new Date(data.miningEndTime).getTime();
+            miningActive = true;
+            startMining();
+        }
+    } catch (error) {
+        console.error('Ошибка при получении статуса майнинга:', error);
+    }
+}
+
+// Функция для получения награды
+async function claimMiningReward() {
+    try {
+        const response = await fetch(`/claim-mining/${userId}`, {
+            method: 'POST'
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            // Обновляем баланс на странице
+            alert(`Поздравляем! Вы получили 100 $Novella.`);
+            miningButton.textContent = 'Start Mining';
+            miningButton.onclick = startMining;
+        }
+    } catch (error) {
+        console.error('Ошибка при получении награды:', error);
+    }
+}
+
+// Инициализация
+checkMiningStatus
