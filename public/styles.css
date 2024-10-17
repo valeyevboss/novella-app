@@ -327,7 +327,7 @@ body {
 .button-text {
     font-family: Arial, sans-serif;
     margin-right: 0px; /* Отступ между текстом и таймером */
-    z-index: 2; /* Убедитесь, что текст выше прогресс-бара */
+    z-index: 3; /* Убедитесь, что текст выше прогресс-бара */
 }
 
 #timer-mining {
@@ -342,7 +342,7 @@ body {
 }
 
 #start-mining-btn:disabled {
-    background-color: #e6e6e6; /* Цвет кнопки, когда она неактивна */
+    background-color: #f0f0f0; /* Цвет кнопки, когда она неактивна */
     cursor: not-allowed;
 }
 
@@ -368,7 +368,7 @@ body {
     color: white; /* Начальный цвет текста */
     font-size: 14px; /* Размер шрифта */
     text-align: center; /* Центрируем текст */
-    margin-top: 5px; /* Отступ сверху */
+    margin-top: 3px; /* Отступ сверху */
     animation: colorChange 1.5s infinite alternate; /* Анимация */
 }
 
