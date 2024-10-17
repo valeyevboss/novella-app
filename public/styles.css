@@ -313,15 +313,40 @@ body {
     position: relative; /* Относительное позиционирование для таймера */
 }
 
-#start-mining-btn .progress {
+.progress-container {
+    position: relative;
+    width: fit-content;
+    width: 100%;
+}
+
+.progress-button {
+    position: relative;
+    overflow: hidden;
+    background-color: #4CAF50; /* Цвет кнопки */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 16px;
+    border-radius: 8px; /* Скругленные углы */
+    transition: background-color 0.2s ease-in-out;
+}
+
+.progress-button::before {
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
     height: 100%;
-    background-color: #a5a5a5;
-    width: 0; /* Изначально ширина 0 */
-    transition: width 1s linear; /* Анимация изменения ширины */
-    z-index: 1; /* Перемещаем прогресс-бар на передний план */
+    width: 0%;
+    background-color: rgba(255, 255, 255, 0.3); /* Цвет заливки */
+    z-index: -1; /* Чтобы заливка была под текстом */
+    transition: width 0.2s linear;
+    border-radius: 8px; /* Совпадает с кнопкой */
+}
+
+.button-filled .progress-button::before {
+    width: 100%;
 }
 
 .button-text {

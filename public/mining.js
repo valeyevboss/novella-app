@@ -33,30 +33,33 @@ document.addEventListener("DOMContentLoaded", function() {
         const countdownInterval = setInterval(() => {
             const elapsedTime = Math.floor((Date.now() - parseInt(localStorage.getItem(miningStartTimeKey))) / 1000);
             const remainingTime = duration - elapsedTime;
-
-            // Вычисляем часы и минуты
+    
+            // Обновляем часы и минуты
             const hours = Math.floor(remainingTime / 3600);
             const minutes = Math.floor((remainingTime % 3600) / 60);
-
+    
             // Обновляем текст таймера
             timerMiningDisplay.textContent = `${hours}H ${minutes}M`;
-
-            const progress = ((duration - remainingTime) / duration) * 100; // Вычисляем прогресс
-            progressBar.style.width = `${progress}%`; // Обновляем ширину заливки
-
+    
+            // Вычисляем прогресс в процентах
+            const progress = ((duration - remainingTime) / duration) * 100;
+            
+            // Обновляем ширину заливки кнопки
+            document.getElementById('start-mining-btn').style.setProperty('--progress', `${progress}%`);
+    
             if (remainingTime <= 0) {
                 clearInterval(countdownInterval);
                 showClaimButton(); // Показываем кнопку Claim после завершения таймера
             }
         }, 1000);
     }
-
+    
     // Функция для показа кнопки Claim и скрытия кнопки Start Mining
     function showClaimButton() {
         claimMiningBtn.style.display = 'block'; // Показываем кнопку Claim
         startMiningBtn.style.display = 'none'; // Скрываем кнопку Start Mining
-        progressBar.style.width = '0'; // Сбрасываем ширину заливки
-    }
+        startMiningBtn.style.setProperty('--progress', '0'); // Сбрасываем заливку
+    }    
 
     // Функция для начисления награды (Claim)
     async function claimReward() {
