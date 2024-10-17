@@ -318,20 +318,20 @@ body {
     top: 0;
     left: 0;
     height: 100%;
-    background-color: #1c1c1e;
+    background-color: #1c1c1ed7;
     width: 0; /* Изначально ширина 0 */
     transition: width 1s linear; /* Анимация изменения ширины */
     z-index: 1; /* Перемещаем прогресс-бар на передний план */
 }
 
 #start-mining-btn:disabled {
-    background-color: #5e5e5e; /* Цвет кнопки, когда она неактивна */
+    background-color: #fffffff6; /* Цвет кнопки, когда она неактивна */
     cursor: not-allowed;
 }
 
 .button-text {
     font-family: Arial, sans-serif;
-    margin-right: 5px; /* Отступ между текстом и таймером */
+    margin-right: 15px; /* Отступ между текстом и таймером */
     z-index: 2; /* Убедитесь, что текст выше прогресс-бара */
 }
 
@@ -341,7 +341,7 @@ body {
     font-family: 'Arial', sans-serif;
     font-weight: bold;
     position: relative; /* Относительное позиционирование, чтобы избежать перекрытия */
-    right: 13px; /* Размещаем таймер ближе к правому краю кнопки 
+    right: 10px; /* Размещаем таймер ближе к правому краю кнопки 
     z-index: 2; /* Убедитесь, что таймер выше прогресс-бара */
 }
 
