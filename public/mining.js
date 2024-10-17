@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function() {
             claimMiningBtn.style.display = 'none'; // Скрываем кнопку Claim
             timerMiningDisplay.textContent = ''; // Сброс таймера
 
-            // Перезагрузка страницы через 1 секунду после уведомления
+            // Возвращаем кнопку Start Mining в видимое состояние после перезагрузки
             setTimeout(() => {
                 location.reload();
             }, 1000);
@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function() {
     startMiningBtn.addEventListener('click', startMining);
     claimMiningBtn.addEventListener('click', claimReward);
 
-    // Если время майнинга истекло (на случай перезагрузки страницы)
+    // Проверка статуса майнинга и восстановления кнопок после перезагрузки страницы
     const savedMiningStartTime = localStorage.getItem(miningStartTimeKey);
     const rewardClaimed = localStorage.getItem(rewardClaimedKey);
 
@@ -86,6 +86,8 @@ document.addEventListener("DOMContentLoaded", function() {
             startMiningBtn.style.display = 'none'; // Скрываем кнопку Start Mining пока идет таймер
         }
     } else {
-        claimMiningBtn.style.display = 'none'; // Скрываем кнопку Claim, если награда была получена
+        // Если награда была получена, делаем кнопку Start Mining видимой
+        startMiningBtn.style.display = 'block'; 
+        claimMiningBtn.style.display = 'none'; // Скрываем кнопку Claim
     }
 });
