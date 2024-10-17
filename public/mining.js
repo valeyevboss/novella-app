@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", function() {
         localStorage.removeItem(rewardClaimedKey); // Убираем информацию о предыдущем получении награды
 
         startMiningBtn.disabled = true; // Блокируем кнопку Start Mining
+        startMiningBtn.textContent = 'Mining'; // Меняем текст кнопки на "Mining"
         timerMiningDisplay.textContent = ''; // Сбрасываем таймер
 
         startTimer(10); // Запускаем таймер на 10 секунд (для теста)
@@ -84,6 +85,7 @@ document.addEventListener("DOMContentLoaded", function() {
         } else {
             startTimer(10 - Math.floor(timeElapsed)); // Продолжаем отсчет
             startMiningBtn.disabled = true; // Блокируем кнопку Start Mining пока идет таймер
+            startMiningBtn.textContent = 'Mining'; // Меняем текст кнопки на "Mining"
         }
     } else {
         // Если награда была получена, делаем кнопку Start Mining видимой
