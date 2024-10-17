@@ -15,8 +15,8 @@ document.addEventListener("DOMContentLoaded", function() {
         localStorage.setItem(miningStartTimeKey, miningStartTime); // Сохраняем время начала майнинга
         localStorage.removeItem(rewardClaimedKey); // Убираем информацию о предыдущем получении награды
 
-        startMiningBtn.style.display = 'none'; // Скрываем кнопку Start Mining
-        claimMiningBtn.style.display = 'none'; // На всякий случай скрываем Claim
+        startMiningBtn.disabled = true; // Блокируем кнопку Start Mining
+        timerMiningDisplay.textContent = ''; // Сбрасываем таймер
 
         startTimer(10); // Запускаем таймер на 10 секунд (для теста)
     }
@@ -83,10 +83,11 @@ document.addEventListener("DOMContentLoaded", function() {
             showClaimButton(); // Если прошло 10 секунд, показываем кнопку Claim
         } else {
             startTimer(10 - Math.floor(timeElapsed)); // Продолжаем отсчет
-            startMiningBtn.style.display = 'none'; // Скрываем кнопку Start Mining пока идет таймер
+            startMiningBtn.disabled = true; // Блокируем кнопку Start Mining пока идет таймер
         }
     } else {
         // Если награда была получена, делаем кнопку Start Mining видимой
+        startMiningBtn.disabled = false; // Возвращаем кнопку Start Mining в активное состояние
         startMiningBtn.style.display = 'block'; 
         claimMiningBtn.style.display = 'none'; // Скрываем кнопку Claim
     }
