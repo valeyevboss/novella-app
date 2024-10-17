@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ amount: 100 }) // Начисляем 100 токенов
+            body: JSON.stringify({ amount: 250 }) // Начисляем 100 токенов
         });
 
         if (response.ok) {
