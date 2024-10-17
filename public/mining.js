@@ -1,6 +1,6 @@
 const startMiningBtn = document.getElementById('start-mining-btn');
 const claimMiningBtn = document.getElementById('claim-mining-btn'); 
-const timerDisplay = document.getElementById('timer-mining');
+const timerMiningDisplay = document.getElementById('timer-mining');
 const userId = params.get('userId'); // Получаем userId из параметров URL
 const miningStartTimeKey = `miningStartTime_${userId}`; // Уникальный ключ для времени старта майнинга
 
@@ -18,7 +18,7 @@ function startMining() {
 function startTimer(duration) {
     let timer = duration;
     const countdownInterval = setInterval(() => {
-        timerDisplay.textContent = `Time left: ${timer}s`;
+        timerMiningDisplay.textContent = `Time left: ${timer}s`;
         if (--timer < 0) {
             clearInterval(countdownInterval);
             showClaimButton(); // Показываем кнопку Claim
@@ -47,7 +47,7 @@ async function claimReward() {
         showNotification('You have received 100 tokens!', true); // Показываем уведомление
         animateClaimButton(); // Запускаем анимацию кнопки Claim
         claimMiningBtn.style.display = 'none'; // Скрываем кнопку Claim после начисления
-        timerDisplay.textContent = ''; // Сброс таймера
+        timerMiningDisplay.textContent = ''; // Сброс таймера
     } else {
         const errorData = await response.json();
         showNotification(`Error: ${errorData.error}`, false); // Показываем ошибку
