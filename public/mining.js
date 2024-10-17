@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const startMiningBtn = document.getElementById('start-mining-btn');
     const claimMiningBtn = document.getElementById('claim-mining-btn'); 
     const timerMiningDisplay = document.getElementById('timer-mining');
+    const progressBar = document.getElementById('progress-bar');
     
     // Получаем идентификатор пользователя из URL
     const urlParams = new URLSearchParams(window.location.search);
@@ -16,8 +17,8 @@ document.addEventListener("DOMContentLoaded", function() {
         localStorage.removeItem(rewardClaimedKey); // Убираем информацию о предыдущем получении награды
 
         startMiningBtn.disabled = true; // Блокируем кнопку Start Mining
-        startMiningBtn.textContent = 'Mining'; // Меняем текст кнопки на "Mining"
         timerMiningDisplay.textContent = ''; // Сбрасываем таймер
+        progressBar.style.width = '100%'; // Устанавливаем полную ширину заливки
 
         startTimer(10); // Запускаем таймер на 10 секунд (для теста)
     }
@@ -25,13 +26,14 @@ document.addEventListener("DOMContentLoaded", function() {
     // Функция для начала обратного отсчета
     function startTimer(duration) {
         let timer = duration;
-        timerMiningDisplay.textContent = `Time left: ${timer}s`; // Отображаем начальное время
         const countdownInterval = setInterval(() => {
+            timerMiningDisplay.textContent = `Time left: ${timer}s`;
+            const progress = (timer / duration) * 100; // Вычисляем прогресс
+            progressBar.style.width = `${progress}%`; // Обновляем ширину заливки
+
             if (--timer < 0) {
                 clearInterval(countdownInterval);
                 showClaimButton(); // Показываем кнопку Claim после завершения таймера
-            } else {
-                timerMiningDisplay.textContent = `Time left: ${timer}s`; // Обновляем таймер
             }
         }, 1000);
     }
@@ -40,6 +42,7 @@ document.addEventListener("DOMContentLoaded", function() {
     function showClaimButton() {
         claimMiningBtn.style.display = 'block'; // Показываем кнопку Claim
         startMiningBtn.style.display = 'none'; // Скрываем кнопку Start Mining
+        progressBar.style.width = '0'; // Сбрасываем ширину заливки
     }
 
     // Функция для начисления награды (Claim)
@@ -87,7 +90,6 @@ document.addEventListener("DOMContentLoaded", function() {
         } else {
             startTimer(10 - Math.floor(timeElapsed)); // Продолжаем отсчет
             startMiningBtn.disabled = true; // Блокируем кнопку Start Mining пока идет таймер
-            startMiningBtn.textContent = 'Mining'; // Меняем текст кнопки на "Mining"
         }
     } else {
         // Если награда была получена, делаем кнопку Start Mining видимой

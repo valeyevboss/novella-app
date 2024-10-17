@@ -313,8 +313,19 @@ body {
     position: relative; /* Относительное позиционирование для таймера */
 }
 
-#start-mining-btn:hover {
-    background-color: #fffffff5;
+#start-mining-btn .progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: rgba(255, 0, 0, 0.5); /* Цвет заливки (темный) */
+    width: 0; /* Изначально ширина 0 */
+    transition: width 1s linear; /* Анимация изменения ширины */
+}
+
+#start-mining-btn:disabled {
+    background-color: #6c757d; /* Цвет кнопки, когда она неактивна */
+    cursor: not-allowed;
 }
 
 .button-text {
