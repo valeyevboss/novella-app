@@ -7,13 +7,16 @@ document.addEventListener("DOMContentLoaded", function() {
     const urlParams = new URLSearchParams(window.location.search);
     const userId = urlParams.get('userId'); // Получаем userId из параметров URL
     const miningStartTimeKey = `miningStartTime_${userId}`; // Уникальный ключ для времени старта майнинга
+    const rewardClaimedKey = `rewardClaimed_${userId}`; // Уникальный ключ для состояния награды
 
     // Функция для запуска майнинга (начало отсчета таймера)
     function startMining() {
         const miningStartTime = Date.now();
         localStorage.setItem(miningStartTimeKey, miningStartTime); // Сохраняем время начала майнинга
-        startMiningBtn.disabled = true; // Блокируем кнопку Start Mining
-        claimMiningBtn.style.display = 'none'; // Скрываем кнопку Claim, если она вдруг была видна
+        localStorage.removeItem(rewardClaimedKey); // Убираем информацию о предыдущем получении награды
+
+        startMiningBtn.disabled = true; // Делаем кнопку Start Mining неактивной
+        claimMiningBtn.style.display = 'none'; // Скрываем кнопку Claim, если она была видна
 
         startTimer(10); // Запускаем таймер на 10 секунд (для теста)
     }
@@ -49,6 +52,9 @@ document.addEventListener("DOMContentLoaded", function() {
         if (response.ok) {
             const data = await response.json();
             showNotification('You have received 100 tokens!', true); // Показываем уведомление
+
+            // Сохраняем информацию о том, что награда была получена
+            localStorage.setItem(rewardClaimedKey, 'true');
             claimMiningBtn.style.display = 'none'; // Скрываем кнопку Claim после начисления
             timerMiningDisplay.textContent = ''; // Сброс таймера
         } else {
@@ -63,12 +69,17 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Если время майнинга истекло (на случай перезагрузки страницы)
     const savedMiningStartTime = localStorage.getItem(miningStartTimeKey);
-    if (savedMiningStartTime) {
+    const rewardClaimed = localStorage.getItem(rewardClaimedKey);
+
+    if (savedMiningStartTime && !rewardClaimed) {
         const timeElapsed = (Date.now() - savedMiningStartTime) / 1000;
         if (timeElapsed >= 10) {
             showClaimButton(); // Если прошло 10 секунд, показываем кнопку Claim
         } else {
             startTimer(10 - Math.floor(timeElapsed)); // Продолжаем отсчет
+            startMiningBtn.disabled = true; // Блокируем кнопку Start Mining пока идет таймер
         }
+    } else {
+        claimMiningBtn.style.display = 'none'; // Скрываем кнопку Claim, если награда была получена
     }
 });
