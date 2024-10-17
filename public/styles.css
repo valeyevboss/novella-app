@@ -188,14 +188,14 @@ body {
 .token-icon {
     width: 250px; /* Увеличиваем иконку */
     height: 250px;
-    margin-top: -45px;
+    margin-top: -50px;
 }
 
 .token-balance {
     font-family: 'Maiandra GD', sans-serif;
     font-size: 32px;
     color: white;
-    margin-top: -15px;
+    margin-top: -18px;
 }
 
 /* Стили для блока Daily Rewards */
