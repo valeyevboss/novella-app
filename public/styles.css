@@ -291,7 +291,7 @@ body {
 
 /* Стили для блока Mining */
 .mining-container {
-    margin: 18px auto 30px; /* Отступ сверху, снизу */
+    margin: 18px auto 35px; /* Отступ сверху, снизу */
     width: 310px; /* Максимальная ширина */
     text-align: center; /* Текст по центру */
 }
