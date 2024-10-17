@@ -362,7 +362,7 @@ body {
     font-weight: bold;
     position: absolute; /* Абсолютное позиционирование */
     right: 13px; /* Размещаем таймер ближе к правому краю кнопки */
-    top: 18.5px;
+    top: 16.5px;
     z-index: 2; /* Убедитесь, что таймер выше прогресс-бара */
 }
 
@@ -393,7 +393,7 @@ body {
     color: white; /* Начальный цвет текста */
     font-size: 14px; /* Размер шрифта */
     text-align: center; /* Центрируем текст */
-    margin-top: 3px; /* Отступ сверху */
+    margin-top: 5px; /* Отступ сверху */
     animation: colorChange 1.5s infinite alternate; /* Анимация */
 }
 

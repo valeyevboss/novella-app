@@ -22,7 +22,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Скрываем текст и показываем огонь
         startMiningBtn.innerHTML = ''; // Убираем текст с кнопки
-        document.getElementById('fire-animation').style.display = 'block'; // Показываем анимацию огня
 
         startMiningBtn.disabled = true; // Блокируем кнопку Start Mining
         timerMiningDisplay.textContent = ''; // Сбрасываем таймер
