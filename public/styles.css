@@ -339,7 +339,7 @@ body {
     left: 0;
     height: 100%;
     width: 0%;
-    background-color: rgba(255, 255, 255, 0.3); /* Цвет заливки */
+    background-color: #1c1c1e; /* Цвет заливки */
     z-index: -1; /* Чтобы заливка была под текстом */
     transition: width 0.2s linear;
     border-radius: 8px; /* Совпадает с кнопкой */
