@@ -15,8 +15,8 @@ document.addEventListener("DOMContentLoaded", function() {
         localStorage.setItem(miningStartTimeKey, miningStartTime); // Сохраняем время начала майнинга
         localStorage.removeItem(rewardClaimedKey); // Убираем информацию о предыдущем получении награды
 
-        startMiningBtn.disabled = true; // Делаем кнопку Start Mining неактивной
-        claimMiningBtn.style.display = 'none'; // Скрываем кнопку Claim, если она была видна
+        startMiningBtn.style.display = 'none'; // Скрываем кнопку Start Mining
+        claimMiningBtn.style.display = 'none'; // На всякий случай скрываем Claim
 
         startTimer(10); // Запускаем таймер на 10 секунд (для теста)
     }
@@ -28,15 +28,15 @@ document.addEventListener("DOMContentLoaded", function() {
             timerMiningDisplay.textContent = `Time left: ${timer}s`;
             if (--timer < 0) {
                 clearInterval(countdownInterval);
-                showClaimButton(); // Показываем кнопку Claim
+                showClaimButton(); // Показываем кнопку Claim после завершения таймера
             }
         }, 1000);
     }
 
-    // Функция для показа кнопки Claim
+    // Функция для показа кнопки Claim и скрытия кнопки Start Mining
     function showClaimButton() {
         claimMiningBtn.style.display = 'block'; // Показываем кнопку Claim
-        startMiningBtn.disabled = false; // Снова активируем кнопку Start Mining
+        startMiningBtn.style.display = 'none'; // Скрываем кнопку Start Mining
     }
 
     // Функция для начисления награды (Claim)
@@ -55,8 +55,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
             // Сохраняем информацию о том, что награда была получена
             localStorage.setItem(rewardClaimedKey, 'true');
-            claimMiningBtn.style.display = 'none'; // Скрываем кнопку Claim после начисления
+
+            claimMiningBtn.style.display = 'none'; // Скрываем кнопку Claim
             timerMiningDisplay.textContent = ''; // Сброс таймера
+
+            // Перезагрузка страницы через 1 секунду после уведомления
+            setTimeout(() => {
+                location.reload();
+            }, 1000);
         } else {
             const errorData = await response.json();
             showNotification(`Error: ${errorData.error}`, false); // Показываем ошибку
@@ -77,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function() {
             showClaimButton(); // Если прошло 10 секунд, показываем кнопку Claim
         } else {
             startTimer(10 - Math.floor(timeElapsed)); // Продолжаем отсчет
-            startMiningBtn.disabled = true; // Блокируем кнопку Start Mining пока идет таймер
+            startMiningBtn.style.display = 'none'; // Скрываем кнопку Start Mining пока идет таймер
         }
     } else {
         claimMiningBtn.style.display = 'none'; // Скрываем кнопку Claim, если награда была получена
