@@ -19,15 +19,15 @@ document.addEventListener("DOMContentLoaded", function() {
         const miningStartTime = Date.now();
         localStorage.setItem(miningStartTimeKey, miningStartTime); // Сохраняем время начала майнинга
         localStorage.removeItem(rewardClaimedKey); // Убираем информацию о предыдущем получении награды
-
-        // Скрываем текст и показываем огонь
-        startMiningBtn.innerHTML = ''; // Убираем текст с кнопки
-
+    
+        // Меняем текст на "Mining..."
+        startMiningBtn.textContent = 'Mining...'; 
+    
         startMiningBtn.disabled = true; // Блокируем кнопку Start Mining
         timerMiningDisplay.textContent = ''; // Сбрасываем таймер
         progressBar.style.width = '0'; // Сбрасываем ширину заливки
         miningText.style.display = 'none'; // Скрываем текст Click Here
-
+    
         startTimer(totalMiningTime); // Запускаем таймер на 12 часов
     }
 
