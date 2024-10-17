@@ -25,11 +25,13 @@ document.addEventListener("DOMContentLoaded", function() {
     // Функция для начала обратного отсчета
     function startTimer(duration) {
         let timer = duration;
+        timerMiningDisplay.textContent = `Time left: ${timer}s`; // Отображаем начальное время
         const countdownInterval = setInterval(() => {
-            timerMiningDisplay.textContent = `Time left: ${timer}s`;
             if (--timer < 0) {
                 clearInterval(countdownInterval);
                 showClaimButton(); // Показываем кнопку Claim после завершения таймера
+            } else {
+                timerMiningDisplay.textContent = `Time left: ${timer}s`; // Обновляем таймер
             }
         }, 1000);
     }
