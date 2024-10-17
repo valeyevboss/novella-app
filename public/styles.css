@@ -291,7 +291,7 @@ body {
 
 /* Стили для блока Mining */
 .mining-container {
-    margin: 18px auto 20px; /* Отступ сверху, снизу */
+    margin: 18px auto 30px; /* Отступ сверху, снизу */
     width: 310px; /* Максимальная ширина */
     text-align: center; /* Текст по центру */
 }
@@ -368,7 +368,7 @@ body {
     color: white; /* Начальный цвет текста */
     font-size: 14px; /* Размер шрифта */
     text-align: center; /* Центрируем текст */
-    margin-top: 15px; /* Отступ сверху */
+    margin-top: 5px; /* Отступ сверху */
     animation: colorChange 1.5s infinite alternate; /* Анимация */
 }
 
