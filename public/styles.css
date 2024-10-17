@@ -342,7 +342,7 @@ body {
 }
 
 #start-mining-btn:disabled {
-    background-color: #6c757d; /* Цвет кнопки, когда она неактивна */
+    background-color: #e6e6e6; /* Цвет кнопки, когда она неактивна */
     cursor: not-allowed;
 }
 
