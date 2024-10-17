@@ -20,6 +20,10 @@ document.addEventListener("DOMContentLoaded", function() {
         localStorage.setItem(miningStartTimeKey, miningStartTime); // Сохраняем время начала майнинга
         localStorage.removeItem(rewardClaimedKey); // Убираем информацию о предыдущем получении награды
 
+        // Скрываем текст и показываем огонь
+        startMiningBtn.innerHTML = ''; // Убираем текст с кнопки
+        document.getElementById('fire-animation').style.display = 'block'; // Показываем анимацию огня
+
         startMiningBtn.disabled = true; // Блокируем кнопку Start Mining
         timerMiningDisplay.textContent = ''; // Сбрасываем таймер
         progressBar.style.width = '0'; // Сбрасываем ширину заливки
