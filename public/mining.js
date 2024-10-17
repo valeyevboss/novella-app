@@ -25,7 +25,6 @@ document.addEventListener("DOMContentLoaded", function() {
     
         startMiningBtn.disabled = true; // Блокируем кнопку Start Mining
         timerMiningDisplay.textContent = ''; // Сбрасываем таймер
-        progressBar.style.width = '0'; // Сбрасываем ширину заливки
         miningText.style.display = 'none'; // Скрываем текст Click Here
     
         startTimer(totalMiningTime); // Запускаем таймер на 12 часов
@@ -37,20 +36,20 @@ document.addEventListener("DOMContentLoaded", function() {
         const countdownInterval = setInterval(() => {
             const elapsedTime = Math.floor((Date.now() - parseInt(localStorage.getItem(miningStartTimeKey))) / 1000);
             const remainingTime = duration - elapsedTime;
-    
+
             // Обновляем часы и минуты
             const hours = Math.floor(remainingTime / 3600);
             const minutes = Math.floor((remainingTime % 3600) / 60);
-    
+
             // Обновляем текст таймера
             timerMiningDisplay.textContent = `${hours}H ${minutes}M`;
-    
+
             // Вычисляем прогресс в процентах
             const progress = ((duration - remainingTime) / duration) * 100;
-            
+
             // Обновляем ширину заливки кнопки
-            document.getElementById('start-mining-btn').style.setProperty('--progress', `${progress}%`);
-    
+            startMiningBtn.style.setProperty('--progress', `${progress}%`);
+
             if (remainingTime <= 0) {
                 clearInterval(countdownInterval);
                 showClaimButton(); // Показываем кнопку Claim после завершения таймера
