@@ -86,16 +86,27 @@ document.addEventListener("DOMContentLoaded", function() {
     const savedMiningStartTime = localStorage.getItem(miningStartTimeKey);
     const rewardClaimed = localStorage.getItem(rewardClaimedKey);
 
-    if (savedMiningStartTime && !rewardClaimed) {
+    if (savedMiningStartTime) {
         const timeElapsed = (Date.now() - savedMiningStartTime) / 1000;
-        if (timeElapsed >= 10) {
-            showClaimButton(); // Если прошло 10 секунд, показываем кнопку Claim
+        if (rewardClaimed) {
+            // Если награда была получена, делаем кнопку Start Mining видимой
+            startMiningBtn.disabled = false; // Возвращаем кнопку Start Mining в активное состояние
+            startMiningBtn.style.display = 'block'; 
+            claimMiningBtn.style.display = 'none'; // Скрываем кнопку Claim
+            miningText.style.display = 'block'; // Показываем текст Click Here
         } else {
-            startTimer(10 - Math.floor(timeElapsed)); // Продолжаем отсчет
-            startMiningBtn.disabled = true; // Блокируем кнопку Start Mining пока идет таймер
+            // Если награда не была получена, проверяем, прошел ли таймер
+            if (timeElapsed >= 10) {
+                showClaimButton(); // Если прошло 10 секунд, показываем кнопку Claim
+                miningText.style.display = 'none'; // Скрываем текст Click Here
+            } else {
+                startTimer(10 - Math.floor(timeElapsed)); // Продолжаем отсчет
+                startMiningBtn.disabled = true; // Блокируем кнопку Start Mining пока идет таймер
+                miningText.style.display = 'none'; // Скрываем текст Click Here
+            }
         }
     } else {
-        // Если награда была получена, делаем кнопку Start Mining видимой
+        // Если награда не была получена и майнинг не начат
         startMiningBtn.disabled = false; // Возвращаем кнопку Start Mining в активное состояние
         startMiningBtn.style.display = 'block'; 
         claimMiningBtn.style.display = 'none'; // Скрываем кнопку Claim
