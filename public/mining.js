@@ -9,12 +9,14 @@ document.addEventListener("DOMContentLoaded", function() {
     const userId = urlParams.get('userId');
     const miningStartTimeKey = `miningStartTime_${userId}`;
     const rewardClaimedKey = `rewardClaimed_${userId}`;
+    const miningStatusKey = `miningStatus_${userId}`; // Ключ для хранения статуса майнинга
 
     const totalMiningTime = 12 * 60 * 60; // 12 часов в секундах
 
     function startMining() {
         const miningStartTime = Date.now();
         localStorage.setItem(miningStartTimeKey, miningStartTime);
+        localStorage.setItem(miningStatusKey, 'mining'); // Сохраняем статус майнинга
         localStorage.removeItem(rewardClaimedKey);
         
         startMiningBtn.textContent = 'Mining...';
@@ -69,6 +71,9 @@ document.addEventListener("DOMContentLoaded", function() {
             timerMiningDisplay.textContent = '';
             miningText.style.display = 'none';
 
+            // Обновляем статус после получения награды
+            localStorage.removeItem(miningStatusKey);
+
             setTimeout(() => {
                 location.reload();
             }, 1000);
@@ -84,6 +89,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Проверка статуса майнинга и восстановление состояния кнопок
     const savedMiningStartTime = localStorage.getItem(miningStartTimeKey);
     const rewardClaimed = localStorage.getItem(rewardClaimedKey);
+    const miningStatus = localStorage.getItem(miningStatusKey); // Получаем статус майнинга
 
     if (savedMiningStartTime) {
         const timeElapsed = (Date.now() - savedMiningStartTime) / 1000;
@@ -108,5 +114,12 @@ document.addEventListener("DOMContentLoaded", function() {
         startMiningBtn.style.display = 'block'; 
         claimMiningBtn.style.display = 'none';
         miningText.style.display = 'block';
+    }
+
+    // Восстановление текста кнопки при обновлении страницы
+    if (miningStatus === 'mining') {
+        startMiningBtn.textContent = 'Mining...';
+        startMiningBtn.disabled = true;
+        miningText.style.display = 'none';
     }
 });
