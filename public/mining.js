@@ -11,6 +11,9 @@ document.addEventListener("DOMContentLoaded", function() {
     const miningStartTimeKey = `miningStartTime_${userId}`; // Уникальный ключ для времени старта майнинга
     const rewardClaimedKey = `rewardClaimed_${userId}`; // Уникальный ключ для состояния награды
 
+    // Общее время для таймера (12 часов в секундах)
+    const totalMiningTime = 12 * 60 * 60; // 12 часов
+
     // Функция для запуска майнинга (начало отсчета таймера)
     function startMining() {
         const miningStartTime = Date.now();
@@ -22,18 +25,26 @@ document.addEventListener("DOMContentLoaded", function() {
         progressBar.style.width = '0'; // Сбрасываем ширину заливки
         miningText.style.display = 'none'; // Скрываем текст Click Here
 
-        startTimer(10); // Запускаем таймер на 10 секунд (для теста)
+        startTimer(totalMiningTime); // Запускаем таймер на 12 часов
     }
 
     // Функция для начала обратного отсчета
     function startTimer(duration) {
-        let timer = duration;
         const countdownInterval = setInterval(() => {
-            timerMiningDisplay.textContent = `Time left: ${timer}s`;
-            const progress = ((duration - timer) / duration) * 100; // Вычисляем прогресс
+            const elapsedTime = Math.floor((Date.now() - parseInt(localStorage.getItem(miningStartTimeKey))) / 1000);
+            const remainingTime = duration - elapsedTime;
+
+            // Вычисляем часы и минуты
+            const hours = Math.floor(remainingTime / 3600);
+            const minutes = Math.floor((remainingTime % 3600) / 60);
+
+            // Обновляем текст таймера
+            timerMiningDisplay.textContent = `${hours}H ${minutes}M`;
+
+            const progress = ((duration - remainingTime) / duration) * 100; // Вычисляем прогресс
             progressBar.style.width = `${progress}%`; // Обновляем ширину заливки
 
-            if (--timer < 0) {
+            if (remainingTime <= 0) {
                 clearInterval(countdownInterval);
                 showClaimButton(); // Показываем кнопку Claim после завершения таймера
             }
@@ -96,11 +107,12 @@ document.addEventListener("DOMContentLoaded", function() {
             miningText.style.display = 'block'; // Показываем текст Click Here
         } else {
             // Если награда не была получена, проверяем, прошел ли таймер
-            if (timeElapsed >= 10) {
-                showClaimButton(); // Если прошло 10 секунд, показываем кнопку Claim
+            const remainingTime = totalMiningTime - timeElapsed;
+            if (remainingTime <= 0) {
+                showClaimButton(); // Если таймер завершен, показываем кнопку Claim
                 miningText.style.display = 'none'; // Скрываем текст Click Here
             } else {
-                startTimer(10 - Math.floor(timeElapsed)); // Продолжаем отсчет
+                startTimer(totalMiningTime); // Продолжаем отсчет
                 startMiningBtn.disabled = true; // Блокируем кнопку Start Mining пока идет таймер
                 miningText.style.display = 'none'; // Скрываем текст Click Here
             }
