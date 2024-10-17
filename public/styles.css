@@ -334,69 +334,19 @@ body {
 
 #claim-mining-btn {
     width: 100%;
-    padding: 1em 2em; /* Изменено на исходное значение */
-    background-color: #ffffff; /* Белый цвет кнопки */
-    color: rgb(0, 0, 0); /* Черный цвет текста */
+    padding: 15px;
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
     border: none;
-    border-radius: 4px; /* Изменено на исходное значение */
-    font-size: 1em; /* Изменено на исходное значение */
+    border-radius: 8px;
+    font-size: 15px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform ease-in 0.1s, box-shadow ease-in 0.25s; /* Добавлены переходы */
-    margin-top: 100px; /* Увеличен отступ сверху */
+    transition: background-color 0.3s ease;
+    margin-top: 2px; /* Уменьшили отступ сверху */
     display: flex;
     justify-content: center; /* Центрируем содержимое кнопки */
     align-items: center; /* Вертикальное выравнивание */
     position: relative; /* Относительное позиционирование для таймера */
-    box-shadow: 0 2px 25px rgba(255, 0, 130, 0.5); /* Добавлено тень */
-}
-
-#claim-mining-btn:focus {
-    outline: 0;
-}
-
-#claim-mining-btn.animate {
-    transform: scale(1.1);
-    box-shadow: 0 4px 30px rgba(255, 0, 130, 0.7);
-}
-
-.bubbly-button {
-    width: 100%;
-    padding: 1em 2em;
-    background-color: #ffffff;
-    color: rgb(0, 0, 0);
-    border: none;
-    border-radius: 4px;
-    font-size: 1em;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform ease-in 0.1s, box-shadow ease-in 0.25s;
-    margin-top: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    box-shadow: 0 2px 25px rgba(255, 0, 130, 0.5);
-}
-
-.bubbly-button:focus {
-    outline: 0;
-}
-
-.bubbly-button.animate {
-    transform: scale(1.1);
-    box-shadow: 0 4px 30px rgba(255, 0, 130, 0.7);
-}
-
-@keyframes topBubbles {
-  0% {
-    background-position: 5% 90%, 10% 90%, 10% 90%, 15% 90%, 25% 90%, 25% 90%, 40% 90%, 55% 90%, 70% 90%;
-  }
-  50% {
-    background-position: 0% 80%, 0% 20%, 10% 40%, 20% 0%, 30% 30%, 22% 50%, 50% 50%, 65% 20%, 90% 30%;
-  }
-  100% {
-    background-position: 0% 70%, 0% 10%, 10% 30%, 20% -10%, 30% 20%, 22% 40%, 50% 40%, 65% 10%, 90% 20%;
-    background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
-  }
 }
 
 /* Стили для блока Achievements */

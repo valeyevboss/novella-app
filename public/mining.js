@@ -49,21 +49,12 @@ document.addEventListener("DOMContentLoaded", function() {
         if (response.ok) {
             const data = await response.json();
             showNotification('You have received 100 tokens!', true); // Показываем уведомление
-            animateClaimButton(); // Запускаем анимацию кнопки Claim
             claimMiningBtn.style.display = 'none'; // Скрываем кнопку Claim после начисления
             timerMiningDisplay.textContent = ''; // Сброс таймера
         } else {
             const errorData = await response.json();
             showNotification(`Error: ${errorData.error}`, false); // Показываем ошибку
         }
-    }
-
-    // Функция для анимации кнопки Claim
-    function animateClaimButton() {
-        claimMiningBtn.classList.add('animate');
-        setTimeout(() => {
-            claimMiningBtn.classList.remove('animate');
-        }, 700); // Время анимации (700 мс)
     }
 
     // Обработчики нажатий на кнопки
