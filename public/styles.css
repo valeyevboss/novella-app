@@ -291,8 +291,8 @@ body {
 
 /* Стили для блока Mining */
 .mining-container {
+    margin: 18px auto 20px; /* Отступ сверху 20px, снизу 10px */
     width: 310px; /* Максимальная ширина */
-    margin: 20px auto; /* Центрирование по горизонтали */
     text-align: center; /* Текст по центру */
 }
 
@@ -368,7 +368,7 @@ body {
     color: white; /* Начальный цвет текста */
     font-size: 14px; /* Размер шрифта */
     text-align: center; /* Центрируем текст */
-    margin-top: 10px; /* Отступ сверху */
+    margin-top: 15px; /* Отступ сверху */
     animation: colorChange 1.5s infinite alternate; /* Анимация */
 }
 
@@ -388,7 +388,7 @@ body {
     border-radius: 20px; /* Закругление */
     padding: 20px;
     text-align: center;
-    margin: 15px auto 18px; /* Отступ сверху 20px, снизу 10px */
+    margin: -20px auto 18px; /* Отступ сверху 20px, снизу 10px */
     width: 100%; /* Ширина блока 100% */
     max-width: 290px; /* Ограничение по ширине */
 }
