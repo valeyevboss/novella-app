@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", function() {
         miningText.style.display = 'none'; // Скрываем текст Click Here
     
         startTimer(totalMiningTime); // Запускаем таймер на 12 часов
+        showNotification('Mine up to 500 $Novella per day.', true); // Показываем уведомление
     }
 
     // Функция для начала обратного отсчета

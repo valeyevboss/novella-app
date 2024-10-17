@@ -69,7 +69,7 @@ async function claimReward() {
 
         if (response.ok) {
             const data = await response.json();
-            showNotification(`Вы получили ${rewardAmount} $Novella!`, true);
+            showNotification(`You received ${rewardAmount} $Novella!`, true);
             currentRewardIndex++; // Переход к следующей награде
             if (currentRewardIndex >= rewards.length) {
                 currentRewardIndex = 0; // Сбрасываем индекс после последнего бонуса
@@ -80,10 +80,10 @@ async function claimReward() {
             disableRewardButton(86400); // Блокируем кнопку на 24 часа
         } else {
             const errorData = await response.json();
-            showNotification(`Ошибка: ${errorData.error}`, false);
+            showNotification(`Error: ${errorData.error}`, false);
         }
     } else {
-        showNotification(`Вы уже получили все награды!`, true);
+        showNotification(`You have already received all the awards!`, true);
         rewardButton.disabled = true; // Отключаем кнопку, если награды закончились
     }
 }
