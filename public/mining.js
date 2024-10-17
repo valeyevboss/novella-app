@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         startMiningBtn.disabled = true; // Блокируем кнопку Start Mining
         timerMiningDisplay.textContent = ''; // Сбрасываем таймер
-        progressBar.style.width = '100%'; // Устанавливаем полную ширину заливки
+        progressBar.style.width = '0'; // Сбрасываем ширину заливки
 
         startTimer(10); // Запускаем таймер на 10 секунд (для теста)
     }
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let timer = duration;
         const countdownInterval = setInterval(() => {
             timerMiningDisplay.textContent = `Time left: ${timer}s`;
-            const progress = (timer / duration) * 100; // Вычисляем прогресс
+            const progress = ((duration - timer) / duration) * 100; // Вычисляем прогресс
             progressBar.style.width = `${progress}%`; // Обновляем ширину заливки
 
             if (--timer < 0) {
