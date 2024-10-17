@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const claimMiningBtn = document.getElementById('claim-mining-btn'); 
     const timerMiningDisplay = document.getElementById('timer-mining');
     const progressBar = document.getElementById('progress-bar');
+    const miningText = document.getElementById('text-mining-click'); // Элемент текста Click Here
     
     // Получаем идентификатор пользователя из URL
     const urlParams = new URLSearchParams(window.location.search);
@@ -19,6 +20,7 @@ document.addEventListener("DOMContentLoaded", function() {
         startMiningBtn.disabled = true; // Блокируем кнопку Start Mining
         timerMiningDisplay.textContent = ''; // Сбрасываем таймер
         progressBar.style.width = '0'; // Сбрасываем ширину заливки
+        miningText.style.display = 'none'; // Скрываем текст Click Here
 
         startTimer(10); // Запускаем таймер на 10 секунд (для теста)
     }
@@ -64,6 +66,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             claimMiningBtn.style.display = 'none'; // Скрываем кнопку Claim
             timerMiningDisplay.textContent = ''; // Сброс таймера
+            miningText.style.display = 'none'; // Скрываем текст Click Here
 
             // Возвращаем кнопку Start Mining в видимое состояние после перезагрузки
             setTimeout(() => {
@@ -96,5 +99,6 @@ document.addEventListener("DOMContentLoaded", function() {
         startMiningBtn.disabled = false; // Возвращаем кнопку Start Mining в активное состояние
         startMiningBtn.style.display = 'block'; 
         claimMiningBtn.style.display = 'none'; // Скрываем кнопку Claim
+        miningText.style.display = 'block'; // Показываем текст Click Here
     }
 });

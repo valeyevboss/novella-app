@@ -346,7 +346,6 @@ body {
     cursor: not-allowed;
 }
 
-
 #claim-mining-btn {
     width: 100%;
     padding: 15px;
@@ -362,6 +361,25 @@ body {
     justify-content: center; /* Центрируем содержимое кнопки */
     align-items: center; /* Вертикальное выравнивание */
     position: relative; /* Относительное позиционирование для таймера */
+}
+
+#text-mining-click {
+    font-family: Arial, sans-serif; /* Шрифт текста */
+    color: white; /* Начальный цвет текста */
+    font-size: 14px; /* Размер шрифта */
+    text-align: center; /* Центрируем текст */
+    margin-top: 10px; /* Отступ сверху */
+    animation: colorChange 1.5s infinite alternate; /* Анимация */
+}
+
+/* Анимация плавного изменения цвета */
+@keyframes colorChange {
+    0% {
+        color: white; /* Начальный цвет */
+    }
+    100% {
+        color: #333333; /* Конечный цвет */
+    }
 }
 
 /* Стили для блока Achievements */
