@@ -81,12 +81,9 @@ body {
 .notification {
     position: fixed;
     top: 20px;
-    left: 50%;
-    /* Центрируем по горизонтали */
-    transform: translateX(-50%);
-    /* Сдвигаем на половину ширины элемента для центрирования */
-    width: 300px;
-    /* Устанавливаем фиксированную ширину */
+    left: 50%; /* Центрируем по горизонтали */
+    transform: translateX(-50%); /* Сдвигаем на половину ширины элемента для центрирования */
+    width: 300px; /* Устанавливаем фиксированную ширину */
     padding: 8px;
     background-color: #1f1f1f;
     color: white;
@@ -141,73 +138,55 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
-    /* Перемещаем элементы вверх */
+    justify-content: flex-start; /* Перемещаем элементы вверх */
     height: 100vh;
-    padding-top: 5vh;
-    /* Отступ сверху для кнопки */
-    overflow-y: auto;
-    /* Вертикальная прокрутка */
-    padding-bottom: 50px;
-    /* Отступ внизу для нижнего меню */
+    padding-top: 5vh; /* Отступ сверху для кнопки */
+    overflow-y: auto; /* Вертикальная прокрутка */
+    padding-bottom: 50px; /* Отступ внизу для нижнего меню */
 }
 
 .freedurov-button {
     background: linear-gradient(90deg, #c9f7fd, #1d8cfc);
     color: white;
     font-family: 'Unispace', sans-serif;
-    font-size: 5.0vw;
-    /* Адаптивный шрифт */
+    font-size: 5.0vw; /* Адаптивный шрифт */
     border: none;
-    padding: 2vh 5vw;
-    /* Адаптивные отступы */
+    padding: 2vh 5vw; /* Адаптивные отступы */
     cursor: pointer;
     border-radius: 35px;
-    width: 70vw;
-    /* Ширина кнопки 70% экрана */
+    width: 70vw; /* Ширина кнопки 70% экрана */
     text-align: center;
     white-space: nowrap;
     position: relative;
-    transition: transform 0.2s ease, background 0.5s ease, opacity 0.2s ease, box-shadow 0.3s ease;
-    /* Добавлено box-shadow */
+    transition: transform 0.2s ease, background 0.5s ease, opacity 0.2s ease, box-shadow 0.3s ease; /* Добавлено box-shadow */
 }
 
 /* Эффект неона при наведении */
 .freedurov-button:hover {
-    transform: scale(1.05);
-    /* Лёгкое увеличение кнопки при наведении */
-    background: linear-gradient(90deg, #ffffff, #1E90FF, #1C86EE);
-    /* Перелив градиента при наведении */
-    opacity: 0.95;
-    /* Лёгкое затемнение для контраста */
-    box-shadow: 0 0 20px #1E90FF, 0 0 30px #1E90FF;
-    /* Неоновое свечение */
+    transform: scale(1.05); /* Лёгкое увеличение кнопки при наведении */
+    background: linear-gradient(90deg, #ffffff, #1E90FF, #1C86EE); /* Перелив градиента при наведении */
+    opacity: 0.95; /* Лёгкое затемнение для контраста */
+    box-shadow: 0 0 20px #1E90FF, 0 0 30px #1E90FF; /* Неоновое свечение */
 }
 
 .freedurov-button::after {
-    content: ' >';
-    /* Стрелка */
+    content: ' >'; /* Стрелка */
     display: inline-block;
-    margin-left: 8px;
-    /* Отступ между текстом и стрелкой */
-    transition: transform 0.2s ease;
-    /* Анимация стрелки */
+    margin-left: 8px; /* Отступ между текстом и стрелкой */
+    transition: transform 0.2s ease; /* Анимация стрелки */
 }
 
 .freedurov-button:hover::after {
-    transform: translateX(5px);
-    /* Движение стрелки вправо при наведении */
+    transform: translateX(5px); /* Движение стрелки вправо при наведении */
 }
 
 .token-section {
     text-align: center;
-    margin-top: 15vh;
-    /* Смещаем иконку выше */
+    margin-top: 15vh; /* Смещаем иконку выше */
 }
 
 .token-icon {
-    width: 250px;
-    /* Увеличиваем иконку */
+    width: 250px; /* Увеличиваем иконку */
     height: 250px;
     margin-top: -45px;
 }
@@ -221,18 +200,13 @@ body {
 
 /* Стили для блока Daily Rewards */
 .daily-reward-container {
-    background-color: #1f1f1f;
-    /* Тёмный фон */
-    border-radius: 20px;
-    /* Закругление */
+    background-color: #1f1f1f; /* Тёмный фон */
+    border-radius: 20px; /* Закругление */
     padding: 20px;
     text-align: center;
-    margin: -5px auto;
-    /* Центрирование блока */
-    width: 100%;
-    /* Ширина блока 100% */
-    max-width: 300px;
-    /* Ограничение по ширине */
+    margin: -5px auto; /* Центрирование блока */
+    width: 100%; /* Ширина блока 100% */
+    max-width: 300px; /* Ограничение по ширине */
 }
 
 .daily-reward-title {
@@ -242,16 +216,13 @@ body {
     font-size: 18px;
     margin-bottom: 10px;
     margin-right: 170px;
-    margin-top: -0px;
-    /* Отрицательный отступ для поднятия заголовка вверх */
-    white-space: nowrap;
-    /* Отключает перенос текста */
+    margin-top: -0px; /* Отрицательный отступ для поднятия заголовка вверх */
+    white-space: nowrap; /* Отключает перенос текста */
 }
 
 
 .daily-reward-wrapper {
-    position: relative;
-    /* Позволяет абсолютное позиционирование для дочерних элементов */
+    position: relative; /* Позволяет абсолютное позиционирование для дочерних элементов */
 }
 
 .daily-reward-button {
@@ -268,8 +239,7 @@ body {
     justify-content: center;
     align-items: center;
     white-space: nowrap;
-    margin-bottom: 14px;
-    /* Отступ для размещения таймера ниже кнопки */
+    margin-bottom: 14px; /* Отступ для размещения таймера ниже кнопки */
 }
 
 .premium-reward-button {
@@ -286,8 +256,7 @@ body {
     justify-content: center;
     align-items: center;
     white-space: nowrap;
-    margin-top: 14px;
-    /* Отступ для премиум кнопки */
+    margin-top: 14px; /* Отступ для премиум кнопки */
     margin-right: 60px;
 }
 
@@ -301,15 +270,11 @@ body {
 .timer-container {
     display: flex;
     align-items: center;
-    position: absolute;
-    /* Абсолютное позиционирование */
-    top: 50%;
-    /* Центрирование по вертикали относительно кнопки */
-    right: -1px;
-    /* Сдвиг вправо для расположения рядом с кнопкой */
+    position: absolute; /* Абсолютное позиционирование */
+    top: 50%; /* Центрирование по вертикали относительно кнопки */
+    right: -1px; /* Сдвиг вправо для расположения рядом с кнопкой */
     transform: translateY(-160%);
-    display: none;
-    /* Скрыть таймер по умолчанию */
+    display: none; /* Скрыть таймер по умолчанию */
 }
 
 .timer-icon {
@@ -324,420 +289,151 @@ body {
     color: #ffffff;
 }
 
-.mining-block {
-    width: 290px;
-    /* Максимальная ширина блока */
-    margin: 20px auto 0;
-    /* Отступ сверху и центрирование по горизонтали, снизу 0 */
-    padding: 20px;
-    /* Внутренние отступы для красоты */
-    background-color: #1f1f1f;
-    /* Темный фон */
-    border-radius: 19px;
-    /* Скругленные углы */
-    text-align: center;
-    /* Текст по центру */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
-    /* Тень для блока */
-}
-
-.mining-title {
-    font-family: Arial, sans-serif;
-    font-weight: bold;
-    color: #ffffff;
-    font-size: 16px;
-    margin-right: 220px;
-    margin-top: -0px;
-    /* Отрицательный отступ для поднятия заголовка вверх */
-    margin-bottom: 10px;
-    /* Отступ снизу для отделения заголовка от прогресс-бара */
-    white-space: nowrap;
-    /* Отключает перенос текста */
-}
-
-.mining-info-container {
-    display: flex;
-    /* Используем flexbox */
-    justify-content: space-between;
-    /* Разделяем текст и таймер по разным сторонам */
-    align-items: center;
-    /* Вертикальное выравнивание по центру */
-    width: 100%;
-    /* Ширина контейнера 100% */
-    padding: 0 10px;
-    /* Отступы внутри для дополнительного пространства */
-    height: 50px;
-    /* Установите фиксированную высоту, если нужно */
-}
-
-.mining-info-container {
-    display: flex; /* Используем flexbox */
-    justify-content: space-between; /* Разделяем текст и таймер по разным сторонам */
-    width: 100%; /* Ширина контейнера 100% */
-    padding: 0 10px; /* Отступы внутри для дополнительного пространства */
-    z-index: 2; /* Устанавливаем z-index, чтобы текст и огонь отображались над прогресс-баром */
-}
-
-@keyframes scaleUpDown {
-
-    0%,
-    100% {
-        transform: scaleY(1) scaleX(1);
-    }
-
-    50%,
-    90% {
-        transform: scaleY(1.1);
-    }
-
-    75% {
-        transform: scaleY(0.95);
-    }
-
-    80% {
-        transform: scaleX(0.95);
-    }
-}
-
-@keyframes shake {
-
-    0%,
-    100% {
-        transform: skewX(0) scale(1);
-    }
-
-    50% {
-        transform: skewX(5deg) scale(0.9);
-    }
-}
-
-@keyframes particleUp {
-    0% {
-        opacity: 0;
-    }
-
-    20% {
-        opacity: 1;
-    }
-
-    80% {
-        opacity: 1;
-    }
-
-    100% {
-        opacity: 0;
-        top: -100%;
-        transform: scale(0.5);
-    }
-}
-
-@keyframes glow {
-
-    0%,
-    100% {
-        background-color: #ef5a00;
-    }
-
-    50% {
-        background-color: #ff7800;
-    }
-}
-
-.fire {
-    position: absolute;
-    top: calc(50% - 10px); /* Центрируем по вертикали */
-    left: 22px; /* Устанавливаем отступ слева */
-    width: 20px; /* Уменьшаем ширину */
-    height: 20px; /* Уменьшаем высоту */
-  }
-  
-  .fire-center {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    animation: scaleUpDown 3s ease-out;
-    animation-iteration-count: infinite;
-    animation-fill-mode: both;
-  
-    .main-fire {
-      position: absolute;
-      width: 100%; /* Оставляем ширину 100% от родительского контейнера */
-      height: 100%; /* Оставляем высоту 100% от родительского контейнера */
-      background-image: radial-gradient(
-        farthest-corner at 10px 0,
-        #d43300 0%,
-        #ef5a00 95%
-      );
-      transform: scaleX(0.8) rotate(45deg);
-      border-radius: 0 40% 60% 40%;
-      filter: drop-shadow(0 0 3px #d43322); /* Уменьшаем эффект тени */
-    }
-  
-    .particle-fire {
-      position: absolute;
-      top: 60%;
-      left: 45%;
-      width: 3px; /* Уменьшаем размер частиц */
-      height: 3px; /* Уменьшаем размер частиц */
-      background-color: #ef5a00;
-      border-radius: 50%;
-      filter: drop-shadow(0 0 3px #d43322); /* Уменьшаем эффект тени */
-      animation: particleUp 2s ease-out 0;
-      animation-iteration-count: infinite;
-      animation-fill-mode: both;
-    }
-  }
-  
-  .fire-right {
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    animation: shake 2s ease-out 0;
-    animation-iteration-count: infinite;
-    animation-fill-mode: both;
-  
-    .main-fire {
-      position: absolute;
-      top: 15%;
-      right: -25%;
-      width: 80%; /* Оставляем ширину 80% */
-      height: 80%; /* Оставляем высоту 80% */
-      background-color: #ef5a00;
-      transform: scaleX(0.8) rotate(45deg);
-      border-radius: 0 40% 60% 40%;
-      filter: drop-shadow(0 0 3px #d43322); /* Уменьшаем эффект тени */
-    }
-  
-    .particle-fire {
-      position: absolute;
-      top: 45%;
-      left: 50%;
-      width: 5px; /* Уменьшаем размер частиц */
-      height: 5px; /* Уменьшаем размер частиц */
-      background-color: #ef5a00;
-      transform: scaleX(0.8) rotate(45deg);
-      border-radius: 50%;
-      filter: drop-shadow(0 0 3px #d43322); /* Уменьшаем эффект тени */
-      animation: particleUp 2s ease-out 0;
-      animation-iteration-count: infinite;
-      animation-fill-mode: both;
-    }
-  }
-  
-  .fire-left {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    animation: shake 3s ease-out 0;
-    animation-iteration-count: infinite;
-    animation-fill-mode: both;
-  
-    .main-fire {
-      position: absolute;
-      top: 15%;
-      left: -20%;
-      width: 80%; /* Оставляем ширину 80% */
-      height: 80%; /* Оставляем высоту 80% */
-      background-color: #ef5a00;
-      transform: scaleX(0.8) rotate(45deg);
-      border-radius: 0 40% 60% 40%;
-      filter: drop-shadow(0 0 3px #d43322); /* Уменьшаем эффект тени */
-    }
-  
-    .particle-fire {
-      position: absolute;
-      top: 10%;
-      left: 20%;
-      width: 3px; /* Уменьшаем размер частиц */
-      height: 3px; /* Уменьшаем размер частиц */
-      background-color: #ef5a00;
-      border-radius: 50%;
-      filter: drop-shadow(0 0 3px #d43322); /* Уменьшаем эффект тени */
-      animation: particleUp 3s infinite ease-out 0;
-      animation-fill-mode: both;
-    }
-  }
-  
-  .fire-bottom .main-fire {
-    position: absolute;
-    top: 30%;
-    left: 20%;
-    width: 30%; /* Уменьшаем ширину */
-    height: 30%; /* Уменьшаем высоту */
-    background-color: #ff7800;
-    transform: scaleX(0.8) rotate(45deg);
-    border-radius: 0 40% 100% 40%;
-    filter: blur(3px); /* Уменьшаем размытие */
-    animation: glow 2s ease-out 0;
-    animation-iteration-count: infinite;
-    animation-fill-mode: both;
-  }
-  
-
-.mining-info-text {
-    color: #ffffff; /* Белый текст */
-    font-size: 14px; /* Размер шрифта */
-    font-family: 'Arial', sans-serif; /* Шрифт для текста информации о майнинге */
-    padding-left: 40px; /* Отступ слева на 10px */
-}
-
-#timer-mining {
-    color: #ffffff; /* Белый текст для таймера */
-    font-size: 13px; /* Размер шрифта */
-    font-family: 'Arial', sans-serif; /* Шрифт для таймера */
-    font-weight: bold; /* Делаем текст таймера жирным */
-    line-height: 50px; /* Вертикальное выравнивание с учетом высоты контейнера */
-    margin-top: 2px; /* Сдвигаем текст таймера на низ */
-}
-
-.progress-bar {
-    background-color: #dd562023; /* Цвет фона полосы прогресса */
-    height: 50px; /* Увеличенная высота для вертикального пространства */
-    display: flex;
-    justify-content: center; /* Центрирование текста по горизонтали */
-    align-items: center; /* Центрирование текста по вертикали */
-    border-radius: 12px; /* Скругление углов полосы */
-    margin-bottom: 15px; /* Отступ под прогресс-баром */
-    position: relative; /* Задаем позицию для относительного позиционирования */
-    overflow: hidden; /* Скрываем переполнение */
-}
-
-.progress-fill {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    background-color: #dd5620b4; /* Цвет прогресса */
-    width: 0; /* Начальная ширина 0 */
-    transition: width 0.3s ease; /* Плавный переход для изменения ширины */
-    z-index: 1; /* Задаем z-index ниже, чем у текста и огня */
+/* Стили для блока Mining */
+.mining-container {
+    width: 310px; /* Максимальная ширина */
+    margin: 20px auto; /* Центрирование по горизонтали */
+    text-align: center; /* Текст по центру */
 }
 
 #start-mining-btn {
-    width: 70%;
-    /* Кнопка занимает всю ширину блока */
-    padding: 10px;
-    /* Отступы внутри кнопки */
-    background-color: #3460db;
-    /* Цвет кнопки */
-    color: white;
-    /* Цвет текста на кнопке */
+    width: 100%;
+    padding: 15px;
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
     border: none;
-    /* Убираем стандартные границы */
-    border-radius: 14px;
-    /* Скругленные углы кнопки */
-    font-size: 14px;
-    /* Размер текста */
+    border-radius: 8px;
+    font-size: 15px;
     cursor: pointer;
-    /* Курсор руки при наведении */
     transition: background-color 0.3s ease;
-    /* Плавный переход цвета */
+    margin-top: 2px; /* Уменьшили отступ сверху */
+    display: flex;
+    justify-content: center; /* Центрируем содержимое кнопки */
+    align-items: center; /* Вертикальное выравнивание */
+    position: relative; /* Относительное позиционирование для таймера */
 }
 
 #start-mining-btn:hover {
-    background-color: #2980b9;
-    /* Изменение цвета при наведении */
+    background-color: #fffffff5;
 }
 
+.button-text {
+    font-family: Arial, sans-serif;
+    margin-right: 0px; /* Отступ между текстом и таймером */
+}
+
+#timer-mining {
+    color: rgb(0, 0, 0); /* Цвет текста таймера */
+    font-size: 13px;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    position: absolute; /* Абсолютное позиционирование */
+    right: 13px; /* Размещаем таймер ближе к правому краю кнопки */
+    top: 16.5px;
+}
+
+#claim-mining-btn {
+    width: 100%;
+    padding: 1em 2em; /* Изменено на исходное значение */
+    background-color: #ffffff; /* Белый цвет кнопки */
+    color: rgb(0, 0, 0); /* Черный цвет текста */
+    border: none;
+    border-radius: 4px; /* Изменено на исходное значение */
+    font-size: 1em; /* Изменено на исходное значение */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform ease-in 0.1s, box-shadow ease-in 0.25s; /* Добавлены переходы */
+    margin-top: 100px; /* Увеличен отступ сверху */
+    display: flex;
+    justify-content: center; /* Центрируем содержимое кнопки */
+    align-items: center; /* Вертикальное выравнивание */
+    position: relative; /* Относительное позиционирование для таймера */
+    box-shadow: 0 2px 25px rgba(255, 0, 130, 0.5); /* Добавлено тень */
+}
+
+#claim-mining-btn:focus {
+    outline: 0;
+}
+
+#claim-mining-btn.animate {
+    transform: scale(1.1);
+    box-shadow: 0 4px 30px rgba(255, 0, 130, 0.7);
+}
+
+/* Стили для блока Achievements */
 .personal-achievements-container {
-    background-color: #1f1f1f;
-    /* Тёмный фон */
-    border-radius: 20px;
-    /* Закругление */
+    background-color: #1f1f1f; /* Тёмный фон */
+    border-radius: 20px; /* Закругление */
     padding: 20px;
     text-align: center;
-    margin: 15px auto 18px;
-    /* Отступ сверху 20px, снизу 10px */
-    width: 100%;
-    /* Ширина блока 100% */
-    max-width: 290px;
-    /* Ограничение по ширине */
+    margin: 15px auto 18px; /* Отступ сверху 20px, снизу 10px */
+    width: 100%; /* Ширина блока 100% */
+    max-width: 290px; /* Ограничение по ширине */
 }
 
 .personal-achievements-title {
     font-family: Arial, sans-serif;
     font-weight: bold;
     color: #ffffff;
-    font-size: 18px;
+    font-size: 16px;
     margin-bottom: -2px;
     margin-right: 220px;
-    margin-top: -0px;
-    /* Отрицательный отступ для поднятия заголовка вверх */
-    white-space: nowrap;
-    /* Отключает перенос текста */
+    margin-top: -0px; /* Отрицательный отступ для поднятия заголовка вверх */
+    white-space: nowrap; /* Отключает перенос текста */
 }
 
 .personal-achievements-wrapper {
     display: flex;
-    justify-content: space-between;
-    /* Равномерное распределение пространства */
-    margin-top: 10px;
-    /* Отступ сверху для отделения от заголовка */
-    padding: 10px 0;
-    /* Отступы для внутреннего пространства */
+    justify-content: space-between; /* Равномерное распределение пространства */
+    margin-top: 10px; /* Отступ сверху для отделения от заголовка */
+    padding: 10px 0; /* Отступы для внутреннего пространства */
 }
 
 .achievement-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
-    /* Ширина контейнера с элементами */
+    width: 100%; /* Ширина контейнера с элементами */
     color: #fff;
     font-family: Arial, sans-serif;
 }
 
 .achievement-text {
-    font-size: 14px;
-    /* Размер текста описания */
+    font-size: 14px; /* Размер текста описания */
     color: #ffffff;
 }
 
 .daily-count {
-    font-size: 16px;
-    /* Размер числа дней */
+    font-size: 16px; /* Размер числа дней */
     font-weight: bold;
-    color: #ffcc00;
-    /* Яркий цвет для выделения */
+    color: #ffcc00; /* Яркий цвет для выделения */
 }
 
 /* Стили для блока Personal Settings */
 .personal-settings-container {
-    background-color: #1f1f1f;
-    /* Тёмный фон */
-    border-radius: 20px;
-    /* Закругление */
+    background-color: #1f1f1f; /* Тёмный фон */
+    border-radius: 20px; /* Закругление */
     padding: 20px;
     text-align: center;
-    margin: -4px auto 60px auto;
-    /* Центрирование блока и отступ сверху/снизу */
-    width: 100%;
-    /* Ширина блока 100% */
-    max-width: 290px;
-    /* Ограничение по ширине */
+    margin: -4px auto 60px auto; /* Центрирование блока и отступ сверху/снизу */
+    width: 100%; /* Ширина блока 100% */
+    max-width: 290px; /* Ограничение по ширине */
 }
 
 .personal-settings-title {
     font-family: Arial, sans-serif;
     font-weight: bold;
     color: #ffffff;
-    font-size: 18px;
+    font-size: 16px;
     margin-right: 220px;
-    margin-top: -0px;
-    /* Отрицательный отступ для поднятия заголовка вверх */
-    white-space: nowrap;
-    /* Отключает перенос текста */
+    margin-top: -0px; /* Отрицательный отступ для поднятия заголовка вверх */
+    white-space: nowrap; /* Отключает перенос текста */
 }
 
 .personal-settings-wrapper {
-    position: relative;
-    /* Позволяет абсолютное позиционирование для дочерних элементов */
-    display: flex;
-    /* Используйте flexbox для выравнивания элементов */
-    justify-content: center;
-    /* Центрирование содержимого */
-    margin-top: 10px;
-    /* Отступ сверху для отделения от заголовка */
+    position: relative; /* Позволяет абсолютное позиционирование для дочерних элементов */
+    display: flex; /* Используйте flexbox для выравнивания элементов */
+    justify-content: center; /* Центрирование содержимого */
+    margin-top: 10px; /* Отступ сверху для отделения от заголовка */
 }
 
 .personal-language-button {

@@ -1,91 +1,78 @@
-document.addEventListener('DOMContentLoaded', async () => {
-    const params = new URLSearchParams(window.location.search);
-    const telegramId = params.get('userId');
+const startMiningBtn = document.getElementById('start-mining-btn');
+const claimMiningBtn = document.getElementById('claim-mining-btn'); 
+const timerDisplay = document.getElementById('timer-mining');
+const userId = params.get('userId'); // Получаем userId из параметров URL
+const miningStartTimeKey = `miningStartTime_${userId}`; // Уникальный ключ для времени старта майнинга
 
-    const startMiningBtn = document.getElementById('start-mining-btn');
-    const timerDisplay = document.getElementById('timer-mining');
-    const progressFill = document.querySelector('.progress-fill');
-    let miningInterval;
+// Функция для запуска майнинга (начало отсчета таймера)
+function startMining() {
+    const miningStartTime = Date.now();
+    localStorage.setItem(miningStartTimeKey, miningStartTime); // Сохраняем время начала майнинга
+    startMiningBtn.disabled = true; // Блокируем кнопку Start Mining
+    claimMiningBtn.style.display = 'none'; // Скрываем кнопку Claim, если она вдруг была видна
 
-    // Проверяем статус майнинга при загрузке страницы
-    const response = await fetch(`/mining-status/${telegramId}`);
-    const statusData = await response.json();
+    startTimer(10); // Запускаем таймер на 10 секунд (для теста)
+}
 
-    if (statusData.miningActive) {
-        startMiningBtn.textContent = 'Claim';
-        startMiningBtn.disabled = false;
-        startTimer(statusData.remainingTime);
-    } else if (statusData.message) {
-        startMiningBtn.textContent = 'Claim';
-        startMiningBtn.disabled = false;
-        showNotification(statusData.message, true); // Отображаем сообщение о награде
-    } else {
-        startMiningBtn.textContent = 'Start Mining';
-        startMiningBtn.disabled = false;
-    }
-
-    startMiningBtn.addEventListener('click', async () => {
-        if (startMiningBtn.textContent === 'Claim') {
-            const response = await fetch(`/mining-status/${telegramId}`);
-            const statusData = await response.json();
-
-            // Проверяем, получили ли мы токены
-            if (statusData.message) {
-                showNotification(statusData.message, true);
-                startMiningBtn.textContent = 'Start Mining';
-                startMiningBtn.disabled = false;
-                progressFill.style.width = '0%';
-
-                // Очищаем localStorage
-                localStorage.removeItem('remainingTime');
-                localStorage.removeItem('miningActive');
-                location.reload();
-            }
-        } else {
-            // Запуск майнинга
-            try {
-                const response = await fetch(`/start-mining/${telegramId}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                });
-
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(errorData.error);
-                }
-
-                const data = await response.json();
-                startMiningBtn.disabled = true;
-                startMiningBtn.textContent = 'Mining...';
-
-                // Запуск таймера с 10 секундами
-                startTimer(10 * 1000);
-            } catch (error) {
-                console.error('Ошибка при запуске майнинга:', error);
-                showNotification('Ошибка при запуске майнинга. Попробуйте еще раз.', true);
-            }
+// Функция для начала обратного отсчета
+function startTimer(duration) {
+    let timer = duration;
+    const countdownInterval = setInterval(() => {
+        timerDisplay.textContent = `Time left: ${timer}s`;
+        if (--timer < 0) {
+            clearInterval(countdownInterval);
+            showClaimButton(); // Показываем кнопку Claim
         }
+    }, 1000);
+}
+
+// Функция для показа кнопки Claim
+function showClaimButton() {
+    claimMiningBtn.style.display = 'block'; // Показываем кнопку Claim
+    startMiningBtn.disabled = false; // Снова активируем кнопку Start Mining
+}
+
+// Функция для начисления награды (Claim)
+async function claimReward() {
+    const response = await fetch(`/add-tokens/${userId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ amount: 100 }) // Начисляем 100 токенов
     });
 
-    function startTimer(duration) {
-        let remainingTime = duration || 10 * 1000; // Если duration не передан, используем 10 секунд
-        const miningDuration = 10 * 1000; // 10 секунд
-
-        miningInterval = setInterval(() => {
-            if (remainingTime <= 0) {
-                clearInterval(miningInterval);
-                startMiningBtn.textContent = 'Claim';
-                startMiningBtn.disabled = false;
-                progressFill.style.width = '100%';
-            } else {
-                remainingTime -= 1000; // Уменьшаем оставшееся время на 1 секунду
-                const seconds = String(Math.floor((remainingTime / 1000) % 60)).padStart(2, '0');
-                timerDisplay.textContent = `00:00:${seconds}`;
-
-                // Обновляем ширину прогресс-бара
-                const progressPercentage = ((miningDuration - remainingTime) / miningDuration) * 100;
-                progressFill.style.width = `${progressPercentage}%`;
-            }
-        }, 1000);
+    if (response.ok) {
+        const data = await response.json();
+        showNotification('You have received 100 tokens!', true); // Показываем уведомление
+        animateClaimButton(); // Запускаем анимацию кнопки Claim
+        claimMiningBtn.style.display = 'none'; // Скрываем кнопку Claim после начисления
+        timerDisplay.textContent = ''; // Сброс таймера
+    } else {
+        const errorData = await response.json();
+        showNotification(`Error: ${errorData.error}`, false); // Показываем ошибку
     }
-});
+}
+
+// Функция для анимации кнопки Claim
+function animateClaimButton() {
+    claimMiningBtn.classList.add('animate');
+    setTimeout(() => {
+        claimMiningBtn.classList.remove('animate');
+    }, 700); // Время анимации (700 мс)
+}
+
+// Обработчики нажатий на кнопки
+startMiningBtn.addEventListener('click', startMining);
+claimMiningBtn.addEventListener('click', claimReward);
+
+// Если время майнинга истекло (на случай перезагрузки страницы)
+const savedMiningStartTime = localStorage.getItem(miningStartTimeKey);
+if (savedMiningStartTime) {
+    const timeElapsed = (Date.now() - savedMiningStartTime) / 1000;
+    if (timeElapsed >= 10) {
+        showClaimButton(); // Если прошло 10 секунд, показываем кнопку Claim
+    } else {
+        startTimer(10 - Math.floor(timeElapsed)); // Продолжаем отсчет
+    }
+}

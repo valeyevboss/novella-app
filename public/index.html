@@ -39,34 +39,13 @@
             </div>
         </div>
         
-    <!-- Mining Farm - Майнинг ферма, ферма для майнинга -->
-    <div class="mining-block">
-        <p class="mining-title" id="mining-title">⚡ MINING FARM</p>
-        <div class="progress-bar">
-            <div class="mining-info-container">
-                <div class="fire">  <!-- Добавление огонька -->
-                    <div class="fire-left">
-                        <div class="main-fire"></div>
-                        <div class="particle-fire"></div>
-                    </div>
-                    <div class="fire-center">
-                        <div class="main-fire"></div>
-                        <div class="particle-fire"></div>
-                    </div>
-                    <div class="fire-right">
-                        <div class="main-fire"></div>
-                        <div class="particle-fire"></div>
-                    </div>
-                    <div class="fire-bottom">
-                        <div class="main-fire"></div>
-                    </div>
-                </div>
-                <span class="mining-info-text">Mining 100 $Novella</span>
-                <span id="timer-mining"></span>
-            </div>
-            <div class="progress-fill"></div> <!-- Элемент для отображения заполненности прогресс-бара -->
-        </div>
-        <button id="start-mining-btn">Start Mining</button>
+    <!-- Mining Farm - Майнинг ферма -->
+    <div class="mining-container">
+        <button id="start-mining-btn">
+            <span class="button-text">Start Mining</span>
+            <span id="timer-mining"></span>
+        </button>
+        <button id="claim-mining-btn" style="display: none;">Claim</button>
     </div>
         
         <!-- Personal Achievements --> 
