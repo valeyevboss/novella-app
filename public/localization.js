@@ -10,6 +10,9 @@ function loadTranslations(lang) {
             const freedurovButton = document.getElementById('freedurov-button');
             const dailyRewardTitle = document.getElementById('daily-reward-title');
             const miningTitle = document.getElementById("mining-title");
+            const gameTitle = document.getElementById('game-title');
+            const playButton = document.getElementById('play-button');
+            const burnedGameInfo = document.getElementById('burned-game-info');
             const personalAchievementsTitle = document.getElementById("personal-achievements-title");
             const achievementTextDays = document.getElementById("achievement-text-days");
             const personalSettingsTitle = document.getElementById('personal-settings-title');
@@ -49,6 +52,9 @@ function loadTranslations(lang) {
             if (freedurovButton) freedurovButton.textContent = data.freedurov_button;
             if (dailyRewardTitle) dailyRewardTitle.textContent = data.daily_rewards;
             if (miningTitle) miningTitle.textContent = data['mining-title'];
+            if (gameTitle) gameTitle.textContent = data['game-title'];
+            if (playButton) playButton.textContent = data['play-button'];
+            if (burnedGameInfo) burnedGameInfo.textContent = data['burned-game-info'];
             if (personalAchievementsTitle) personalAchievementsTitle.textContent = data['personal-achievements-title'];
             if (achievementTextDays) achievementTextDays.textContent = data['achievement-text-days'];
             if (personalSettingsTitle) personalSettingsTitle.textContent = data['personal-settings-title'];
