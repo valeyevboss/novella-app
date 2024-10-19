@@ -394,7 +394,19 @@ body {
     font-size: 14px; /* Размер шрифта */
     text-align: center; /* Центрируем текст */
     margin-top: 5px; /* Отступ сверху */
-    animation: colorChange 1.5s infinite alternate; /* Анимация */
+    animation: colorChange 2.5s infinite alternate; /* Анимация */
+}
+
+@keyframes colorChange {
+    0% {
+        color: #ffffff; /* Начальный цвет - белый */
+    }
+    50% {
+        color: #333333; /* Промежуточный цвет - темно-серый */
+    }
+    100% {
+        color: #ffffff; /* Конечный цвет - белый */
+    }
 }
 
 /* Стили для блока Play Gaming Novella */
