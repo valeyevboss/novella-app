@@ -397,6 +397,79 @@ body {
     animation: colorChange 1.5s infinite alternate; /* Анимация */
 }
 
+/* Стили для блока Play Gaming Novella */
+/* Стили для блока Play Gaming Novella */
+.game-container {
+    background-image: url('https://res.cloudinary.com/dvjohgg6j/image/upload/v1729361375/Game/Novella%20Gaming%20banner.png'); /* Фон с изображением */
+    background-size: cover; /* Изображение растягивается, чтобы покрыть весь блок */
+    background-position: center; /* Центрируем изображение */
+    border-radius: 20px; /* Скругление */
+    padding: 20px;
+    text-align: center;
+    margin: -20px auto 34px; /* Отступы сверху, снизу */
+    width: 100%; /* Ширина блока 100% */
+    max-width: 290px; /* Максимальная ширина блока */
+    color: #ffffff; /* Цвет текста для видимости на фоне */
+}
+
+.game-title {
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    color: #ffffff;
+    font-size: 16px;
+    margin-bottom: 20px; /* Положительный отступ снизу */
+    margin-right: 220px;
+    margin-top: 0px; /* Убрали отрицательный отступ, для более чистого выравнивания */
+    white-space: nowrap; /* Отключает перенос текста */
+}
+
+.play-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 10px; /* Добавленный отступ сверху для опускания элементов ниже */
+}
+
+.ticket-icon {
+    font-size: 28px;
+    margin-top: 4px;
+    margin-right: 2px; /* Размещаем game-count ближе к иконке */
+}
+
+.game-count {
+    font-size: 23px;
+    margin-right: auto; /* Размещаем game-count ближе к левому краю */
+    margin-top: 6px; /* Размещаем game-count ниже */
+    color: #ffffff;
+}
+
+.play-button {
+    padding: 9px 18px;
+    font-size: 16px;
+    border: none;
+    border-radius: 18px; /* Скругленные углы кнопки */
+    background-color: #ccc; /* Цвет по умолчанию для неактивной кнопки */
+    color: white;
+    cursor: not-allowed; /* Курсор для неактивной кнопки */
+    transition: background-color 0.3s ease;
+    margin-top: 8px; /* Отступ сверху для смещения кнопки вниз */
+    margin-right: 10px; /* Отступ от правого края (изменяй по необходимости) */
+}
+
+
+.play-button.active {
+    background-color: #1ff142; /* Цвет активной кнопки */
+    cursor: pointer;
+}
+
+.play-button.inactive {
+    background-color: #999; /* Цвет неактивной кнопки */
+}
+
 /* Стили для блока Achievements */
 .personal-achievements-container {
     background-color: #1f1f1f; /* Тёмный фон */
