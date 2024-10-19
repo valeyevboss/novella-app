@@ -12,7 +12,8 @@ const UserSchema = new mongoose.Schema({
     rank: { type: Number, default: 0 }, // Leader rank #top
     refcode: { type: String, unique: true }, // Unique referral code
     friendsCount: { type: Number, default: 0 }, // Number of friends
-    miningStartTime: { type: Date, default: null } // Mining start time
+    miningStartTime: { type: Date, default: null }, // Mining start time
+    gameCount: { type: Number, default: 0 } // Поле для количества игр
 }, { timestamps: true });
 
 module.exports = mongoose.model('User', UserSchema);

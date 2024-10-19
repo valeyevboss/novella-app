@@ -456,7 +456,7 @@ body {
     color: white;
     cursor: not-allowed; /* Курсор для неактивной кнопки */
     transition: background-color 0.3s ease;
-    margin-top: 8px; /* Отступ сверху для смещения кнопки вниз */
+    margin-top: 5px; /* Отступ сверху для смещения кнопки вниз */
     margin-right: 10px; /* Отступ от правого края (изменяй по необходимости) */
 }
 

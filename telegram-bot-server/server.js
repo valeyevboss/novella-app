@@ -276,67 +276,20 @@ app.post('/add-tokens/:telegramId', async (req, res) => {
 	}
 });
 
-// Запуск майнинга
-app.post('/start-mining/:telegramId', async (req, res) => {
-    const telegramId = req.params.telegramId;
-    console.log('Telegram ID:', telegramId);  // Логирование для проверки
+// Получение количества игр пользователя
+app.get('/api/user-games/:telegramId', async (req, res) => {
+    const { telegramId } = req.params;
+
     try {
         const user = await User.findOne({ telegramId });
         if (!user) {
-            return res.status(404).json({ error: 'Пользователь не найден' });
+            return res.status(404).json({ success: false, message: 'Пользователь не найден' });
         }
 
-        if (user.miningActive) {
-            return res.status(400).json({ error: 'Майнинг уже активен' });
-        }
-
-        // Обновляем статус
-        user.miningActive = true;
-        user.miningStartTime = Date.now();
-        await user.save();
-        
-        console.log(`Майнинг запущен для пользователя: ${telegramId}`); // Логируем запуск майнинга
-
-        res.json({ message: 'Майнинг запущен', miningStartTime: user.miningStartTime });
+        return res.json({ success: true, gameCount: user.gameCount });
     } catch (error) {
-        console.error('Ошибка при запуске майнинга:', error);
-        res.status(500).json({ error: 'Ошибка сервера' });
-    }
-});
-
-// Проверка статуса майнинга
-app.get('/mining-status/:telegramId', async (req, res) => {
-    const telegramId = req.params.telegramId;
-    try {
-        const user = await User.findOne({ telegramId });
-        if (!user) {
-            return res.status(404).json({ error: 'Пользователь не найден' });
-        }
-
-        const currentTime = Date.now();
-        const miningDuration = 10 * 1000; // 10 секунд
-        const miningEndTime = user.miningStartTime + miningDuration;
-
-        if (user.miningActive && currentTime < miningEndTime) {
-            return res.json({
-                miningActive: true,
-                remainingTime: miningEndTime - currentTime, // Остальное время до завершения
-            });
-        } else if (user.miningActive && currentTime >= miningEndTime) {
-            user.miningActive = false;
-            user.tokens += 100; 
-            await user.save();
-
-            return res.json({
-                miningActive: false,
-                message: 'Congratulations! You have received $100 Novella!',
-            });
-        } else {
-            return res.json({ miningActive: false });
-        }
-    } catch (error) {
-        console.error('Ошибка при получении статуса майнинга:', error);
-        res.status(500).json({ error: 'Ошибка сервера' });
+        console.error('Ошибка при получении количества игр:', error);
+        return res.status(500).json({ success: false, message: 'Внутренняя ошибка сервера' });
     }
 });
 
