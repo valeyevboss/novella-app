@@ -464,8 +464,8 @@ body {
     font-size: 16px;
     border: none;
     border-radius: 18px; /* Скругленные углы кнопки */
-    background-color: #3afa55; /* Цвет активной кнопки */
-    color: #ffffff;
+    background-color: #ffffff; /* Цвет активной кнопки */
+    color: #000000;
     cursor: not-allowed; /* Курсор для неактивной кнопки */
     transition: background-color 0.3s ease;
     margin-top: 5px; /* Отступ сверху для смещения кнопки вниз */
@@ -474,7 +474,7 @@ body {
 
 
 .play-button.active {
-    background-color: #3afa55; /* Цвет активной кнопки */
+    background-color: #ffffff; /* Цвет активной кнопки */
     cursor: pointer;
 }
 
