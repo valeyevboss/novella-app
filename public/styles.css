@@ -464,7 +464,7 @@ body {
     font-size: 16px;
     border: none;
     border-radius: 18px; /* Скругленные углы кнопки */
-    background-color: #ccc; /* Цвет по умолчанию для неактивной кнопки */
+    background-color: #3afa55; /* Цвет активной кнопки */
     color: #ffffff;
     cursor: not-allowed; /* Курсор для неактивной кнопки */
     transition: background-color 0.3s ease;
