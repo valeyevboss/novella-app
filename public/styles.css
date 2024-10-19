@@ -474,7 +474,7 @@ body {
 
 
 .play-button.active {
-    background-color: #1ff142; /* Цвет активной кнопки */
+    background-color: #3afa55; /* Цвет активной кнопки */
     cursor: pointer;
 }
 
