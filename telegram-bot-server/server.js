@@ -314,6 +314,23 @@ const burnGames = async () => {
 // Запускаем сжигание игр каждые 3 дня
 cron.schedule('0 0 */3 * *', burnGames);
 
+// Получение количества сожжённых игр пользователя
+app.get('/api/user-burned-games/:telegramId', async (req, res) => {
+    const { telegramId } = req.params;
+
+    try {
+        const user = await User.findOne({ telegramId });
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'Пользователь не найден' });
+        }
+
+        return res.json({ success: true, burnedGame: user.burnedGame });
+    } catch (error) {
+        console.error('Ошибка при получении количества сожжённых игр:', error);
+        return res.status(500).json({ success: false, message: 'Внутренняя ошибка сервера' });
+    }
+});
+
 // Проверка реферального кода
 app.get('/referral-code/:telegramId', async (req, res) => {
     try {

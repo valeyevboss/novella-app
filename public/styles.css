@@ -494,26 +494,35 @@ body {
 
 .personal-achievements-wrapper {
     display: flex;
-    justify-content: space-between; /* Равномерное распределение пространства */
+    flex-direction: column; /* Устанавливаем вертикальное направление */
     margin-top: 10px; /* Отступ сверху для отделения от заголовка */
     padding: 10px 0; /* Отступы для внутреннего пространства */
 }
 
 .achievement-item {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Равномерное распределение пространства */
     align-items: center;
     width: 100%; /* Ширина контейнера с элементами */
     color: #fff;
     font-family: Arial, sans-serif;
+    margin-bottom: 10px; /* Увеличиваем отступ между элементами */
 }
 
-.achievement-text {
+.achievement-text-wrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 100%; /* Ширина контейнера с текстом и значением */
+}
+
+.achievement-text-days, 
+.achievement-text-gameburned {
     font-size: 14px; /* Размер текста описания */
     color: #ffffff;
 }
 
-.daily-count {
+.daily-count, 
+.gameburned-count {
     font-size: 16px; /* Размер числа дней */
     font-weight: bold;
     color: #ffcc00; /* Яркий цвет для выделения */

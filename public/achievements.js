@@ -20,6 +20,21 @@ document.addEventListener("DOMContentLoaded", function() {
             .catch(error => {
                 console.error('Ошибка при получении дней в игре:', error);
             });
+
+        // Запрос для получения количества сожжённых игр
+        fetch(`/api/user-burned-games/${userId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Обновляем количество сожжённых игр в интерфейсе
+                    document.getElementById("gameburned-count").innerText = data.burnedGame;
+                } else {
+                    console.error('Error:', data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Ошибка при получении сожжённых игр:', error);
+            });
     } else {
         console.error('User ID not found');
     }
