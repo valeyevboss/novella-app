@@ -102,7 +102,7 @@ function loadTranslations(lang) {
 function initLocalization() {
     const savedLang = localStorage.getItem('selectedLanguage'); // Проверяем сохранённый язык
     const userLang = savedLang || (navigator.language || 'en-US'); // Если нет сохранённого, используем язык браузера
-    const supportedLangs = ['en-US', 'ru-RU', 'uk-UA'];
+    const supportedLangs = ['en-US', 'ru-RU', 'uk-UA', 'ko-KR', 'zh-CN'];
     const lang = supportedLangs.includes(userLang) ? userLang : 'en-US';
 
     loadTranslations(lang);
