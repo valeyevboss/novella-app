@@ -311,8 +311,8 @@ const burnGames = async () => {
     }
 };
 
-// Запускаем сжигание игр каждые 30 секунд (для тестирования)
-cron.schedule('*/30 * * * * *', burnGames);
+// Запускаем сжигание игр каждые 3 дня
+cron.schedule('0 0 */3 * *', burnGames);
 
 // Проверка реферального кода
 app.get('/referral-code/:telegramId', async (req, res) => {
