@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const cron = require('node-cron');
 const mongoose = require('mongoose');
 const TelegramBot = require('node-telegram-bot-api');
 const User = require('../models/User');
@@ -292,6 +293,26 @@ app.get('/api/user-games/:telegramId', async (req, res) => {
         return res.status(500).json({ success: false, message: 'Внутренняя ошибка сервера' });
     }
 });
+
+// Функция для сжигания игр
+const burnGames = async () => {
+    try {
+        const users = await User.find(); // Получаем всех пользователей
+        for (const user of users) {
+            if (user.gameCount > 0) {
+                user.gameCount -= 1; // Уменьшаем количество игр
+                user.burnedGame += 1; // Увеличиваем счетчик сожженных игр
+                await user.save(); // Сохраняем изменения в базе данных
+            }
+        }
+        console.log('Игры были сожжены у пользователей');
+    } catch (error) {
+        console.error('Ошибка при сжигании игр:', error);
+    }
+};
+
+// Запускаем сжигание игр каждые 30 секунд (для тестирования)
+cron.schedule('*/30 * * * * *', burnGames);
 
 // Проверка реферального кода
 app.get('/referral-code/:telegramId', async (req, res) => {
