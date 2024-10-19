@@ -398,7 +398,6 @@ body {
 }
 
 /* Стили для блока Play Gaming Novella */
-/* Стили для блока Play Gaming Novella */
 .game-container {
     background-image: url('https://res.cloudinary.com/dvjohgg6j/image/upload/v1729361375/Game/Novella%20Gaming%20banner.png'); /* Фон с изображением */
     background-size: cover; /* Изображение растягивается, чтобы покрыть весь блок */
@@ -438,6 +437,7 @@ body {
     font-size: 28px;
     margin-top: 4px;
     margin-right: 2px; /* Размещаем game-count ближе к иконке */
+    margin-left: -13px; /* Добавьте это, чтобы сдвинуть иконку влево */
 }
 
 .game-count {
@@ -469,6 +469,41 @@ body {
 .play-button.inactive {
     background-color: #999; /* Цвет неактивной кнопки */
 }
+
+.burned-game-info-container {
+    display: flex; /* Используем flexbox для выравнивания элементов */
+    align-items: flex-start; /* Выравниваем элементы по верхнему краю */
+    justify-content: flex-end; /* Выравниваем по правому краю */
+    margin-top: -14px; /* Отступ сверху */
+    margin-right: 17px; /* Отступ справа для текста */
+}
+
+.game-info-icon {
+    font-size: 25px;
+    margin-right: 5px; /* Отступ справа для текста */
+    animation: blinkgameinfo 2s infinite; /* Применяем анимацию мигания */
+}
+
+.burned-game-info {
+    font-size: 15px;
+    color: #ffffff;
+    margin: 0; /* Убираем отступы, чтобы избежать дополнительных пробелов */
+    margin-top: 13px; /* Добавляем отступ сверху для опускания текста ниже */
+    animation: blinkgameinfo 2s infinite; /* Применяем анимацию мигания */
+}
+
+@keyframes blinkgameinfo {
+    0% {
+        color: #ffffff; /* Начальный цвет - белый */
+    }
+    50% {
+        color: #333333; /* Промежуточный цвет - темно-серый */
+    }
+    100% {
+        color: #ffffff; /* Конечный цвет - белый */
+    }
+}
+
 
 /* Стили для блока Achievements */
 .personal-achievements-container {
