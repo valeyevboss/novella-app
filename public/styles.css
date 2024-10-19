@@ -465,7 +465,7 @@ body {
     border: none;
     border-radius: 18px; /* Скругленные углы кнопки */
     background-color: #ccc; /* Цвет по умолчанию для неактивной кнопки */
-    color: white;
+    color: #3afa55; /* Цвет активной кнопки */
     cursor: not-allowed; /* Курсор для неактивной кнопки */
     transition: background-color 0.3s ease;
     margin-top: 5px; /* Отступ сверху для смещения кнопки вниз */
