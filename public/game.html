@@ -7,41 +7,37 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="game-page">
+  <div class="game-page">
 
-        <!-- Уведомление (Notifications) -->    
-        <div id="notification" class="notification hidden">
-          <p id="notification-message"></p>
+    <!-- Уведомление (Notifications) -->    
+    <div id="notification" class="notification hidden">
+      <p id="notification-message"></p>
+    </div>
+
+    <!-- Контейнер для фона и игры -->
+    <div class="game-background"></div>
+
+    <!-- HUD (иконка монет и таймер) -->
+    <div class="hud-game">
+      <!-- Левый блок - монеты -->
+      <div class="coins">
+        <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1728938799/Novellacoin.png" alt="Coins"> <!-- Иконка монет -->
+        <span id="coinCount">0</span> <!-- Количество монет -->
       </div>
 
-      <!-- Контейнер для фона и игры -->
-      <div class="game-background">
-        <!-- Основная игровая зона -->
-        <div class="game-zone">
-          <!-- Здесь разместится игровая логика -->
-        </div>
-
-      <!-- HUD (иконка монет и таймер) -->
-      <div class="hud-game">
-        <!-- Левый блок - монеты -->
-        <div class="coins">
-          <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1728938799/Novellacoin.png" alt="Coins"> <!-- Иконка монет -->
-          <span id="coinCount">0</span> <!-- Количество монет -->
-        </div>
-      
-        <!-- Правый блок - таймер -->
-        <div class="timer-game">
-          <span id="timer-game">0:30</span> <!-- Таймер -->
-        </div>
+      <!-- Правый блок - таймер -->
+      <div class="timer-game">
+        <span id="timer-game">0:30</span> <!-- Таймер -->
       </div>
     </div>
 
     <!-- Элементы для отсчета и текста -->
     <div id="countdown" class="countdown"></div>
     <div id="lets-go" class="lets-go-text">Let’s Go!</div>
-  </div>
+    
+  </div> <!-- Закрывающий тег для game-page -->
 
   <script src="/notifications.js"></script> <!-- Скрипт уведомлений -->
-  <script src="/game.js"></script> <!-- Скрипт игровой скрипт -->
+  <script src="/game.js"></script> <!-- Игровой скрипт -->
 </body>
 </html>
