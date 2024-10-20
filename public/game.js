@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     let countdownValue = 5;
     const countdownElement = document.getElementById('countdown');
     const letsGoElement = document.getElementById('lets-go');
+    const coinCountElement = document.getElementById('coinCount');
 
     // Функция для воспроизведения звука
     function playSound() {
