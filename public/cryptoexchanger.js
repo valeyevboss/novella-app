@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const updatedUser = await updatedUserResponse.json();
 
         if (updatedUserResponse.ok) {
-            const notificationMessage = `Поздравляем ${user.username}, вы обменяли ${inputValue} coins на ${tokensReceived} $Novella`;
+            const notificationMessage = `Congratulate ${user.username}, You exchanged ${inputValue} coins on ${tokensReceived} $Novella`;
             showNotification(notificationMessage, true);
             
             // Обновляем баланс на странице
