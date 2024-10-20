@@ -122,6 +122,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 clearInterval(timerInterval);
                 gameActive = false; // Игра завершена, останавливаем генерацию монет
                 showNotification('Time is up, the main menu will load in a couple of seconds!', true);
+                
+                // Сохранить результат в базу данных
+                saveBalanceToDatabase();
 
                 // Останавливаем генерацию монет после окончания времени
                 setTimeout(() => {
