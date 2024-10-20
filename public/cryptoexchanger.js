@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     
     const user = await response.json();
-    const coinCountElement = document.querySelector('.coinCountBalanceСount'); // Правильный селектор с '.'
+    const coinCountBalanceText = document.querySelector('.coinCountBalanceCount');
     
     // Проверка на существование элемента
     if (!coinCountElement) {
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const updatedUser = await updatedUserResponse.json();
 
         if (updatedUserResponse.ok) {
-            const notificationMessage = `Поздравляем ${user.username}, вы обменяли ${inputValue} coins на ${tokensReceived} $Novella`;
+            const notificationMessage = `Congratulate ${user.username}, you exchanged ${inputValue} coins on ${tokensReceived} $Novella`;
             showNotification(notificationMessage, true);
             
             // Обновляем баланс на странице
