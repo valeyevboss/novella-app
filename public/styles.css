@@ -81,9 +81,12 @@ body {
 .notification {
     position: fixed;
     top: 20px;
-    left: 50%; /* Центрируем по горизонтали */
-    transform: translateX(-50%); /* Сдвигаем на половину ширины элемента для центрирования */
-    width: 300px; /* Устанавливаем фиксированную ширину */
+    left: 50%;
+    /* Центрируем по горизонтали */
+    transform: translateX(-50%);
+    /* Сдвигаем на половину ширины элемента для центрирования */
+    width: 300px;
+    /* Устанавливаем фиксированную ширину */
     padding: 8px;
     background-color: #1f1f1f;
     color: white;
@@ -138,55 +141,73 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start; /* Перемещаем элементы вверх */
+    justify-content: flex-start;
+    /* Перемещаем элементы вверх */
     height: 100vh;
-    padding-top: 5vh; /* Отступ сверху для кнопки */
-    overflow-y: auto; /* Вертикальная прокрутка */
-    padding-bottom: 50px; /* Отступ внизу для нижнего меню */
+    padding-top: 5vh;
+    /* Отступ сверху для кнопки */
+    overflow-y: auto;
+    /* Вертикальная прокрутка */
+    padding-bottom: 50px;
+    /* Отступ внизу для нижнего меню */
 }
 
 .freedurov-button {
     background: linear-gradient(90deg, #c9f7fd, #1d8cfc);
     color: white;
     font-family: 'Unispace', sans-serif;
-    font-size: 5.0vw; /* Адаптивный шрифт */
+    font-size: 5.0vw;
+    /* Адаптивный шрифт */
     border: none;
-    padding: 2vh 5vw; /* Адаптивные отступы */
+    padding: 2vh 5vw;
+    /* Адаптивные отступы */
     cursor: pointer;
     border-radius: 35px;
-    width: 70vw; /* Ширина кнопки 70% экрана */
+    width: 70vw;
+    /* Ширина кнопки 70% экрана */
     text-align: center;
     white-space: nowrap;
     position: relative;
-    transition: transform 0.2s ease, background 0.5s ease, opacity 0.2s ease, box-shadow 0.3s ease; /* Добавлено box-shadow */
+    transition: transform 0.2s ease, background 0.5s ease, opacity 0.2s ease, box-shadow 0.3s ease;
+    /* Добавлено box-shadow */
 }
 
 /* Эффект неона при наведении */
 .freedurov-button:hover {
-    transform: scale(1.05); /* Лёгкое увеличение кнопки при наведении */
-    background: linear-gradient(90deg, #ffffff, #1E90FF, #1C86EE); /* Перелив градиента при наведении */
-    opacity: 0.95; /* Лёгкое затемнение для контраста */
-    box-shadow: 0 0 20px #1E90FF, 0 0 30px #1E90FF; /* Неоновое свечение */
+    transform: scale(1.05);
+    /* Лёгкое увеличение кнопки при наведении */
+    background: linear-gradient(90deg, #ffffff, #1E90FF, #1C86EE);
+    /* Перелив градиента при наведении */
+    opacity: 0.95;
+    /* Лёгкое затемнение для контраста */
+    box-shadow: 0 0 20px #1E90FF, 0 0 30px #1E90FF;
+    /* Неоновое свечение */
 }
 
 .freedurov-button::after {
-    content: ' >'; /* Стрелка */
+    content: ' >';
+    /* Стрелка */
     display: inline-block;
-    margin-left: 8px; /* Отступ между текстом и стрелкой */
-    transition: transform 0.2s ease; /* Анимация стрелки */
+    margin-left: 8px;
+    /* Отступ между текстом и стрелкой */
+    transition: transform 0.2s ease;
+    /* Анимация стрелки */
 }
 
 .freedurov-button:hover::after {
-    transform: translateX(5px); /* Движение стрелки вправо при наведении */
+    transform: translateX(5px);
+    /* Движение стрелки вправо при наведении */
 }
 
 .token-section {
     text-align: center;
-    margin-top: 15vh; /* Смещаем иконку выше */
+    margin-top: 15vh;
+    /* Смещаем иконку выше */
 }
 
 .token-icon {
-    width: 250px; /* Увеличиваем иконку */
+    width: 250px;
+    /* Увеличиваем иконку */
     height: 250px;
     margin-top: -50px;
 }
@@ -200,13 +221,18 @@ body {
 
 /* Стили для блока Daily Rewards */
 .daily-reward-container {
-    background-color: #1f1f1f; /* Тёмный фон */
-    border-radius: 20px; /* Закругление */
+    background-color: #1f1f1f;
+    /* Тёмный фон */
+    border-radius: 20px;
+    /* Закругление */
     padding: 20px;
     text-align: center;
-    margin: -5px auto; /* Центрирование блока */
-    width: 100%; /* Ширина блока 100% */
-    max-width: 300px; /* Ограничение по ширине */
+    margin: -5px auto;
+    /* Центрирование блока */
+    width: 100%;
+    /* Ширина блока 100% */
+    max-width: 300px;
+    /* Ограничение по ширине */
 }
 
 .daily-reward-title {
@@ -216,13 +242,16 @@ body {
     font-size: 18px;
     margin-bottom: 10px;
     margin-right: 170px;
-    margin-top: -0px; /* Отрицательный отступ для поднятия заголовка вверх */
-    white-space: nowrap; /* Отключает перенос текста */
+    margin-top: -0px;
+    /* Отрицательный отступ для поднятия заголовка вверх */
+    white-space: nowrap;
+    /* Отключает перенос текста */
 }
 
 
 .daily-reward-wrapper {
-    position: relative; /* Позволяет абсолютное позиционирование для дочерних элементов */
+    position: relative;
+    /* Позволяет абсолютное позиционирование для дочерних элементов */
 }
 
 .daily-reward-button {
@@ -239,7 +268,8 @@ body {
     justify-content: center;
     align-items: center;
     white-space: nowrap;
-    margin-bottom: 14px; /* Отступ для размещения таймера ниже кнопки */
+    margin-bottom: 14px;
+    /* Отступ для размещения таймера ниже кнопки */
 }
 
 .premium-reward-button {
@@ -256,7 +286,8 @@ body {
     justify-content: center;
     align-items: center;
     white-space: nowrap;
-    margin-top: 14px; /* Отступ для премиум кнопки */
+    margin-top: 14px;
+    /* Отступ для премиум кнопки */
     margin-right: 60px;
 }
 
@@ -270,11 +301,15 @@ body {
 .timer-container {
     display: flex;
     align-items: center;
-    position: absolute; /* Абсолютное позиционирование */
-    top: 50%; /* Центрирование по вертикали относительно кнопки */
-    right: -1px; /* Сдвиг вправо для расположения рядом с кнопкой */
+    position: absolute;
+    /* Абсолютное позиционирование */
+    top: 50%;
+    /* Центрирование по вертикали относительно кнопки */
+    right: -1px;
+    /* Сдвиг вправо для расположения рядом с кнопкой */
     transform: translateY(-160%);
-    display: none; /* Скрыть таймер по умолчанию */
+    display: none;
+    /* Скрыть таймер по умолчанию */
 }
 
 .timer-icon {
@@ -291,9 +326,12 @@ body {
 
 /* Стили для блока Mining */
 .mining-container {
-    margin: 18px auto 35px; /* Отступ сверху, снизу */
-    width: 310px; /* Максимальная ширина */
-    text-align: center; /* Текст по центру */
+    margin: 18px auto 35px;
+    /* Отступ сверху, снизу */
+    width: 310px;
+    /* Максимальная ширина */
+    text-align: center;
+    /* Текст по центру */
 }
 
 #start-mining-btn {
@@ -306,11 +344,15 @@ body {
     font-size: 15px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-top: 2px; /* Уменьшили отступ сверху */
+    margin-top: 2px;
+    /* Уменьшили отступ сверху */
     display: flex;
-    justify-content: center; /* Центрируем содержимое кнопки */
-    align-items: center; /* Вертикальное выравнивание */
-    position: relative; /* Относительное позиционирование для таймера */
+    justify-content: center;
+    /* Центрируем содержимое кнопки */
+    align-items: center;
+    /* Вертикальное выравнивание */
+    position: relative;
+    /* Относительное позиционирование для таймера */
 }
 
 .progress-container {
@@ -322,13 +364,15 @@ body {
 .progress-button {
     position: relative;
     overflow: hidden;
-    background-color: #4CAF50; /* Цвет кнопки */
+    background-color: #4CAF50;
+    /* Цвет кнопки */
     border: none;
     color: white;
     padding: 10px 20px;
     text-align: center;
     font-size: 16px;
-    border-radius: 8px; /* Скругленные углы */
+    border-radius: 8px;
+    /* Скругленные углы */
     transition: background-color 0.2s ease-in-out;
 }
 
@@ -339,10 +383,13 @@ body {
     left: 0;
     height: 100%;
     width: 0%;
-    background-color: #1c1c1e; /* Цвет заливки */
-    z-index: -1; /* Чтобы заливка была под текстом */
+    background-color: #1c1c1e;
+    /* Цвет заливки */
+    z-index: -1;
+    /* Чтобы заливка была под текстом */
     transition: width 0.2s linear;
-    border-radius: 8px; /* Совпадает с кнопкой */
+    border-radius: 8px;
+    /* Совпадает с кнопкой */
 }
 
 .button-filled .progress-button::before {
@@ -351,23 +398,30 @@ body {
 
 .button-text {
     font-family: Arial, sans-serif;
-    margin-right: 0px; /* Отступ между текстом и таймером */
-    z-index: 3; /* Убедитесь, что текст выше прогресс-бара */
+    margin-right: 0px;
+    /* Отступ между текстом и таймером */
+    z-index: 3;
+    /* Убедитесь, что текст выше прогресс-бара */
 }
 
 #timer-mining {
-    color: rgb(0, 0, 0); /* Цвет текста таймера */
+    color: rgb(0, 0, 0);
+    /* Цвет текста таймера */
     font-size: 13px;
     font-family: 'Arial', sans-serif;
     font-weight: bold;
-    position: absolute; /* Абсолютное позиционирование */
-    right: 13px; /* Размещаем таймер ближе к правому краю кнопки */
+    position: absolute;
+    /* Абсолютное позиционирование */
+    right: 13px;
+    /* Размещаем таймер ближе к правому краю кнопки */
     top: 16.5px;
-    z-index: 2; /* Убедитесь, что таймер выше прогресс-бара */
+    z-index: 2;
+    /* Убедитесь, что таймер выше прогресс-бара */
 }
 
 #start-mining-btn:disabled {
-    background-color: #f0f0f0; /* Цвет кнопки, когда она неактивна */
+    background-color: #f0f0f0;
+    /* Цвет кнопки, когда она неактивна */
     cursor: not-allowed;
 }
 
@@ -381,46 +435,69 @@ body {
     font-size: 15px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-top: 2px; /* Уменьшили отступ сверху */
+    margin-top: 2px;
+    /* Уменьшили отступ сверху */
     display: flex;
-    justify-content: center; /* Центрируем содержимое кнопки */
-    align-items: center; /* Вертикальное выравнивание */
-    position: relative; /* Относительное позиционирование для таймера */
+    justify-content: center;
+    /* Центрируем содержимое кнопки */
+    align-items: center;
+    /* Вертикальное выравнивание */
+    position: relative;
+    /* Относительное позиционирование для таймера */
 }
 
 #text-mining-click {
-    font-family: Arial, sans-serif; /* Шрифт текста */
-    color: white; /* Начальный цвет текста */
-    font-size: 14px; /* Размер шрифта */
-    text-align: center; /* Центрируем текст */
-    margin-top: 5px; /* Отступ сверху */
-    animation: colorChange 2.5s infinite alternate; /* Анимация */
+    font-family: Arial, sans-serif;
+    /* Шрифт текста */
+    color: white;
+    /* Начальный цвет текста */
+    font-size: 14px;
+    /* Размер шрифта */
+    text-align: center;
+    /* Центрируем текст */
+    margin-top: 5px;
+    /* Отступ сверху */
+    animation: colorChange 2.5s infinite alternate;
+    /* Анимация */
 }
 
 @keyframes colorChange {
     0% {
-        color: #ffffff; /* Начальный цвет - белый */
+        color: #ffffff;
+        /* Начальный цвет - белый */
     }
+
     50% {
-        color: #333333; /* Промежуточный цвет - темно-серый */
+        color: #333333;
+        /* Промежуточный цвет - темно-серый */
     }
+
     100% {
-        color: #ffffff; /* Конечный цвет - белый */
+        color: #ffffff;
+        /* Конечный цвет - белый */
     }
 }
 
 /* Стили для блока Play Gaming Novella */
 .game-container {
-    background-image: url('https://res.cloudinary.com/dvjohgg6j/image/upload/v1729361375/Game/Novella%20Gaming%20banner.png'); /* Фон с изображением */
-    background-size: cover; /* Изображение растягивается, чтобы покрыть весь блок */
-    background-position: center; /* Центрируем изображение */
-    border-radius: 20px; /* Скругление */
+    background-image: url('https://res.cloudinary.com/dvjohgg6j/image/upload/v1729361375/Game/Novella%20Gaming%20banner.png');
+    /* Фон с изображением */
+    background-size: cover;
+    /* Изображение растягивается, чтобы покрыть весь блок */
+    background-position: center;
+    /* Центрируем изображение */
+    border-radius: 20px;
+    /* Скругление */
     padding: 20px;
     text-align: center;
-    margin: -20px auto 34px; /* Отступы сверху, снизу */
-    width: 100%; /* Ширина блока 100% */
-    max-width: 290px; /* Максимальная ширина блока */
-    color: #ffffff; /* Цвет текста для видимости на фоне */
+    margin: -20px auto 34px;
+    /* Отступы сверху, снизу */
+    width: 100%;
+    /* Ширина блока 100% */
+    max-width: 290px;
+    /* Максимальная ширина блока */
+    color: #ffffff;
+    /* Цвет текста для видимости на фоне */
 }
 
 .game-title {
@@ -428,10 +505,13 @@ body {
     font-weight: bold;
     color: #ffffff;
     font-size: 16px;
-    margin-bottom: 20px; /* Положительный отступ снизу */
+    margin-bottom: 20px;
+    /* Положительный отступ снизу */
     margin-right: 220px;
-    margin-top: 0px; /* Убрали отрицательный отступ, для более чистого выравнивания */
-    white-space: nowrap; /* Отключает перенос текста */
+    margin-top: 0px;
+    /* Убрали отрицательный отступ, для более чистого выравнивания */
+    white-space: nowrap;
+    /* Отключает перенос текста */
 }
 
 .play-item {
@@ -442,20 +522,25 @@ body {
     padding: 10px;
     border-radius: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-top: 10px; /* Добавленный отступ сверху для опускания элементов ниже */
+    margin-top: 10px;
+    /* Добавленный отступ сверху для опускания элементов ниже */
 }
 
 .ticket-icon {
     font-size: 28px;
     margin-top: 4px;
-    margin-right: 2px; /* Размещаем game-count ближе к иконке */
-    margin-left: -13px; /* Добавьте это, чтобы сдвинуть иконку влево */
+    margin-right: 2px;
+    /* Размещаем game-count ближе к иконке */
+    margin-left: -13px;
+    /* Добавьте это, чтобы сдвинуть иконку влево */
 }
 
 .game-count {
     font-size: 23px;
-    margin-right: auto; /* Размещаем game-count ближе к левому краю */
-    margin-top: 6px; /* Размещаем game-count ниже */
+    margin-right: auto;
+    /* Размещаем game-count ближе к левому краю */
+    margin-top: 6px;
+    /* Размещаем game-count ниже */
     color: #ffffff;
 }
 
@@ -463,57 +548,129 @@ body {
     padding: 9px 18px;
     font-size: 16px;
     border: none;
-    border-radius: 18px; /* Скругленные углы кнопки */
-    background-color: #ffffff; /* Цвет активной кнопки */
+    border-radius: 18px;
+    /* Скругленные углы кнопки */
+    background-color: #ffffff;
+    /* Цвет активной кнопки */
     color: #000000;
-    cursor: not-allowed; /* Курсор для неактивной кнопки */
+    cursor: not-allowed;
+    /* Курсор для неактивной кнопки */
     transition: background-color 0.3s ease;
-    margin-top: 5px; /* Отступ сверху для смещения кнопки вниз */
-    margin-right: 10px; /* Отступ от правого края (изменяй по необходимости) */
+    margin-top: 5px;
+    /* Отступ сверху для смещения кнопки вниз */
+    margin-right: 10px;
+    /* Отступ от правого края (изменяй по необходимости) */
 }
 
 
 .play-button.active {
-    background-color: #ffffff; /* Цвет активной кнопки */
+    background-color: #ffffff;
+    /* Цвет активной кнопки */
     cursor: pointer;
 }
 
 .play-button.inactive {
-    background-color: #999; /* Цвет неактивной кнопки */
+    background-color: #999;
+    /* Цвет неактивной кнопки */
 }
 
 .burned-game-info-container {
-    display: flex; /* Используем flexbox для выравнивания элементов */
-    align-items: flex-start; /* Выравниваем элементы по верхнему краю */
-    justify-content: flex-end; /* Выравниваем по правому краю */
-    margin-top: -14px; /* Отступ сверху */
-    margin-right: 17px; /* Отступ справа для текста */
+    display: flex;
+    /* Используем flexbox для выравнивания элементов */
+    align-items: flex-start;
+    /* Выравниваем элементы по верхнему краю */
+    justify-content: flex-end;
+    /* Выравниваем по правому краю */
+    margin-top: -14px;
+    /* Отступ сверху */
+    margin-right: 17px;
+    /* Отступ справа для текста */
 }
 
 .game-info-icon {
     font-size: 25px;
-    margin-right: 5px; /* Отступ справа для текста */
-    animation: blinkgameinfo 2s infinite; /* Применяем анимацию мигания */
+    margin-right: 5px;
+    /* Отступ справа для текста */
+    animation: blinkgameinfo 2s infinite;
+    /* Применяем анимацию мигания */
 }
 
 .burned-game-info {
     font-size: 15px;
     color: #ffffff;
-    margin: 0; /* Убираем отступы, чтобы избежать дополнительных пробелов */
-    margin-top: 13px; /* Добавляем отступ сверху для опускания текста ниже */
-    animation: blinkgameinfo 2s infinite; /* Применяем анимацию мигания */
+    margin: 0;
+    /* Убираем отступы, чтобы избежать дополнительных пробелов */
+    margin-top: 13px;
+    /* Добавляем отступ сверху для опускания текста ниже */
+    animation: blinkgameinfo 2s infinite;
+    /* Применяем анимацию мигания */
 }
 
 @keyframes blinkgameinfo {
     0% {
-        color: #ffffff; /* Начальный цвет - белый */
+        color: #ffffff;
+        /* Начальный цвет - белый */
     }
+
     50% {
-        color: #333333; /* Промежуточный цвет - темно-серый */
+        color: #333333;
+        /* Промежуточный цвет - темно-серый */
     }
+
     100% {
-        color: #ffffff; /* Конечный цвет - белый */
+        color: #ffffff;
+        /* Конечный цвет - белый */
     }
+}
+
+/* Стили для Game */
+/* Фон для игрового поля */
+.game-background {
+    background-image: url('https://res.cloudinary.com/dvjohgg6j/image/upload/v1729411356/Game/Background-game.png');
+    background-size: cover; /* Растянуть фон на весь контейнер */
+    width: 100%;
+    height: 100vh; /* Высота на весь экран */
+    position: relative; /* Позволяет разместить HUD поверх */
+}
+
+/* HUD (иконка монет и таймер) */
+.hud-game {
+    position: absolute;
+    top: 5px; /* Увеличено значение для опускания HUD ниже */
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    color: white;
+    font-size: 28px;
+    z-index: 2; /* Индекс слоя для HUD */
+}
+
+/* Блок для иконки монет и счетчика */
+.coins {
+    display: flex;
+    align-items: center;
+    margin-left: -15px;
+}
+
+.coins img {
+    width: 60px;
+    height: 60px;
+    margin-right: -2px;
+}
+
+/* Таймер справа */
+.timer-game {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 35px;
+    border: 2px solid white;
+    border-radius: 30px;
+    font-size: 23px; /* Увеличен размер шрифта таймера */
+    margin-right: 35px; /* Меньше отступ */
+    margin-top: 10px; /* Добавлен отступ сверху для опускания таймера */
 }
 
 /* Стили для блока Achievements */
@@ -534,55 +691,72 @@ body {
     font-size: 16px;
     margin-bottom: -2px;
     margin-right: 220px;
-    margin-top: -0px; /* Отрицательный отступ для поднятия заголовка вверх */
-    white-space: nowrap; /* Отключает перенос текста */
+    margin-top: -0px;
+    /* Отрицательный отступ для поднятия заголовка вверх */
+    white-space: nowrap;
+    /* Отключает перенос текста */
 }
 
 .personal-achievements-wrapper {
     display: flex;
-    flex-direction: column; /* Устанавливаем вертикальное направление */
-    margin-top: 10px; /* Отступ сверху для отделения от заголовка */
-    padding: 10px 0; /* Отступы для внутреннего пространства */
+    flex-direction: column;
+    /* Устанавливаем вертикальное направление */
+    margin-top: 10px;
+    /* Отступ сверху для отделения от заголовка */
+    padding: 10px 0;
+    /* Отступы для внутреннего пространства */
 }
 
 .achievement-item {
     display: flex;
-    justify-content: space-between; /* Равномерное распределение пространства */
+    justify-content: space-between;
+    /* Равномерное распределение пространства */
     align-items: center;
-    width: 100%; /* Ширина контейнера с элементами */
+    width: 100%;
+    /* Ширина контейнера с элементами */
     color: #fff;
     font-family: Arial, sans-serif;
-    margin-bottom: 10px; /* Увеличиваем отступ между элементами */
+    margin-bottom: 10px;
+    /* Увеличиваем отступ между элементами */
 }
 
 .achievement-text-wrapper {
     display: flex;
     justify-content: space-between;
-    width: 100%; /* Ширина контейнера с текстом и значением */
+    width: 100%;
+    /* Ширина контейнера с текстом и значением */
 }
 
-.achievement-text-days, 
+.achievement-text-days,
 .achievement-text-gameburned {
-    font-size: 14px; /* Размер текста описания */
+    font-size: 14px;
+    /* Размер текста описания */
     color: #ffffff;
 }
 
-.daily-count, 
+.daily-count,
 .gameburned-count {
-    font-size: 16px; /* Размер числа дней */
+    font-size: 16px;
+    /* Размер числа дней */
     font-weight: bold;
-    color: #ffcc00; /* Яркий цвет для выделения */
+    color: #ffcc00;
+    /* Яркий цвет для выделения */
 }
 
 /* Стили для блока Personal Settings */
 .personal-settings-container {
-    background-color: #1f1f1f; /* Тёмный фон */
-    border-radius: 20px; /* Закругление */
+    background-color: #1f1f1f;
+    /* Тёмный фон */
+    border-radius: 20px;
+    /* Закругление */
     padding: 20px;
     text-align: center;
-    margin: -4px auto 60px auto; /* Центрирование блока и отступ сверху/снизу */
-    width: 100%; /* Ширина блока 100% */
-    max-width: 290px; /* Ограничение по ширине */
+    margin: -4px auto 60px auto;
+    /* Центрирование блока и отступ сверху/снизу */
+    width: 100%;
+    /* Ширина блока 100% */
+    max-width: 290px;
+    /* Ограничение по ширине */
 }
 
 .personal-settings-title {
@@ -591,15 +765,21 @@ body {
     color: #ffffff;
     font-size: 16px;
     margin-right: 220px;
-    margin-top: -0px; /* Отрицательный отступ для поднятия заголовка вверх */
-    white-space: nowrap; /* Отключает перенос текста */
+    margin-top: -0px;
+    /* Отрицательный отступ для поднятия заголовка вверх */
+    white-space: nowrap;
+    /* Отключает перенос текста */
 }
 
 .personal-settings-wrapper {
-    position: relative; /* Позволяет абсолютное позиционирование для дочерних элементов */
-    display: flex; /* Используйте flexbox для выравнивания элементов */
-    justify-content: center; /* Центрирование содержимого */
-    margin-top: 10px; /* Отступ сверху для отделения от заголовка */
+    position: relative;
+    /* Позволяет абсолютное позиционирование для дочерних элементов */
+    display: flex;
+    /* Используйте flexbox для выравнивания элементов */
+    justify-content: center;
+    /* Центрирование содержимого */
+    margin-top: 10px;
+    /* Отступ сверху для отделения от заголовка */
 }
 
 .personal-language-button {
@@ -642,7 +822,8 @@ body {
     /* Центрирование по горизонтали */
     align-items: center;
     /* Центрирование по вертикали */
-    z-index: 3; /* Задаем z-index выше, чем у остальных объектов */
+    z-index: 3;
+    /* Задаем z-index выше, чем у остальных объектов */
 }
 
 /* Стили для модального окна */
@@ -806,7 +987,8 @@ body {
     justify-content: space-around;
     background-color: #000;
     padding: 10px 0;
-    z-index: 4; /* Задаем z-index выше, чем у остальных объектов */
+    z-index: 4;
+    /* Задаем z-index выше, чем у остальных объектов */
 }
 
 .menu-item {
