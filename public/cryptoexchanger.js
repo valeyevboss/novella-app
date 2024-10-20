@@ -2,10 +2,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const telegramId = urlParams.get('userId');
 
-    // Получаем текущее значение coinCount из базы данных
     const response = await fetch(`/api/coins-check/${telegramId}`);
+    if (!response.ok) {
+        console.error('Ошибка при получении данных пользователя:', await response.text());
+        return; // Выход из функции, если запрос не успешен
+    }
     const user = await response.json();
-    const coinCountElement = document.querySelector('.coinCountBalanceСount');
+    const coinCountElement = document.querySelector('coinCountBalanceCount');
     coinCountElement.textContent = user.coinCount;
 
     const exchangeButton = document.getElementById('exchange-button');

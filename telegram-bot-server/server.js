@@ -394,10 +394,6 @@ app.post('/save-coins', async (req, res) => {
     }
 });
 
-app.listen(3000, () => {
-    console.log('Сервер запущен на порту 3000');
-});
-
 // Обмен коинов на токены
 app.post('/api/exchange/:telegramId', async (req, res) => {
     const { coinAmount, tokensReceived } = req.body;
