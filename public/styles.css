@@ -721,7 +721,7 @@ body {
     background-size: contain;
     background-repeat: no-repeat;
     cursor: pointer;
-    animation: fall 3s linear forwards;
+    animation: fall 5s linear forwards;
     z-index: 1
 }
 
@@ -734,7 +734,7 @@ body {
     background-size: contain;
     background-repeat: no-repeat;
     cursor: pointer;
-    animation: fall 3s linear forwards;
+    animation: fall 5s linear forwards;
     z-index: 1
 }
 
