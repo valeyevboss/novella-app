@@ -12,15 +12,28 @@ document.addEventListener('DOMContentLoaded', async () => {
             const gameCount = data.gameCount;
             gameCountElement.textContent = gameCount;
 
-            // Проверка на количество игр и активация кнопки
             playButton.disabled = gameCount <= 0;
             playButton.classList.toggle('inactive', gameCount === 0);
 
-            // Добавление обработчика события на кнопку
             if (gameCount > 0) {
-                playButton.addEventListener('click', () => {
-                    // Загрузка game.html с передачей userId
-                    window.location.href = `/game.html?userId=${userId}`;
+                playButton.addEventListener('click', async () => {
+                    // Вызов API для уменьшения количества игр
+                    const decrementResponse = await fetch(`/api/decrement-game-count/${userId}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+
+                    const decrementData = await decrementResponse.json();
+
+                    if (decrementData.success) {
+                        // Загрузка game.html с передачей userId
+                        window.location.href = `/game.html?userId=${userId}`;
+                    } else {
+                        console.error('Ошибка уменьшения количества игр:', decrementData.message);
+                        // Здесь можно добавить вывод сообщения пользователю
+                    }
                 });
             }
         } else {
