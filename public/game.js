@@ -34,6 +34,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Увеличение счета за каждую упавшую монету
         coin.addEventListener('click', () => {
+            // Воспроизведение звука монеты
+            const coinSound = new Audio('/sound/coin.wav');
+            coinSound.play();
+
             let coinCountElement = document.getElementById('coinCount');
             let currentCoins = parseInt(coinCountElement.textContent, 10);
             coinCountElement.textContent = currentCoins + 2; // Добавляем 2 монеты
@@ -96,7 +100,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             } else {
                 clearInterval(timerInterval);
                 gameActive = false; // Игра завершена, останавливаем генерацию монет
-                showNotification('Время вышло!', true);
+                showNotification('Time is up, the main menu will load in a couple of seconds!', true);
 
                 // Останавливаем генерацию монет после окончания времени
                 setTimeout(() => {
