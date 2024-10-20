@@ -399,7 +399,7 @@ app.listen(3000, () => {
 });
 
 // Обмен коинов на токены
-app.get('/exchange/:telegramId', async (req, res) => {
+app.post('/api/exchange/:telegramId', async (req, res) => {
     const { coinAmount, tokensReceived } = req.body;
 
     try {
