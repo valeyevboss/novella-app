@@ -1,21 +1,12 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const telegramId = urlParams.get('userId');
-    let coinBalance = 0; // Начальный баланс для игры
-
     let gameActive = true; // Флаг активности игры
 
     // Таймер на 5 секунд для отсчета
     let countdownValue = 5;
     const countdownElement = document.getElementById('countdown');
     const letsGoElement = document.getElementById('lets-go');
-    const coinCountElement = document.getElementById('coinCount');
-
-    // Функция для воспроизведения звука
-    function playSound() {
-        const audio = new Audio('/sound/сountdown.wav'); // Укажите путь к вашему звуковому файлу
-        audio.play();
-    }
 
     // Функция для воспроизведения звука
     function playSound() {
@@ -34,7 +25,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Генерируем случайные параметры для падения монеты
         coin.style.left = Math.random() * window.innerWidth + 'px';
-        coin.style.animationDuration = Math.random() * 2 + 4 + 's'; // Падение от 4 до 6 секунд
+        coin.style.animationDuration = Math.random() * 2 + 3 + 's'; // Скорость падения
 
         // Удаление монетки после окончания анимации
         coin.addEventListener('animationend', () => {
@@ -43,45 +34,16 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Увеличение счета за каждую упавшую монету
         coin.addEventListener('click', () => {
-            // Воспроизведение звука монеты
-            const coinSound = new Audio('/sound/coin.wav');
-            coinSound.play();
-
             let coinCountElement = document.getElementById('coinCount');
             let currentCoins = parseInt(coinCountElement.textContent, 10);
             coinCountElement.textContent = currentCoins + 2; // Добавляем 2 монеты
             coin.remove(); // Удаляем монету после нажатия
         });
 
-        // Генерация монеток каждые 200 мс
+        // Генерация монеток каждые 300 мс
         if (gameActive) {
-            setTimeout(createCoin, 200); // Интервал появления новых монет
+            setTimeout(createCoin, 300); // Интервал появления новых монет
         }
-    }
-
-    // Функция для отправки данных в базу по окончании игры
-    async function saveBalanceToDatabase() {
-        try {
-            console.log(`Saving balance for userId: ${telegramId} with coins: ${coinBalance}`);
-            const response = await fetch('/save-coins', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    telegramId: telegramId,
-                    coins: coinBalance
-                })
-            });
-            if (!response.ok) {
-                console.error('Ошибка при сохранении баланса:', response.statusText);
-            } else {
-                console.log('Баланс успешно сохранен');
-            }
-        } catch (error) {
-            console.error('Ошибка при отправке данных:', error);
-        }
-        console.log(coinBalance); // Для проверки значения
     }
 
     // Функция для обновления таймера отсчета каждую секунду
@@ -134,10 +96,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             } else {
                 clearInterval(timerInterval);
                 gameActive = false; // Игра завершена, останавливаем генерацию монет
-                showNotification('Time is up, the main menu will load in a couple of seconds!', true);
-                
-                // Сохранить результат в базу данных
-                saveBalanceToDatabase();
+                showNotification('Время вышло!', true);
 
                 // Останавливаем генерацию монет после окончания времени
                 setTimeout(() => {
