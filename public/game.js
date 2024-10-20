@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             // Обнуляем баланс при клике на бомбочку
             mine.addEventListener('click', () => {
-                const bombSound = new Audio('/sound/bomb.wav'); // путь к звуку бомбочки
+                const bombSound = new Audio('/sound/mine.wav'); // путь к звуку бомбочки
                 bombSound.play(); // Воспроизведение звука бомбочки
                 coinBalance = 0; // Обнуляем баланс
                 updateBalance(); // Обновляем баланс на экране
