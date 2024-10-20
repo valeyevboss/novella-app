@@ -13,6 +13,9 @@ function loadTranslations(lang) {
             const gameTitle = document.getElementById('game-title');
             const playButton = document.getElementById('play-button');
             const burnedGameInfo = document.getElementById('burned-game-info');
+            const cryptoExchangerTitle = document.getElementById('crypto-exchanger-title');
+            const exchangeButton = document.getElementById('exchange-button');
+            const coinCountBalanceText = document.getElementById('coinCountBalanceText');
             const personalAchievementsTitle = document.getElementById("personal-achievements-title");
             const achievementTextDays = document.getElementById("achievement-text-days");
             const achievementTextBurnedGames = document.getElementById("achievement-text-gameburned");
@@ -56,6 +59,9 @@ function loadTranslations(lang) {
             if (gameTitle) gameTitle.textContent = data['game-title'];
             if (playButton) playButton.textContent = data['play-button'];
             if (burnedGameInfo) burnedGameInfo.textContent = data['burned-game-info'];
+            if (cryptoExchangerTitle) cryptoExchangerTitle.textContent = data['crypto-exchanger-title'];
+            if (exchangeButton) exchangeButton.textContent = data['exchange-button'];
+            if (coinCountBalanceText) coinCountBalanceText.textContent = data['coinCountBalanceText'];
             if (personalAchievementsTitle) personalAchievementsTitle.textContent = data['personal-achievements-title'];
             if (achievementTextDays) achievementTextDays.textContent = data['achievement-text-days'];
             if (achievementTextBurnedGames) achievementTextBurnedGames.textContent = data['achievement-text-gameburned'];
