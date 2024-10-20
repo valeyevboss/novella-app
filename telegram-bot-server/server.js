@@ -358,7 +358,24 @@ app.get('/api/user-burned-games/:telegramId', async (req, res) => {
     }
 });
 
-// Получение количества токенов и отправка в базу данных
+// Получение количества сожжённых игр пользователя
+app.get('/api/coins-check/:telegramId', async (req, res) => {
+    const { telegramId } = req.params;
+
+    try {
+        const user = await User.findOne({ telegramId });
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'Пользователь не найден' });
+        }
+
+        return res.json({ success: true, coinCount: user.coinCount });
+    } catch (error) {
+        console.error('Ошибка при получении количества токенов:', error);
+        return res.status(500).json({ success: false, message: 'Внутренняя ошибка сервера' });
+    }
+});
+
+// Cохранение количества токенов и отправка в базу данных
 app.post('/save-coins', async (req, res) => {
     const { telegramId, coins } = req.body;
 

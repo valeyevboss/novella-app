@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const telegramId = urlParams.get('userId');
 
     // Получаем текущее значение coinCount из базы данных
-    const response = await fetch(`/api/check-user/${telegramId}`);
+    const response = await fetch(`/api/coins-check/${telegramId}`);
     const user = await response.json();
     const coinCountElement = document.querySelector('.coinCountBalanceСount');
     coinCountElement.textContent = user.coinCount;
