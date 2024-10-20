@@ -100,7 +100,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 stopCoinGeneration(); 
                 stopMineGeneration();
 
-                showNotification('Time is up, the main menu will load in a couple of seconds!', true);
                 saveBalanceToDatabase();
 
                 setTimeout(() => {
@@ -110,6 +109,27 @@ document.addEventListener('DOMContentLoaded', async () => {
         }, 1000);
     }
 
-    // Запуск отсчета
+    // Функция для отсчета перед стартом игры
+    function startCountdown() {
+        countdownElement.style.display = 'block'; // Показываем элемент отсчета
+        const countdownInterval = setInterval(() => {
+            if (countdownValue > 0) {
+                countdownElement.textContent = countdownValue;
+                countdownValue--;
+            } else {
+                clearInterval(countdownInterval);
+                countdownElement.style.display = 'none'; // Скрываем элемент отсчета
+                letsGoElement.style.display = 'block'; // Показываем текст "Let’s Go!"
+
+                // Анимация "Let’s Go!"
+                setTimeout(() => {
+                    letsGoElement.style.display = 'none'; // Скрываем текст
+                    startGame(); // Запускаем основную игру
+                }, 1000); // Ждем 1 секунду перед началом игры
+            }
+        }, 1000);
+    }
+
+    // Запуск отсчета при загрузке страницы
     window.onload = startCountdown;
 });
