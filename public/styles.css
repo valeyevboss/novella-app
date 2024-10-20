@@ -634,9 +634,11 @@ body {
 .game-background {
     background-image: url('https://res.cloudinary.com/dvjohgg6j/image/upload/v1729411356/Game/Background-game.png');
     background-size: cover; /* Растянуть фон на весь контейнер */
-    width: 100%;
+    background-position: center;
+    background-attachment: fixed; /* Фиксируем фон */
+    width: 100vw; /* Ширина ограничена видимой областью окна */
     height: 100vh; /* Высота на весь экран */
-    position: relative; /* Позволяет разместить HUD поверх */
+    position: relative; /* Для размещения элементов HUD поверх */
 }
 
 /* HUD (иконка монет и таймер) */
