@@ -3,11 +3,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     const telegramId = urlParams.get('userId');
     let coinBalance = 0; // Начальный баланс для игры
 
+    let gameActive = true; // Флаг активности игры
+
     // Таймер на 5 секунд для отсчета
     let countdownValue = 5;
     const countdownElement = document.getElementById('countdown');
     const letsGoElement = document.getElementById('lets-go');
     const coinCountElement = document.getElementById('coinCount');
+
 
     // Функция для воспроизведения звука
     function playSound() {
@@ -22,6 +25,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Функция для генерации падающих монет
     function generateCoins() {
+        if (!gameActive) return; // Останавливаем генерацию монет, если игра не активна
         const gamePage = document.querySelector('.game-page');
         
         setInterval(() => {
@@ -36,6 +40,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                 updateBalance(); // Обновляем баланс на экране
                 coin.remove(); // Удаляем монету после нажатия
             });
+
+            // Генерируем случайные параметры для падения монеты
+            coin.style.left = Math.random() * window.innerWidth + 'px';
+            coin.style.animationDuration = Math.random() * 2 + 3 + 's'; // Скорость падения
 
             // Удаляем монету, когда анимация закончится
             setTimeout(() => {
@@ -112,6 +120,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 timerElement.textContent = `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
             } else {
                 clearInterval(timerInterval);
+                gameActive = false; // Игра завершена, останавливаем генерацию монет
                 showNotification('Time is up, the main menu will load in a couple of seconds!', true);
 
                 // Сохранить результат в базу данных
