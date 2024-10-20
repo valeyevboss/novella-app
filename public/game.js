@@ -43,10 +43,34 @@ document.addEventListener('DOMContentLoaded', async () => {
             }, 10000); // Медленное падение монет (10 секунд)
 
         }, 200); // Генерация новой монеты каждые 0.2 секунды (чаще)
-        
-        // Функция для остановки генерации монет
+
+        // Функция для генерации падающих бомбочек
+        const bombInterval = setInterval(() => {
+            const mine = document.createElement('div');
+            mine.classList.add('mine');
+            mine.style.left = Math.random() * 100 + 'vw'; // Случайная позиция по горизонтали
+            gamePage.appendChild(mine);
+
+            // Обнуляем баланс при клике на бомбочку
+            mine.addEventListener('click', () => {
+                const bombSound = new Audio('/sound/bomb.wav'); // путь к звуку бомбочки
+                bombSound.play(); // Воспроизведение звука бомбочки
+                coinBalance = 0; // Обнуляем баланс
+                updateBalance(); // Обновляем баланс на экране
+                mine.remove(); // Удаляем бомбочку после нажатия
+            });
+
+            // Удаляем бомбочку, когда анимация закончится
+            setTimeout(() => {
+                mine.remove();
+            }, 10000); // Медленное падение бомбочек (10 секунд)
+
+        }, 3000); // Генерация новой бомбочки каждые 3 секунды
+
+        // Функция для остановки генерации монет и бомбочек
         return function stopCoins() {
             clearInterval(coinInterval);
+            clearInterval(bombInterval); // Останавливаем генерацию бомбочек
         };
     }
 
@@ -122,7 +146,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 clearInterval(timerInterval);
                 showNotification('Time is up, the main menu will load in a couple of seconds!', true);
 
-                // Останавливаем генерацию монет
+                // Останавливаем генерацию монет и бомбочек
                 stopCoinGeneration(); 
 
                 // Сохранить результат в базу данных
