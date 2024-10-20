@@ -382,7 +382,7 @@ app.listen(3000, () => {
 });
 
 // Обмен коинов на токены
-router.post('/exchange/:telegramId', async (req, res) => {
+app.get('/exchange/:telegramId', async (req, res) => {
     const { coinAmount, tokensReceived } = req.body;
 
     try {
