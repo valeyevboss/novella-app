@@ -296,18 +296,21 @@ app.get('/api/user-games/:telegramId', async (req, res) => {
 
 // Эндпоинт для уменьшения количества игр
 app.post('/api/decrement-game-count/:userId', async (req, res) => {
-    const userId = req.params.userId;
+    const { userId } = req.params;
+    console.log(`Запрос на уменьшение количества игр для пользователя с ID: ${userId}`);
 
     try {
-        const user = await User.findById(userId);
+        const user = await User.findOne({ telegramId: userId });
+        console.log('Найден пользователь:', user);
 
         if (!user) {
             return res.status(404).json({ success: false, message: 'Пользователь не найден' });
         }
 
         if (user.gameCount > 0) {
-            user.gameCount -= 1; // Уменьшаем количество игр
-            await user.save(); // Сохраняем изменения
+            user.gameCount -= 1; 
+            await user.save(); 
+            console.log('Новое количество игр:', user.gameCount);
             return res.json({ success: true, gameCount: user.gameCount });
         } else {
             return res.status(400).json({ success: false, message: 'Количество игр уже равно нулю' });
