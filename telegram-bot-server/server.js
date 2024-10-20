@@ -381,6 +381,31 @@ app.listen(3000, () => {
     console.log('Сервер запущен на порту 3000');
 });
 
+// Обмен коинов на токены
+router.post('/exchange/:telegramId', async (req, res) => {
+    const { coinAmount, tokensReceived } = req.body;
+
+    try {
+        const user = await User.findOne({ telegramId: req.params.telegramId });
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        if (user.coinCount < coinAmount) {
+            return res.status(400).json({ message: 'Not enough coins' });
+        }
+
+        // Обновляем баланс коинов и токенов
+        user.coinCount -= coinAmount;
+        user.tokens += tokensReceived;
+        await user.save();
+
+        res.json({ coinCount: user.coinCount, tokens: user.tokens });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 // Проверка реферального кода
 app.get('/referral-code/:telegramId', async (req, res) => {
     try {

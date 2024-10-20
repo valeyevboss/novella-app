@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -9,19 +10,22 @@
     <link rel="preload" href="/fonts/MaiandraGD.ttf" as="font" type="font/ttf" crossorigin="anonymous">
     <link rel="preload" href="/fonts/Unispace.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 </head>
+
 <body>
     <div class="main-page">
         <header>
-            <button class="freedurov-button" id="freedurov-button" onclick="window.open('https://www.change.org/p/free-pavel-durov-freedurov?source_location=tag_')">
+            <button class="freedurov-button" id="freedurov-button"
+                onclick="window.open('https://www.change.org/p/free-pavel-durov-freedurov?source_location=tag_')">
                 #FREEDUROV
             </button>
         </header>
         <div class="token-section">
-            <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/Novellacoin.png" alt="Token Icon" class="token-icon" id="token-icon">
+            <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1725622251/Novellacoin.png" alt="Token Icon"
+                class="token-icon" id="token-icon">
             <p id="token-balance" class="token-balance">0</p>
         </div>
 
-        <!-- Уведомление (Notifications) -->    
+        <!-- Уведомление (Notifications) -->
         <div id="notification" class="notification hidden">
             <p id="notification-message"></p>
         </div>
@@ -30,142 +34,185 @@
         <div class="daily-reward-container">
             <p class="daily-reward-title" id="daily-reward-title">🎁 DAILY REWARDS</p>
             <div class="daily-reward-wrapper">
-                <button id="claim-reward-button" class="daily-reward-button" onclick="claimReward()">Daily Check in +100 $Novella</button>
-                <button id="premium-reward-button" class="premium-reward-button" onclick="claimPremiumReward()">Premium Check in +1000 $Novella</button>
+                <button id="claim-reward-button" class="daily-reward-button" onclick="claimReward()">Daily Check in +100
+                    $Novella</button>
+                <button id="premium-reward-button" class="premium-reward-button" onclick="claimPremiumReward()">Premium
+                    Check in +1000 $Novella</button>
                 <div class="timer-container">
-                    <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1726574752/Element/Timer.png" alt="Timer" class="timer-icon">
+                    <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1726574752/Element/Timer.png"
+                        alt="Timer" class="timer-icon">
                     <span id="timer" class="timer">24:00:00</span>
                 </div>
             </div>
         </div>
-        
-    <!-- Mining Farm - Майнинг ферма -->
-    <div class="mining-container">
-        <div class="progress-container">
-            <button id="start-mining-btn" class="progress-button">⚡ Start Mining</button>
-            <span id="timer-mining"></span>
-        </button>
-        </div>
-        <button id="claim-mining-btn" style="display: none;">👉 Claim 👈</button>
-        <p id="text-mining-click">▪ Click Here ▪</p>
-    </div>
 
-    <!-- Novella Play Gaming -->  
-    <div class="game-container">
-        <p class="game-title" id="game-title">🤖 NOVELLA GAMING</p>
-
-        <div class="play-item">
-            <span class="ticket-icon" id="ticket-icon">🎟️</span>
-            <span class="game-count" id="game-count">0</span>
-            <button class="play-button inactive" id="play-button" disabled>Play</button>
-        </div>
-
-        <div class="burned-game-info-container"> <!-- Добавляем контейнер для иконки и текста -->
-            <span class="game-info-icon" id="game-info-icon">⚠</span>
-            <p class="burned-game-info" id="burned-game-info">One game is burned every three days.</p>
-        </div>
-    </div>
-            
-    <!-- Personal Achievements --> 
-    <div class="personal-achievements-container"> 
-        <p class="personal-achievements-title" id="personal-achievements-title">⭐ ACHIEVEMENTS</p> 
-        <div class="personal-achievements-wrapper">
-            <!-- Stats Days in the game -->
-            <div class="achievement-item">
-                <div class="achievement-text-wrapper">
-                    <span class="achievement-text-days" id="achievement-text-days">Days in the game:</span>
-                    <span class="daily-count" id="daily-count">0</span>
-                </div>
+        <!-- Mining Farm - Майнинг ферма -->
+        <div class="mining-container">
+            <div class="progress-container">
+                <button id="start-mining-btn" class="progress-button">⚡ Start Mining</button>
+                <span id="timer-mining"></span>
+                </button>
             </div>
-            <!-- Stats Game burned -->
-            <div class="achievement-item">
-                <div class="achievement-text-wrapper">
-                    <span class="achievement-text-gameburned" id="achievement-text-gameburned">Game burned:</span>
-                    <span class="gameburned-count" id="gameburned-count">0</span>
-                </div>
+            <button id="claim-mining-btn" style="display: none;">👉 Claim 👈</button>
+            <p id="text-mining-click">▪ Click Here ▪</p>
+        </div>
+
+        <!-- Novella Play Gaming -->
+        <div class="game-container">
+            <p class="game-title" id="game-title">🤖 NOVELLA GAMING</p>
+
+            <div class="play-item">
+                <span class="ticket-icon" id="ticket-icon">🎟️</span>
+                <span class="game-count" id="game-count">0</span>
+                <button class="play-button inactive" id="play-button" disabled>Play</button>
+            </div>
+
+            <div class="burned-game-info-container"> <!-- Добавляем контейнер для иконки и текста -->
+                <span class="game-info-icon" id="game-info-icon">⚠</span>
+                <p class="burned-game-info" id="burned-game-info">One game is burned every three days.</p>
             </div>
         </div>
-    </div>
+
+        <!-- Блок для ввода реферального кода -->
+        <div class="crypto-exchanger-container">
+            <p class="crypto-exchanger-title" id="crypto-exchanger-title">💱 CRYPTO EXCHANGER</p>
+            <div class="crypto-exchanger-wrapper">
+                <div class="crypto-exchanger-item">
+                    <!-- Поле для ввода кода -->
+                    <input type="text" class="crypto-exchanger__field" placeholder="Enter for the exchange">
+                    <!-- Кнопка активации -->
+                    <button class="crypto-exchanger btn btn--primary" id="exchange-button">Move</button>
+                </div>
+            </div>
+
+        <!-- Текст для отображения текущего баланса -->
+        <div class="coinCountBalanceContainer">
+            <p class="coinCountBalanceText">🟡 Available for exchange:</p>
+            <p class="coinCountBalanceСount"></p>
+        </div>
+
+            <!-- Иконки с цифрами и знаком "=" -->
+            <div class="crypto-exchanger-icons">
+                <div class="crypto-icon-item">
+                    <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1729431942/Game/Novella-coin.png"
+                        alt="Icon 1" class="crypto-icon">
+                    <span class="crypto-number">5</span>
+                </div>
+                <span class="crypto-equals">=</span>
+                <div class="crypto-icon-item">
+                    <span class="crypto-number">1</span>
+                    <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1728938799/Novellacoin.png"
+                        alt="Icon 5" class="crypto-icon">
+                </div>
+            </div>
+        </div>
+
+        <!-- Personal Achievements -->
+        <div class="personal-achievements-container">
+            <p class="personal-achievements-title" id="personal-achievements-title">⭐ ACHIEVEMENTS</p>
+            <div class="personal-achievements-wrapper">
+                <!-- Stats Days in the game -->
+                <div class="achievement-item">
+                    <div class="achievement-text-wrapper">
+                        <span class="achievement-text-days" id="achievement-text-days">Days in the game:</span>
+                        <span class="daily-count" id="daily-count">0</span>
+                    </div>
+                </div>
+                <!-- Stats Game burned -->
+                <div class="achievement-item">
+                    <div class="achievement-text-wrapper">
+                        <span class="achievement-text-gameburned" id="achievement-text-gameburned">Game burned:</span>
+                        <span class="gameburned-count" id="gameburned-count">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Personal Settings -->
         <div class="personal-settings-container">
             <p class="personal-settings-title" id="personal-settings-title">⚙️ SETTINGS</p>
             <div class="personal-settings-wrapper">
-            <button class="personal-language-button" id="languagebutton" title="Lanauge">👅</button> <!-- Кнопка для открытия модального окна -->
+                <button class="personal-language-button" id="languagebutton" title="Lanauge">👅</button>
+                <!-- Кнопка для открытия модального окна -->
             </div>
         </div>
 
-    <!-- Модальное окно -->
-    <div id="LanguageModalPanel" class="modal-language">
-        <div class="modal-language-content">
-            <h2 id="select-language-text">👨🏻‍💻 Select Language 👨🏻‍💻</h2>
-            <select id="country-select">
-                <option value="en-US">English 🇺🇸</option>
-                <option value="ru-RU">Russian 🇷🇺</option>
-                <option value="uk-UA">Ukrainian 🇺🇦</option>
-                <option value="zh-CN">South Korean 🇰🇷</option>
-                <option value="ko-KR">汉语 🇨🇳</option>
-				<option value="fr-FR">French 🇫🇷</option>
-				<option value="be-BY">Belarusian 🇧🇾</option>
-				<option value="kk-KZ">Kazakh 🇰🇿</option>
-				<option value="ar-SA">Arabic 🇸🇦</option>
-				<option value="ja-JP">Japanese 🇯🇵</option>
-				<option value="de-DE">German 🇩🇪</option>
-            </select>
-            <button class="save-button" id="save-language-btn">Save</button> <!-- Кнопка сохранить -->
-            <button class="close-button" id="close-language-btn">Close</button> <!-- Кнопка закрыть -->
+        <!-- Модальное окно -->
+        <div id="LanguageModalPanel" class="modal-language">
+            <div class="modal-language-content">
+                <h2 id="select-language-text">👨🏻‍💻 Select Language 👨🏻‍💻</h2>
+                <select id="country-select">
+                    <option value="en-US">English 🇺🇸</option>
+                    <option value="ru-RU">Russian 🇷🇺</option>
+                    <option value="uk-UA">Ukrainian 🇺🇦</option>
+                    <option value="zh-CN">South Korean 🇰🇷</option>
+                    <option value="ko-KR">汉语 🇨🇳</option>
+                    <option value="fr-FR">French 🇫🇷</option>
+                    <option value="be-BY">Belarusian 🇧🇾</option>
+                    <option value="kk-KZ">Kazakh 🇰🇿</option>
+                    <option value="ar-SA">Arabic 🇸🇦</option>
+                    <option value="ja-JP">Japanese 🇯🇵</option>
+                    <option value="de-DE">German 🇩🇪</option>
+                </select>
+                <button class="save-button" id="save-language-btn">Save</button> <!-- Кнопка сохранить -->
+                <button class="close-button" id="close-language-btn">Close</button> <!-- Кнопка закрыть -->
+            </div>
         </div>
-    </div>  
 
-    <!-- Скрипт для открытия и закрытия модального окна -->
-    <script>
-        const settingsButton = document.getElementById('languagebutton');
-        const modal = document.getElementById('LanguageModalPanel');
-        const closeButton = document.getElementById('close-language-btn'); // Исправлено на правильный id
+        <!-- Скрипт для открытия и закрытия модального окна -->
+        <script>
+            const settingsButton = document.getElementById('languagebutton');
+            const modal = document.getElementById('LanguageModalPanel');
+            const closeButton = document.getElementById('close-language-btn'); // Исправлено на правильный id
 
-        settingsButton.addEventListener('click', () => {
-            modal.style.display = 'flex'; // Показываем модальное окно
-        });
+            settingsButton.addEventListener('click', () => {
+                modal.style.display = 'flex'; // Показываем модальное окно
+            });
 
-        closeButton.addEventListener('click', () => {
-            modal.style.display = 'none'; // Скрываем модальное окно
-        });
+            closeButton.addEventListener('click', () => {
+                modal.style.display = 'none'; // Скрываем модальное окно
+            });
 
-        window.onclick = function(event) {
-            if (event.target === modal) {
-                modal.style.display = 'none'; // Закрываем модальное окно при клике вне него
+            window.onclick = function (event) {
+                if (event.target === modal) {
+                    modal.style.display = 'none'; // Закрываем модальное окно при клике вне него
+                }
             }
-        }
-    </script>
+        </script>
 
         <!-- Нижнее меню -->
         <nav class="bottom-menu">
             <a href="index.html" class="menu-item active">
-                <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1726420961/Menu/Button%20version%202/Main_iconmenu.png" alt="Main">
+                <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1726420961/Menu/Button%20version%202/Main_iconmenu.png"
+                    alt="Main">
                 <span id="menu-main">Main</span>
             </a>
             <a href="task.html" class="menu-item">
-                <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1726420961/Menu/Button%20version%202/Task_iconmenu.png" alt="Task">
+                <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1726420961/Menu/Button%20version%202/Task_iconmenu.png"
+                    alt="Task">
                 <span id="menu-task">Task</span>
             </a>
             <a href="friends.html" class="menu-item">
-                <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1726937838/Menu/Button%20version%202/Friends.png" alt="Friends">
+                <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1726937838/Menu/Button%20version%202/Friends.png"
+                    alt="Friends">
                 <span id="menu-friends">Friends</span>
             </a>
             <a href="airdrop.html" class="menu-item">
-                <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1726420961/Menu/Button%20version%202/Airdrop_iconmenu.png" alt="Airdrop">
+                <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1726420961/Menu/Button%20version%202/Airdrop_iconmenu.png"
+                    alt="Airdrop">
                 <span id="menu-airdrop">Airdrop</span>
             </a>
             <a href="leaders.html" class="menu-item">
-                <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1726420961/Menu/Button%20version%202/Leaders_iconmenu.png" alt="Leaders">
+                <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1726420961/Menu/Button%20version%202/Leaders_iconmenu.png"
+                    alt="Leaders">
                 <span id="menu-leaders">Leaders</span>
             </a>
         </nav>
     </div>
-    
+
     <!-- Скрипт для воспроизведения звука при нажатии на иконку токена -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const tokenIcon = document.getElementById('token-icon');
 
             if (tokenIcon) {
@@ -205,16 +252,16 @@
         // Получаем telegramId из URL один раз и сохраняем его в переменной
         const urlParams = new URLSearchParams(window.location.search);
         const telegramId = urlParams.get('userId');
-    
+
         // Скрипт извлечения userid, telegramid и отображение баланса, токенов
-        document.addEventListener('DOMContentLoaded', async function() {
+        document.addEventListener('DOMContentLoaded', async function () {
             const tokenBalanceElement = document.getElementById('token-balance');
-    
+
             if (telegramId) {
                 try {
                     const response = await fetch(`/check-user/${telegramId}`);
                     const data = await response.json();
-    
+
                     if (response.ok) {
                         // Обновляем баланс токенов на странице с запятой
                         tokenBalanceElement.textContent = data.tokens.toLocaleString('en-US'); // Форматируем с запятой
@@ -232,7 +279,7 @@
                 console.error('telegramId отсутствует в URL.');
             }
         });
-    
+
         // Обновляем ссылки в нижнем меню, если telegramId существует
         if (telegramId) {
             const menuItems = document.querySelectorAll('.bottom-menu a');
@@ -247,7 +294,9 @@
     <script src="/dailyreward.js"></script> <!-- Скрипт ежедневной награды -->
     <script src="/mining.js"></script> <!-- Скрипт майнинга, майнинг фермы -->
     <script src="/play.js"></script> <!-- Скрипт для проверки количества игр и запуска -->
+    <script src="/cryptoexchanger.js"></script> <!-- Скрипт для обмена игровых коинов на токены -->
     <script src="/achievements.js"></script> <!-- Скрипт достижений игрока -->
-    <script src="/localization.js"></script> <!-- Скрипт локализации --> 
+    <script src="/localization.js"></script> <!-- Скрипт локализации -->
 </body>
+
 </html>
