@@ -3,14 +3,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     const telegramId = urlParams.get('userId');
     let coinBalance = 0; // Начальный баланс для игры
 
-    let gameActive = true; // Флаг активности игры
-
     // Таймер на 5 секунд для отсчета
     let countdownValue = 5;
     const countdownElement = document.getElementById('countdown');
     const letsGoElement = document.getElementById('lets-go');
     const coinCountElement = document.getElementById('coinCount');
-
 
     // Функция для воспроизведения звука
     function playSound() {
@@ -25,10 +22,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Функция для генерации падающих монет
     function generateCoins() {
-        if (!gameActive) return; // Останавливаем генерацию монет, если игра не активна
         const gamePage = document.querySelector('.game-page');
         
-        setInterval(() => {
+        const coinInterval = setInterval(() => {
             const coin = document.createElement('div');
             coin.classList.add('coin');
             coin.style.left = Math.random() * 100 + 'vw'; // Случайная позиция по горизонтали
@@ -41,15 +37,17 @@ document.addEventListener('DOMContentLoaded', async () => {
                 coin.remove(); // Удаляем монету после нажатия
             });
 
-            // Генерируем случайные параметры для падения монеты
-            coin.style.left = Math.random() * window.innerWidth + 'px';
-            coin.style.animationDuration = Math.random() * 2 + 3 + 's'; // Скорость падения
-
             // Удаляем монету, когда анимация закончится
             setTimeout(() => {
                 coin.remove();
-            }, 3000); // Время анимации должно совпадать с временем падения монеты
-        }, 1000); // Новая монета каждые 1 секунду
+            }, 5000); // Медленное падение монет (5 секунд)
+
+        }, 500); // Генерация новой монеты каждые 0.5 секунды (чаще)
+        
+        // Функция для остановки генерации монет
+        return function stopCoins() {
+            clearInterval(coinInterval);
+        };
     }
 
     // Функция для отправки данных в базу по окончании игры
@@ -112,6 +110,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         let timerValue = 30;
         const timerElement = document.getElementById('timer-game');
         
+        const stopCoinGeneration = generateCoins(); // Запускаем генерацию монет
+
         const timerInterval = setInterval(() => {
             if (timerValue > 0) {
                 timerValue--;
@@ -120,8 +120,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                 timerElement.textContent = `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
             } else {
                 clearInterval(timerInterval);
-                gameActive = false; // Игра завершена, останавливаем генерацию монет
                 showNotification('Time is up, the main menu will load in a couple of seconds!', true);
+
+                // Останавливаем генерацию монет
+                stopCoinGeneration(); 
 
                 // Сохранить результат в базу данных
                 saveBalanceToDatabase();
@@ -132,9 +134,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }, 5000); // 5000 миллисекунд = 5 секунд
             }
         }, 1000);
-
-        // Начинаем генерировать монеты
-        generateCoins();
     }
 
     // Запуск отсчета при загрузке страницы
