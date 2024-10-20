@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     let countdownValue = 5;
     const countdownElement = document.getElementById('countdown');
     const letsGoElement = document.getElementById('lets-go');
-    const coinCountElement = document.getElementById('coinCount');
 
     // Функция для воспроизведения звука
     function playSound() {
@@ -54,6 +53,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Функция для отправки данных в базу по окончании игры
     async function saveBalanceToDatabase() {
         try {
+            console.log(`Saving balance for userId: ${telegramId} with coins: ${coinBalance}`);
             const response = await fetch('/save-coins', {
                 method: 'POST',
                 headers: {
@@ -65,10 +65,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                 })
             });
             if (!response.ok) {
-                console.error('Ошибка при сохранении баланса');
+                console.error('Ошибка при сохранении баланса:', response.statusText);
+            } else {
+                console.log('Баланс успешно сохранен');
             }
         } catch (error) {
-            console.error('Ошибка:', error);
+            console.error('Ошибка при отправке данных:', error);
         }
     }
 

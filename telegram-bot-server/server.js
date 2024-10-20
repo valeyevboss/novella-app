@@ -358,6 +358,26 @@ app.get('/api/user-burned-games/:telegramId', async (req, res) => {
     }
 });
 
+// Cохранение количества токенов и отправка в базу данных
+app.post('/save-coins', async (req, res) => {
+    const { telegramId, coins } = req.body;
+    console.log(`Received request to save coins: ${coins} for telegramId: ${telegramId}`);
+
+    try {
+        const user = await User.findOne({ telegramId: telegramId });
+        if (user) {
+            user.coinCount += coins; // Добавляем к балансу
+            await user.save();
+            res.status(200).send('Баланс обновлен');
+        } else {
+            res.status(404).send('Пользователь не найден');
+        }
+    } catch (error) {
+        console.error('Ошибка при обновлении баланса:', error);
+        res.status(500).send('Ошибка на сервере');
+    }
+});
+
 // Получение количества сожжённых игр пользователя
 app.get('/api/coins-check/:telegramId', async (req, res) => {
     const { telegramId } = req.params;
@@ -372,25 +392,6 @@ app.get('/api/coins-check/:telegramId', async (req, res) => {
     } catch (error) {
         console.error('Ошибка при получении количества токенов:', error);
         return res.status(500).json({ success: false, message: 'Внутренняя ошибка сервера' });
-    }
-});
-
-// Cохранение количества токенов и отправка в базу данных
-app.post('/save-coins', async (req, res) => {
-    const { telegramId, coins } = req.body;
-
-    try {
-        const user = await User.findOne({ telegramId: telegramId });
-        if (user) {
-            user.coinCount += coins; // Добавляем к балансу
-            await user.save();
-            res.status(200).send('Баланс обновлен');
-        } else {
-            res.status(404).send('Пользователь не найден');
-        }
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('Ошибка на сервере');
     }
 });
 
