@@ -639,14 +639,14 @@ body {
 /* HUD (иконка монет и таймер) */
 .hud-game {
     position: absolute;
-    top: -50px; /* Изначальная позиция HUD выше экрана */
+    top: -15px; /* Изначальная позиция HUD чуть выше, но все еще видна */
     width: 100%;
     display: flex;
     justify-content: space-between;
     padding: 20px;
     color: white;
     font-size: 28px;
-    z-index: 2; /* Индекс слоя для HUD */
+    z-index: 2;
     opacity: 0; /* Скрываем HUD изначально */
     transition: transform 1s ease-in-out, opacity 1s ease-in-out; /* Плавная анимация */
 }
