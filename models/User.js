@@ -14,7 +14,8 @@ const UserSchema = new mongoose.Schema({
     friendsCount: { type: Number, default: 0 }, // Number of friends
     miningStartTime: { type: Date, default: null }, // Mining start time
     gameCount: { type: Number, default: 0 }, // Count games
-    burnedGame: { type: Number, default: 0 } // Count burned games
+    burnedGame: { type: Number, default: 0 }, // Count burned games
+    coinCount: { type: Number, default: 0 } // Count games
 }, { timestamps: true });
 
 module.exports = mongoose.model('User', UserSchema);
