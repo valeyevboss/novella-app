@@ -17,6 +17,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         audio.play();
     }
 
+    // Функция для воспроизведения звука
+    function playSound() {
+        const audio = new Audio('/sound/сountdown.wav'); // Укажите путь к вашему звуковому файлу
+        audio.play();
+    }
+
     // Функция для генерации монеток
     function createCoin() {
         if (!gameActive) return; // Останавливаем генерацию монет, если игра не активна
