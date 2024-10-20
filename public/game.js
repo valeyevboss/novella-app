@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    const params = new URLSearchParams(window.location.search);
-    const userId = params.get('userId'); // Получаем userId из параметров URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const telegramId = urlParams.get('userId');
 
     // Таймер на 30 секунд
     let timerValue = 30;
