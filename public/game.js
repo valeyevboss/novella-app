@@ -1,13 +1,12 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const telegramId = urlParams.get('userId');
-    let coinBalance = 0; // Начальный баланс для игры
+    let gameActive = true; // Флаг активности игры
 
     // Таймер на 5 секунд для отсчета
     let countdownValue = 5;
     const countdownElement = document.getElementById('countdown');
     const letsGoElement = document.getElementById('lets-go');
-    const coinCountElement = document.getElementById('coinCount');
 
     // Функция для воспроизведения звука
     function playSound() {
@@ -15,53 +14,35 @@ document.addEventListener('DOMContentLoaded', async () => {
         audio.play();
     }
 
-    // Функция для обновления баланса и отображения монет
-    function updateBalance() {
-        coinCountElement.textContent = coinBalance;
-    }
+    // Функция для генерации монеток
+    function createCoin() {
+        if (!gameActive) return; // Останавливаем генерацию монет, если игра не активна
 
-    // Функция для генерации падающих монет
-    function generateCoins() {
-        const gamePage = document.querySelector('.game-page');
-        
-        setInterval(() => {
-            const coin = document.createElement('div');
-            coin.classList.add('coin');
-            coin.style.left = Math.random() * 100 + 'vw'; // Случайная позиция по горизонтали
-            gamePage.appendChild(coin);
+        const coin = document.createElement('img');
+        coin.src = 'https://res.cloudinary.com/dvjohgg6j/image/upload/v1729431942/Game/Novella-coin.png';
+        coin.classList.add('coin');
+        document.body.appendChild(coin);
 
-            // Увеличиваем баланс при клике на монету
-            coin.addEventListener('click', () => {
-                coinBalance += 2; // Добавляем 2 к балансу
-                updateBalance(); // Обновляем баланс на экране
-                coin.remove(); // Удаляем монету после нажатия
-            });
+        // Генерируем случайные параметры для падения монеты
+        coin.style.left = Math.random() * window.innerWidth + 'px';
+        coin.style.animationDuration = Math.random() * 2 + 4 + 's'; // Падение от 4 до 6 секунд
 
-            // Удаляем монету, когда анимация закончится
-            setTimeout(() => {
-                coin.remove();
-            }, 3000); // Время анимации должно совпадать с временем падения монеты
-        }, 1000); // Новая монета каждые 1 секунду
-    }
+        // Удаление монетки после окончания анимации
+        coin.addEventListener('animationend', () => {
+            coin.remove();
+        });
 
-    // Функция для отправки данных в базу по окончании игры
-    async function saveBalanceToDatabase() {
-        try {
-            const response = await fetch('/save-coins', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    telegramId: telegramId,
-                    coins: coinBalance
-                })
-            });
-            if (!response.ok) {
-                console.error('Ошибка при сохранении баланса');
-            }
-        } catch (error) {
-            console.error('Ошибка:', error);
+        // Увеличение счета за каждую упавшую монету
+        coin.addEventListener('click', () => {
+            let coinCountElement = document.getElementById('coinCount');
+            let currentCoins = parseInt(coinCountElement.textContent, 10);
+            coinCountElement.textContent = currentCoins + 2; // Добавляем 2 монеты
+            coin.remove(); // Удаляем монету после нажатия
+        });
+
+        // Генерация монеток каждые 200 мс
+        if (gameActive) {
+            setTimeout(createCoin, 200); // Интервал появления новых монет
         }
     }
 
@@ -90,6 +71,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Функция для запуска основной игры
     function startGame() {
+        gameActive = true; // Включаем активность игры
+
         // Отобразить HUD плавно с анимацией
         const hud = document.querySelector('.hud-game');
         hud.style.transform = 'translateY(-120%)'; // Перемещаем HUD немного выше за экран
@@ -112,20 +95,24 @@ document.addEventListener('DOMContentLoaded', async () => {
                 timerElement.textContent = `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
             } else {
                 clearInterval(timerInterval);
+                gameActive = false; // Игра завершена, останавливаем генерацию монет
                 showNotification('Время вышло!', true);
 
-                // Сохранить результат в базу данных
-                saveBalanceToDatabase();
+                // Останавливаем генерацию монет после окончания времени
+                setTimeout(() => {
+                    const coins = document.querySelectorAll('.coin');
+                    coins.forEach(coin => coin.remove()); // Удаляем все оставшиеся монеты
+                }, 500); // Даем 0.5 секунды для завершения текущей анимации монет
 
-                // Перенаправление через 5 секунд
+                // Запускаем таймер для перенаправления через 5 секунд
                 setTimeout(() => {
                     window.location.href = `/index.html?userId=${telegramId}`;
                 }, 5000); // 5000 миллисекунд = 5 секунд
             }
         }, 1000);
 
-        // Начинаем генерировать монеты
-        generateCoins();
+        // Начать генерацию монеток
+        createCoin();
     }
 
     // Запуск отсчета при загрузке страницы
