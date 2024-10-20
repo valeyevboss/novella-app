@@ -9,11 +9,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     
     const user = await response.json();
-    const coinCountElement = document.querySelector('.coinCountBalanceСount'); // Убедись, что этот элемент существует
+    const coinCountElement = document.querySelector('.coinCountBalanceCount'); // Убедись, что этот элемент существует
 
     // Проверка на существование элемента
     if (!coinCountElement) {
-        console.error('Элемент с классом "coinCountBalanceСount" не найден');
+        console.error('Элемент с классом "coinCountBalanceCount" не найден');
         return; // Завершаем выполнение, если элемент не найден
     }
 
