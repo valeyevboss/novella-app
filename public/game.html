@@ -19,7 +19,7 @@
       <!-- Левый блок - монеты -->
       <div class="coins">
         <img src="https://res.cloudinary.com/dvjohgg6j/image/upload/v1728938799/Novellacoin.png" alt="Coins"> <!-- Иконка монет -->
-        <span id="coinCount">1,950</span> <!-- Количество монет -->
+        <span id="coinCount">0</span> <!-- Количество монет -->
       </div>
       
       <!-- Правый блок - таймер -->
@@ -29,6 +29,7 @@
     </div>
   </div>
 
+  <script src="/notifications.js"></script> <!-- Скрипт реферальной системы -->
   <script>
     // Таймер на 30 секунд
     let timerValue = 30;
@@ -50,7 +51,7 @@
           // Запускаем таймер для перенаправления через 10 секунд
           setTimeout(() => {
             window.location.href = `/index.html?userId=${telegramId}`;
-          }, 10000); // 10000 миллисекунд = 10 секунд
+          }, 5000); // 5000 миллисекунд = 5 секунд
         }
       }, 1000);
     }
@@ -63,8 +64,7 @@
   
     // Запуск таймера при загрузке страницы
     window.onload = startTimer;
-  </script>
-  <script src="/notifications.js"></script> <!-- Скрипт реферальной системы -->
+  </script>  
   
 </body>
 </html>
