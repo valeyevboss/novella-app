@@ -32,6 +32,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             // Увеличиваем баланс при клике на монету
             coin.addEventListener('click', () => {
+                const coinSound = new Audio('/sound/coin.wav'); // путь к звуку
+                coinSound.play(); // Воспроизведение звука монеты
                 coinBalance += 2; // Добавляем 2 к балансу
                 updateBalance(); // Обновляем баланс на экране
                 coin.remove(); // Удаляем монету после нажатия
@@ -40,9 +42,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             // Удаляем монету, когда анимация закончится
             setTimeout(() => {
                 coin.remove();
-            }, 5000); // Медленное падение монет (5 секунд)
+            }, 7000); // Медленное падение монет (7 секунд)
 
-        }, 500); // Генерация новой монеты каждые 0.5 секунды (чаще)
+        }, 300); // Генерация новой монеты каждые 0.3 секунды (чаще)
         
         // Функция для остановки генерации монет
         return function stopCoins() {
