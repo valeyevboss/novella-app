@@ -15,6 +15,7 @@ function loadTranslations(lang) {
             const burnedGameInfo = document.getElementById('burned-game-info');
             const personalAchievementsTitle = document.getElementById("personal-achievements-title");
             const achievementTextDays = document.getElementById("achievement-text-days");
+            const achievementTextBurnedGames = document.getElementById("achievement-text-gameburned");
             const personalSettingsTitle = document.getElementById('personal-settings-title');
             const selectLanguageText = document.getElementById('select-language-text');
             const saveLanguageBtn = document.getElementById('save-language-btn');
@@ -57,6 +58,7 @@ function loadTranslations(lang) {
             if (burnedGameInfo) burnedGameInfo.textContent = data['burned-game-info'];
             if (personalAchievementsTitle) personalAchievementsTitle.textContent = data['personal-achievements-title'];
             if (achievementTextDays) achievementTextDays.textContent = data['achievement-text-days'];
+            if (achievementTextBurnedGames) achievementTextBurnedGames.textContent = data['achievement-text-gameburned'];
             if (personalSettingsTitle) personalSettingsTitle.textContent = data['personal-settings-title'];
             if (selectLanguageText) selectLanguageText.textContent = data['select-language-text'];
             if (saveLanguageBtn) saveLanguageBtn.textContent = data['save-language-btn'];
