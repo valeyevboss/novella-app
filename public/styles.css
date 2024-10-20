@@ -687,29 +687,22 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 100px;
-    /* Большой шрифт */
+    font-size: 100px; /* Большой шрифт */
     color: white;
-    z-index: 10;
-    /* Выше HUD */
-    display: none;
-    /* Скрываем по умолчанию */
+    z-index: 10; /* Выше HUD */
+    display: none; /* Скрываем по умолчанию */
 }
 
-/* Анимация для появления надписи "Let’s GO" */
-#lets-go-text {
+.lets-go-text {
     position: absolute;
     top: 50%;
-    left: -100%;
-    transform: translateY(-50%);
-    font-size: 100px;
-    font-weight: bold;
-    color: yellow;
-    text-align: center;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 80px; /* Размер текста Let’s Go */
+    color: white;
     white-space: nowrap; /* Отключаем перенос строк */
-    z-index: 5;
-    opacity: 0;
-    transition: all 0.8s ease-in-out;
+    z-index: 10; /* Выше HUD */
+    display: none; /* Скрываем по умолчанию */
 }
 
 /* Стили для блока Achievements */
