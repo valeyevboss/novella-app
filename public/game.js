@@ -1,13 +1,15 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const telegramId = urlParams.get('userId');
-    let gameActive = true; // Флаг активности игры
     let coinBalance = 0; // Начальный баланс для игры
+
+    let gameActive = true; // Флаг активности игры
 
     // Таймер на 5 секунд для отсчета
     let countdownValue = 5;
     const countdownElement = document.getElementById('countdown');
     const letsGoElement = document.getElementById('lets-go');
+    const coinCountElement = document.getElementById('coinCount');
 
     // Функция для воспроизведения звука
     function playSound() {
