@@ -184,11 +184,11 @@ app.get('/api/user-days/:userId', async (req, res) => {
 
 // Маршрут для получения статистики пользователя
 app.get('/api/top-stats/:userId', async (req, res) => {
-    const { userId } = req.params;
+    const { telegramId } = req.params;
 
     try {
         // Ищем пользователя в базе данных
-        const user = await User.findOne({ telegramId: userId });
+        const user = await User.findOne({ telegramId });
 
         if (!user) {
             return res.status(404).json({ success: false, message: 'Пользователь не найден' });
