@@ -712,6 +712,31 @@ body {
     display: none; /* Скрываем по умолчанию */
 }
 
+/* Стиль для монет */
+.coin {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-image: url('https://res.cloudinary.com/dvjohgg6j/image/upload/v1729431942/Game/Novella-coin.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    animation: fall 3s linear forwards;
+}
+
+/* Анимация падения монет */
+@keyframes fall {
+    0% {
+        top: -100px;
+        opacity: 1;
+    }
+    100% {
+        top: 100vh;
+        opacity: 0;
+    }
+}
+
+
 /* Стили для блока Achievements */
 .personal-achievements-container {
     background-color: #1f1f1f;

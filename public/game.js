@@ -1,16 +1,68 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const telegramId = urlParams.get('userId');
+    let coinBalance = 0; // Начальный баланс для игры
 
     // Таймер на 5 секунд для отсчета
     let countdownValue = 5;
     const countdownElement = document.getElementById('countdown');
     const letsGoElement = document.getElementById('lets-go');
+    const coinCountElement = document.getElementById('coinCount');
 
     // Функция для воспроизведения звука
     function playSound() {
         const audio = new Audio('/sound/сountdown.wav'); // Укажите путь к вашему звуковому файлу
         audio.play();
+    }
+
+    // Функция для обновления баланса и отображения монет
+    function updateBalance() {
+        coinCountElement.textContent = coinBalance;
+    }
+
+    // Функция для генерации падающих монет
+    function generateCoins() {
+        const gamePage = document.querySelector('.game-page');
+        
+        setInterval(() => {
+            const coin = document.createElement('div');
+            coin.classList.add('coin');
+            coin.style.left = Math.random() * 100 + 'vw'; // Случайная позиция по горизонтали
+            gamePage.appendChild(coin);
+
+            // Увеличиваем баланс при клике на монету
+            coin.addEventListener('click', () => {
+                coinBalance += 2; // Добавляем 2 к балансу
+                updateBalance(); // Обновляем баланс на экране
+                coin.remove(); // Удаляем монету после нажатия
+            });
+
+            // Удаляем монету, когда анимация закончится
+            setTimeout(() => {
+                coin.remove();
+            }, 3000); // Время анимации должно совпадать с временем падения монеты
+        }, 1000); // Новая монета каждые 1 секунду
+    }
+
+    // Функция для отправки данных в базу по окончании игры
+    async function saveBalanceToDatabase() {
+        try {
+            const response = await fetch('/save-coins', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    telegramId: telegramId,
+                    coins: coinBalance
+                })
+            });
+            if (!response.ok) {
+                console.error('Ошибка при сохранении баланса');
+            }
+        } catch (error) {
+            console.error('Ошибка:', error);
+        }
     }
 
     // Функция для обновления таймера отсчета каждую секунду
@@ -62,13 +114,20 @@ document.addEventListener('DOMContentLoaded', async () => {
                 clearInterval(timerInterval);
                 showNotification('Время вышло!', true);
 
-                // Запускаем таймер для перенаправления через 5 секунд
+                // Сохранить результат в базу данных
+                saveBalanceToDatabase();
+
+                // Перенаправление через 5 секунд
                 setTimeout(() => {
                     window.location.href = `/index.html?userId=${telegramId}`;
                 }, 5000); // 5000 миллисекунд = 5 секунд
             }
         }, 1000);
+
+        // Начинаем генерировать монеты
+        generateCoins();
     }
+
     // Запуск отсчета при загрузке страницы
     window.onload = startCountdown;
 });

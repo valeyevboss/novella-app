@@ -358,6 +358,29 @@ app.get('/api/user-burned-games/:telegramId', async (req, res) => {
     }
 });
 
+// Получение количества токенов и отправка в базу данных
+app.post('/save-coins', async (req, res) => {
+    const { telegramId, coins } = req.body;
+
+    try {
+        const user = await User.findOne({ telegramId: telegramId });
+        if (user) {
+            user.coinCount += coins; // Добавляем к балансу
+            await user.save();
+            res.status(200).send('Баланс обновлен');
+        } else {
+            res.status(404).send('Пользователь не найден');
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Ошибка на сервере');
+    }
+});
+
+app.listen(3000, () => {
+    console.log('Сервер запущен на порту 3000');
+});
+
 // Проверка реферального кода
 app.get('/referral-code/:telegramId', async (req, res) => {
     try {
