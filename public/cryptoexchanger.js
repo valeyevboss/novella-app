@@ -9,15 +9,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     
     const user = await response.json();
-    const coinCountBalanceText = document.querySelector('.coinCountBalanceCount');
-    
+    const coinCountElement = document.querySelector('.coinCountBalanceСount'); // Убедись, что этот элемент существует
+
     // Проверка на существование элемента
     if (!coinCountElement) {
         console.error('Элемент с классом "coinCountBalanceСount" не найден');
         return; // Завершаем выполнение, если элемент не найден
     }
 
-    coinCountElement.textContent = user.coinCount;
+    coinCountElement.textContent = user.coinCount; // Теперь coinCountElement доступен
 
     const exchangeButton = document.getElementById('exchange-button');
     const coinAmountInput = document.getElementById('coinAmount');
@@ -50,11 +50,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         const updatedUser = await updatedUserResponse.json();
 
         if (updatedUserResponse.ok) {
-            const notificationMessage = `Congratulate ${user.username}, you exchanged ${inputValue} coins on ${tokensReceived} $Novella`;
+            const notificationMessage = `Поздравляем ${user.username}, вы обменяли ${inputValue} coins на ${tokensReceived} $Novella`;
             showNotification(notificationMessage, true);
             
             // Обновляем баланс на странице
-            coinCountElement.textContent = updatedUser.coinCount;
+            coinCountElement.textContent = updatedUser.coinCount; // Убедись, что updatedUser.coinCount корректно обновлён
             coinAmountInput.value = ''; // Очищаем поле ввода
             exchangeButton.disabled = true; // Деактивируем кнопку
         } else {
