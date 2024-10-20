@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     function startGame() {
         // Отобразить HUD плавно с анимацией
         const hud = document.querySelector('.hud-game');
-        hud.style.transform = 'translateY(-100%)'; // Перемещаем HUD вверх за экран
+        hud.style.transform = 'translateY(-150%)'; // Перемещаем HUD вверх за экран
         hud.style.transition = 'transform 0.5s ease-in-out'; // Плавная анимация
         setTimeout(() => {
             hud.style.transform = 'translateY(0)'; // Возвращаем HUD на место
