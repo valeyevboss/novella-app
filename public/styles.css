@@ -624,16 +624,19 @@ body {
 }
 
 /* Стили для Game */
+.game-page {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto; /* Вертикальная прокрутка */
+}
+
 /* Фон для игрового поля */
 .game-background {
     background-image: url('https://res.cloudinary.com/dvjohgg6j/image/upload/v1729411356/Game/Background-game.png');
-    background-size: cover;
-    /* Растянуть фон на весь контейнер */
+    background-size: cover; /* Растянуть фон на весь контейнер */
     width: 100%;
-    height: 100vh;
-    /* Высота на весь экран */
-    position: relative;
-    /* Позволяет разместить HUD поверх */
+    height: 100vh; /* Высота на весь экран */
+    position: relative; /* Позволяет разместить HUD поверх */
 }
 
 /* HUD (иконка монет и таймер) */
@@ -1057,12 +1060,9 @@ body {
 .task-page {
     display: flex;
     flex-direction: column;
-    padding-top: 5vh;
-    /* Отступ сверху для иконки */
-    overflow-y: auto;
-    /* Вертикальная прокрутка */
-    padding-bottom: 100px;
-    /* Отступ внизу для нижнего меню */
+    padding-top: 5vh; /* Отступ сверху для иконки */
+    overflow-y: auto; /* Вертикальная прокрутка */
+    padding-bottom: 100px; /* Отступ внизу для нижнего меню */
 }
 
 .task-header {
