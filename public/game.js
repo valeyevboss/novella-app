@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const telegramId = urlParams.get('userId');
     let gameActive = true; // Флаг активности игры
+    let coinBalance = 0; // Начальный баланс для игры
 
     // Таймер на 5 секунд для отсчета
     let countdownValue = 5;
@@ -72,6 +73,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         } catch (error) {
             console.error('Ошибка при отправке данных:', error);
         }
+        console.log(coinBalance); // Для проверки значения
     }
 
     // Функция для обновления таймера отсчета каждую секунду

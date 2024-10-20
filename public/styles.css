@@ -722,6 +722,7 @@ body {
     background-repeat: no-repeat;
     cursor: pointer;
     animation: fall 3s linear forwards;
+    z-index: 1
 }
 
 /* Анимация падения монет */
