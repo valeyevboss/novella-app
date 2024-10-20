@@ -639,16 +639,16 @@ body {
 /* HUD (иконка монет и таймер) */
 .hud-game {
     position: absolute;
-    top: 5px;
-    /* Увеличено значение для опускания HUD ниже */
+    top: -50px; /* Изначальная позиция HUD выше экрана */
     width: 100%;
     display: flex;
     justify-content: space-between;
     padding: 20px;
     color: white;
     font-size: 28px;
-    z-index: 2;
-    /* Индекс слоя для HUD */
+    z-index: 2; /* Индекс слоя для HUD */
+    opacity: 0; /* Скрываем HUD изначально */
+    transition: transform 1s ease-in-out, opacity 1s ease-in-out; /* Плавная анимация */
 }
 
 /* Блок для иконки монет и счетчика */
@@ -673,12 +673,9 @@ body {
     height: 35px;
     border: 2px solid white;
     border-radius: 30px;
-    font-size: 23px;
-    /* Увеличен размер шрифта таймера */
-    margin-right: 35px;
-    /* Меньше отступ */
-    margin-top: 10px;
-    /* Добавлен отступ сверху для опускания таймера */
+    font-size: 23px; /* Увеличен размер шрифта таймера */
+    margin-right: 35px; /* Меньше отступ */
+    margin-top: 10px; /* Добавлен отступ сверху для опускания таймера */
 }
 
 /* Добавляем стили для отсчета */

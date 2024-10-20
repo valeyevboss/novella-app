@@ -41,11 +41,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Отобразить HUD плавно с анимацией
         const hud = document.querySelector('.hud-game');
         hud.style.transform = 'translateY(-150%)'; // Перемещаем HUD вверх за экран
-        hud.style.transition = 'transform 0.5s ease-in-out'; // Плавная анимация
+        hud.style.opacity = '1'; // Показать HUD (делаем видимым)
+        hud.style.transition = 'transform 1s ease-in-out, opacity 1s ease-in-out'; // Плавная анимация
+
         setTimeout(() => {
             hud.style.transform = 'translateY(0)'; // Возвращаем HUD на место
-        }, 50); // Ждем небольшую задержку для анимации
-       
+        }, 50); // Небольшая задержка для плавности анимации
+
         // Таймер на 30 секунд
         let timerValue = 30;
         const timerElement = document.getElementById('timer-game');
