@@ -7,8 +7,16 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error('Ошибка при получении данных пользователя:', await response.text());
         return; // Выход из функции, если запрос не успешен
     }
+    
     const user = await response.json();
-    const coinCountElement = document.querySelector('coinCountBalanceCount');
+    const coinCountElement = document.querySelector('.coinCountBalanceСount'); // Правильный селектор с '.'
+    
+    // Проверка на существование элемента
+    if (!coinCountElement) {
+        console.error('Элемент с классом "coinCountBalanceСount" не найден');
+        return; // Завершаем выполнение, если элемент не найден
+    }
+
     coinCountElement.textContent = user.coinCount;
 
     const exchangeButton = document.getElementById('exchange-button');
@@ -29,7 +37,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     exchangeButton.addEventListener('click', async () => {
         const inputValue = parseInt(coinAmountInput.value, 10);
         const tokensReceived = inputValue / 5; // Каждые 5 коинов = 1 токен
-    
+
         // Обновляем баланс пользователя
         const updatedUserResponse = await fetch(`/api/exchange/${telegramId}`, {
             method: 'POST',
@@ -38,9 +46,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             },
             body: JSON.stringify({ coinAmount: inputValue, tokensReceived }),
         });
-    
+
         const updatedUser = await updatedUserResponse.json();
-    
+
         if (updatedUserResponse.ok) {
             const notificationMessage = `Поздравляем ${user.username}, вы обменяли ${inputValue} coins на ${tokensReceived} $Novella`;
             showNotification(notificationMessage, true);
