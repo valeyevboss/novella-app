@@ -26,22 +26,29 @@ document.addEventListener('DOMContentLoaded', async () => {
     exchangeButton.addEventListener('click', async () => {
         const inputValue = parseInt(coinAmountInput.value, 10);
         const tokensReceived = inputValue / 5; // Каждые 5 коинов = 1 токен
-
+    
         // Обновляем баланс пользователя
-        const updatedUser = await fetch(`/api/exchange/${telegramId}`, {
+        const updatedUserResponse = await fetch(`/api/exchange/${telegramId}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ coinAmount: inputValue, tokensReceived }),
         });
-
-        const notificationMessage = `Поздравляем ${user.username}, вы обменяли ${inputValue} coins на ${tokensReceived} $Novella`;
-        showNotification(notificationMessage, true);
-
-        // Обновляем баланс на странице
-        coinCountElement.textContent = updatedUser.coinCount;
-        coinAmountInput.value = ''; // Очищаем поле ввода
-        exchangeButton.disabled = true; // Деактивируем кнопку
+    
+        const updatedUser = await updatedUserResponse.json();
+    
+        if (updatedUserResponse.ok) {
+            const notificationMessage = `Поздравляем ${user.username}, вы обменяли ${inputValue} coins на ${tokensReceived} $Novella`;
+            showNotification(notificationMessage, true);
+            
+            // Обновляем баланс на странице
+            coinCountElement.textContent = updatedUser.coinCount;
+            coinAmountInput.value = ''; // Очищаем поле ввода
+            exchangeButton.disabled = true; // Деактивируем кнопку
+        } else {
+            // Здесь можно добавить обработку ошибок
+            showNotification(updatedUser.message, false);
+        }
     });
 });
