@@ -50,6 +50,27 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
+    // Функция для отправки данных в базу по окончании игры
+    async function saveBalanceToDatabase() {
+        try {
+            const response = await fetch('/save-coins', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    telegramId: telegramId,
+                    coins: coinBalance
+                })
+            });
+            if (!response.ok) {
+                console.error('Ошибка при сохранении баланса');
+            }
+        } catch (error) {
+            console.error('Ошибка:', error);
+        }
+    }
+
     // Функция для обновления таймера отсчета каждую секунду
     function startCountdown() {
         countdownElement.style.display = 'block'; // Показываем элемент отсчета
